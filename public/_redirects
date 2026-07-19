@@ -1,0 +1,46 @@
+# ═══ REDIRECTIONS WORDPRESS LEGACY → Homepage (301) ═════════════════════════
+
+# Anciennes pages WordPress supprimées
+/qui-sommes-nous                    https://smartkids-school.ch/    301
+/qui-sommes-nous/                   https://smartkids-school.ch/    301
+/aide-faq                           https://smartkids-school.ch/    301
+/aide-faq/                          https://smartkids-school.ch/    301
+/contactez-nous                     https://smartkids-school.ch/    301
+/contactez-nous/                    https://smartkids-school.ch/    301
+/bases-robotique                    https://smartkids-school.ch/    301
+/bases-robotique/                   https://smartkids-school.ch/    301
+/eveil-mathematique                 https://smartkids-school.ch/    301
+/eveil-mathematique/                https://smartkids-school.ch/    301
+/intro-intelligence-artificielle    https://smartkids-school.ch/    301
+/intro-intelligence-artificielle/   https://smartkids-school.ch/    301
+/suivi-personnel                    https://smartkids-school.ch/    301
+/suivi-personnel/                   https://smartkids-school.ch/    301
+/programmation-niveau-debutant      https://smartkids-school.ch/    301
+/programmation-niveau-debutant/     https://smartkids-school.ch/    301
+/programmation-educative            https://smartkids-school.ch/    301
+/programmation-educative/           https://smartkids-school.ch/    301
+/category/uncategorized             https://smartkids-school.ch/    301
+/category/uncategorized/            https://smartkids-school.ch/    301
+
+# Anciennes URLs avec préfixe /en/ (WordPress multilingue)
+# ⚠️ /en et /en/ NE SONT PLUS redirigés : ce sont maintenant de vraies routes
+# (page d'accueil anglaise du site React). Seuls les anciens slugs WordPress
+# sous /en/... restent redirigés ci-dessous.
+/en/qui-sommes-nous                 https://smartkids-school.ch/    301
+/en/qui-sommes-nous/                https://smartkids-school.ch/    301
+/en/aide-faq                        https://smartkids-school.ch/    301
+/en/aide-faq/                       https://smartkids-school.ch/    301
+/en/bases-robotique                 https://smartkids-school.ch/    301
+/en/bases-robotique/                https://smartkids-school.ch/    301
+/en/intro-intelligence-artificielle https://smartkids-school.ch/    301
+/en/intro-intelligence-artificielle/ https://smartkids-school.ch/  301
+/en/contactez-nous                  https://smartkids-school.ch/    301
+/en/contactez-nous/                 https://smartkids-school.ch/    301
+
+# Résidus WordPress (API, recherche)
+/wp-json/*                          https://smartkids-school.ch/    301
+/wp-admin/*                         https://smartkids-school.ch/    301
+/wp-content/*                       https://smartkids-school.ch/    301
+
+# ═══ SPA CATCH-ALL (doit être EN DERNIER) ════════════════════════════════════
+/*    /index.html    200

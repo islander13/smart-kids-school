@@ -1,0 +1,61 @@
+# ─────────────────────────────────────────────────────────────────────────
+# Netlify Configuration — Smart Kids School (VERSION PROPRE)
+# ─────────────────────────────────────────────────────────────────────────
+# Les redirections sont gérées par public/_redirects (un seul endroit)
+# ─────────────────────────────────────────────────────────────────────────
+
+[build]
+  publish = "out"
+  command = "npm run build"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Headers de sécurité
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Assets Vite (JS/CSS hashés dans le nom de fichier) : cache long et immuable,
+# un changement de contenu produit toujours un nouveau nom de fichier.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Vidéos : noms de fichiers non hashés, cache long mais pas immuable
+# (permet de forcer un rafraîchissement en changeant le fichier si besoin).
+[[headers]]
+  for = "/videos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Images statiques à la racine de /public
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.jfif"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

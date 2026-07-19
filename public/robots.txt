@@ -1,0 +1,36 @@
+User-agent: *
+Allow: /
+
+# Pages publiques principales (FR, sans préfixe)
+Allow: /tarifs
+Allow: /stages
+Allow: /premium
+Allow: /faq
+Allow: /cgv
+Allow: /legal
+
+# Versions EN et DE (mêmes pages, préfixées par langue)
+Allow: /en
+Allow: /de
+
+# Bloquer les API et l'admin Netlify
+Disallow: /api/
+Disallow: /admin/
+Disallow: /.netlify/
+
+# Empêcher l'indexation des pages de paiement avec paramètres Stripe
+Disallow: /*?session_id=*
+Disallow: /*?prefilled_email=*
+
+# Bloquer crawlers SEO agressifs
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
+
+# Sitemap
+Sitemap: https://smartkids-school.ch/sitemap.xml

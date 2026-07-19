@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- / -->
+  <url>
+    <loc>https://smartkids-school.ch/</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- /tarifs -->
+  <url>
+    <loc>https://smartkids-school.ch/tarifs</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/tarifs" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/tarifs" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/tarifs" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/tarifs" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/tarifs</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/tarifs" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/tarifs" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/tarifs" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/tarifs" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/tarifs</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/tarifs" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/tarifs" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/tarifs" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/tarifs" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- /stages -->
+  <url>
+    <loc>https://smartkids-school.ch/stages</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/stages" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/stages" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/stages" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/stages" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/stages</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/stages" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/stages" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/stages" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/stages" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/stages</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/stages" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/stages" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/stages" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/stages" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- /premium -->
+  <url>
+    <loc>https://smartkids-school.ch/premium</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/premium" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/premium" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/premium" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/premium" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/premium</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/premium" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/premium" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/premium" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/premium" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/premium</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/premium" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/premium" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/premium" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/premium" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- /faq -->
+  <url>
+    <loc>https://smartkids-school.ch/faq</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/faq" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/faq" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/faq" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/faq</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/faq" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/faq" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/faq" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/faq</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/faq" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/faq" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/faq" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- /cgv -->
+  <url>
+    <loc>https://smartkids-school.ch/cgv</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/cgv" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/cgv" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/cgv" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/cgv" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/cgv</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/cgv" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/cgv" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/cgv" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/cgv" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/cgv</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/cgv" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/cgv" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/cgv" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/cgv" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- /legal -->
+  <url>
+    <loc>https://smartkids-school.ch/legal</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/legal" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/legal" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/legal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/legal" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/legal</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/legal" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/legal" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/legal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/legal" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/legal</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/legal" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/legal" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/legal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/legal" />
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>

@@ -1,0 +1,113 @@
+/* Mode sombre */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-tertiary: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-tertiary: #94a3b8;
+    --border-color: #334155;
+    --accent-primary: #232999;
+    --accent-secondary: #6366f1;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+
+  /* Navigation */
+  nav {
+    background-color: rgba(15, 23, 42, 0.95) !important;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  nav a, nav button {
+    color: var(--text-secondary) !important;
+  }
+
+  nav a:hover, nav button:hover {
+    color: var(--text-primary) !important;
+  }
+
+  /* Sections */
+  section {
+    background-color: var(--bg-primary) !important;
+  }
+
+  section.bg-white {
+    background-color: var(--bg-primary) !important;
+  }
+
+  section.bg-gradient-to-br {
+    background: linear-gradient(to bottom right, var(--bg-secondary), var(--bg-primary)) !important;
+  }
+
+  /* Cards */
+  .bg-white {
+    background-color: var(--bg-secondary) !important;
+  }
+
+  .bg-gradient-to-br.from-gray-50 {
+    background: linear-gradient(to bottom right, var(--bg-tertiary), var(--bg-secondary)) !important;
+  }
+
+  /* Text colors */
+  .text-gray-900 {
+    color: var(--text-primary) !important;
+  }
+
+  .text-gray-800 {
+    color: var(--text-primary) !important;
+  }
+
+  .text-gray-700 {
+    color: var(--text-secondary) !important;
+  }
+
+  .text-gray-600 {
+    color: var(--text-tertiary) !important;
+  }
+
+  .text-gray-500 {
+    color: var(--text-tertiary) !important;
+  }
+
+  /* Borders */
+  .border-gray-200,
+  .border-gray-100 {
+    border-color: var(--border-color) !important;
+  }
+
+  /* Inputs */
+  input, textarea, select {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--text-tertiary) !important;
+  }
+
+  /* Footer */
+  footer {
+    background: linear-gradient(to bottom right, #1e293b, #0f172a) !important;
+  }
+
+  /* Modal */
+  .fixed.inset-0.bg-black\/50 {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+  }
+
+  /* Hover effects */
+  .hover\:bg-gray-100:hover {
+    background-color: var(--bg-tertiary) !important;
+  }
+
+  .hover\:border-gray-200:hover {
+    border-color: var(--border-color) !important;
+  }
+}

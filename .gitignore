@@ -1,0 +1,16 @@
+# Local Netlify folder
+.netlify
+
+# Dependencies
+node_modules
+
+# Build output (régénéré à chaque build, pas besoin de le versionner)
+out
+
+# Secrets (au cas où — les vraies clés vivent dans les variables d'env Netlify)
+.env
+.env.*
+
+# OS / éditeur
+.DS_Store
+Thumbs.db

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#232999" />
+    <title>Smart Kids School — École en ligne de programmation pour enfants en Suisse</title>
+    <meta name="description" content="Smart Kids School (SKS) est une école en ligne de programmation, robotique et IA pour enfants dès 7 ans, en Suisse romande. Conçue par des ingénieurs EPFL & ETHZ. Cours individuels et stages vacances." />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Smart Kids School — École en ligne de programmation pour enfants" />
+    <meta property="og:description" content="Cours en ligne de programmation, robotique et IA pour enfants dès 7 ans. Suisse." />
+    <meta property="og:image" content="https://smartkids-school.ch/og-image.jpg" />
+    <meta property="og:url" content="https://smartkids-school.ch" />
+    <meta property="og:type" content="website" />
+
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- ════════════════════════════════════════════════════════════════════
+         META PIXEL — actif (ID 1573200597645423)
+         Le bloc <noscript> de Meta a été volontairement retiré : il est invalide
+         dans <head> (erreur de build Vite) et inutile ici, le site étant une SPA
+         React qui ne s'affiche pas sans JavaScript.
+         ════════════════════════════════════════════════════════════════════ -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init','1573200597645423');
+      fbq('track','PageView');
+    </script>
+    <!-- ════════════════ FIN META PIXEL ════════════════ -->
+
+    <!-- ════════════════════════════════════════════════════════════════════
+         GOOGLE ANALYTICS (GA4) — actif (ID G-CJ55Z4B2Q2)
+         ════════════════════════════════════════════════════════════════════ -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CJ55Z4B2Q2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CJ55Z4B2Q2');
+    </script>
+    <!-- ════════════════ FIN GOOGLE ANALYTICS ════════════════ -->
+
+  </head>
+  <body>
+    <!-- ════════════════════════════════════════════════════════════════════
+         NETLIFY FORMS DETECTION — formulaires cachés
+         ════════════════════════════════════════════════════════════════════
+         Ces formulaires invisibles sont scannés par Netlify lors du build pour
+         activer la détection automatique. NE PAS LES SUPPRIMER.
+         Honeypot field (bot-field) = anti-spam basique.
+    -->
+
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <textarea name="message"></textarea>
+    </form>
+
+    <form name="newsletter" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="bot-field" />
+      <input type="email" name="email" />
+      <input type="text" name="source" />
+    </form>
+
+    <form name="plan-enrollment" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="bot-field" />
+      <input type="text" name="plan" />
+      <input type="text" name="planKey" />
+      <input type="text" name="planPrice" />
+      <input type="text" name="parentName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="numChildren" />
+      <input type="text" name="child1Name" />
+      <input type="number" name="child1Age" />
+      <input type="text" name="child2Name" />
+      <input type="number" name="child2Age" />
+      <textarea name="message"></textarea>
+    </form>
+
+    <form name="stage-enrollment" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="bot-field" />
+      <input type="text" name="period" />
+      <input type="text" name="parentName" />
+      <input type="text" name="childName" />
+      <input type="number" name="childAge" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="preferredSession" />
+      <textarea name="message"></textarea>
+    </form>
+
+    <form name="premium-enrollment" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="bot-field" />
+      <input type="text" name="plan" />
+      <input type="text" name="parentName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="childName" />
+      <input type="number" name="childAge" />
+      <textarea name="objectives"></textarea>
+      <input type="text" name="bestTime" />
+    </form>
+
+    <!-- ════════════════════════════════════════════════════════════════════ -->
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
