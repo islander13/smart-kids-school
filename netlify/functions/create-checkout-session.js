@@ -156,7 +156,10 @@ exports.handler = async (event) => {
     // Une erreur ici ne doit jamais empêcher le client de payer : le
     // paiement reste la priorité, la trace en base est un complément.
     try {
-      const { sql } = getDatabase();
+      // En "Lambda compatibility mode" (exports.handler), Netlify n'injecte
+      // pas automatiquement la chaîne de connexion : on la passe nous-mêmes.
+      // https://docs.netlify.com/build/data-and-storage/netlify-database/troubleshooting/#environment-not-configured
+      const { sql } = getDatabase({ connectionString: process.env.NETLIFY_DB_URL });
       await sql`
         INSERT INTO enrollments (
           source, status, parent_name, email, phone,

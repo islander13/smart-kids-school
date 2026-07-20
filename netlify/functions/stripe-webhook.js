@@ -67,7 +67,9 @@ exports.handler = async (event) => {
     // UPSERT : si la ligne n'existait pas (ex: écriture initiale échouée),
     // on la crée quand même — le paiement confirmé ne doit jamais se perdre.
     try {
-      const { sql } = getDatabase();
+      // En "Lambda compatibility mode" (exports.handler), Netlify n'injecte
+      // pas automatiquement la chaîne de connexion : on la passe nous-mêmes.
+      const { sql } = getDatabase({ connectionString: process.env.NETLIFY_DB_URL });
       const email = session.customer_email || session.customer_details?.email || null;
       const amount = session.amount_total ? session.amount_total / 100 : null;
       await sql`
