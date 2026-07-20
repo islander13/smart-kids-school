@@ -967,7 +967,10 @@ export default function Stages() {
         </div>
       </section>
 
-      {/* ── Partnership ── */}
+      {/* ── Partnership ── Masqué en attendant la confirmation officielle du
+           partenariat avec l'École du Valentin. Pour réafficher : changer
+           `{false &&` en `{true &&` (ou retirer le wrapper). ── */}
+      {false && (
       <section className={`py-20 px-4 ${darkMode ? 'bg-gray-950' : 'bg-gradient-to-br from-indigo-50/60 via-slate-50 to-indigo-50/40'}`}>
         <div className="max-w-4xl mx-auto">
           <div className={`rounded-3xl p-8 md:p-12 border-2 ${darkMode ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-indigo-500/30' : 'bg-gradient-to-br from-indigo-50 via-white to-amber-50 border-[#232999]/20'}`}>
@@ -986,6 +989,7 @@ export default function Stages() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ── CTA ── */}
       <section className="py-20 px-4 bg-gradient-to-br from-[#232999] via-[#1e2470] to-[#171b54] text-white">

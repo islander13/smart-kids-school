@@ -431,7 +431,7 @@ export default function HomePage() {
         { '@type': 'AdministrativeArea', name: 'Suisse romande' },
         { '@type': 'AdministrativeArea', name: 'Switzerland' },
       ],
-      sameAs: ['https://www.levalentin.ch/'],
+      // sameAs: ['https://www.levalentin.ch/'], // masqué en attendant la confirmation du partenariat
       offers: {
         '@type': 'AggregateOffer',
         priceCurrency: 'CHF',

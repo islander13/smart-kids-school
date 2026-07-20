@@ -117,10 +117,14 @@ export default function Footer({ currentLang, darkMode }: FooterProps) {
                 'Smart Kids School (SKS) ist eine Online-Schule, die junge Menschen an Programmierung, Robotik und KI heranführt. Konzipiert von EPFL- und ETHZ-Ingenieuren.'
               )}
             </p>
+            {/* Masqué en attendant la confirmation officielle du partenariat.
+                Pour réafficher : changer `{false &&` en `{true &&`. */}
+            {false && (
             <p className="text-gray-500 text-xs mb-4">
               {tr('En collaboration avec', 'In collaboration with', 'In Zusammenarbeit mit')}{' '}
               <a href="https://www.levalentin.ch/" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:text-indigo-300 underline">École du Valentin</a>
             </p>
+            )}
             <div className="flex gap-4">
               <a href="https://www.facebook.com/smartkidsschool.suisse" target="_blank" rel="noopener noreferrer nofollow" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#232999] transition-colors cursor-pointer" aria-label="Facebook">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
