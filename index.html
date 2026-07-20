@@ -124,6 +124,18 @@
       <input type="text" name="bestTime" />
     </form>
 
+    <!-- Soumis uniquement par le webhook Stripe (netlify/functions/stripe-webhook.js),
+         jamais par un visiteur : confirmation qu'un paiement a réellement abouti,
+         même si le client ferme son onglet avant d'atteindre /merci. -->
+    <form name="payment-confirmed" data-netlify="true" hidden>
+      <input type="text" name="sessionId" />
+      <input type="email" name="email" />
+      <input type="text" name="amount" />
+      <input type="text" name="productKey" />
+      <input type="text" name="parentName" />
+      <input type="tel" name="phone" />
+    </form>
+
     <!-- ════════════════════════════════════════════════════════════════════ -->
 
     <div id="root"></div>
