@@ -26,6 +26,15 @@
 
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const { getDatabase } = require('@netlify/database');
+
+// Déduit la source (tarifs / stages / premium) à partir du productKey,
+// pour classer chaque ligne de la table `enrollments`.
+function sourceFromProductKey(productKey) {
+  if (productKey.startsWith('stage-')) return 'stages';
+  if (productKey.startsWith('premium-')) return 'premium';
+  return 'tarifs';
+}
 
 // ─── Catalogue des produits (prix internes) ───
 // Ces prix sont la SOURCE DE VÉRITÉ. Stripe ne les calcule pas, on les force.
@@ -142,6 +151,25 @@ exports.handler = async (event) => {
       // Collecte de la facturation
       billing_address_collection: 'auto',
     });
+
+    // ─── Enregistrement en base (best-effort) ───
+    // Une erreur ici ne doit jamais empêcher le client de payer : le
+    // paiement reste la priorité, la trace en base est un complément.
+    try {
+      const { sql } = getDatabase();
+      await sql`
+        INSERT INTO enrollments (
+          source, status, parent_name, email, phone,
+          product_key, plan_label, stripe_session_id, details
+        ) VALUES (
+          ${sourceFromProductKey(productKey)}, 'form_submitted',
+          ${metadata?.parentName || null}, ${customerEmail}, ${metadata?.phone || null},
+          ${productKey}, ${product.name}, ${session.id}, ${JSON.stringify(metadata || {})}
+        )
+      `;
+    } catch (dbError) {
+      console.error('Enregistrement base de données échoué (non bloquant):', dbError.message);
+    }
 
     return {
       statusCode: 200,

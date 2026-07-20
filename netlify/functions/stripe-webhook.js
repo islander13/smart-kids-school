@@ -15,6 +15,14 @@
 
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const { getDatabase } = require('@netlify/database');
+
+function sourceFromProductKey(productKey) {
+  if (!productKey) return 'tarifs';
+  if (productKey.startsWith('stage-')) return 'stages';
+  if (productKey.startsWith('premium-')) return 'premium';
+  return 'tarifs';
+}
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -54,6 +62,32 @@ exports.handler = async (event) => {
       parentName: session.metadata?.parentName,
       metadata: session.metadata,
     }, null, 2));
+
+    // Marque la ligne comme payée (créée lors de create-checkout-session.js).
+    // UPSERT : si la ligne n'existait pas (ex: écriture initiale échouée),
+    // on la crée quand même — le paiement confirmé ne doit jamais se perdre.
+    try {
+      const { sql } = getDatabase();
+      const email = session.customer_email || session.customer_details?.email || null;
+      const amount = session.amount_total ? session.amount_total / 100 : null;
+      await sql`
+        INSERT INTO enrollments (
+          source, status, parent_name, email, phone,
+          product_key, stripe_session_id, amount_chf, details, updated_at
+        ) VALUES (
+          ${sourceFromProductKey(session.metadata?.productKey)}, 'payment_confirmed',
+          ${session.metadata?.parentName || null}, ${email}, ${session.metadata?.phone || null},
+          ${session.metadata?.productKey || null}, ${session.id}, ${amount},
+          ${JSON.stringify(session.metadata || {})}, NOW()
+        )
+        ON CONFLICT (stripe_session_id) DO UPDATE SET
+          status = 'payment_confirmed',
+          amount_chf = ${amount},
+          updated_at = NOW()
+      `;
+    } catch (dbError) {
+      console.error('Mise à jour base de données échouée (non bloquante):', dbError.message);
+    }
 
     // Notification par email : réutilise Netlify Forms (déjà en place pour
     // les autres formulaires du site) pour envoyer un email de confirmation
