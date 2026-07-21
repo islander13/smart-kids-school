@@ -42,5 +42,10 @@
 /wp-admin/*                         https://smartkids-school.ch/    301
 /wp-content/*                       https://smartkids-school.ch/    301
 
+# Page admin interne (protégée par clé secrète) : /admin?key=... →
+# la fonction qui affiche les inscriptions. 200 = réécriture (pas une
+# redirection visible), garde les paramètres de requête (?key=...&status=...).
+/admin  /.netlify/functions/admin-enrollments  200
+
 # ═══ SPA CATCH-ALL (doit être EN DERNIER) ════════════════════════════════════
 /*    /index.html    200

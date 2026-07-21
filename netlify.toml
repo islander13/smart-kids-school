@@ -12,6 +12,11 @@
 [functions]
   node_bundler = "esbuild"
 
+# Digest quotidien (relances d'abandon + purge RGPD) — voir
+# netlify/functions/scheduled-digest.js pour le détail.
+[functions."scheduled-digest"]
+  schedule = "@daily"
+
 # Headers de sécurité
 [[headers]]
   for = "/*"
