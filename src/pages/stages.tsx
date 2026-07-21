@@ -591,6 +591,53 @@ export default function Stages() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Données structurées (Course + Event) : permet à Google d'afficher le prix
+  // et les dates des prochains stages directement dans les résultats de
+  // recherche. On ne liste QUE les semaines encore ouvertes (pas les stages
+  // déjà passés ou en cours) — Google pénalise le balisage d'événements
+  // obsolètes.
+  useEffect(() => {
+    let ldEl = document.querySelector('script[type="application/ld+json"][data-sks="stages"]') as HTMLScriptElement;
+    if (!ldEl) {
+      ldEl = document.createElement('script');
+      ldEl.type = 'application/ld+json';
+      ldEl.setAttribute('data-sks', 'stages');
+      document.head.appendChild(ldEl);
+    }
+    const pageUrl = 'https://smartkids-school.ch' + localizedPath('/stages', currentLang);
+    const upcomingWeeks = summerWeeks.filter(w => w.start && w.end && w.status === 'open');
+    const events = upcomingWeeks.map(w => ({
+      '@type': 'EducationEvent',
+      name: currentLang === 'FR' ? `Stage de programmation — ${w.label}` : currentLang === 'EN' ? `Coding camp — ${w.label}` : `Programmier-Camp — ${w.label}`,
+      startDate: w.start,
+      endDate: w.end,
+      eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+      eventStatus: 'https://schema.org/EventScheduled',
+      location: { '@type': 'VirtualLocation', url: pageUrl },
+      organizer: { '@type': 'EducationalOrganization', name: 'Smart Kids School', sameAs: 'https://smartkids-school.ch' },
+      offers: {
+        '@type': 'Offer',
+        price: '449',
+        priceCurrency: 'CHF',
+        availability: 'https://schema.org/InStock',
+        url: pageUrl,
+      },
+    }));
+    ldEl.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Course',
+          name: currentLang === 'FR' ? 'Stages de programmation, robotique et IA' : currentLang === 'EN' ? 'Programming, robotics and AI camps' : 'Programmier-, Robotik- und KI-Camps',
+          description: currentLang === 'FR' ? "Stages intensifs en ligne pendant les vacances scolaires, dès 449 CHF la semaine." : currentLang === 'EN' ? 'Intensive online camps during school holidays, from CHF 449/week.' : 'Intensive Online-Camps in den Schulferien, ab 449 CHF/Woche.',
+          provider: { '@type': 'EducationalOrganization', name: 'Smart Kids School', sameAs: 'https://smartkids-school.ch' },
+          offers: { '@type': 'Offer', price: '449', priceCurrency: 'CHF', url: pageUrl },
+        },
+        ...events,
+      ],
+    });
+  }, [currentLang]);
+
   return (
     <div className={`min-h-screen font-['Inter',sans-serif] transition-colors duration-300 ${darkMode ? 'bg-gray-950 text-white' : 'bg-white text-gray-900'}`}>
 

@@ -81,6 +81,40 @@ export default function Premium() {
     } else {
       setHreflangTags('/premium', currentLang);
     }
+
+    // Données structurées (Course + offres) : permet à Google d'afficher les
+    // prix directement dans les résultats de recherche pour cette page.
+    let ldEl = document.querySelector('script[type="application/ld+json"][data-sks="premium"]') as HTMLScriptElement;
+    if (!ldEl) {
+      ldEl = document.createElement('script');
+      ldEl.type = 'application/ld+json';
+      ldEl.setAttribute('data-sks', 'premium');
+      document.head.appendChild(ldEl);
+    }
+    ldEl.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Course',
+      name: currentLang === 'FR' ? 'Premium — Mentorat individuel' : currentLang === 'EN' ? 'Premium — One-to-one mentoring' : 'Premium — Einzelmentoring',
+      description: desc,
+      provider: { '@type': 'EducationalOrganization', name: 'Smart Kids School', sameAs: 'https://smartkids-school.ch' },
+      offers: [
+        {
+          '@type': 'Offer',
+          name: currentLang === 'FR' ? 'Premium Mensuel' : currentLang === 'EN' ? 'Premium Monthly' : 'Premium Monatlich',
+          price: '999',
+          priceCurrency: 'CHF',
+          priceSpecification: { '@type': 'UnitPriceSpecification', price: '999', priceCurrency: 'CHF', unitCode: 'MON', unitText: currentLang === 'FR' ? 'par mois' : currentLang === 'EN' ? 'per month' : 'pro Monat' },
+          url: 'https://smartkids-school.ch' + localizedPath('/premium', currentLang),
+        },
+        {
+          '@type': 'Offer',
+          name: currentLang === 'FR' ? 'Premium 12 mois (-10%)' : currentLang === 'EN' ? 'Premium 12 months (-10%)' : 'Premium 12 Monate (-10%)',
+          price: '10789',
+          priceCurrency: 'CHF',
+          url: 'https://smartkids-school.ch' + localizedPath('/premium', currentLang),
+        },
+      ],
+    });
   }, [currentLang]);
 
   const toggleTheme = useCallback(() => {

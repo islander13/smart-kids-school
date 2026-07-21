@@ -603,6 +603,42 @@ export default function Tarifs() {
     } else {
       setHreflangTags('/tarifs', currentLang);
     }
+
+    // Données structurées (Course + offres) : permet à Google d'afficher les
+    // prix directement dans les résultats de recherche pour cette page.
+    let ldEl = document.querySelector('script[type="application/ld+json"][data-sks="tarifs"]') as HTMLScriptElement;
+    if (!ldEl) {
+      ldEl = document.createElement('script');
+      ldEl.type = 'application/ld+json';
+      ldEl.setAttribute('data-sks', 'tarifs');
+      document.head.appendChild(ldEl);
+    }
+    const durationLabel = (m: number) => currentLang === 'FR' ? `${m} mois` : currentLang === 'EN' ? `${m} months` : `${m} Monate`;
+    const offerFor = (format: FormatKey, engagement: EngagementKey, months: number) => ({
+      '@type': 'Offer',
+      name: `${format === 'solo' ? 'Solo' : 'Duo'} — ${durationLabel(months)}`,
+      price: String(PRICES_PAR_ENFANT[format][engagement]),
+      priceCurrency: 'CHF',
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: String(PRICES_PAR_ENFANT[format][engagement]),
+        priceCurrency: 'CHF',
+        unitCode: 'MON',
+        unitText: currentLang === 'FR' ? 'par mois, par enfant' : currentLang === 'EN' ? 'per month, per child' : 'pro Monat, pro Kind',
+      },
+      url: 'https://smartkids-school.ch' + localizedPath('/tarifs', currentLang),
+    });
+    ldEl.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Course',
+      name: currentLang === 'FR' ? 'Cours de programmation pour enfants — Solo & Duo' : currentLang === 'EN' ? 'Coding classes for kids — Solo & Duo' : 'Programmierkurse für Kinder — Solo & Duo',
+      description: descs[currentLang],
+      provider: { '@type': 'EducationalOrganization', name: 'Smart Kids School', sameAs: 'https://smartkids-school.ch' },
+      offers: [
+        offerFor('solo', 'm3', 3), offerFor('solo', 'm6', 6), offerFor('solo', 'm12', 12),
+        offerFor('duo', 'm3', 3), offerFor('duo', 'm6', 6), offerFor('duo', 'm12', 12),
+      ],
+    });
   }, [currentLang]);
 
   const t = T[currentLang];
