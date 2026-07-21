@@ -1083,8 +1083,8 @@ export default function Stages() {
 
       {/* ── Modal d'inscription stage ── */}
       {showStageModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={closeStageModal}>
-          <div className={`rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto ${darkMode ? 'bg-gray-900' : 'bg-white'}`} onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 overflow-y-auto p-4 bg-black/50 backdrop-blur-sm" onClick={closeStageModal}>
+          <div className={`rounded-3xl max-w-2xl w-full mx-auto my-8 ${darkMode ? 'bg-gray-900' : 'bg-white'}`} onClick={e => e.stopPropagation()}>
             <div className={`sticky top-0 border-b px-8 py-6 flex items-center justify-between rounded-t-3xl ${darkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'}`}>
               <div>
                 <h3 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -1118,6 +1118,14 @@ export default function Stages() {
               </div>
             ) : stageSubmitMessage === 'embedded' ? (
               <div className="p-4 sm:p-8">
+                {!checkout.isReady && (
+                  <div className="flex flex-col items-center justify-center py-20 gap-4">
+                    <div className="w-10 h-10 border-4 border-[#232999] border-t-transparent rounded-full animate-spin"></div>
+                    <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      {currentLang === 'FR' ? 'Chargement du paiement sécurisé…' : currentLang === 'EN' ? 'Loading secure payment…' : 'Sichere Zahlung wird geladen…'}
+                    </p>
+                  </div>
+                )}
                 <div ref={checkout.containerRef} />
               </div>
             ) : (

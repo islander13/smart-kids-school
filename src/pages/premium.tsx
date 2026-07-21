@@ -762,8 +762,8 @@ export default function Premium() {
 
       {/* ── Modal d'inscription Premium ── */}
       {showModal && (
-        <div className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}>
-          <div className={`relative w-full max-w-2xl my-8 rounded-3xl shadow-2xl ${darkMode ? 'bg-gray-900 border border-gray-700' : 'bg-white'}`}>
+        <div className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm p-4 overflow-y-auto" onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}>
+          <div className={`relative w-full max-w-2xl mx-auto my-8 rounded-3xl shadow-2xl ${darkMode ? 'bg-gray-900 border border-gray-700' : 'bg-white'}`}>
             <button onClick={closeModal} aria-label="Close modal" className={`absolute top-4 right-4 p-2 rounded-full z-10 cursor-pointer ${darkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-500 hover:bg-gray-100'}`}>
               <i className="ri-close-line text-2xl"></i>
             </button>
@@ -785,6 +785,14 @@ export default function Premium() {
               </div>
             ) : submitMessage === 'embedded' ? (
               <div className="p-4 sm:p-8">
+                {!checkout.isReady && (
+                  <div className="flex flex-col items-center justify-center py-20 gap-4">
+                    <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      {currentLang === 'FR' ? 'Chargement du paiement sécurisé…' : currentLang === 'EN' ? 'Loading secure payment…' : 'Sichere Zahlung wird geladen…'}
+                    </p>
+                  </div>
+                )}
                 <div ref={checkout.containerRef} />
               </div>
             ) : (

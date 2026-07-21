@@ -9,10 +9,16 @@ import { getStripe } from './stripe';
 //   const checkout = useEmbeddedCheckout();
 //   ...
 //   checkout.start(clientSecret)              // après réponse de la fonction serveur
-//   {checkout.isActive && <div ref={checkout.containerRef} />}
+//   {checkout.isActive && (
+//     <>
+//       {!checkout.isReady && <Spinner />}
+//       <div ref={checkout.containerRef} />
+//     </>
+//   )}
 //   checkout.reset()                          // à la fermeture de la modal
 export function useEmbeddedCheckout() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [isReady, setIsReady] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,7 +29,14 @@ export function useEmbeddedCheckout() {
     (async () => {
       const stripe = await getStripe();
       if (!stripe || cancelled || !containerRef.current) return;
-      checkoutInstance = await stripe.createEmbeddedCheckoutPage({ clientSecret });
+      checkoutInstance = await stripe.createEmbeddedCheckoutPage({
+        clientSecret,
+        // Signal fiable de Stripe (pas une estimation) : le formulaire a
+        // fini de s'afficher, on peut retirer le spinner de chargement.
+        onAnalyticsEvent: (event) => {
+          if (event.eventType === 'checkoutRendered') setIsReady(true);
+        },
+      });
       if (cancelled) {
         checkoutInstance.destroy();
         return;
@@ -40,7 +53,11 @@ export function useEmbeddedCheckout() {
   return {
     containerRef,
     isActive: clientSecret !== null,
+    isReady,
     start: (secret: string) => setClientSecret(secret),
-    reset: () => setClientSecret(null),
+    reset: () => {
+      setClientSecret(null);
+      setIsReady(false);
+    },
   };
 }
