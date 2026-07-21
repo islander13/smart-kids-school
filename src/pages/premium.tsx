@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
+import { useEmbeddedCheckout } from '../lib/useEmbeddedCheckout';
 
 type Lang = 'FR' | 'EN' | 'DE';
 
@@ -423,13 +424,14 @@ export default function Premium() {
         return;
       }
 
-      const { url } = await checkoutRes.json();
-      if (!url) {
+      const { clientSecret } = await checkoutRes.json();
+      if (!clientSecret) {
         setSubmitMessage('error');
         return;
       }
 
-      window.location.href = url;
+      checkout.start(clientSecret);
+      setSubmitMessage('embedded');
     } catch (err) {
       console.error('Submit error:', err);
       setSubmitMessage('error');
@@ -438,8 +440,12 @@ export default function Premium() {
     }
   };
 
+  const checkout = useEmbeddedCheckout();
+
   const openPremiumModal = (plan: 'monthly' | 'yearly') => {
     setSelectedPlan(plan);
+    setSubmitMessage('');
+    checkout.reset();
     setShowModal(true);
     // Nettoie l'URL (efface tout #ancre résiduel) et pointe vers le lien
     // partageable du formulaire, pour que copier la barre d'adresse à ce
@@ -450,6 +456,7 @@ export default function Premium() {
   const closeModal = () => {
     setShowModal(false);
     setSubmitMessage('');
+    checkout.reset();
     const { basePath } = parseLocaleFromPath(window.location.pathname);
     if (basePath === '/premium/inscription') {
       navigate(localizedPath('/premium', currentLang), { replace: true });
@@ -776,6 +783,10 @@ export default function Premium() {
                   {currentLang === 'FR' ? 'Fermer' : currentLang === 'EN' ? 'Close' : 'Schliessen'}
                 </button>
               </div>
+            ) : submitMessage === 'embedded' ? (
+              <div className="p-4 sm:p-8">
+                <div ref={checkout.containerRef} />
+              </div>
             ) : (
               <form onSubmit={handleSubmit} name="premium-enrollment" data-netlify="true" className="p-8">
                 <input type="hidden" name="form-name" value="premium-enrollment" />
@@ -845,16 +856,7 @@ export default function Premium() {
                   </div>
                 )}
 
-                {submitMessage === 'redirecting' && (
-                  <div className="mb-4 p-4 rounded-xl bg-emerald-50 border-2 border-emerald-200 text-emerald-700 text-sm">
-                    <div className="flex items-center gap-3">
-                      <div className="w-6 h-6 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin flex-shrink-0"></div>
-                      <p className="font-bold">{t.submitSuccess}</p>
-                    </div>
-                  </div>
-                )}
-
-                <button type="submit" disabled={submitting || submitMessage === 'redirecting'} className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-6 py-4 rounded-full font-bold transition-all hover:shadow-xl cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed">
+                <button type="submit" disabled={submitting} className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-6 py-4 rounded-full font-bold transition-all hover:shadow-xl cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed">
                   {submitting ? (currentLang === 'FR' ? 'Envoi…' : 'Sending…') : `🔒 ${t.formSubmit}`}
                 </button>
 

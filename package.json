@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@netlify/database": "^1.1.0",
+    "@stripe/stripe-js": "^9.12.0",
     "i18next": "^25.3.2",
     "i18next-browser-languagedetector": "^8.2.0",
     "react": "^19.1.0",

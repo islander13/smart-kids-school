@@ -126,8 +126,12 @@ exports.handler = async (event) => {
       quantity: 1,
     }];
 
-    // ─── Création de la session Checkout ───
+    // ─── Création de la session Checkout (mode "embedded") ───
+    // Le formulaire de paiement s'affiche directement dans la page (dans la
+    // modal), au lieu de rediriger vers une page Stripe séparée. Toujours
+    // géré et sécurisé par Stripe — seule la présentation change.
     const session = await stripe.checkout.sessions.create({
+      ui_mode: 'embedded',
       mode: product.recurring ? 'subscription' : 'payment',
       line_items: lineItems,
       currency: 'chf',  // ⚠️ Force CHF au niveau session aussi
@@ -136,9 +140,10 @@ exports.handler = async (event) => {
       adaptive_pricing: { enabled: false },
       // Méthodes de paiement
       payment_method_types: ['card'],
-      // URLs de retour
-      success_url: `${process.env.SITE_URL || 'https://smartkids-school.ch'}/merci?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.SITE_URL || 'https://smartkids-school.ch'}/tarifs`,
+      // En mode embedded, une seule URL de retour (après paiement réussi) ;
+      // il n'y a plus de "cancel_url" séparée puisque le client ne quitte
+      // jamais le site pour annuler — il ferme simplement la modal.
+      return_url: `${process.env.SITE_URL || 'https://smartkids-school.ch'}/merci?session_id={CHECKOUT_SESSION_ID}`,
       // Métadonnées (utiles pour suivi côté Stripe)
       metadata: {
         productKey: productKey,
@@ -177,7 +182,7 @@ exports.handler = async (event) => {
     return {
       statusCode: 200,
       headers: corsHeaders,
-      body: JSON.stringify({ url: session.url, sessionId: session.id }),
+      body: JSON.stringify({ clientSecret: session.client_secret, sessionId: session.id }),
     };
   } catch (error) {
     console.error('Stripe error:', error);

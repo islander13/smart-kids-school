@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
+import { useEmbeddedCheckout } from '../lib/useEmbeddedCheckout';
 
 type Lang = 'FR' | 'EN' | 'DE';
 type FormatKey = 'solo' | 'duo';
@@ -406,6 +407,8 @@ export default function Tarifs() {
   //     solo-m12-once  → 2988 CHF     duo-m12-once  → 4056 CHF
   //   → 12 Stripe Prices à créer (adaptive_pricing: false), 12 mappings dans la fonction.
 
+  const checkout = useEmbeddedCheckout();
+
   const openPlanModal = (
     format: FormatKey,
     engagement: EngagementKey,
@@ -417,6 +420,7 @@ export default function Tarifs() {
     setSelectedPlan({ key, title, price, sub, format, engagement });
     setPaymentMode('monthly');
     setPlanSubmitMessage('');
+    checkout.reset();
     setShowPlanModal(true);
     // Nettoie l'URL (efface tout #ancre résiduel) et pointe vers le lien
     // partageable du formulaire, pour que copier la barre d'adresse à ce
@@ -429,6 +433,7 @@ export default function Tarifs() {
   const closePlanModal = () => {
     setShowPlanModal(false);
     setPlanSubmitMessage('');
+    checkout.reset();
     const { basePath } = parseLocaleFromPath(window.location.pathname);
     if (basePath === '/tarifs/inscription') {
       navigate(localizedPath('/tarifs', currentLang), { replace: true });
@@ -522,14 +527,15 @@ export default function Tarifs() {
         return;
       }
 
-      const { url } = await checkoutRes.json();
-      if (!url) {
+      const { clientSecret } = await checkoutRes.json();
+      if (!clientSecret) {
         setPlanSubmitMessage('error');
         return;
       }
 
-      // ─── 3. Redirection vers Stripe Checkout (CHF strict, no GBP) ───
-      window.location.href = url;
+      // ─── 3. Affiche le paiement Stripe directement dans la modal ───
+      checkout.start(clientSecret);
+      setPlanSubmitMessage('embedded');
     } catch (err) {
       console.error('Submit error:', err);
       setPlanSubmitMessage('error');
@@ -1217,6 +1223,10 @@ export default function Tarifs() {
                   {currentLang === 'FR' ? 'Fermer' : currentLang === 'EN' ? 'Close' : 'Schliessen'}
                 </button>
               </div>
+            ) : planSubmitMessage === 'embedded' ? (
+              <div className="p-4 sm:p-8">
+                <div ref={checkout.containerRef} />
+              </div>
             ) : (
               <form onSubmit={handlePlanSubmit} name="plan-enrollment" data-netlify="true" className="p-8" id="plan-form">
                 <input type="hidden" name="form-name" value="plan-enrollment" />
@@ -1404,19 +1414,7 @@ export default function Tarifs() {
                   </div>
                 )}
 
-                {planSubmitMessage === 'redirecting' && (
-                  <div className="mb-4 p-4 rounded-xl bg-emerald-50 border-2 border-emerald-200 text-emerald-700 text-sm">
-                    <div className="flex items-center gap-3">
-                      <div className="w-6 h-6 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin flex-shrink-0"></div>
-                      <div>
-                        <p className="font-bold">{currentLang === 'FR' ? '✓ Inscription enregistrée !' : currentLang === 'EN' ? '✓ Enrollment recorded!' : '✓ Anmeldung erfasst!'}</p>
-                        <p className="mt-1">{currentLang === 'FR' ? 'Redirection vers le paiement sécurisé Stripe…' : currentLang === 'EN' ? 'Redirecting to secure Stripe payment…' : 'Weiterleitung zur sicheren Stripe-Zahlung…'}</p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                <button type="submit" disabled={planSubmitting || planSubmitMessage === 'redirecting'} className="w-full bg-gradient-to-r from-[#232999] to-indigo-600 text-white px-6 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed">
+                <button type="submit" disabled={planSubmitting} className="w-full bg-gradient-to-r from-[#232999] to-indigo-600 text-white px-6 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed">
                   {planSubmitting
                     ? (currentLang === 'FR' ? 'Envoi en cours…' : currentLang === 'EN' ? 'Sending…' : 'Wird gesendet…')
                     : (currentLang === 'FR' ? '🔒 Procéder au paiement sécurisé' : currentLang === 'EN' ? '🔒 Proceed to secure payment' : '🔒 Zur sicheren Zahlung')}

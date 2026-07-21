@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
+import { useEmbeddedCheckout } from '../lib/useEmbeddedCheckout';
 
 type Lang = 'FR' | 'EN' | 'DE';
 
@@ -343,10 +344,13 @@ export default function Stages() {
   const [stageSubmitMessage, setStageSubmitMessage] = useState('');
   const [stageSubmitting, setStageSubmitting] = useState(false);
 
+  const checkout = useEmbeddedCheckout();
+
   const openStageModal = (period: string) => {
     setSelectedStagePeriod(period);
     setSelectedWeek('');
     setStageSubmitMessage('');
+    checkout.reset();
     setShowStageModal(true);
     // Nettoie l'URL (efface tout #ancre résiduel) et pointe vers le lien
     // partageable du formulaire, pour que copier la barre d'adresse à ce
@@ -359,6 +363,7 @@ export default function Stages() {
   const closeStageModal = () => {
     setShowStageModal(false);
     setStageSubmitMessage('');
+    checkout.reset();
     const { basePath } = parseLocaleFromPath(window.location.pathname);
     if (basePath === '/stages/inscription') {
       navigate(localizedPath('/stages', currentLang), { replace: true });
@@ -443,13 +448,14 @@ export default function Stages() {
         return;
       }
 
-      const { url } = await checkoutRes.json();
-      if (!url) {
+      const { clientSecret } = await checkoutRes.json();
+      if (!clientSecret) {
         setStageSubmitMessage('error');
         return;
       }
 
-      window.location.href = url;
+      checkout.start(clientSecret);
+      setStageSubmitMessage('embedded');
     } catch (err) {
       console.error('Submit error:', err);
       setStageSubmitMessage('error');
@@ -1110,6 +1116,10 @@ export default function Stages() {
                   {currentLang === 'FR' ? 'Fermer' : currentLang === 'EN' ? 'Close' : 'Schliessen'}
                 </button>
               </div>
+            ) : stageSubmitMessage === 'embedded' ? (
+              <div className="p-4 sm:p-8">
+                <div ref={checkout.containerRef} />
+              </div>
             ) : (
               <form onSubmit={handleStageSubmit} name="stage-enrollment" data-netlify="true" className="p-8" id="stage-form">
                 <input type="hidden" name="form-name" value="stage-enrollment" />
@@ -1322,18 +1332,7 @@ export default function Stages() {
                     {currentLang === 'FR' ? "Merci de remplir le nom et l'âge de chaque enfant." : currentLang === 'EN' ? 'Please fill the name and age of each child.' : 'Bitte Name und Alter jedes Kindes ausfüllen.'}
                   </div>
                 )}
-                {stageSubmitMessage === 'redirecting' && (
-                  <div className="mb-4 p-4 rounded-xl bg-emerald-50 border-2 border-emerald-200 text-emerald-700 text-sm">
-                    <div className="flex items-center gap-3">
-                      <div className="w-6 h-6 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin flex-shrink-0"></div>
-                      <p className="font-bold">
-                        {currentLang === 'FR' ? 'Demande enregistrée, Redirection vers le paiement...' : currentLang === 'EN' ? 'Request recorded, Redirecting to payment...' : 'Anfrage erfasst, Weiterleitung zur Zahlung...'}
-                      </p>
-                    </div>
-                  </div>
-                )}
-
-                <button type="submit" disabled={stageSubmitting || stageSubmitMessage === 'redirecting'} className="w-full bg-gradient-to-r from-[#232999] to-indigo-600 text-white px-6 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed">
+                <button type="submit" disabled={stageSubmitting} className="w-full bg-gradient-to-r from-[#232999] to-indigo-600 text-white px-6 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed">
                   {stageSubmitting
                     ? (currentLang === 'FR' ? 'Envoi en cours…' : currentLang === 'EN' ? 'Sending…' : 'Wird gesendet…')
                     : `🔒 ${currentLang === 'FR' ? 'Procéder au paiement sécurisé' : currentLang === 'EN' ? 'Proceed to secure payment' : 'Zur sicheren Zahlung'}`}
