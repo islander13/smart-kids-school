@@ -24,7 +24,7 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-function renderPage({ rows, statusFilter, sourceFilter, stats }) {
+function renderPage({ rows, statusFilter, sourceFilter, stats, key }) {
   const statusBadge = (status) =>
     status === 'payment_confirmed'
       ? '<span style="background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;">payé</span>'
@@ -32,6 +32,7 @@ function renderPage({ rows, statusFilter, sourceFilter, stats }) {
 
   const filterLink = (label, statusVal, active) => {
     const params = new URLSearchParams();
+    params.set('key', key);
     if (statusVal) params.set('status', statusVal);
     if (sourceFilter) params.set('source', sourceFilter);
     return `<a href="?${params.toString()}" style="padding:6px 12px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;${active ? 'background:#232999;color:white;' : 'background:#f1f5f9;color:#334155;'}">${label}</a>`;
@@ -140,7 +141,7 @@ exports.handler = async (event) => {
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'text/html; charset=utf-8' },
-      body: renderPage({ rows, statusFilter, sourceFilter, stats }),
+      body: renderPage({ rows, statusFilter, sourceFilter, stats, key: params.key }),
     };
   } catch (err) {
     console.error('admin-enrollments error:', err.message);
