@@ -25,16 +25,20 @@ export function useEmbeddedCheckout() {
     if (!clientSecret) return;
     let cancelled = false;
     let checkoutInstance: { destroy: () => void; mount: (el: HTMLElement) => void } | undefined;
+    let fallbackTimer: ReturnType<typeof setTimeout> | undefined;
 
     (async () => {
       const stripe = await getStripe();
       if (!stripe || cancelled || !containerRef.current) return;
       checkoutInstance = await stripe.createEmbeddedCheckoutPage({
         clientSecret,
-        // Signal fiable de Stripe (pas une estimation) : le formulaire a
-        // fini de s'afficher, on peut retirer le spinner de chargement.
+        // "checkoutRendered" est censé signaler la fin de l'affichage, mais
+        // ne se déclenche pas de façon fiable dans tous les cas observés —
+        // on s'en sert comme chemin rapide quand il arrive, sans en
+        // dépendre : le filet de sécurité ci-dessous (fallbackTimer) garantit
+        // que le spinner ne reste jamais bloqué indéfiniment.
         onAnalyticsEvent: (event) => {
-          if (event.eventType === 'checkoutRendered') setIsReady(true);
+          if (event.eventType === 'checkoutRendered' && !cancelled) setIsReady(true);
         },
       });
       if (cancelled) {
@@ -42,10 +46,16 @@ export function useEmbeddedCheckout() {
         return;
       }
       checkoutInstance.mount(containerRef.current);
+      // Filet de sécurité : si le signal Stripe n'arrive pas, on retire le
+      // spinner après un délai raisonnable plutôt que de le laisser bloqué.
+      fallbackTimer = setTimeout(() => {
+        if (!cancelled) setIsReady(true);
+      }, 2500);
     })();
 
     return () => {
       cancelled = true;
+      if (fallbackTimer) clearTimeout(fallbackTimer);
       checkoutInstance?.destroy();
     };
   }, [clientSecret]);

@@ -1233,7 +1233,7 @@ export default function Tarifs() {
                     </p>
                   </div>
                 )}
-                <div ref={checkout.containerRef} />
+                <div ref={checkout.containerRef} className={checkout.isReady ? '' : 'invisible h-0 overflow-hidden'} />
               </div>
             ) : (
               <form onSubmit={handlePlanSubmit} name="plan-enrollment" data-netlify="true" className="p-8" id="plan-form">

@@ -1126,7 +1126,7 @@ export default function Stages() {
                     </p>
                   </div>
                 )}
-                <div ref={checkout.containerRef} />
+                <div ref={checkout.containerRef} className={checkout.isReady ? '' : 'invisible h-0 overflow-hidden'} />
               </div>
             ) : (
               <form onSubmit={handleStageSubmit} name="stage-enrollment" data-netlify="true" className="p-8" id="stage-form">
