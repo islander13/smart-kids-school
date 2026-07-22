@@ -774,7 +774,7 @@ export default function Tarifs() {
               {[
                 { icon: 'ri-time-line', t: { FR: 'Horaires à la carte', EN: 'Hours to suit you', DE: 'Zeiten nach Wahl' }, d: { FR: 'De 9h à 19h · vous choisissez vos créneaux', EN: '9am to 7pm · you pick your slots', DE: '9 bis 19 Uhr · Sie wählen' } },
                 { icon: 'ri-speed-up-line', t: { FR: 'Rythme adapté', EN: 'Pace that adapts', DE: 'Angepasstes Tempo' }, d: { FR: "Le programme suit votre enfant, pas l'inverse", EN: 'The programme follows your child, not the reverse', DE: 'Das Programm folgt Ihrem Kind' } },
-                { icon: 'ri-user-heart-line', t: { FR: 'Vraiment personnalisé', EN: 'Truly personalised', DE: 'Wirklich persönlich' }, d: { FR: 'Cours individuel ou en duo, jamais en masse', EN: 'One-to-one or duo, never a crowd', DE: 'Einzeln oder zu zweit, nie in Masse' } },
+                { icon: 'ri-user-heart-line', t: { FR: 'Attention entière', EN: 'Undivided attention', DE: 'Volle Aufmerksamkeit' }, d: { FR: 'Cours individuel ou en duo, jamais en masse', EN: 'One-to-one or duo, never a crowd', DE: 'Einzeln oder zu zweit, nie in Masse' } },
               ].map((item, i) => (
                 <div key={i} className={`flex items-start gap-3 p-4 rounded-2xl border text-left ${darkMode ? 'bg-gray-800/60 border-gray-700' : 'bg-white border-indigo-100 shadow-sm'}`}>
                   <i className={`${item.icon} text-xl text-[#232999] mt-0.5`}></i>
