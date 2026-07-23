@@ -28,9 +28,11 @@ const pages = [
   '/blog/stage-creer-premier-jeu-video', '/de/blog/stage-creer-premier-jeu-video',
   '/blog/programmation-confiance-en-soi', '/en/blog/programmation-confiance-en-soi',
   '/blog/premium-mentorat-signes-prets', '/de/blog/premium-mentorat-signes-prets',
-  '/blog/cours-programmation-lausanne', '/blog/cours-code-geneve',
-  '/blog/jonas-premier-jeu-video', '/blog/temps-ecran-consommer-vs-creer',
-  '/blog/activites-extrascolaires-rentree',
+  '/blog/cours-programmation-lausanne', '/en/blog/cours-programmation-lausanne', '/de/blog/cours-programmation-lausanne',
+  '/blog/cours-code-geneve', '/en/blog/cours-code-geneve', '/de/blog/cours-code-geneve',
+  '/blog/jonas-premier-jeu-video', '/en/blog/jonas-premier-jeu-video', '/de/blog/jonas-premier-jeu-video',
+  '/blog/temps-ecran-consommer-vs-creer', '/en/blog/temps-ecran-consommer-vs-creer', '/de/blog/temps-ecran-consommer-vs-creer',
+  '/blog/activites-extrascolaires-rentree', '/en/blog/activites-extrascolaires-rentree', '/de/blog/activites-extrascolaires-rentree',
 ];
 
 const functions = [
