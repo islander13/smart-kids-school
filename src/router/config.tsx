@@ -1,6 +1,7 @@
 import { lazy, type ComponentType, type LazyExoticComponent } from "react";
 import type { RouteObject } from "react-router-dom";
 import { BASE_PATHS, FORM_DEEPLINK_PATHS, localizedPath, LOCALES } from "../i18n/routing";
+import { ALL_SLUGS } from "../lib/blogSlugs.generated";
 
 const NotFound = lazy(() => import("../pages/notfound"));
 const Home = lazy(() => import("../pages/home"));
@@ -11,6 +12,8 @@ const Stages = lazy(() => import("../pages/stages"));
 const FAQ = lazy(() => import("../pages/faq"));
 const Merci = lazy(() => import("../pages/merci"));
 const Premium = lazy(() => import("../pages/premium"));
+const BlogIndex = lazy(() => import("../pages/blog/index"));
+const BlogArticle = lazy(() => import("../pages/blog/article"));
 
 // Chaque page indexable (BASE_PATHS) est montée sous 3 URLs : française (sans
 // préfixe), /en/... et /de/.... Les 3 rendent le même composant, qui détecte
@@ -46,9 +49,21 @@ const formDeeplinkRoutes: RouteObject[] = FORM_DEEPLINK_PATHS.flatMap((deepPath)
   }));
 });
 
+// Blog : une page liste (/blog) et une page par article (/blog/<slug>), chacune
+// montée sous les 3 langues. Les slugs sont déduits des fichiers Markdown
+// présents dans content/blog/ (voir src/lib/blog.ts).
+const blogRoutes: RouteObject[] = LOCALES.flatMap((locale) => [
+  { path: localizedPath("/blog", locale), element: <BlogIndex /> },
+  ...ALL_SLUGS.map((slug) => ({
+    path: localizedPath(`/blog/${slug}`, locale),
+    element: <BlogArticle />,
+  })),
+]);
+
 const routes: RouteObject[] = [
   ...localizedRoutes,
   ...formDeeplinkRoutes,
+  ...blogRoutes,
   {
     path: "*",
     element: <NotFound />,

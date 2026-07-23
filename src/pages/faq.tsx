@@ -33,6 +33,7 @@ const T: Record<Lang, {
   navPremium: string;
   navStages: string;
   navFaq: string;
+  navBlog: string;
   navEnroll: string;
   general: FaqItem[];
   pricing: FaqItem[];
@@ -53,7 +54,7 @@ const T: Record<Lang, {
     ctaContact: 'Nous écrire',
     ctaWhatsapp: 'WhatsApp',
     noResults: 'Aucune question ne correspond à votre recherche.',
-    navHome: 'Accueil', navProgramme: 'Programme', navTarifs: 'Tarifs', navPremium: 'Premium', navStages: 'Stages', navFaq: 'FAQ', navEnroll: 'Inscrire mon enfant',
+    navHome: 'Accueil', navProgramme: 'Programme', navTarifs: 'Tarifs', navPremium: 'Premium', navStages: 'Stages', navFaq: 'FAQ', navBlog: 'Blog', navEnroll: 'Inscrire mon enfant',
     general: [
       { q: "À quels horaires les cours ont-ils lieu ?", a: "Vous choisissez : nous sommes ouverts de 9h à 19h et fixons ensemble le créneau qui vous convient (après l'école, le mercredi, le week-end). Le rythme aussi s'adapte à votre enfant, c'est tout l'intérêt d'un cours personnalisé." },
       { q: "Mon enfant n'a aucune expérience en programmation. Est-ce un problème ?", a: "Absolument pas ! Nos cours sont spécialement conçus pour les débutants complets. Nous commençons par les bases et progressons à un rythme adapté à chaque enfant. Aucun prérequis n'est nécessaire." },
@@ -94,7 +95,7 @@ const T: Record<Lang, {
     catStagesDesc: 'About the camps during school holidays.',
     ctaTitle: "Can't find your answer?", ctaDesc: 'Our team usually replies in less than 24h.',
     ctaContact: 'Write to us', ctaWhatsapp: 'WhatsApp', noResults: 'No question matches your search.',
-    navHome: 'Home', navProgramme: 'Programme', navTarifs: 'Pricing', navPremium: 'Premium', navStages: 'Camps', navFaq: 'FAQ', navEnroll: 'Enroll my child',
+    navHome: 'Home', navProgramme: 'Programme', navTarifs: 'Pricing', navPremium: 'Premium', navStages: 'Camps', navFaq: 'FAQ', navBlog: 'Blog', navEnroll: 'Enroll my child',
     general: [
       { q: "What times are the lessons held?", a: "You choose: we're open from 9am to 7pm and agree together on a slot that works for you (after school, Wednesday, the weekend). The pace adapts to your child too, that's the whole point of a personalised course." },
       { q: "My child has no programming experience. Is that a problem?", a: "Not at all! Our classes are specially designed for complete beginners. We start with the basics and progress at a pace adapted to each child. No prerequisites required." },
@@ -135,7 +136,7 @@ const T: Record<Lang, {
     catStagesDesc: 'Über die Camps während der Schulferien.',
     ctaTitle: 'Keine Antwort gefunden?', ctaDesc: 'Unser Team antwortet meist in weniger als 24h.',
     ctaContact: 'Schreiben Sie uns', ctaWhatsapp: 'WhatsApp', noResults: 'Keine Frage entspricht Ihrer Suche.',
-    navHome: 'Startseite', navProgramme: 'Programm', navTarifs: 'Preise', navPremium: 'Premium', navStages: 'Camps', navFaq: 'FAQ', navEnroll: 'Kind anmelden',
+    navHome: 'Startseite', navProgramme: 'Programm', navTarifs: 'Preise', navPremium: 'Premium', navStages: 'Camps', navFaq: 'FAQ', navBlog: 'Blog', navEnroll: 'Kind anmelden',
     general: [
       { q: "Zu welchen Zeiten findet der Unterricht statt?", a: "Sie entscheiden: Wir sind von 9 bis 19 Uhr offen und legen gemeinsam einen passenden Termin fest (nach der Schule, mittwochs, am Wochenende). Auch das Tempo richtet sich nach Ihrem Kind, genau das macht personalisierten Unterricht aus." },
       { q: "Mein Kind hat keine Programmiererfahrung. Ist das ein Problem?", a: "Überhaupt nicht! Unsere Kurse sind speziell für absolute Anfänger konzipiert. Wir beginnen mit den Grundlagen und schreiten in kindgerechtem Tempo voran." },
@@ -256,6 +257,7 @@ export default function FAQ() {
               <a href={lp('/tarifs')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navTarifs}</a>
               <a href={lp('/stages')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navStages}</a>
               <a href={lp('/faq')} className="text-sm font-semibold text-[#232999]">{t.navFaq}</a>
+              <a href={lp('/blog')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navBlog}</a>
             </div>
             <div className="hidden md:flex items-center gap-3 ml-6">
               <button onClick={() => setDarkMode(!darkMode)} className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300 cursor-pointer ${darkMode ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-gray-100 border-gray-200 text-gray-700 hover:border-indigo-400'}`}>
@@ -299,6 +301,7 @@ export default function FAQ() {
               <a href={lp('/tarifs')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.navTarifs}</a>
               <a href={lp('/stages')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.navStages}</a>
               <a href={lp('/faq')} className="block text-sm font-semibold py-2 text-[#232999]">{t.navFaq}</a>
+              <a href={lp('/blog')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.navBlog}</a>
               <div className="flex gap-2 py-2">
                 {(['FR', 'EN', 'DE'] as Lang[]).map(lang => (
                   <button key={lang} onClick={() => { setCurrentLang(lang); navigate(localizedPath('/faq', lang)); }} className={`px-4 py-2 rounded-lg text-sm font-medium cursor-pointer ${currentLang === lang ? 'bg-[#232999] text-white' : darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-700'}`}>{lang}</button>

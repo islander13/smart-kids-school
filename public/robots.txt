@@ -6,6 +6,7 @@ Allow: /tarifs
 Allow: /stages
 Allow: /premium
 Allow: /faq
+Allow: /blog
 Allow: /cgv
 Allow: /legal
 

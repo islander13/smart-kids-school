@@ -18,6 +18,7 @@ const pages = [
   '/', '/tarifs', '/stages', '/premium', '/faq', '/cgv', '/legal',
   '/en', '/en/tarifs', '/de', '/de/stages',
   '/tarifs/inscription', '/stages/inscription', '/premium/inscription',
+  '/blog', '/blog/quel-age-programmation-enfant', '/en/blog', '/de/blog/quel-age-programmation-enfant',
 ];
 
 const functions = [

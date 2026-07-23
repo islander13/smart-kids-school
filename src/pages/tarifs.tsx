@@ -12,7 +12,7 @@ type EngagementKey = 'm3' | 'm6' | 'm12';
 // ─── Translations ────────────────────────────────────────────────────────────
 const T = {
   FR: {
-    nav: { home: 'Accueil', tarifs: 'Tarifs', premium: 'Premium', stages: 'Stages', programme: 'Programme', faq: 'FAQ', enroll: 'Inscrire mon enfant' },
+    nav: { home: 'Accueil', tarifs: 'Tarifs', premium: 'Premium', stages: 'Stages', programme: 'Programme', faq: 'FAQ', blog: 'Blog', enroll: 'Inscrire mon enfant' },
     heroBadge: 'Tarifs',
     heroTitle: 'Choisissez votre formule',
     heroPill1: '100% en ligne',
@@ -159,7 +159,7 @@ const T = {
     ],
   },
   EN: {
-    nav: { home: 'Home', tarifs: 'Pricing', premium: 'Premium', stages: 'Camps', programme: 'Program', faq: 'FAQ', enroll: 'Enroll my child' },
+    nav: { home: 'Home', tarifs: 'Pricing', premium: 'Premium', stages: 'Camps', programme: 'Program', faq: 'FAQ', blog: 'Blog', enroll: 'Enroll my child' },
     heroBadge: 'Pricing',
     heroTitle: 'Choose your plan',
     heroPill1: '100% online',
@@ -243,7 +243,7 @@ const T = {
     ],
   },
   DE: {
-    nav: { home: 'Startseite', tarifs: 'Preise', premium: 'Premium', stages: 'Camps', programme: 'Programm', faq: 'FAQ', enroll: 'Kind anmelden' },
+    nav: { home: 'Startseite', tarifs: 'Preise', premium: 'Premium', stages: 'Camps', programme: 'Programm', faq: 'FAQ', blog: 'Blog', enroll: 'Kind anmelden' },
     heroBadge: 'Preise',
     heroTitle: 'Wählen Sie Ihre Formel',
     heroPill1: '100% online',
@@ -691,6 +691,7 @@ export default function Tarifs() {
               <a href={lp('/tarifs')} className="text-sm font-semibold text-[#232999]">{t.nav.tarifs}</a>
               <a href={lp('/stages')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.stages}</a>
               <a href={lp('/faq')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.faq}</a>
+              <a href={lp('/blog')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.blog}</a>
             </div>
             <div className="hidden md:flex items-center gap-3 ml-6">
               <button onClick={() => setDarkMode(!darkMode)} className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300 cursor-pointer ${darkMode ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-gray-100 border-gray-200 text-gray-700 hover:border-indigo-400'}`}>
@@ -738,6 +739,7 @@ export default function Tarifs() {
               <a href={lp('/tarifs')} onClick={() => setMobileMenuOpen(false)} className="block text-sm font-semibold py-2 text-[#232999]">{t.nav.tarifs}</a>
               <a href={lp('/stages')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.stages}</a>
               <a href={lp('/faq')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.faq}</a>
+              <a href={lp('/blog')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.blog}</a>
               <div className="flex gap-2 py-2">
                 {(['FR', 'EN', 'DE'] as Lang[]).map(lang => (
                   <button key={lang} onClick={() => { setCurrentLang(lang); setMobileMenuOpen(false); navigate(localizedPath('/tarifs', lang)); }} className={`px-4 py-2 rounded-lg text-sm font-medium cursor-pointer ${currentLang === lang ? 'bg-[#232999] text-white' : darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-700'}`}>{lang}</button>

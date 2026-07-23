@@ -128,7 +128,7 @@ export default function Premium() {
 
   const T = {
     FR: {
-      navAccueil: 'Accueil', navTarifs: 'Tarifs', navStages: 'Stages', navFaq: 'FAQ',
+      navAccueil: 'Accueil', navTarifs: 'Tarifs', navStages: 'Stages', navFaq: 'FAQ', navBlog: 'Blog',
       navContact: 'Nous contacter',
       heroBadge: '🎓 Mentorat individuel · 3 places par année scolaire',
       heroTitle: "Pour l'enfant qui veut en faire quelque chose",
@@ -205,7 +205,7 @@ export default function Premium() {
       ctaQuestionsBtn: 'Discuter avec le fondateur',
     },
     EN: {
-      navAccueil: 'Home', navTarifs: 'Pricing', navStages: 'Camps', navFaq: 'FAQ',
+      navAccueil: 'Home', navTarifs: 'Pricing', navStages: 'Camps', navFaq: 'FAQ', navBlog: 'Blog',
       navContact: 'Contact us',
       heroBadge: '🎓 One-to-one mentoring · 3 spots per school year',
       heroTitle: 'For the child who wants to build something',
@@ -282,7 +282,7 @@ export default function Premium() {
       ctaQuestionsBtn: 'Talk with the founder',
     },
     DE: {
-      navAccueil: 'Startseite', navTarifs: 'Preise', navStages: 'Camps', navFaq: 'FAQ',
+      navAccueil: 'Startseite', navTarifs: 'Preise', navStages: 'Camps', navFaq: 'FAQ', navBlog: 'Blog',
       navContact: 'Kontakt',
       heroBadge: '🎓 Einzelmentoring · 3 Plätze pro Schuljahr',
       heroTitle: 'Für das Kind, das etwas daraus machen will',
@@ -499,6 +499,7 @@ export default function Premium() {
               <a href={lp('/tarifs')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navTarifs}</a>
               <a href={lp('/stages')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navStages}</a>
               <a href={lp('/faq')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navFaq}</a>
+              <a href={lp('/blog')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navBlog}</a>
             </div>
             <div className="hidden md:flex items-center gap-3">
               <button onClick={toggleTheme} aria-label="Toggle theme" className={`p-2 rounded-full transition-colors cursor-pointer ${darkMode ? 'text-yellow-400 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`}>
@@ -543,6 +544,7 @@ export default function Premium() {
               <a href={lp('/tarifs')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navTarifs}</a>
               <a href={lp('/stages')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navStages}</a>
               <a href={lp('/faq')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navFaq}</a>
+              <a href={lp('/blog')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navBlog}</a>
               <div className="flex gap-2 py-2">
                 {(['FR', 'EN', 'DE'] as Lang[]).map(lang => (
                   <button key={lang} onClick={() => { setCurrentLang(lang); setMobileMenuOpen(false); navigate(localizedPath('/premium', lang)); }} className={`px-4 py-2 rounded-lg text-sm font-medium cursor-pointer ${currentLang === lang ? 'bg-[#232999] text-white' : darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-700'}`}>{lang}</button>

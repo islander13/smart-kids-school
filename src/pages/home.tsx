@@ -606,6 +606,7 @@ export default function HomePage() {
                 { href: '/tarifs', label: currentLang === 'FR' ? 'Tarifs' : currentLang === 'EN' ? 'Pricing' : 'Preise' },
                 { href: '/stages', label: currentLang === 'FR' ? 'Stages' : currentLang === 'EN' ? 'Camps' : 'Camps' },
                 { href: '/faq', label: t.faq },
+                { href: '/blog', label: 'Blog' },
               ].map(item => (
                 <a key={item.href} href={lp(item.href)} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{item.label}</a>
               ))}
@@ -662,7 +663,7 @@ export default function HomePage() {
         {mobileMenuOpen && (
           <div className={`md:hidden border-t ${darkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-100'}`}>
             <div className="px-4 py-4 space-y-3">
-              {[{ href: '/', label: t.accueil }, { href: '/#parcours', label: t.programme }, { href: '/tarifs', label: currentLang === 'FR' ? 'Tarifs' : currentLang === 'EN' ? 'Pricing' : 'Preise' }, { href: '/stages', label: currentLang === 'FR' ? 'Stages' : currentLang === 'EN' ? 'Camps' : 'Camps' }, { href: '/faq', label: t.faq }].map(item => (
+              {[{ href: '/', label: t.accueil }, { href: '/#parcours', label: t.programme }, { href: '/tarifs', label: currentLang === 'FR' ? 'Tarifs' : currentLang === 'EN' ? 'Pricing' : 'Preise' }, { href: '/stages', label: currentLang === 'FR' ? 'Stages' : currentLang === 'EN' ? 'Camps' : 'Camps' }, { href: '/faq', label: t.faq }, { href: '/blog', label: 'Blog' }].map(item => (
                 <a key={item.href} href={lp(item.href)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{item.label}</a>
               ))}
               <div className="flex gap-2 py-2">
