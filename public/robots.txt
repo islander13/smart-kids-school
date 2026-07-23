@@ -15,6 +15,7 @@ Allow: /de
 
 # Bloquer les API et l'admin Netlify
 Disallow: /api/
+Disallow: /admin
 Disallow: /admin/
 Disallow: /.netlify/
 

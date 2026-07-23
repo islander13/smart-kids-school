@@ -768,22 +768,7 @@ export default function Premium() {
               <i className="ri-close-line text-2xl"></i>
             </button>
 
-            {submitMessage === 'success_no_stripe' ? (
-              <div className="p-12 text-center">
-                <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <i className="ri-mail-line text-4xl text-amber-600"></i>
-                </div>
-                <h4 className={`text-2xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                  {currentLang === 'FR' ? 'Demande enregistrée !' : currentLang === 'EN' ? 'Request recorded!' : 'Anfrage erfasst!'}
-                </h4>
-                <p className={`leading-relaxed mb-6 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                  {currentLang === 'FR' ? "Nous vous envoyons le lien de paiement par email sous 24h." : currentLang === 'EN' ? "We'll send you the payment link by email within 24h." : 'Wir senden Ihnen den Zahlungslink innerhalb von 24h per E-Mail.'}
-                </p>
-                <button onClick={closeModal} className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-3 rounded-full font-semibold transition-all cursor-pointer">
-                  {currentLang === 'FR' ? 'Fermer' : currentLang === 'EN' ? 'Close' : 'Schliessen'}
-                </button>
-              </div>
-            ) : submitMessage === 'embedded' ? (
+            {submitMessage === 'embedded' ? (
               <div className="p-4 sm:p-8">
                 {!checkout.isReady && (
                   <div className="flex flex-col items-center justify-center py-20 gap-4">

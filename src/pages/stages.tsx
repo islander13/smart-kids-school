@@ -1097,26 +1097,7 @@ export default function Stages() {
               </button>
             </div>
 
-            {stageSubmitMessage === 'success' ? (
-              <div className="p-12 text-center">
-                <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                </div>
-                <h4 className={`text-2xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                  {currentLang === 'FR' ? 'Demande envoyée !' : currentLang === 'EN' ? 'Request sent!' : 'Anfrage gesendet!'}
-                </h4>
-                <p className={`leading-relaxed mb-6 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                  {currentLang === 'FR'
-                    ? "Merci ! Nous vous recontactons sous 24h pour confirmer la place et procéder au paiement."
-                    : currentLang === 'EN'
-                    ? "Thanks! We'll get back to you within 24h to confirm the spot and process payment."
-                    : 'Danke! Wir melden uns innerhalb von 24h zur Bestätigung und Zahlung.'}
-                </p>
-                <button onClick={closeStageModal} className="bg-[#232999] hover:bg-[#1a1f7a] text-white px-8 py-3 rounded-full font-semibold transition-all cursor-pointer">
-                  {currentLang === 'FR' ? 'Fermer' : currentLang === 'EN' ? 'Close' : 'Schliessen'}
-                </button>
-              </div>
-            ) : stageSubmitMessage === 'embedded' ? (
+            {stageSubmitMessage === 'embedded' ? (
               <div className="p-4 sm:p-8">
                 {!checkout.isReady && (
                   <div className="flex flex-col items-center justify-center py-20 gap-4">
