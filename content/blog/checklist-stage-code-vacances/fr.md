@@ -2,7 +2,7 @@
 title: "Stage de code pendant les vacances : la checklist pour bien préparer votre enfant"
 description: "Matériel, environnement, attentes : la checklist complète pour que le stage de programmation de votre enfant démarre sans accroc, à imprimer avant le premier jour."
 excerpt: "Un stage de code réussi se prépare la veille, pas le matin même. Voici tout ce qu'il faut vérifier pour éviter le stress de dernière minute."
-date: "2026-07-24"
+date: "2026-07-15"
 ---
 
 Votre enfant est inscrit à un stage de programmation pendant les vacances, la date approche : voici la checklist qu'on donne nous-mêmes aux familles, pour que tout démarre sans accroc dès la première demi-journée.

@@ -2,7 +2,7 @@
 title: "Cours de code en ligne ou en présentiel : lequel choisir pour son enfant ?"
 description: "Un cours de programmation 100% en ligne, est-ce vraiment aussi efficace qu'en présentiel ? Ce qu'on gagne, ce qu'on perd, et pourquoi le code s'y prête particulièrement bien."
 excerpt: "« Encore un écran ? » C'est souvent la première réaction des parents face à un cours de code en ligne. Voici pourquoi, pour cette matière précise, c'est un faux problème."
-date: "2026-07-24"
+date: "2026-06-02"
 ---
 
 « Mon enfant est déjà assez devant les écrans, pourquoi rajouter un cours en ligne ? » C'est l'objection la plus fréquente qu'on entend, et elle part d'une bonne intention. Mais elle mélange deux choses très différentes : le temps d'écran passif (regarder des vidéos, scroller) et le temps d'écran actif (créer, résoudre, construire). Un cours de code en ligne appartient entièrement à la seconde catégorie — et c'est justement la matière où le présentiel n'apporte pas grand-chose de plus.

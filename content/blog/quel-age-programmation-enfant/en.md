@@ -2,7 +2,7 @@
 title: "What age should a child start learning to code?"
 description: "Children can start coding from age 7. Discover why the right moment depends less on age than on the teaching approach, and how to progress step by step."
 excerpt: "Many parents wait until their child 'is ready'. Here's what teaching code to hundreds of children has taught us about the right time to start."
-date: "2026-07-23"
+date: "2026-05-12"
 ---
 
 It's the question we hear most often, even before questions about price or curriculum: "What age can my child start programming?" The short answer is **from age 7**. The longer, more useful answer is that age matters less than how the subject is introduced.

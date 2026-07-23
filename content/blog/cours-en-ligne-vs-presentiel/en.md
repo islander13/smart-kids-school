@@ -2,7 +2,7 @@
 title: "Online or in-person coding classes: which is right for your child?"
 description: "Is a fully online coding class really as effective as in-person? What you gain, what you lose, and why coding lends itself particularly well to remote learning."
 excerpt: "“Another screen?” It's often parents' first reaction to an online coding class. Here's why, for this particular subject, that's the wrong question."
-date: "2026-07-24"
+date: "2026-06-02"
 ---
 
 "My child is already on screens enough, why add an online class?" It's the most common objection we hear, and it comes from a good place. But it mixes up two very different things: passive screen time (watching videos, scrolling) and active screen time (creating, solving, building). An online coding class belongs entirely to the second category — and coding happens to be the one subject where being in the same room adds surprisingly little.

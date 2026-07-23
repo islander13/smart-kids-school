@@ -20,6 +20,8 @@ const pages = [
   '/tarifs/inscription', '/stages/inscription', '/premium/inscription',
   '/blog', '/blog/quel-age-programmation-enfant', '/en/blog', '/de/blog/quel-age-programmation-enfant',
   '/blog/scratch-vs-python-difference', '/en/blog/scratch-vs-python-difference',
+  '/blog/cours-en-ligne-vs-presentiel', '/en/blog/cours-en-ligne-vs-presentiel',
+  '/blog/checklist-stage-code-vacances', '/de/blog/checklist-stage-code-vacances',
 ];
 
 const functions = [

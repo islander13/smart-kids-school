@@ -2,7 +2,7 @@
 title: "Ferien-Programmier-Camp: die Checkliste zur Vorbereitung Ihres Kindes"
 description: "Material, Umgebung, Erwartungen: die vollständige Checkliste, damit das Programmier-Camp Ihres Kindes reibungslos startet — zum Abhaken vor dem ersten Tag."
 excerpt: "Ein reibungsloses Camp wird am Vorabend vorbereitet, nicht am Morgen selbst. Hier ist alles, was Sie prüfen sollten, um Last-Minute-Stress zu vermeiden."
-date: "2026-07-24"
+date: "2026-07-15"
 ---
 
 Ihr Kind ist für ein Programmier-Camp in den Ferien angemeldet, und der Termin rückt näher: Hier ist die Checkliste, die wir Familien selbst mitgeben, damit alles schon ab dem ersten Halbtag reibungslos läuft.
