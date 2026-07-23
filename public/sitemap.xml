@@ -273,6 +273,74 @@
     <priority>0.3</priority>
   </url>
 
+  <!-- /blog/checklist-stage-code-vacances -->
+  <url>
+    <loc>https://smartkids-school.ch/blog/checklist-stage-code-vacances</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/checklist-stage-code-vacances" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/checklist-stage-code-vacances" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/checklist-stage-code-vacances" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/checklist-stage-code-vacances" />
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/blog/checklist-stage-code-vacances</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/checklist-stage-code-vacances" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/checklist-stage-code-vacances" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/checklist-stage-code-vacances" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/checklist-stage-code-vacances" />
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/blog/checklist-stage-code-vacances</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/checklist-stage-code-vacances" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/checklist-stage-code-vacances" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/checklist-stage-code-vacances" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/checklist-stage-code-vacances" />
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- /blog/cours-en-ligne-vs-presentiel -->
+  <url>
+    <loc>https://smartkids-school.ch/blog/cours-en-ligne-vs-presentiel</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/cours-en-ligne-vs-presentiel" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/cours-en-ligne-vs-presentiel" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/cours-en-ligne-vs-presentiel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/cours-en-ligne-vs-presentiel" />
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/blog/cours-en-ligne-vs-presentiel</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/cours-en-ligne-vs-presentiel" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/cours-en-ligne-vs-presentiel" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/cours-en-ligne-vs-presentiel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/cours-en-ligne-vs-presentiel" />
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/blog/cours-en-ligne-vs-presentiel</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/cours-en-ligne-vs-presentiel" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/cours-en-ligne-vs-presentiel" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/cours-en-ligne-vs-presentiel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/cours-en-ligne-vs-presentiel" />
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
   <!-- /blog/quel-age-programmation-enfant -->
   <url>
     <loc>https://smartkids-school.ch/blog/quel-age-programmation-enfant</loc>
