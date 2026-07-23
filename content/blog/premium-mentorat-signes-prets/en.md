@@ -2,7 +2,7 @@
 title: "5 signs your child is ready for one-to-one mentoring"
 description: "Premium isn't a more intensive version of Solo, it's something else: direct mentoring with the founder. Here's how to know if it's the right time."
 excerpt: "Premium isn't right for every child who loves coding — and that's fine. Here are the concrete signs that it's the right moment."
-date: "2026-07-21"
+date: "2026-06-30"
 ---
 
 We're often asked the question the other way around: "my child is talented, should they move to Premium?" The real question isn't skill level, it's something else: has your child already outgrown a classic class format.

@@ -2,7 +2,7 @@
 title: "Solo oder Duo: Wie wählt man die richtige Formel für sein Kind?"
 description: "Einzelunterricht oder Unterricht zu zweit mit Geschwister oder Freund: die echten Kriterien für die Wahl, jenseits des Preises."
 excerpt: "Duo kostet weniger, aber das ist nicht die einzige Frage. Hier ist, was den wirklichen Unterschied zwischen den beiden Formeln ausmacht."
-date: "2026-06-11"
+date: "2026-07-06"
 ---
 
 Wer unsere Formeln entdeckt, vergleicht meist zuerst die Preise: Duo kostet pro Kind weniger als Solo. Das stimmt, aber die Wahl auf diese eine Variable zu reduzieren, übersieht das Wesentliche: welches Format Ihrem Kind am meisten beim Lernen hilft.

@@ -2,7 +2,7 @@
 title: "Ab welchem Alter sollte ein Kind mit dem Programmieren beginnen?"
 description: "Kinder können bereits ab 7 Jahren mit dem Programmieren beginnen. Erfahren Sie, warum der richtige Zeitpunkt weniger vom Alter als von der Methode abhängt."
 excerpt: "Viele Eltern warten, bis ihr Kind «bereit ist». Das haben wir aus dem Unterrichten von hunderten Kindern über den richtigen Zeitpunkt zum Einstieg gelernt."
-date: "2026-05-12"
+date: "2026-05-31"
 ---
 
 Das ist die Frage, die uns am häufigsten gestellt wird, noch vor Fragen zu Preis oder Lehrplan: «Ab welchem Alter kann mein Kind mit dem Programmieren beginnen?» Die kurze Antwort lautet: **ab 7 Jahren**. Die längere, nützlichere Antwort ist, dass das Alter weniger zählt als die Art, wie das Thema vermittelt wird.

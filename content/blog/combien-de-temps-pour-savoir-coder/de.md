@@ -2,7 +2,7 @@
 title: "Wie lange dauert es, bis ein Kind wirklich programmieren kann?"
 description: "Nach einer Sitzung, nach 3 Monaten, nach einem Jahr: Was ein Kind auf jeder Stufe wirklich kann, um realistische Erwartungen zu setzen."
 excerpt: "«Wie lange dauert es, bis es wirklich programmieren kann?» Eine berechtigte Frage, die aber davon ausgeht, dass «Programmieren können» eine einzige Schwelle ist. Das stimmt nicht."
-date: "2026-05-04"
+date: "2026-05-07"
 ---
 
 «Wie lange dauert es, bis mein Kind wirklich programmieren kann?» Diese Frage hören wir fast so oft wie die nach dem richtigen Startalter, und sie beruht auf einer falschen Annahme: dass «Programmieren können» eine Schwelle ist, die man eines Tages überschreitet, wie Schwimmen lernen. In Wirklichkeit ist es ein kontinuierlicher Fortschritt mit sehr konkreten Etappen — hier sind sie.

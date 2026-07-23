@@ -2,7 +2,7 @@
 title: "Coding and self-confidence: what parents notice"
 description: "Beyond technical skills, what several months of coding often change in how a child approaches mistakes and difficulty."
 excerpt: "Parents contact us for the coding. After a few months, what they report most often isn't really about the code."
-date: "2026-07-08"
+date: "2026-05-01"
 ---
 
 Parents almost always contact us for the same reason: they want their child to learn to code. That makes sense, it's what we teach. But after a few months, what many parents spontaneously report goes well beyond technical skill — and it's worth discussing honestly, without big promises.

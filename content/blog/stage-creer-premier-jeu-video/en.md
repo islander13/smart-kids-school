@@ -2,7 +2,7 @@
 title: "What actually happens during the “Build your first video game” camp?"
 description: "The full breakdown of our most popular holiday camp: from the game idea to a finished, playable project, day by day."
 excerpt: "“Build your first video game” — the title is clear, but what does that actually look like over a week? Here's the day-by-day breakdown."
-date: "2026-07-01"
+date: "2026-06-18"
 ---
 
 It's our most requested camp theme, for good reason: the promise is concrete, motivating, and delivered within a week. But what does a child actually do, from Monday morning to Friday afternoon? Here's how it really unfolds.

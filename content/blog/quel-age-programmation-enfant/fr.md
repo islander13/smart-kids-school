@@ -2,7 +2,7 @@
 title: "À quel âge initier son enfant à la programmation ?"
 description: "Dès 7 ans, un enfant peut commencer à coder. Découvrez pourquoi le bon moment dépend moins de l'âge que de la pédagogie, et comment y aller progressivement."
 excerpt: "Beaucoup de parents attendent que leur enfant «soit prêt». Voici ce que l'enseignement du code à des centaines d'enfants nous a appris sur le bon moment pour commencer."
-date: "2026-05-12"
+date: "2026-05-31"
 ---
 
 C'est la question qu'on nous pose le plus souvent, avant même celle du prix ou du programme : « À partir de quel âge mon enfant peut-il commencer la programmation ? ». La réponse courte est **dès 7 ans**. La réponse longue, plus utile, est que l'âge compte moins que la façon dont le sujet est amené.

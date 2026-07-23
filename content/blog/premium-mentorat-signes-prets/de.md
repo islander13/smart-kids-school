@@ -2,7 +2,7 @@
 title: "5 Anzeichen, dass Ihr Kind bereit für Einzelmentoring ist"
 description: "Premium ist keine intensivere Version von Solo, sondern etwas anderes: direktes Mentoring mit dem Gründer. So erkennen Sie, ob der Zeitpunkt richtig ist."
 excerpt: "Premium passt nicht zu jedem Kind, das gerne programmiert — und das ist kein Problem. Hier sind die konkreten Anzeichen für den richtigen Zeitpunkt."
-date: "2026-07-21"
+date: "2026-06-30"
 ---
 
 Uns wird die Frage oft andersherum gestellt: «Mein Kind ist begabt, sollte es zu Premium wechseln?» Die eigentliche Frage ist nicht das Niveau, sondern etwas anderes: Hat Ihr Kind den Rahmen eines klassischen Kurses bereits gesprengt?

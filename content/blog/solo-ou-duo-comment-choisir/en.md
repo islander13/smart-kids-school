@@ -2,7 +2,7 @@
 title: "Solo or Duo: how to choose the right plan for your child?"
 description: "One-on-one classes or classes with a sibling or friend: the real criteria to choose between them, beyond price."
 excerpt: "Duo costs less, but that's not the only question worth asking. Here's what actually makes the difference between the two plans."
-date: "2026-06-11"
+date: "2026-07-06"
 ---
 
 When people discover our plans, the instinct is often to compare prices: Duo costs less per child than Solo. That's true, but reducing the choice to that one variable misses what really matters: which format helps your child learn best.

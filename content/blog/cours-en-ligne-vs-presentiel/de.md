@@ -2,7 +2,7 @@
 title: "Online- oder Präsenzunterricht im Programmieren: Was passt besser zu Ihrem Kind?"
 description: "Ist ein rein online abgehaltener Programmierkurs wirklich so wirksam wie Präsenzunterricht? Was man gewinnt, was man verliert, und warum sich Programmieren besonders gut fürs Online-Lernen eignet."
 excerpt: "«Noch ein Bildschirm?» Das ist oft die erste Reaktion von Eltern auf einen Online-Programmierkurs. Warum das bei diesem Thema die falsche Frage ist."
-date: "2026-06-02"
+date: "2026-06-12"
 ---
 
 «Mein Kind ist schon genug vor Bildschirmen, wozu noch ein Online-Kurs?» Das ist der häufigste Einwand, den wir hören, und er kommt aus einer guten Absicht. Er vermischt aber zwei sehr unterschiedliche Dinge: passive Bildschirmzeit (Videos schauen, scrollen) und aktive Bildschirmzeit (erschaffen, lösen, bauen). Ein Online-Programmierkurs gehört vollständig zur zweiten Kategorie — und Programmieren ist genau das Fach, bei dem Präsenzunterricht überraschend wenig zusätzlichen Nutzen bringt.

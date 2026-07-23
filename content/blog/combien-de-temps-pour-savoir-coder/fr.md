@@ -2,7 +2,7 @@
 title: "Combien de temps faut-il pour qu'un enfant sache vraiment coder ?"
 description: "Après une séance, après 3 mois, après un an : ce qu'un enfant sait réellement faire à chaque étape, pour se fixer des attentes réalistes."
 excerpt: "« Après combien de temps il saura vraiment programmer ? » Une question légitime, mais qui suppose que « savoir coder » soit un seuil unique. Ce n'est pas le cas."
-date: "2026-05-04"
+date: "2026-05-07"
 ---
 
 « Après combien de temps mon enfant saura vraiment programmer ? » C'est une question qu'on nous pose presque aussi souvent que celle sur l'âge de départ, et elle part d'une intuition fausse : que « savoir coder » est un seuil qu'on franchit un jour, comme savoir nager. En réalité, c'est une progression continue, avec des paliers très concrets à chaque étape — voici à quoi ils ressemblent.

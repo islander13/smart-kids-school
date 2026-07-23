@@ -2,7 +2,7 @@
 title: "Holiday coding camp: the checklist to get your child ready"
 description: "Equipment, environment, expectations: the full checklist so your child's coding camp starts smoothly, ready to check off before day one."
 excerpt: "A smooth coding camp is prepared the night before, not the morning of. Here's everything to check to avoid last-minute stress."
-date: "2026-07-15"
+date: "2026-06-24"
 ---
 
 Your child is signed up for a coding camp during the holidays, and the date is coming up: here's the checklist we give families ourselves, so everything starts smoothly from the very first half-day.

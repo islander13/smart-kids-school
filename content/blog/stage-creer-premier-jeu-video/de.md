@@ -2,7 +2,7 @@
 title: "Was passiert wirklich beim Camp «Baue dein erstes Videospiel»?"
 description: "Der komplette Ablauf unseres beliebtesten Ferien-Camps: von der Spielidee bis zum fertigen, spielbaren Projekt, Tag für Tag."
 excerpt: "«Baue dein erstes Videospiel» — der Titel ist klar, aber wie sieht das über eine Woche konkret aus? Hier ist der Ablauf, Tag für Tag."
-date: "2026-07-01"
+date: "2026-06-18"
 ---
 
 Es ist unser meistgefragtes Camp-Thema, aus gutem Grund: Das Versprechen ist konkret, motivierend und wird innerhalb einer Woche eingelöst. Aber was macht ein Kind tatsächlich, vom Montagmorgen bis zum Freitagnachmittag? Hier ist der reale Ablauf.

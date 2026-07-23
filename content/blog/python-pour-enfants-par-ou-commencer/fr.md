@@ -2,7 +2,7 @@
 title: "Python pour enfants : par où commencer concrètement ?"
 description: "Variables, boucles, premiers projets : ce que contient réellement un début en Python pour un enfant, et dans quel ordre les notions s'enchaînent."
 excerpt: "« Python », le mot fait sérieux, presque intimidant. Concrètement, ça ressemble à quoi pour un enfant qui débute ? Voici le vrai déroulé, étape par étape."
-date: "2026-05-21"
+date: "2026-05-13"
 ---
 
 Le mot « Python » impressionne souvent plus qu'il ne devrait. Beaucoup de parents l'associent à de l'intelligence artificielle ou à des applications complexes, ce qui donne l'impression que c'est réservé à des enfants "avancés". En réalité, le début en Python suit une progression très concrète, à la portée de tout enfant déjà à l'aise avec les bases de la logique (souvent acquises via Scratch).

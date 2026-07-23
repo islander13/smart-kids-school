@@ -2,7 +2,7 @@
 title: "How long does it take for a child to really learn to code?"
 description: "After one session, after 3 months, after a year: what a child can actually do at each stage, so you can set realistic expectations."
 excerpt: "“How long until they really know how to program?” A fair question, but it assumes “knowing how to code” is a single threshold. It isn't."
-date: "2026-05-04"
+date: "2026-05-07"
 ---
 
 "How long until my child really knows how to program?" It's a question we hear almost as often as the one about starting age, and it comes from a flawed assumption: that "knowing how to code" is a threshold you cross one day, like learning to swim. In reality it's a continuous progression, with very concrete milestones at each stage — here's what they look like.

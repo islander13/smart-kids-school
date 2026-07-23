@@ -2,7 +2,7 @@
 title: "Python for kids: where does it actually start?"
 description: "Variables, loops, first projects: what a child's actual start in Python looks like, and the order the concepts naturally build on each other."
 excerpt: "“Python” sounds serious, almost intimidating. What does it actually look like for a beginner child? Here's the real step-by-step."
-date: "2026-05-21"
+date: "2026-05-13"
 ---
 
 The word "Python" often impresses more than it should. Many parents associate it with artificial intelligence or complex applications, which creates the impression it's reserved for "advanced" children. In reality, starting Python follows a very concrete progression, within reach of any child already comfortable with the basics of logic (usually gained through Scratch).

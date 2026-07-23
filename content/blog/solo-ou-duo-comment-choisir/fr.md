@@ -2,7 +2,7 @@
 title: "Solo ou Duo : comment choisir la bonne formule pour son enfant ?"
 description: "Cours individuel ou cours à deux avec un frère, une sœur ou un ami : les vrais critères pour choisir, au-delà du prix."
 excerpt: "Le Duo coûte moins cher, mais ce n'est pas la seule question à se poser. Voici ce qui fait vraiment la différence entre les deux formules."
-date: "2026-06-11"
+date: "2026-07-06"
 ---
 
 Quand on découvre nos formules, le réflexe est souvent de comparer les prix : le Duo coûte moins cher par enfant que le Solo. C'est vrai, mais réduire le choix à cette seule variable fait passer à côté de ce qui compte vraiment : quel format aide le plus votre enfant à apprendre.

@@ -2,7 +2,7 @@
 title: "Que fait-on concrètement pendant le stage « Crée ton premier jeu vidéo » ?"
 description: "Déroulé complet du stage vacances le plus populaire : de l'idée de jeu au projet final jouable, jour par jour."
 excerpt: "« Crée ton premier jeu vidéo », le titre est clair, mais qu'est-ce que ça veut dire concrètement sur une semaine ? Voici le déroulé, étape par étape."
-date: "2026-07-01"
+date: "2026-06-18"
 ---
 
 C'est le thème de stage le plus demandé, et pour cause : la promesse est concrète, motivante, et tenue en une semaine. Mais que fait un enfant, exactement, entre le premier lundi matin et le vendredi après-midi ? Voici le déroulé tel qu'il se passe réellement.
@@ -31,4 +31,4 @@ Le dernier jour est consacré aux derniers réglages et, surtout, à jouer : l'e
 
 Aucune expérience préalable n'est nécessaire — le stage utilise Scratch, accessible dès 7 ans sans notion de programmation antérieure. Les groupes sont formés par tranches d'âge proches pour que la dynamique reste adaptée à tous.
 
-Les [prochaines dates de stages](/stages) sont disponibles en ligne, avec une réduction de 10% pour un 2e enfant de la même famille, et une [annulation gratuite jusqu'à 14 jours avant le début](/cgv).
+Annulation gratuite jusqu'à 14 jours avant le début, et réduction de 10% pour un 2e enfant de la même famille : les [prochaines dates de stages](/stages) sont disponibles en ligne.

@@ -2,7 +2,7 @@
 title: "Scratch oder Python: Wo anfangen, und was ist der Unterschied?"
 description: "Scratch und Python sind nicht zwei Schwierigkeitsstufen derselben Sprache, sondern zwei verschiedene Werkzeuge. So wählt man aus, und warum das eine zum anderen führt."
 excerpt: "«Sollte man nicht gleich mit richtigem Code anfangen?» Eine Frage, die uns oft gestellt wird und meist auf einem Missverständnis darüber beruht, was Scratch eigentlich ist."
-date: "2026-06-24"
+date: "2026-05-19"
 ---
 
 «Ist Scratch wirklich Programmieren, oder nur ein verkleidetes Spiel?» Das ist eine der häufigsten Fragen von Eltern, oft gefolgt von: «Sollten wir nicht gleich mit richtigem Code wie Python anfangen?» Die Antwort lässt sich auf eine einfache Idee zurückführen: Scratch und Python sind nicht zwei Schwierigkeitsstufen derselben Sprache, sondern zwei verschiedene Werkzeuge mit jeweils eigener Rolle.

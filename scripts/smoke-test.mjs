@@ -28,6 +28,9 @@ const pages = [
   '/blog/stage-creer-premier-jeu-video', '/de/blog/stage-creer-premier-jeu-video',
   '/blog/programmation-confiance-en-soi', '/en/blog/programmation-confiance-en-soi',
   '/blog/premium-mentorat-signes-prets', '/de/blog/premium-mentorat-signes-prets',
+  '/blog/cours-programmation-lausanne', '/blog/cours-code-geneve',
+  '/blog/jonas-premier-jeu-video', '/blog/temps-ecran-consommer-vs-creer',
+  '/blog/activites-extrascolaires-rentree',
 ];
 
 const functions = [

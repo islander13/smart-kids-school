@@ -2,7 +2,7 @@
 title: "Programmieren und Selbstvertrauen: was Eltern bemerken"
 description: "Über die technischen Fähigkeiten hinaus: Was mehrere Monate Programmieren oft daran ändert, wie ein Kind mit Fehlern und Schwierigkeiten umgeht."
 excerpt: "Eltern melden sich bei uns wegen des Programmierens. Nach ein paar Monaten geht es in dem, was sie uns berichten, meist um etwas anderes."
-date: "2026-07-08"
+date: "2026-05-01"
 ---
 
 Eltern melden sich fast immer aus demselben Grund: Sie möchten, dass ihr Kind programmieren lernt. Das ist naheliegend, genau das unterrichten wir. Aber nach ein paar Monaten geht das, was viele Eltern uns spontan berichten, weit über die technische Fähigkeit hinaus — und das ist es wert, ehrlich besprochen zu werden, ohne grosse Versprechen.

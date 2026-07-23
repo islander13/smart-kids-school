@@ -2,7 +2,7 @@
 title: "Programmation et confiance en soi : ce que remarquent les parents"
 description: "Au-delà des compétences techniques, ce que plusieurs mois de programmation changent souvent dans la façon dont un enfant aborde l'erreur et la difficulté."
 excerpt: "Les parents nous contactent pour le code. Après quelques mois, ce qu'ils nous rapportent le plus souvent ne concerne pas vraiment le code."
-date: "2026-07-08"
+date: "2026-05-01"
 ---
 
 Les parents nous contactent presque toujours pour la même raison : ils veulent que leur enfant apprenne à programmer. C'est logique, c'est ce qu'on enseigne. Mais après quelques mois, ce que beaucoup de parents nous rapportent spontanément dépasse largement la compétence technique — et ça vaut la peine d'en parler honnêtement, sans grandes promesses.

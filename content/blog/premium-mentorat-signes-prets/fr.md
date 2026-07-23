@@ -2,7 +2,7 @@
 title: "5 signes que votre enfant est prêt pour un mentorat individuel"
 description: "Premium n'est pas une version plus intensive de Solo, c'est autre chose : un mentorat direct avec le fondateur. Voici comment savoir si c'est le bon moment."
 excerpt: "Premium ne convient pas à tous les enfants qui aiment coder — et ce n'est pas un problème. Voici les signes concrets qui indiquent que c'est le bon moment."
-date: "2026-07-21"
+date: "2026-06-30"
 ---
 
 On nous pose souvent la question dans l'autre sens : "mon enfant est doué, est-ce qu'il devrait passer en Premium ?". La vraie question n'est pas le niveau, mais autre chose : est-ce que votre enfant a déjà dépassé le cadre d'un cours classique.
@@ -35,4 +35,4 @@ Premium inclut des bilans trimestriels avec les parents, pas seulement avec l'en
 
 C'est normal de ne pas savoir avant d'essayer. Un diagnostic initial de 30 minutes avec l'enfant et les parents permet d'évaluer ensemble si Premium est le bon format — et si ce n'est pas le cas, nous vous orientons franchement vers [Solo](/tarifs), qui reste l'excellent choix pour la plupart des enfants. Premium inclut aussi un premier mois satisfait ou remboursé, sans discussion.
 
-Envie d'en discuter directement ? La [page Premium](/premium) permet de réserver un appel de 15 minutes avec le fondateur pour évaluer votre situation.
+Envie d'en discuter directement ? La [page Premium](/premium) permet de réserver un appel de 15 minutes avec le fondateur pour évaluer votre situation — et de comparer les deux formules sur la [page Tarifs](/tarifs).
