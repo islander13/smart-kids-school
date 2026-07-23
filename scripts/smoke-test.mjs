@@ -19,6 +19,7 @@ const pages = [
   '/en', '/en/tarifs', '/de', '/de/stages',
   '/tarifs/inscription', '/stages/inscription', '/premium/inscription',
   '/blog', '/blog/quel-age-programmation-enfant', '/en/blog', '/de/blog/quel-age-programmation-enfant',
+  '/blog/scratch-vs-python-difference', '/en/blog/scratch-vs-python-difference',
 ];
 
 const functions = [

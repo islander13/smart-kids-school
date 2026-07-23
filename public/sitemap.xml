@@ -307,4 +307,38 @@
     <priority>0.6</priority>
   </url>
 
+  <!-- /blog/scratch-vs-python-difference -->
+  <url>
+    <loc>https://smartkids-school.ch/blog/scratch-vs-python-difference</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/scratch-vs-python-difference" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/scratch-vs-python-difference" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/scratch-vs-python-difference" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/scratch-vs-python-difference" />
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/blog/scratch-vs-python-difference</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/scratch-vs-python-difference" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/scratch-vs-python-difference" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/scratch-vs-python-difference" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/scratch-vs-python-difference" />
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/blog/scratch-vs-python-difference</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/scratch-vs-python-difference" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/scratch-vs-python-difference" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/scratch-vs-python-difference" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/scratch-vs-python-difference" />
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
 </urlset>
