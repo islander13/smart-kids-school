@@ -22,6 +22,12 @@ const pages = [
   '/blog/scratch-vs-python-difference', '/en/blog/scratch-vs-python-difference',
   '/blog/cours-en-ligne-vs-presentiel', '/en/blog/cours-en-ligne-vs-presentiel',
   '/blog/checklist-stage-code-vacances', '/de/blog/checklist-stage-code-vacances',
+  '/blog/combien-de-temps-pour-savoir-coder', '/en/blog/combien-de-temps-pour-savoir-coder',
+  '/blog/python-pour-enfants-par-ou-commencer', '/de/blog/python-pour-enfants-par-ou-commencer',
+  '/blog/solo-ou-duo-comment-choisir', '/en/blog/solo-ou-duo-comment-choisir',
+  '/blog/stage-creer-premier-jeu-video', '/de/blog/stage-creer-premier-jeu-video',
+  '/blog/programmation-confiance-en-soi', '/en/blog/programmation-confiance-en-soi',
+  '/blog/premium-mentorat-signes-prets', '/de/blog/premium-mentorat-signes-prets',
 ];
 
 const functions = [

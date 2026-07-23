@@ -307,6 +307,40 @@
     <priority>0.6</priority>
   </url>
 
+  <!-- /blog/combien-de-temps-pour-savoir-coder -->
+  <url>
+    <loc>https://smartkids-school.ch/blog/combien-de-temps-pour-savoir-coder</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/combien-de-temps-pour-savoir-coder" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/combien-de-temps-pour-savoir-coder" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/combien-de-temps-pour-savoir-coder" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/combien-de-temps-pour-savoir-coder" />
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/blog/combien-de-temps-pour-savoir-coder</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/combien-de-temps-pour-savoir-coder" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/combien-de-temps-pour-savoir-coder" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/combien-de-temps-pour-savoir-coder" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/combien-de-temps-pour-savoir-coder" />
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/blog/combien-de-temps-pour-savoir-coder</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/combien-de-temps-pour-savoir-coder" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/combien-de-temps-pour-savoir-coder" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/combien-de-temps-pour-savoir-coder" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/combien-de-temps-pour-savoir-coder" />
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
   <!-- /blog/cours-en-ligne-vs-presentiel -->
   <url>
     <loc>https://smartkids-school.ch/blog/cours-en-ligne-vs-presentiel</loc>
@@ -337,6 +371,108 @@
     <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/cours-en-ligne-vs-presentiel" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/cours-en-ligne-vs-presentiel" />
     <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- /blog/premium-mentorat-signes-prets -->
+  <url>
+    <loc>https://smartkids-school.ch/blog/premium-mentorat-signes-prets</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/premium-mentorat-signes-prets" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/premium-mentorat-signes-prets" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/premium-mentorat-signes-prets" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/premium-mentorat-signes-prets" />
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/blog/premium-mentorat-signes-prets</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/premium-mentorat-signes-prets" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/premium-mentorat-signes-prets" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/premium-mentorat-signes-prets" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/premium-mentorat-signes-prets" />
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/blog/premium-mentorat-signes-prets</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/premium-mentorat-signes-prets" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/premium-mentorat-signes-prets" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/premium-mentorat-signes-prets" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/premium-mentorat-signes-prets" />
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- /blog/programmation-confiance-en-soi -->
+  <url>
+    <loc>https://smartkids-school.ch/blog/programmation-confiance-en-soi</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/programmation-confiance-en-soi" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/programmation-confiance-en-soi" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/programmation-confiance-en-soi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/programmation-confiance-en-soi" />
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/blog/programmation-confiance-en-soi</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/programmation-confiance-en-soi" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/programmation-confiance-en-soi" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/programmation-confiance-en-soi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/programmation-confiance-en-soi" />
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/blog/programmation-confiance-en-soi</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/programmation-confiance-en-soi" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/programmation-confiance-en-soi" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/programmation-confiance-en-soi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/programmation-confiance-en-soi" />
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- /blog/python-pour-enfants-par-ou-commencer -->
+  <url>
+    <loc>https://smartkids-school.ch/blog/python-pour-enfants-par-ou-commencer</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/python-pour-enfants-par-ou-commencer" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/python-pour-enfants-par-ou-commencer" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/python-pour-enfants-par-ou-commencer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/python-pour-enfants-par-ou-commencer" />
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/blog/python-pour-enfants-par-ou-commencer</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/python-pour-enfants-par-ou-commencer" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/python-pour-enfants-par-ou-commencer" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/python-pour-enfants-par-ou-commencer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/python-pour-enfants-par-ou-commencer" />
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/blog/python-pour-enfants-par-ou-commencer</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/python-pour-enfants-par-ou-commencer" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/python-pour-enfants-par-ou-commencer" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/python-pour-enfants-par-ou-commencer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/python-pour-enfants-par-ou-commencer" />
+    <lastmod>2026-05-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -405,6 +541,74 @@
     <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/scratch-vs-python-difference" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/scratch-vs-python-difference" />
     <lastmod>2026-06-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- /blog/solo-ou-duo-comment-choisir -->
+  <url>
+    <loc>https://smartkids-school.ch/blog/solo-ou-duo-comment-choisir</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/solo-ou-duo-comment-choisir" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/solo-ou-duo-comment-choisir" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/solo-ou-duo-comment-choisir" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/solo-ou-duo-comment-choisir" />
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/blog/solo-ou-duo-comment-choisir</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/solo-ou-duo-comment-choisir" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/solo-ou-duo-comment-choisir" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/solo-ou-duo-comment-choisir" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/solo-ou-duo-comment-choisir" />
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/blog/solo-ou-duo-comment-choisir</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/solo-ou-duo-comment-choisir" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/solo-ou-duo-comment-choisir" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/solo-ou-duo-comment-choisir" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/solo-ou-duo-comment-choisir" />
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- /blog/stage-creer-premier-jeu-video -->
+  <url>
+    <loc>https://smartkids-school.ch/blog/stage-creer-premier-jeu-video</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/stage-creer-premier-jeu-video" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/stage-creer-premier-jeu-video" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/stage-creer-premier-jeu-video" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/stage-creer-premier-jeu-video" />
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/en/blog/stage-creer-premier-jeu-video</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/stage-creer-premier-jeu-video" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/stage-creer-premier-jeu-video" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/stage-creer-premier-jeu-video" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/stage-creer-premier-jeu-video" />
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://smartkids-school.ch/de/blog/stage-creer-premier-jeu-video</loc>
+    <xhtml:link rel="alternate" hreflang="fr-CH" href="https://smartkids-school.ch/blog/stage-creer-premier-jeu-video" />
+    <xhtml:link rel="alternate" hreflang="en-CH" href="https://smartkids-school.ch/en/blog/stage-creer-premier-jeu-video" />
+    <xhtml:link rel="alternate" hreflang="de-CH" href="https://smartkids-school.ch/de/blog/stage-creer-premier-jeu-video" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://smartkids-school.ch/blog/stage-creer-premier-jeu-video" />
+    <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
