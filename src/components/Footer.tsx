@@ -109,7 +109,7 @@ export default function Footer({ currentLang, darkMode }: FooterProps) {
         {/* ── Colonnes : marque · liens · contact ── */}
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-2">
-            <img src="Logo_official_dark.png" alt="Smart Kids School" loading="lazy" width="168" height="56" className="h-14 w-auto mb-6" />
+            <img src="/Logo_official_dark.png" alt="Smart Kids School" loading="lazy" width="168" height="56" className="h-14 w-auto mb-6" />
             <p className="text-gray-400 leading-relaxed mb-6 text-sm">
               {tr(
                 "Smart Kids School (SKS) est une école en ligne qui initie les jeunes esprits à la programmation, la robotique et l'intelligence artificielle. Conçue par des ingénieurs EPFL & ETHZ.",

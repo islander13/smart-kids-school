@@ -29,9 +29,9 @@ export default function NotFound() {
       <nav className={`px-6 py-4 flex items-center justify-between border-b ${darkMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-100'}`}>
         <div className="flex items-center gap-3">
           <a href={lp('/')}>
-            <img src="Logo_official_dark.png" alt="Smart Kids School" width="144" height="48" className="h-12 w-auto" />
+            <img src="/Logo_official_dark.png" alt="Smart Kids School" width="144" height="48" className="h-12 w-auto" />
           </a>
-          <img src="flag-ch.png" alt="Drapeau de la Suisse" width="24" height="24" className="h-6 w-auto flex-shrink-0 shadow-sm rounded-sm" />
+          <img src="/flag-ch.png" alt="Drapeau de la Suisse" width="24" height="24" className="h-6 w-auto flex-shrink-0 shadow-sm rounded-sm" />
         </div>
         <div className="hidden md:flex items-center gap-6">
           <a href={lp('/')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>Accueil</a>

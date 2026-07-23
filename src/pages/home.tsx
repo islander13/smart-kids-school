@@ -596,8 +596,8 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex-shrink-0 flex items-center gap-3">
-              <a href={lp('/')}><img src="Logo_official_dark.png" alt="Smart Kids School" width="192" height="64" className="h-16 w-auto" /></a>
-              <img src="flag-ch.png" alt="Drapeau de la Suisse" width="24" height="24" className="h-6 w-auto flex-shrink-0 shadow-sm rounded-sm" />
+              <a href={lp('/')}><img src="/Logo_official_dark.png" alt="Smart Kids School" width="192" height="64" className="h-16 w-auto" /></a>
+              <img src="/flag-ch.png" alt="Drapeau de la Suisse" width="24" height="24" className="h-6 w-auto flex-shrink-0 shadow-sm rounded-sm" />
             </div>
             <div className="hidden md:flex items-center space-x-8 ml-8">
               {[
@@ -741,8 +741,8 @@ export default function HomePage() {
               {currentLang === 'FR' ? 'Conçu par des ingénieurs diplômés' : currentLang === 'EN' ? 'Designed by graduate engineers from' : 'Konzipiert von Ingenieuren von'}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-4">
-              <img src="epfl.png" alt="EPFL, École Polytechnique Fédérale de Lausanne" loading="lazy" className={`h-16 md:h-20 w-auto transition-all ${darkMode ? 'invert' : ''}`} />
-              <img src="ethz.png" alt="ETH Zürich, Eidgenössische Technische Hochschule Zürich" loading="lazy" className={`h-16 md:h-20 w-auto transition-all ${darkMode ? 'invert' : ''}`} />
+              <img src="/epfl.png" alt="EPFL, École Polytechnique Fédérale de Lausanne" loading="lazy" className={`h-16 md:h-20 w-auto transition-all ${darkMode ? 'invert' : ''}`} />
+              <img src="/ethz.png" alt="ETH Zürich, Eidgenössische Technische Hochschule Zürich" loading="lazy" className={`h-16 md:h-20 w-auto transition-all ${darkMode ? 'invert' : ''}`} />
             </div>
             <p className={`text-xs text-center max-w-xl ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
               {currentLang === 'FR'
