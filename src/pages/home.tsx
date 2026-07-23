@@ -856,7 +856,7 @@ export default function HomePage() {
                 {currentLang === 'FR' ? "Des premiers jeux Scratch jusqu'à Python, aux mini-jeux, au robot virtuel et à l'intelligence artificielle : un parcours complet, étape par étape." : currentLang === 'EN' ? 'From first Scratch games to Python, mini-games, virtual robots and artificial intelligence: a complete journey, step by step.' : 'Von ersten Scratch-Spielen bis zu Python, Mini-Spielen, virtuellen Robotern und KI: ein kompletter Weg, Schritt für Schritt.'}
               </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid sm:grid-cols-2 gap-5">
               {[
                 { emoji: '🎮', title: currentLang === 'FR' ? 'Jeu d\'arcade interactif' : currentLang === 'EN' ? 'Interactive arcade game' : 'Interaktives Arcade-Spiel',
                   desc: currentLang === 'FR' ? 'Personnages, ennemis, scores et écran de victoire, un vrai jeu jouable.' : currentLang === 'EN' ? 'Characters, enemies, scores and win screen, a real playable game.' : 'Charaktere, Feinde, Punktestände, ein echtes Spiel.',
@@ -867,6 +867,9 @@ export default function HomePage() {
                 { emoji: '🌐', title: currentLang === 'FR' ? 'Site web personnel' : currentLang === 'EN' ? 'Personal website' : 'Persönliche Website',
                   desc: currentLang === 'FR' ? "Sa première page web, avec ses textes, ses images et ses liens, publiée en ligne." : currentLang === 'EN' ? 'Their first web page, with text, images and links, published online.' : 'Die erste Webseite, mit Texten, Bildern und Links, online veröffentlicht.',
                   tags: currentLang === 'FR' ? ['HTML & CSS', 'Structure d\'une page', 'Mise en ligne'] : currentLang === 'EN' ? ['HTML & CSS', 'Page structure', 'Going live'] : ['HTML & CSS', 'Seitenstruktur', 'Veröffentlichung'] },
+                { emoji: '🤖', title: currentLang === 'FR' ? 'Robot virtuel autonome' : currentLang === 'EN' ? 'Autonomous virtual robot' : 'Autonomer virtueller Roboter',
+                  desc: currentLang === 'FR' ? "Un robot qui suit une ligne, évite les obstacles et réagit à son environnement." : currentLang === 'EN' ? 'A robot that follows a line, avoids obstacles and reacts to its environment.' : 'Ein Roboter, der einer Linie folgt, Hindernissen ausweicht und auf seine Umgebung reagiert.',
+                  tags: currentLang === 'FR' ? ['Robotique', 'Algorithmes', 'Capteurs & réactions'] : currentLang === 'EN' ? ['Robotics', 'Algorithms', 'Sensors & reactions'] : ['Robotik', 'Algorithmen', 'Sensoren & Reaktionen'] },
               ].map((proj, i) => (
                 <div key={i} className={`p-6 rounded-2xl border transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-gradient-to-br from-gray-50 to-white border-gray-200'}`}>
                   <div className="text-4xl mb-3">{proj.emoji}</div>

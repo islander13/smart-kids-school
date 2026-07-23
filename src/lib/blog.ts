@@ -1,4 +1,3 @@
-import matter from 'gray-matter';
 import { marked } from 'marked';
 import type { Locale } from '../i18n/routing';
 
@@ -41,12 +40,27 @@ function readTimeFor(content: string): number {
   return Math.max(1, Math.round(words / 200));
 }
 
+// Frontmatter minimal (clé: "valeur entre guillemets"), volontairement pas de
+// dépendance YAML complète (gray-matter) : ces libs s'appuient sur Buffer, une
+// API Node absente du navigateur, ce qui faisait planter la page au chargement.
+function parseFrontmatter(raw: string): { frontmatter: ArticleFrontmatter; content: string } {
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!match) throw new Error("Frontmatter manquant en tête de l'article");
+  const [, block, content] = match;
+  const data: Record<string, string> = {};
+  for (const line of block.split(/\r?\n/)) {
+    const field = line.match(/^(\w+):\s*"(.*)"\s*$/);
+    if (field) data[field[1]] = field[2];
+  }
+  return { frontmatter: data as unknown as ArticleFrontmatter, content: content.trim() };
+}
+
 const entries: ParsedEntry[] = Object.entries(rawFiles).map(([path, raw]) => {
   const match = path.match(/content\/blog\/([^/]+)\/(fr|en|de)\.md$/);
   if (!match) throw new Error(`Chemin d'article Markdown inattendu : ${path}`);
   const [, slug, filename] = match;
-  const { data, content } = matter(raw);
-  return { slug, locale: LOCALE_BY_FILENAME[filename], frontmatter: data as ArticleFrontmatter, content };
+  const { frontmatter, content } = parseFrontmatter(raw);
+  return { slug, locale: LOCALE_BY_FILENAME[filename], frontmatter, content };
 });
 
 export function getAllArticles(locale: Locale): ArticleSummary[] {

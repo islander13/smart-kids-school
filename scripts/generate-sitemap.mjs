@@ -4,7 +4,6 @@
 import { readFileSync, readdirSync, writeFileSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import matter from 'gray-matter';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
@@ -64,23 +63,13 @@ const blogPages = blogSlugs.map(slug => {
   const frPath = join(blogDir, slug, 'fr.md');
   let lastmod = today;
   try {
-    const { data } = matter(readFileSync(frPath, 'utf-8'));
-    lastmod = data.date || today;
+    const dateMatch = readFileSync(frPath, 'utf-8').match(/^date:\s*"(.*)"\s*$/m);
+    lastmod = dateMatch?.[1] || today;
   } catch {
     lastmod = statSync(join(blogDir, slug)).mtime.toISOString().slice(0, 10);
   }
   return { path: `/blog/${slug}`, changefreq: 'monthly', priority: '0.6', lastmod };
 });
-
-// ── src/lib/blogSlugs.generated.ts : liste des slugs pour le routeur ──
-// Généré ici plutôt que via import.meta.glob côté client, pour ne jamais
-// entraîner gray-matter/marked ni le contenu Markdown dans le bundle principal
-// (voir router/config.tsx, qui a besoin de la liste des slugs au démarrage,
-// hors lazy-loading des pages /blog).
-const slugsFile = `// Fichier généré automatiquement par scripts/generate-sitemap.mjs — ne pas éditer à la main.
-export const ALL_SLUGS: string[] = ${JSON.stringify(blogSlugs)};
-`;
-writeFileSync(join(root, 'src', 'lib', 'blogSlugs.generated.ts'), slugsFile, 'utf-8');
 
 const allPages = [...STATIC_PAGES, ...blogPages];
 
