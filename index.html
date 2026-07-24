@@ -136,6 +136,15 @@
       <input type="tel" name="phone" />
     </form>
 
+    <!-- Soumis uniquement par le webhook Stripe (netlify/functions/stripe-webhook.js),
+         pour les commandes boutique (ebooks...) — pas encore active, voir src/pages/shop/. -->
+    <form name="shop-order-confirmed" data-netlify="true" hidden>
+      <input type="text" name="sessionId" />
+      <input type="email" name="email" />
+      <input type="text" name="amount" />
+      <input type="text" name="productKey" />
+    </form>
+
     <!-- Soumis uniquement par la fonction planifiée (netlify/functions/scheduled-digest.js),
          une fois par jour : récapitulatif des formulaires remplis sans paiement confirmé. -->
     <form name="abandoned-digest" data-netlify="true" hidden>

@@ -16,6 +16,7 @@
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const { getDatabase } = require('@netlify/database');
+const { createDownloadToken } = require('./lib/downloadToken');
 
 function sourceFromProductKey(productKey) {
   if (!productKey) return 'tarifs';
@@ -62,6 +63,61 @@ exports.handler = async (event) => {
       parentName: session.metadata?.parentName,
       metadata: session.metadata,
     }, null, 2));
+
+    const isShopOrder = session.metadata?.type === 'shop';
+
+    if (isShopOrder) {
+      // ─── Commande boutique (ebook...) : table shop_orders + jeton de
+      // téléchargement, séparé du flux enrollments ci-dessous. ───
+      const email = session.customer_email || session.customer_details?.email || null;
+      const amount = session.amount_total ? session.amount_total / 100 : null;
+      const productKey = session.metadata?.productKey || null;
+      const { token, expiresAt } = createDownloadToken(session.id, productKey || '');
+
+      try {
+        const { sql } = getDatabase({ connectionString: process.env.NETLIFY_DB_URL });
+        await sql`
+          INSERT INTO shop_orders (
+            status, product_key, email, stripe_session_id, amount_chf,
+            download_token, download_token_expires_at, updated_at
+          ) VALUES (
+            'payment_confirmed', ${productKey}, ${email}, ${session.id}, ${amount},
+            ${token}, ${expiresAt.toISOString()}, NOW()
+          )
+          ON CONFLICT (stripe_session_id) DO UPDATE SET
+            status = 'payment_confirmed',
+            amount_chf = ${amount},
+            download_token = ${token},
+            download_token_expires_at = ${expiresAt.toISOString()},
+            updated_at = NOW()
+        `;
+      } catch (dbError) {
+        console.error('Mise à jour shop_orders échouée (non bloquante):', dbError.message);
+      }
+
+      try {
+        const siteUrl = process.env.SITE_URL || 'https://smartkids-school.ch';
+        const params = new URLSearchParams();
+        params.append('form-name', 'shop-order-confirmed');
+        params.append('sessionId', session.id);
+        params.append('email', email || '');
+        params.append('amount', amount ? `${amount} ${(session.currency || 'chf').toUpperCase()}` : '');
+        params.append('productKey', productKey || '');
+
+        const res = await fetch(siteUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params.toString(),
+        });
+        if (!res.ok) {
+          console.error('Notification Netlify Forms échouée (statut ' + res.status + '), mais le paiement est bien confirmé ci-dessus.');
+        }
+      } catch (notifyErr) {
+        console.error('Erreur notification (non bloquante):', notifyErr.message);
+      }
+
+      return { statusCode: 200, body: JSON.stringify({ received: true }) };
+    }
 
     // Marque la ligne comme payée (créée lors de create-checkout-session.js).
     // UPSERT : si la ligne n'existait pas (ex: écriture initiale échouée),

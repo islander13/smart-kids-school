@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Netlify Functions pour Smart Kids School",
   "dependencies": {
+    "@netlify/blobs": "^8.2.0",
     "@netlify/database": "^1.1.0",
     "stripe": "^17.7.0"
   }
