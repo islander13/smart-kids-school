@@ -42,7 +42,7 @@ const T = {
     engFlex: 'Sans engagement',
     engFlexSub: 'Mois par mois',
     eng3: '3 mois',
-    eng3Sub: 'Engagement court',
+    eng3Sub: 'Premier module',
     eng6: '6 mois',
     eng6Sub: 'Le plus populaire',
     eng12: '12 mois',
@@ -180,7 +180,7 @@ const T = {
     formatSolo: 'Solo · 1 child', formatDuo: 'Duo · 2 children',
 
     engFlex: 'No commitment', engFlexSub: 'Month-to-month',
-    eng3: '3 months', eng3Sub: 'Short commitment',
+    eng3: '3 months', eng3Sub: 'First module',
     eng6: '6 months', eng6Sub: 'Most popular',
     eng12: '12 months', eng12Sub: 'Full path',
 
@@ -262,7 +262,7 @@ const T = {
     formatSolo: 'Solo · 1 Kind', formatDuo: 'Duo · 2 Kinder',
 
     engFlex: 'Ohne Bindung', engFlexSub: 'Monatlich',
-    eng3: '3 Monate', eng3Sub: 'Kurze Bindung',
+    eng3: '3 Monate', eng3Sub: 'Erstes Modul',
     eng6: '6 Monate', eng6Sub: 'Am beliebtesten',
     eng12: '12 Monate', eng12Sub: 'Vollständiger Weg',
 
@@ -897,7 +897,7 @@ export default function Tarifs() {
                         </span>
                       ) : (
                         <span className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>
-                          {currentLang === 'FR' ? 'Idéal pour démarrer' : currentLang === 'EN' ? 'Perfect to get started' : 'Ideal für den Start'}
+                          {currentLang === 'FR' ? 'Début du parcours' : currentLang === 'EN' ? 'Start of the journey' : 'Beginn des Lernwegs'}
                         </span>
                       )}
                     </div>
@@ -1355,7 +1355,6 @@ export default function Tarifs() {
                                 <input
                                   type="number"
                                   min="7"
-                                  max="15"
                                   value={planFormData.children[idx].age}
                                   onChange={e => {
                                     const newChildren = [...planFormData.children];

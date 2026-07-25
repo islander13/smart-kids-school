@@ -506,9 +506,9 @@ export default function Stages() {
       DE: 'Online Programmier-Camps für Kinder, Schweizer Schulferien | Smart Kids School',
     };
     const descs: Record<Lang, string> = {
-      FR: 'Stages de programmation, robotique et IA en ligne pour enfants de 7 à 15 ans pendant les vacances scolaires. École suisse, ingénieurs EPFL & ETHZ. 100% en ligne, dès 449 CHF la semaine.',
-      EN: 'Online programming, robotics and AI camps for children 7-15 during Swiss school holidays. Led by EPFL & ETHZ engineers. From CHF 449/week.',
-      DE: 'Online Programmier-, Robotik- und KI-Camps für Kinder 7-15 während der Schweizer Schulferien. Von EPFL & ETHZ Ingenieuren. Ab 449 CHF/Woche.',
+      FR: 'Stages de programmation, robotique et IA en ligne pour enfants dès 7 ans pendant les vacances scolaires. École suisse, ingénieurs EPFL & ETHZ. 100% en ligne, dès 449 CHF la semaine.',
+      EN: 'Online programming, robotics and AI camps for children from age 7 during Swiss school holidays. Led by EPFL & ETHZ engineers. From CHF 449/week.',
+      DE: 'Online Programmier-, Robotik- und KI-Camps für Kinder ab 7 Jahren während der Schweizer Schulferien. Von EPFL & ETHZ Ingenieuren. Ab 449 CHF/Woche.',
     };
     document.title = titles[currentLang];
     const setMeta = (name: string, content: string, attr = 'name') => {
@@ -1245,8 +1245,7 @@ export default function Stages() {
                             </label>
                             <input
                               type="number"
-                              min="6"
-                              max="15"
+                              min="7"
                               value={stageFormData.children[idx].age}
                               onChange={e => {
                                 const newChildren = [...stageFormData.children];

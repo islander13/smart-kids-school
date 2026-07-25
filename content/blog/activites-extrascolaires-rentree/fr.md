@@ -23,6 +23,6 @@ C'est souvent le vrai obstacle à une nouvelle activité : plus de trajets, plus
 
 ## Concrètement, pour cette année scolaire
 
-Nous accueillons les enfants de 7 à 15 ans, en séances individuelles (Solo, dès 249 CHF/mois) ou à deux (Duo, 338 CHF/mois), avec un certificat de fin de parcours. Pour tester avant de s'engager sur l'année, un stage pendant les vacances (449 CHF, 4 demi-journées, groupes de 5 enfants maximum) est aussi une option.
+Nous accueillons les enfants dès 7 ans, en séances individuelles (Solo, dès 249 CHF/mois) ou à deux (Duo, 338 CHF/mois), avec un certificat de fin de parcours. Pour tester avant de s'engager sur l'année, un stage pendant les vacances (449 CHF, 4 demi-journées, groupes de 5 enfants maximum) est aussi une option.
 
 Vous planifiez le programme de l'année ? La [page Tarifs](/tarifs) détaille les formules disponibles pour la rentrée 2026-2027.

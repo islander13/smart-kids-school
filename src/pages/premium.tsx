@@ -823,7 +823,7 @@ export default function Premium() {
                   </div>
                   <div>
                     <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formChildAge} *</label>
-                    <input type="number" name="childAge" value={formData.childAge} onChange={e => setFormData({...formData, childAge: e.target.value})} required min="6" max="17" className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
+                    <input type="number" name="childAge" value={formData.childAge} onChange={e => setFormData({...formData, childAge: e.target.value})} required min="7" max="17" className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
                   </div>
                 </div>
 

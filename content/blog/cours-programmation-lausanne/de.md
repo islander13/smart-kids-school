@@ -25,6 +25,6 @@ Viele Eltern in Lausanne zögern instinktiv zwischen Präsenz- und Online-Unterr
 
 ## Unsere Eckdaten bei Smart Kids School
 
-Wir nehmen Kinder von 7 bis 15 Jahren auf, in Einzelsitzungen (Solo, ab 249 CHF/Monat) oder zu zweit (Duo, 338 CHF/Monat), 100% online, mit flexiblen Zeiten zwischen 9 und 19 Uhr. Unser Programm wurde von EPFL- und ETHZ-Ingenieuren entwickelt — zwei Hochschulen, die historisch einen grossen Teil des Tech-Ökosystems in der Westschweiz geprägt haben, wobei die EPFL genau in Lausanne ansässig ist. Jedes Kind schliesst seinen Weg mit einem Abschlusszertifikat ab.
+Wir nehmen Kinder ab 7 Jahren auf, in Einzelsitzungen (Solo, ab 249 CHF/Monat) oder zu zweit (Duo, 338 CHF/Monat), 100% online, mit flexiblen Zeiten zwischen 9 und 19 Uhr. Unser Programm wurde von EPFL- und ETHZ-Ingenieuren entwickelt — zwei Hochschulen, die historisch einen grossen Teil des Tech-Ökosystems in der Westschweiz geprägt haben, wobei die EPFL genau in Lausanne ansässig ist. Jedes Kind schliesst seinen Weg mit einem Abschlusszertifikat ab.
 
 Möchten Sie sehen, wie das für Ihr Kind aussehen könnte? Die [Preise-Seite](/de/tarifs) zeigt unsere Formeln im Detail, mit einer 1.-Sitzung-Garantie und voller Rückerstattung, falls nicht überzeugend.

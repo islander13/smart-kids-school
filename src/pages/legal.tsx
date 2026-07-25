@@ -219,7 +219,7 @@ export default function LegalNotice() {
               { label: 'Email', value: 'contact@smartkids-school.ch' },
               { label: tx('Téléphone / WhatsApp', 'Phone / WhatsApp', 'Telefon / WhatsApp'), value: '(+41) 077 476 84 92' },
               { label: 'Site web', value: 'www.smartkids-school.ch' },
-              { label: tx('Activité principale', 'Main activity', 'Haupttätigkeit'), value: tx('Cours de programmation éducative en ligne pour enfants (6–15 ans)', 'Online educational programming courses for children (6–15 years)', 'Online-Bildungsprogrammierkurse für Kinder (6–15 Jahre)') },
+              { label: tx('Activité principale', 'Main activity', 'Haupttätigkeit'), value: tx('Cours de programmation éducative en ligne pour enfants (dès 7 ans)', 'Online educational programming courses for children (from age 7)', 'Online-Bildungsprogrammierkurse für Kinder (ab 7 Jahren)') },
             ].map((item, i) => (
               <div key={i}>
                 <p className={`text-xs font-semibold uppercase tracking-wide mb-1 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{item.label}</p>

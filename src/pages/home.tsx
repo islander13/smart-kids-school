@@ -366,9 +366,9 @@ export default function HomePage() {
       DE: 'Smart Kids School, Programmieren, Robotik und KI für Kinder in der Schweiz',
     };
     const descriptions: Record<string, string> = {
-      FR: 'École en ligne de programmation pour enfants de 7 à 15 ans. Cours conçus par des ingénieurs EPFL & ETHZ. 100% en ligne, partout en Suisse romande : Lausanne, Genève, Fribourg, Neuchâtel, Sion, Vevey, Yverdon, Nyon, Morges. Scratch, Python, IA, robotique, STEM. Solo · Duo dès 169 CHF/mois par enfant.',
-      EN: 'Online coding school for kids aged 7-15. Classes designed by EPFL & ETHZ engineers. 100% online, across Switzerland: Lausanne, Geneva, Fribourg, Neuchâtel. Scratch, Python, AI, robotics, STEM. Solo · Duo from CHF 169/month per child.',
-      DE: 'Online-Programmierschule für Kinder von 7-15 Jahren. Kurse von EPFL- & ETHZ-Ingenieuren. 100% online, schweizweit. Scratch, Python, KI, Robotik, MINT. Solo · Duo ab 169 CHF/Monat pro Kind.',
+      FR: 'École en ligne de programmation pour enfants dès 7 ans. Cours conçus par des ingénieurs EPFL & ETHZ. 100% en ligne, partout en Suisse romande : Lausanne, Genève, Fribourg, Neuchâtel, Sion, Vevey, Yverdon, Nyon, Morges. Scratch, Python, IA, robotique, STEM. Solo · Duo dès 169 CHF/mois par enfant.',
+      EN: 'Online coding school for kids from age 7. Classes designed by EPFL & ETHZ engineers. 100% online, across Switzerland: Lausanne, Geneva, Fribourg, Neuchâtel. Scratch, Python, AI, robotics, STEM. Solo · Duo from CHF 169/month per child.',
+      DE: 'Online-Programmierschule für Kinder ab 7 Jahren. Kurse von EPFL- & ETHZ-Ingenieuren. 100% online, schweizweit. Scratch, Python, KI, Robotik, MINT. Solo · Duo ab 169 CHF/Monat pro Kind.',
     };
     document.title = titles[currentLang];
     const setMeta = (name: string, content: string, attr = 'name') => {
@@ -454,10 +454,10 @@ export default function HomePage() {
       '@type': 'Course',
       name: currentLang === 'FR' ? 'Programmation, IA et Robotique pour enfants' : currentLang === 'EN' ? 'Coding, AI and Robotics for kids' : 'Programmieren, KI und Robotik für Kinder',
       description: currentLang === 'FR'
-        ? 'Cours en ligne de programmation Scratch, Python, IA et robotique pour enfants de 7 à 15 ans en Suisse. 4 séances de 1h par mois. Bootcamp conçu par des ingénieurs EPFL & ETHZ.'
+        ? 'Cours en ligne de programmation Scratch, Python, IA et robotique pour enfants dès 7 ans en Suisse. 4 séances de 1h par mois. Bootcamp conçu par des ingénieurs EPFL & ETHZ.'
         : currentLang === 'EN'
-        ? 'Online classes in Scratch, Python, AI and robotics for kids aged 7 to 15 in Switzerland. 4 sessions of 1h per month. Bootcamp designed by EPFL & ETHZ engineers.'
-        : 'Online-Programmierkurse Scratch, Python, KI und Robotik für Kinder von 7 bis 15 Jahren in der Schweiz. 4 Sitzungen à 1h pro Monat.',
+        ? 'Online classes in Scratch, Python, AI and robotics for kids from age 7 in Switzerland. 4 sessions of 1h per month. Bootcamp designed by EPFL & ETHZ engineers.'
+        : 'Online-Programmierkurse Scratch, Python, KI und Robotik für Kinder ab 7 Jahren in der Schweiz. 4 Sitzungen à 1h pro Monat.',
       provider: {
         '@type': 'EducationalOrganization',
         name: 'Smart Kids School',
@@ -466,7 +466,7 @@ export default function HomePage() {
       audience: {
         '@type': 'EducationalAudience',
         educationalRole: 'student',
-        audienceType: 'children aged 7 to 15',
+        audienceType: 'children from age 7',
       },
       educationalLevel: 'beginner to advanced',
       teaches: ['Scratch', 'Python', 'Artificial Intelligence', 'Robotics', 'Logical thinking', 'STEM'],

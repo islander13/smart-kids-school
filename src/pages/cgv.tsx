@@ -244,9 +244,9 @@ export default function CGV() {
           <div className={`space-y-4 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
             <p>
               {tx(
-                "Smart Kids School propose des cours de programmation éducative en ligne pour enfants de 7 à 15 ans, utilisant Scratch (MIT), Python, ainsi que des modules d'IA et de robotique. Les cours sont dispensés en visioconférence par des formateurs qualifiés (ingénieurs EPFL & ETHZ).",
-                "Smart Kids School offers online educational programming courses for children aged 7–15, using Scratch (MIT), Python, and modules in AI and robotics. Courses are delivered via video conference by qualified instructors (EPFL & ETHZ engineers).",
-                "Smart Kids School bietet Online-Programmierkurse für Kinder von 7–15 Jahren an, mit Scratch (MIT), Python und Modulen zu KI und Robotik. Kurse werden per Videokonferenz von qualifizierten Lehrern (EPFL- & ETHZ-Ingenieuren) gehalten."
+                "Smart Kids School propose des cours de programmation éducative en ligne pour enfants dès 7 ans, utilisant Scratch (MIT), Python, ainsi que des modules d'IA et de robotique. Les cours sont dispensés en visioconférence par des formateurs qualifiés (ingénieurs EPFL & ETHZ).",
+                "Smart Kids School offers online educational programming courses for children from age 7, using Scratch (MIT), Python, and modules in AI and robotics. Courses are delivered via video conference by qualified instructors (EPFL & ETHZ engineers).",
+                "Smart Kids School bietet Online-Programmierkurse für Kinder ab 7 Jahren an, mit Scratch (MIT), Python und Modulen zu KI und Robotik. Kurse werden per Videokonferenz von qualifizierten Lehrern (EPFL- & ETHZ-Ingenieuren) gehalten."
               )}
             </p>
 
@@ -668,9 +668,9 @@ export default function CGV() {
           <div className={`space-y-3 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
             <p>
               {tx(
-                "Les cours sont destinés aux enfants de 7 à 15 ans. La commande doit être effectuée par un adulte détenteur de l'autorité parentale. SKS s'engage à maintenir un environnement d'apprentissage sûr et adapté à l'âge des enfants.",
-                "Courses are for children aged 6–15. Orders must be placed by an adult with parental authority. SKS is committed to maintaining a safe, age-appropriate learning environment.",
-                "Kurse richten sich an Kinder von 6–15 Jahren. Bestellungen müssen von einem Erziehungsberechtigten aufgegeben werden. SKS gewährleistet eine sichere Lernumgebung."
+                "Les cours sont destinés aux enfants dès 7 ans. La commande doit être effectuée par un adulte détenteur de l'autorité parentale. SKS s'engage à maintenir un environnement d'apprentissage sûr et adapté à l'âge des enfants.",
+                "Courses are for children from age 7. Orders must be placed by an adult with parental authority. SKS is committed to maintaining a safe, age-appropriate learning environment.",
+                "Kurse richten sich an Kinder ab 7 Jahren. Bestellungen müssen von einem Erziehungsberechtigten aufgegeben werden. SKS gewährleistet eine sichere Lernumgebung."
               )}
             </p>
           </div>
