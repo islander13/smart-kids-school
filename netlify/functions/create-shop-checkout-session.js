@@ -26,6 +26,18 @@ exports.handler = async (event) => {
     return { statusCode: 405, headers: corsHeaders, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
 
+  // Coupe-circuit : cette fonction est déployée dès que le code est sur main
+  // (Netlify déploie toutes les functions, indépendamment des pages/routes
+  // qui les appellent), donc joignable en production même si la boutique
+  // n'est pas encore branchée au site. Sans quoi, quelqu'un qui devine cette
+  // URL pourrait créer un vrai paiement Stripe pour un produit qui ne peut
+  // pas encore être livré (fichier pas encore déposé). À activer en mettant
+  // SHOP_ENABLED=true dans les variables d'environnement Netlify, une fois
+  // les ebooks prêts et la boutique branchée au routeur.
+  if (process.env.SHOP_ENABLED !== 'true') {
+    return { statusCode: 503, headers: corsHeaders, body: JSON.stringify({ error: 'Shop not yet available' }) };
+  }
+
   try {
     const data = JSON.parse(event.body);
     const { productKey, customerEmail } = data;
