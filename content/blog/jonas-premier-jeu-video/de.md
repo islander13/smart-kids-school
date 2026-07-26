@@ -26,4 +26,4 @@ Ein einziges Level reichte nicht mehr — Jonas wollte «ein schwierigeres Spiel
 
 Nichts an diesem Weg ist aussergewöhnlich oder einem besonders begabten Kind vorbehalten: Es ist der Standardfortschritt für ein Kind ab 7 Jahren, das einem strukturierten Programm folgt, in seinem eigenen Tempo, mit einer Lehrperson, die jede Sitzung anpasst, statt einem starren Lehrplan zu folgen. Genau das deckt unser STEM-Ansatz ab, entwickelt von EPFL- und ETHZ-Ingenieuren.
 
-Neugierig, wie das für Ihr Kind aussehen würde? Die [Preise-Seite](/de/tarifs) zeigt unsere Solo- und Duo-Formeln im Detail, mit einer 1.-Sitzung-Garantie und voller Rückerstattung, falls nicht überzeugend.
+Neugierig, wie das für Ihr Kind aussehen würde, ohne mehrere Wochen zu warten? Ein [einwöchiges Camp](/de/stages) lässt ein Kind einen ähnlichen Fortschritt in kompakter Form erleben, 4 Halbtage bis zu einem fertigen Projekt.

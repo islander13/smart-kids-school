@@ -23,4 +23,4 @@ Anders als ein Video-Feed oder ein Spiel, das auf maximale Verweildauer ausgeleg
 
 Das hebt den Bedarf an Ausgleich nicht auf: Sport, draussen spielen, lesen, Zeit ganz ohne Bildschirm bleiben wichtig, nichts ersetzt das. Es geht nicht darum, dass «Programmieren gut ist, also je mehr, desto besser» — sondern schlicht darum, dass nicht alle Bildschirmstunden gleich sind, und dass die Unterscheidung zwischen Konsumieren und Erschaffen das eigentliche Kriterium verdient, statt der Stundenzahl auf einem Zähler.
 
-Wenn Sie eine aktive Beschäftigung statt noch mehr Bildschirmzeit suchen, sind unsere [Ferien-Camps](/de/stages) eine gute Möglichkeit, diesen Unterschied über eine Woche zu testen.
+Wenn Sie eine aktive Beschäftigung statt noch mehr Bildschirmzeit suchen, sind unsere [Solo- und Duo-Formeln](/de/tarifs) genau dafür gedacht, mit einer 1.-Sitzung-Garantie und voller Rückerstattung, falls nicht überzeugend.

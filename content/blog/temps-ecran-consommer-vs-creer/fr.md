@@ -23,4 +23,4 @@ Contrairement à un flux vidéo ou un jeu conçu pour maximiser le temps passé,
 
 Ceci n'efface pas le besoin d'équilibre : le sport, le jeu dehors, la lecture, le temps sans écran du tout restent essentiels, et rien ne remplace ça. L'idée n'est pas que "du code, c'est bien, donc plus c'est mieux" — c'est simplement que toutes les heures d'écran ne se valent pas, et que la distinction entre consommer et créer mérite d'être le vrai critère, plutôt que le nombre d'heures affiché sur un compteur.
 
-Si vous cherchez une activité active et non un temps d'écran de plus, les [stages pendant les vacances](/stages) sont une bonne manière de tester cette différence sur une semaine.
+Si vous cherchez une activité active et non un temps d'écran de plus, nos [formules Solo et Duo](/tarifs) sont pensées exactement pour ça, avec une garantie 1ère séance remboursée si ce n'est pas convaincant.

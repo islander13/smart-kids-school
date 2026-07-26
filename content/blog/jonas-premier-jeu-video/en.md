@@ -26,4 +26,4 @@ A single level wasn't enough anymore — Jonas wanted "a harder game". A second 
 
 Nothing in this journey is exceptional or reserved for a particularly gifted child: it's the standard progression for a child from age 7 following a structured programme, at their own pace, with a teacher who adapts each session rather than following a rigid lesson plan. This is exactly what our STEM approach covers, designed by EPFL and ETHZ graduate engineers.
 
-Curious what this would look like for your child? The [Pricing page](/en/tarifs) details our Solo and Duo plans, with a 1st-session guarantee, fully refunded if it's not convincing.
+Curious what this would look like for your child, without waiting several weeks? A [one-week camp](/en/stages) lets a child live a similar progression in a condensed format, 4 half-days to walk away with a finished project.

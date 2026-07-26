@@ -23,4 +23,4 @@ Unlike a video feed or a game designed to maximise time spent, a program does no
 
 This doesn't remove the need for balance: sport, playing outside, reading, time with no screen at all remain essential, and nothing replaces that. The point isn't that "coding is good, so more is better" — it's simply that not all screen hours are equal, and the distinction between consuming and creating deserves to be the real criterion, rather than the number of hours shown on a counter.
 
-If you're looking for an active activity rather than more screen time, our [holiday camps](/en/stages) are a good way to test that difference over one week.
+If you're looking for an active activity rather than more screen time, our [Solo and Duo plans](/en/tarifs) are designed exactly for that, with a 1st-session guarantee, fully refunded if it's not convincing.

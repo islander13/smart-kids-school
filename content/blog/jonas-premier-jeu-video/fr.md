@@ -26,4 +26,4 @@ Un seul niveau ne suffisait plus — Jonas voulait "un jeu plus dur". Un deuxiè
 
 Rien dans ce parcours n'est exceptionnel ou réservé à un enfant particulièrement doué : c'est la progression standard pour un enfant dès 7 ans qui suit un programme structuré, à son rythme, avec un enseignant qui adapte chaque séance plutôt que de suivre un plan de cours rigide. C'est exactement ce que couvre notre approche STEM, conçue par des ingénieurs diplômés EPFL et ETHZ.
 
-Envie de voir ce que ça donnerait pour votre enfant ? La [page Tarifs](/tarifs) détaille les formules Solo et Duo, avec une garantie 1ère séance remboursée si ce n'est pas concluant.
+Envie de voir ce que ça donnerait pour votre enfant, sans attendre plusieurs semaines ? Un [stage d'une semaine](/stages) permet de vivre une progression similaire de façon condensée, 4 demi-journées pour repartir avec un projet fini.
