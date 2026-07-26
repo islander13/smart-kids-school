@@ -23,6 +23,6 @@ Das ist oft das eigentliche Hindernis für eine neue Aktivität: mehr Fahrten, m
 
 ## Konkret für dieses Schuljahr
 
-Wir nehmen Kinder ab 7 Jahren auf, in Einzelsitzungen (Solo, ab 249 CHF/Monat) oder zu zweit (Duo, 338 CHF/Monat), mit einem Abschlusszertifikat. Um vor einer Jahresbindung auszuprobieren, ist auch ein Ferien-Camp (449 CHF, 4 Halbtage, Gruppen von maximal 5 Kindern) eine Option.
+Wir nehmen Kinder ab 7 Jahren auf, in Einzelsitzungen (Solo, ab 249 CHF/Monat) oder zu zweit (Duo, ab 169 CHF/Monat pro Kind), mit einem Abschlusszertifikat. Um vor einer Jahresbindung auszuprobieren, ist auch ein Ferien-Camp (449 CHF, 4 Halbtage, Gruppen von maximal 5 Kindern) eine Option.
 
 Planen Sie das Jahresprogramm? Die [Preise-Seite](/de/tarifs) zeigt die verfügbaren Formeln für das Schuljahr 2026-2027 im Detail.

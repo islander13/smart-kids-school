@@ -25,6 +25,14 @@ export default [
         { allowConstantExport: true },
       ],
       '@typescript-eslint/no-explicit-any': 'off',
+      // Pattern volontaire dans tout le site : `try { ... } catch {}` pour les
+      // accès localStorage non critiques (le site doit fonctionner même si
+      // localStorage est indisponible, ex: navigation privée).
+      'no-empty': ['error', { allowEmptyCatch: true }],
+      // Pattern volontaire : `{false && (<section>...)}` pour désactiver une
+      // section sans supprimer son code (ex: partenariat non confirmé,
+      // teaser Premium en attente) — voir les commentaires à chaque usage.
+      'no-constant-binary-expression': 'off',
     },
   },
 ]

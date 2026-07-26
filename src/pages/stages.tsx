@@ -470,6 +470,9 @@ export default function Stages() {
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
+    // closeStageModal est redéfinie à chaque rendu mais fait toujours la même
+    // chose ; l'omettre évite de ré-attacher inutilement l'écouteur à chaque frappe.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showStageModal]);
 
   // Re-sync depuis localStorage quand l'onglet redevient visible
@@ -535,24 +538,6 @@ export default function Stages() {
     { icon: 'ri-gamepad-line', color: 'from-rose-500 to-pink-500', title: t.theme1T, desc: t.theme1D, tag: t.theme1Tag },
     { icon: 'ri-pencil-ruler-2-line', color: 'from-sky-500 to-blue-500', title: t.theme2T, desc: t.theme2D, tag: t.theme2Tag },
     { icon: 'ri-code-s-slash-line', color: 'from-emerald-500 to-teal-500', title: t.theme3T, desc: t.theme3D, tag: t.theme3Tag },
-  ];
-
-  const daySchedule = [
-    { time: t.day1T, desc: t.day1D }, { time: t.day2T, desc: t.day2D },
-    { time: t.day3T, desc: t.day3D }, { time: t.day4T, desc: t.day4D },
-    { time: t.day5T, desc: t.day5D }, { time: t.day6T, desc: t.day6D },
-    { time: t.day7T, desc: t.day7D }, { time: t.day8T, desc: t.day8D },
-  ];
-
-  // L'été a son grand bandeau en vedette au-dessus. On le rappelle aussi
-  // en tête de cette grille (avec un léger accent), suivi des autres périodes.
-  const calendar = [
-    { period: t.period6Title, dates: t.period6Dates, sub: t.period6Sub, themes: t.period6Themes, emoji: '☀️', highlight: true },
-    { period: t.period1Title, dates: t.period1Dates, sub: t.period1Sub, themes: t.period1Themes, emoji: '🍂' },
-    { period: t.period2Title, dates: t.period2Dates, sub: t.period2Sub, themes: t.period2Themes, emoji: '🎄' },
-    { period: t.period3Title, dates: t.period3Dates, sub: t.period3Sub, themes: t.period3Themes, emoji: '⛷️' },
-    { period: t.period4Title, dates: t.period4Dates, sub: t.period4Sub, themes: t.period4Themes, emoji: '🌷' },
-    { period: t.period5Title, dates: t.period5Dates, sub: t.period5Sub, themes: t.period5Themes, emoji: '🌿' },
   ];
 
   // ── Semaines de stage d'été (AJUSTER LES DATES ICI si besoin) ──
@@ -642,6 +627,10 @@ export default function Stages() {
         ...events,
       ],
     });
+    // summerWeeks est une liste de dates fixes recalculée à chaque rendu (même
+    // référence logique) ; l'inclure ferait tourner cet effet à chaque rendu
+    // pour rien, alors qu'il ne doit réagir qu'aux changements de langue.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLang]);
 
   return (

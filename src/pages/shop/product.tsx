@@ -105,6 +105,9 @@ export default function ShopProduct() {
     const onEsc = (e: KeyboardEvent) => { if (e.key === 'Escape' && showModal) closeModal(); };
     window.addEventListener('keydown', onEsc);
     return () => window.removeEventListener('keydown', onEsc);
+    // closeModal est redéfinie à chaque rendu mais fait toujours la même chose ;
+    // l'omettre évite de ré-attacher inutilement l'écouteur à chaque frappe.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showModal]);
 
   useEffect(() => {

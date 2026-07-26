@@ -551,6 +551,9 @@ export default function Tarifs() {
     };
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
+    // closePlanModal est redéfinie à chaque rendu mais fait toujours la même
+    // chose ; l'omettre évite de ré-attacher inutilement l'écouteur à chaque frappe.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showPlanModal]);
 
   // Re-sync depuis localStorage quand l'onglet redevient visible
@@ -652,7 +655,6 @@ export default function Tarifs() {
   const ref = REFERENCE[selectedFormat];
 
   // Phrases claires pour les sessions selon la langue
-  const sessionsMonthly = currentLang === 'FR' ? '4 séances de 1h par mois' : currentLang === 'EN' ? '4 sessions of 1h per month' : '4 Sitzungen à 1h pro Monat';
   const sessions12 = currentLang === 'FR' ? '12 séances de 1h au total' : currentLang === 'EN' ? '12 sessions of 1h total' : '12 Sitzungen à 1h gesamt';
   const sessions24 = currentLang === 'FR' ? '24 séances de 1h au total' : currentLang === 'EN' ? '24 sessions of 1h total' : '24 Sitzungen à 1h gesamt';
   const sessions48 = currentLang === 'FR' ? '48 séances de 1h au total' : currentLang === 'EN' ? '48 sessions of 1h total' : '48 Sitzungen à 1h gesamt';

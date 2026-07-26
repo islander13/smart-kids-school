@@ -72,6 +72,25 @@ export default function ShopMerci() {
     document.title = currentLang === 'FR' ? 'Merci !, Smart Kids School' : currentLang === 'EN' ? 'Thank you!, Smart Kids School' : 'Danke!, Smart Kids School';
   }, [currentLang]);
 
+  // Re-sync depuis localStorage quand l'onglet redevient visible (fix mobile)
+  useEffect(() => {
+    const sync = () => {
+      if (document.visibilityState === 'visible') {
+        try {
+          const savedTheme = localStorage.getItem('sks_theme');
+          if (savedTheme === 'dark') setDarkMode(true);
+          else if (savedTheme === 'light') setDarkMode(false);
+        } catch {}
+      }
+    };
+    document.addEventListener('visibilitychange', sync);
+    window.addEventListener('pageshow', sync);
+    return () => {
+      document.removeEventListener('visibilitychange', sync);
+      window.removeEventListener('pageshow', sync);
+    };
+  }, []);
+
   useEffect(() => {
     const sessionId = new URLSearchParams(window.location.search).get('session_id');
     if (!sessionId) {

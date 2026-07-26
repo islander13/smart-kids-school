@@ -25,6 +25,6 @@ Beaucoup de parents lausannois hésitent par réflexe entre présentiel et en li
 
 ## Nos repères chez Smart Kids School
 
-Nous accueillons les enfants dès 7 ans, avec des séances individuelles (Solo, dès 249 CHF/mois) ou à deux (Duo, 338 CHF/mois), 100% en ligne, à des créneaux flexibles entre 9h et 19h. Notre programme est conçu par des ingénieurs diplômés EPFL et ETHZ — deux écoles qui, historiquement, ont façonné une bonne partie de l'écosystème tech en Suisse romande, EPFL étant précisément basée à Lausanne. Chaque enfant termine son parcours avec un certificat de fin de parcours.
+Nous accueillons les enfants dès 7 ans, avec des séances individuelles (Solo, dès 249 CHF/mois) ou à deux (Duo, dès 169 CHF/mois par enfant), 100% en ligne, à des créneaux flexibles entre 9h et 19h. Notre programme est conçu par des ingénieurs diplômés EPFL et ETHZ — deux écoles qui, historiquement, ont façonné une bonne partie de l'écosystème tech en Suisse romande, EPFL étant précisément basée à Lausanne. Chaque enfant termine son parcours avec un certificat de fin de parcours.
 
 Vous voulez voir ce que ça donne concrètement pour votre enfant ? La [page Tarifs](/tarifs) détaille les formules, avec une garantie 1ère séance remboursée si ce n'est pas convaincant.

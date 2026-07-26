@@ -23,6 +23,6 @@ That's often the real obstacle to a new activity: more travel, more fixed slots 
 
 ## Concretely, for this school year
 
-We welcome children from age 7, in one-on-one sessions (Solo, from CHF 249/month) or in pairs (Duo, CHF 338/month), with an end-of-programme certificate. To try before committing for the year, a holiday camp (CHF 449, 4 half-days, groups of max 5 children) is also an option.
+We welcome children from age 7, in one-on-one sessions (Solo, from CHF 249/month) or in pairs (Duo, from CHF 169/month per child), with an end-of-programme certificate. To try before committing for the year, a holiday camp (CHF 449, 4 half-days, groups of max 5 children) is also an option.
 
 Planning the year's schedule? The [Pricing page](/en/tarifs) details the plans available for the 2026-2027 school year.
