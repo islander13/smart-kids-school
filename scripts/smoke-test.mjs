@@ -33,6 +33,7 @@ const pages = [
   '/blog/jonas-premier-jeu-video', '/en/blog/jonas-premier-jeu-video', '/de/blog/jonas-premier-jeu-video',
   '/blog/temps-ecran-consommer-vs-creer', '/en/blog/temps-ecran-consommer-vs-creer', '/de/blog/temps-ecran-consommer-vs-creer',
   '/blog/activites-extrascolaires-rentree', '/en/blog/activites-extrascolaires-rentree', '/de/blog/activites-extrascolaires-rentree',
+  '/blog/robotique-enfant-sans-materiel', '/en/blog/robotique-enfant-sans-materiel', '/de/blog/robotique-enfant-sans-materiel',
 ];
 
 const functions = [
