@@ -35,7 +35,7 @@ function Section({ darkMode, iconEl, title, children }: { darkMode: boolean; ico
   return (
     <section className={`rounded-2xl border p-8 mb-6 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
       <h2 className={`text-xl font-bold mb-5 flex items-center gap-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-        <span className="text-[#232999]">{iconEl}</span> {title}
+        <span className={darkMode ? 'text-indigo-400' : 'text-[#232999]'}>{iconEl}</span> {title}
       </h2>
       {children}
     </section>
@@ -191,7 +191,7 @@ export default function LegalNotice() {
       </nav>
 
       <main className="max-w-4xl mx-auto px-4 pt-32 pb-16">
-        <a href={lp('/')} className="text-[#232999] hover:underline text-sm font-medium mb-6 inline-block">
+        <a href={lp('/')} className={darkMode ? 'text-indigo-400 hover:underline text-sm font-medium mb-6 inline-block' : 'text-[#232999] hover:underline text-sm font-medium mb-6 inline-block'}>
           {tx('← Retour au site', '← Back to site', '← Zurück zur Website')}
         </a>
 
@@ -199,7 +199,7 @@ export default function LegalNotice() {
           <h1 className={`text-4xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             {tx('Mentions Légales', 'Legal Notice', 'Impressum')}
           </h1>
-          <p className={`text-sm ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+          <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             {tx('Dernière mise à jour : mars 2026', 'Last updated: March 2026', 'Zuletzt aktualisiert: März 2026')}
           </p>
         </div>
@@ -207,7 +207,7 @@ export default function LegalNotice() {
         {/* 1. Identité */}
         <section className={`rounded-2xl border p-8 mb-6 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
           <h2 className={`text-xl font-bold mb-6 flex items-center gap-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-            <span className="text-[#232999]">{icons.building}</span>
+            <span className={darkMode ? 'text-indigo-400' : 'text-[#232999]'}>{icons.building}</span>
             {tx("Informations sur l'entreprise", 'Company Information', 'Unternehmensinformationen')}
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
@@ -244,10 +244,10 @@ export default function LegalNotice() {
         <Section darkMode={darkMode} iconEl={icons.server} title={tx('Hébergement', 'Hosting', 'Hosting')}>
           <div className={`space-y-4 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
             <p>{tx('Ce site est hébergé par :', 'This site is hosted by:', 'Diese Website wird gehostet von:')}</p>
-            <div className={`p-4 rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`p-4 rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
               <p className="font-semibold">Netlify, Inc.</p>
               <p>512 2nd Street, Suite 200, San Francisco, CA 94107, USA</p>
-              <a href="https://www.netlify.com/privacy" className="text-[#232999] hover:underline text-sm">netlify.com/privacy</a>
+              <a href="https://www.netlify.com/privacy" className={darkMode ? 'text-indigo-300 hover:underline text-sm' : 'text-[#232999] hover:underline text-sm'}>netlify.com/privacy</a>
             </div>
             <p className="text-sm">
               {tx(
@@ -274,10 +274,10 @@ export default function LegalNotice() {
                 { name: 'Stripe, Inc.', detail: tx('354 Oyster Point Blvd, San Francisco, CA 94080, USA. Stripe est certifié PCI-DSS niveau 1, le plus haut standard de sécurité des paiements. Données transmises via TLS 1.2+.', '354 Oyster Point Blvd, San Francisco, CA 94080, USA. Stripe is PCI-DSS Level 1 certified, the highest payment security standard. Data transmitted via TLS 1.2+.', '354 Oyster Point Blvd, San Francisco, CA 94080, USA. Stripe ist PCI-DSS Level 1 zertifiziert. Daten werden über TLS 1.2+ übertragen.'), link: 'stripe.com/privacy' },
                 { name: 'TWINT (via Stripe)', detail: tx("TWINT est un service de paiement mobile suisse. Les paiements TWINT via notre site transitent par Stripe, garantissant le même niveau de sécurité PCI-DSS.", "TWINT is a Swiss mobile payment service. TWINT payments via our site go through Stripe, guaranteeing the same PCI-DSS security level.", "TWINT ist ein Schweizer mobiler Zahlungsdienst. TWINT-Zahlungen laufen über Stripe mit gleichem PCI-DSS-Niveau."), link: 'twint.ch/en/privacy' },
               ].map((p, i) => (
-                <div key={i} className={`p-4 rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+                <div key={i} className={`p-4 rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
                   <p className="font-semibold text-sm mb-1">{p.name}</p>
                   <p className="text-xs">{p.detail}</p>
-                  <a href={`https://${p.link}`} className="text-[#232999] hover:underline text-xs mt-1 inline-block">{p.link}</a>
+                  <a href={`https://${p.link}`} className={darkMode ? 'text-indigo-300 hover:underline text-xs mt-1 inline-block' : 'text-[#232999] hover:underline text-xs mt-1 inline-block'}>{p.link}</a>
                 </div>
               ))}
             </div>
@@ -299,7 +299,7 @@ export default function LegalNotice() {
             <div>
               <h3 className={`font-bold mb-3 text-base ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}>{tx('Données collectées et finalités', 'Data collected and purposes', 'Erhobene Daten und Zwecke')}</h3>
               <div className="overflow-x-auto rounded-xl border border-gray-200">
-                <table className={`w-full text-sm ${darkMode ? 'bg-gray-700' : 'bg-white'}`}>
+                <table className={`w-full text-sm ${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-white'}`}>
                   <thead>
                     <tr className={darkMode ? 'bg-gray-600 text-gray-200' : 'bg-gray-100 text-gray-700'}>
                       <th className="px-4 py-3 text-left font-semibold">{tx('Donnée', 'Data', 'Daten')}</th>
@@ -337,14 +337,14 @@ export default function LegalNotice() {
                   { iconEl: icons.forbid, fr: 'Opposition, refuser certains traitements', en: 'Objection, refuse certain processing', de: 'Widerspruch, Verarbeitung ablehnen' },
                   { iconEl: icons.pause,  fr: "Limitation, restreindre l'utilisation", en: 'Restriction, limit processing',   de: 'Einschränkung, Verarbeitung begrenzen' },
                 ].map((right, i) => (
-                  <div key={i} className={`flex items-center gap-2 p-2.5 rounded-lg ${darkMode ? 'bg-gray-700' : 'bg-indigo-50'}`}>
-                    <span className="text-[#232999] flex-shrink-0">{right.iconEl}</span>
+                  <div key={i} className={`flex items-center gap-2 p-2.5 rounded-lg ${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-indigo-50'}`}>
+                    <span className={darkMode ? 'text-indigo-400 flex-shrink-0' : 'text-[#232999] flex-shrink-0'}>{right.iconEl}</span>
                     <span className="text-sm">{tx(right.fr, right.en, right.de)}</span>
                   </div>
                 ))}
               </div>
-              <p className={`mt-3 text-sm p-3 rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-amber-50 border-amber-200 text-amber-800'}`}>
-                <span className="inline-flex items-center gap-1"><span className="text-[#232999]">{icons.mail}</span>
+              <p className={`mt-3 text-sm p-3 rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-amber-50 border-amber-200 text-amber-800'}`}>
+                <span className="inline-flex items-center gap-1"><span className={darkMode ? 'text-indigo-400' : 'text-[#232999]'}>{icons.mail}</span>
                 {tx(
                   " Pour exercer ces droits, adressez un email à contact@smartkids-school.ch. Réponse garantie dans un délai de 30 jours conformément à la nLPD.",
                   " To exercise these rights, send an email to contact@smartkids-school.ch. Response guaranteed within 30 days in accordance with nFADP.",
@@ -379,7 +379,7 @@ export default function LegalNotice() {
                 { emoji: '📊', type: tx('Statistiques', 'Statistics', 'Statistiken'), desc: tx("Analysent l'utilisation du site pour améliorer le contenu. Données anonymisées.", "Analyze site usage to improve content. Anonymized data.", "Analysieren die Website-Nutzung. Anonymisierte Daten.") },
                 { emoji: '📢', type: tx('Marketing', 'Marketing', 'Marketing'), desc: tx("Permettent la personnalisation publicitaire sur des plateformes tierces. Consentement requis.", "Allow advertising personalization on third-party platforms. Consent required.", "Ermöglichen Werbe-Personalisierung auf Drittanbieter-Plattformen. Einwilligung erforderlich.") },
               ].map((c, i) => (
-                <div key={i} className={`p-3 rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+                <div key={i} className={`p-3 rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
                   <p className="font-semibold text-sm">{c.emoji} {c.type}</p>
                   <p className="text-xs mt-1">{c.desc}</p>
                 </div>
@@ -400,12 +400,12 @@ export default function LegalNotice() {
                 { name: 'WhatsApp (Meta)', purpose: tx('Lien de contact téléphonique', 'Phone contact link', 'Telefonischer Kontaktlink'), link: 'whatsapp.com/legal/privacy-policy' },
                 { name: 'Google Fonts / Remix Icons', purpose: tx('Polices et icônes (CDN)', 'Fonts and icons (CDN)', 'Schriften und Icons (CDN)'), link: 'policies.google.com/privacy' },
               ].map((s, i) => (
-                <div key={i} className={`flex items-start justify-between gap-3 p-3 rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+                <div key={i} className={`flex items-start justify-between gap-3 p-3 rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
                   <div>
                     <p className="font-semibold text-sm">{s.name}</p>
                     <p className="text-xs mt-0.5">{s.purpose}</p>
                   </div>
-                  <a href={`https://${s.link}`} target="_blank" rel="noopener noreferrer" className="text-[#232999] text-xs hover:underline ml-2 whitespace-nowrap flex-shrink-0">{tx('Politique', 'Policy', 'Richtlinie')}</a>
+                  <a href={`https://${s.link}`} target="_blank" rel="noopener noreferrer" className={darkMode ? 'text-indigo-300 text-xs hover:underline ml-2 whitespace-nowrap flex-shrink-0' : 'text-[#232999] text-xs hover:underline ml-2 whitespace-nowrap flex-shrink-0'}>{tx('Politique', 'Policy', 'Richtlinie')}</a>
                 </div>
               ))}
             </div>
@@ -448,7 +448,7 @@ export default function LegalNotice() {
               "Diese Website unterliegt dem Schweizer Recht. Für Streitigkeiten sind die Gerichte des Bezirks Lausanne (Waadt, Schweiz) ausschließlich zuständig."
             )}</p>
             <div className={`flex items-start gap-3 p-4 rounded-xl border ${darkMode ? 'bg-indigo-900/30 border-indigo-700' : 'bg-indigo-50 border-indigo-200'}`}>
-              <span className="text-[#232999] flex-shrink-0 mt-0.5">{icons.headphones}</span>
+              <span className={darkMode ? 'text-indigo-400 flex-shrink-0 mt-0.5' : 'text-[#232999] flex-shrink-0 mt-0.5'}>{icons.headphones}</span>
               <p className="text-sm">{tx(
                 "Pour toute réclamation, contactez-nous d'abord à contact@smartkids-school.ch afin de trouver une solution amiable avant toute procédure judiciaire.",
                 "For any complaint, please first contact us at contact@smartkids-school.ch to find an amicable solution before any legal proceedings.",
@@ -466,7 +466,7 @@ export default function LegalNotice() {
         href="https://wa.me/41774768492"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
+        className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#1f7a44] hover:bg-[#18613a] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
         title={lang === 'FR' ? 'Nous contacter sur WhatsApp' : lang === 'EN' ? 'Contact us on WhatsApp' : 'Kontaktieren Sie uns auf WhatsApp'}
         aria-label={lang === 'FR' ? 'Contacter sur WhatsApp' : 'Contact WhatsApp'}
         style={{ animation: 'whatsapp-pulse 2.5s ease-in-out infinite' }}

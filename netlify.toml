@@ -18,12 +18,20 @@
   schedule = "@daily"
 
 # Headers de sécurité
+# HSTS sans includeSubDomains/preload pour l'instant : le site n'a que le
+# domaine principal (pas de sous-domaines à forcer en HTTPS), et preload est
+# irréversible pendant des mois via les listes des navigateurs — à activer
+# plus tard une fois le HTTPS confirmé stable sur toutes les routes.
+# Permissions-Policy laisse "payment" ouvert car le checkout Stripe embarqué
+# (tarifs.tsx, stages.tsx, shop/product.tsx) en a besoin.
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), usb=(), magnetometer=(), gyroscope=()"
 
 # Assets Vite (JS/CSS hashés dans le nom de fichier) : cache long et immuable,
 # un changement de contenu produit toujours un nouveau nom de fichier.

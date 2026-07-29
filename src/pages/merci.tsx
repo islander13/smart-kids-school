@@ -71,6 +71,7 @@ export default function Merci() {
     } catch {}
 
     document.title = currentLang === 'FR' ? 'Merci !, Smart Kids School' : currentLang === 'EN' ? 'Thank you!, Smart Kids School' : 'Danke!, Smart Kids School';
+    document.documentElement.lang = { FR: 'fr', EN: 'en', DE: 'de' }[currentLang];
   }, [currentLang]);
 
   // Re-sync depuis localStorage quand l'onglet redevient visible (fix mobile)
@@ -139,7 +140,7 @@ export default function Merci() {
           <a href={lp('/')} className="bg-[#232999] hover:bg-[#1a1f7a] text-white px-8 py-4 rounded-full font-bold text-center hover:shadow-xl transform hover:scale-105 transition-all">
             ← {t.ctaHome}
           </a>
-          <a href="https://wa.me/41774768492" target="_blank" rel="noopener noreferrer" className="bg-[#25D366] hover:bg-[#1ebe5d] text-white px-8 py-4 rounded-full font-bold text-center transition-all">
+          <a href="https://wa.me/41774768492" target="_blank" rel="noopener noreferrer" className="bg-[#1f7a44] hover:bg-[#18613a] text-white px-8 py-4 rounded-full font-bold text-center transition-all">
             💬 {t.ctaSupport}
           </a>
         </div>

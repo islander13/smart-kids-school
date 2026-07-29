@@ -39,7 +39,7 @@ function Section({ darkMode, iconEl, num, title, children }: {
     <section className={`rounded-2xl border p-8 mb-6 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
       <h2 className={`text-xl font-bold mb-5 flex items-center gap-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
         <span className="flex-shrink-0 w-8 h-8 bg-[#232999] text-white rounded-full flex items-center justify-center text-sm font-bold">{num}</span>
-        <span className="text-[#232999]">{iconEl}</span>
+        <span className={darkMode ? 'text-indigo-400' : 'text-[#232999]'}>{iconEl}</span>
         {title}
       </h2>
       {children}
@@ -196,7 +196,7 @@ export default function CGV() {
       </nav>
 
       <main className="max-w-4xl mx-auto px-4 pt-32 pb-16">
-        <a href={lp('/')} className="text-[#232999] hover:underline text-sm font-medium mb-6 inline-block">
+        <a href={lp('/')} className={darkMode ? 'text-indigo-400 hover:underline text-sm font-medium mb-6 inline-block' : 'text-[#232999] hover:underline text-sm font-medium mb-6 inline-block'}>
           {tx('← Retour au site', '← Back to site', '← Zurück zur Website')}
         </a>
 
@@ -204,7 +204,7 @@ export default function CGV() {
           <h1 className={`text-4xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             {tx('Conditions Générales de Vente', 'Terms & Conditions of Sale', 'Allgemeine Geschäftsbedingungen (AGB)')}
           </h1>
-          <p className={`text-sm ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+          <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             {tx('En vigueur à compter du 1er janvier 2025, Dernière mise à jour : mars 2026', 'Effective from January 1, 2025, Last updated: March 2026', 'Gültig ab 1. Januar 2025, Zuletzt aktualisiert: März 2026')}
           </p>
         </div>
@@ -232,7 +232,7 @@ export default function CGV() {
               { label: 'Site web', value: 'www.smartkids-school.ch' },
             ].map((item, i) => (
               <div key={i}>
-                <p className={`text-xs font-semibold uppercase tracking-wide mb-0.5 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>{item.label}</p>
+                <p className={`text-xs font-semibold uppercase tracking-wide mb-0.5 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{item.label}</p>
                 <p>{item.value}</p>
               </div>
             ))}
@@ -256,13 +256,13 @@ export default function CGV() {
 
             <ul className="space-y-2 ml-2">
               <li className="flex gap-2">
-                <span className="text-[#232999] font-bold flex-shrink-0">•</span>
+                <span className={darkMode ? 'text-indigo-400 font-bold flex-shrink-0' : 'text-[#232999] font-bold flex-shrink-0'}>•</span>
                 <span>
                   <strong>{tx("Solo", "Solo", "Solo")}</strong> {tx("(1 enfant)", "(1 child)", "(1 Kind)")}, {tx("Cours individuel personnalisé. 4 séances de 1h par mois. Engagement minimum de 3 mois, avec un tarif mensuel dégressif sur 6 ou 12 mois.", "One-on-one personalised classes. 4 sessions of 1h per month. Minimum 3-month commitment, with a lower monthly rate on 6 or 12-month plans.", "Personalisierter Einzelunterricht. 4 Sitzungen à 1h pro Monat. Mindestbindung von 3 Monaten, mit vergünstigtem Monatstarif bei 6 oder 12 Monaten.")}
                 </span>
               </li>
               <li className="flex gap-2">
-                <span className="text-[#232999] font-bold flex-shrink-0">•</span>
+                <span className={darkMode ? 'text-indigo-400 font-bold flex-shrink-0' : 'text-[#232999] font-bold flex-shrink-0'}>•</span>
                 <span>
                   <strong>{tx("Duo", "Duo", "Duo")}</strong> {tx("(2 enfants)", "(2 children)", "(2 Kinder)")}, {tx("Cours partagé entre 2 enfants (frère, sœur ou ami). Le tarif total inclut les 2 enfants. 4 séances de 1h par mois. Engagement minimum de 3 mois, avec un tarif mensuel dégressif sur 6 ou 12 mois.", "Shared course between 2 children (sibling or friend). Total price covers both children. 4 sessions of 1h per month. Minimum 3-month commitment, with a lower monthly rate on 6 or 12-month plans.", "Geteilter Kurs zwischen 2 Kindern (Geschwister oder Freund). Gesamtpreis deckt beide Kinder ab. 4 Sitzungen à 1h pro Monat. Mindestbindung von 3 Monaten, mit vergünstigtem Monatstarif bei 6 oder 12 Monaten.")}
                 </span>
@@ -286,7 +286,7 @@ export default function CGV() {
                 <strong>
                   {tx("📋 Tarifs détaillés à jour :", "📋 Up-to-date detailed pricing:", "📋 Aktuelle detaillierte Preise:")}
                 </strong>{' '}
-                <a href={lp('/tarifs')} className="text-[#232999] font-semibold underline hover:no-underline">
+                <a href={lp('/tarifs')} className={darkMode ? 'text-indigo-400 font-semibold underline hover:no-underline' : 'text-[#232999] font-semibold underline hover:no-underline'}>
                   smartkids-school.ch/tarifs
                 </a>
                 {' '}
@@ -321,7 +321,7 @@ export default function CGV() {
               tx("Confirmation de paiement et email de bienvenue envoyé dans les 48h ouvrables", "Payment confirmation and welcome email within 48 business hours", "Zahlungsbestätigung und Willkommens-E-Mail innerhalb von 48 Geschäftsstunden"),
               tx("Planification des séances en accord avec le parent", "Session scheduling agreed with the parent", "Terminplanung in Absprache mit dem Elternteil"),
             ].map((step, i) => (
-              <div key={i} className={`flex items-start gap-3 p-3 rounded-xl ${darkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
+              <div key={i} className={`flex items-start gap-3 p-3 rounded-xl ${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-50'}`}>
                 <span className="flex-shrink-0 w-6 h-6 bg-[#232999] text-white rounded-full flex items-center justify-center text-xs font-bold">{i+1}</span>
                 <p>{step}</p>
               </div>
@@ -341,27 +341,27 @@ export default function CGV() {
             </p>
 
             {/* Modalités d'abonnement */}
-            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
               <h4 className={`font-semibold mb-2 ${darkMode ? 'text-gray-200' : 'text-gray-900'}`}>
                 {tx("4.1 Abonnement mensuel (Solo, Duo, Premium)", "4.1 Monthly subscription (Solo, Duo, Premium)", "4.1 Monatliches Abonnement (Solo, Duo, Premium)")}
               </h4>
               <ul className="space-y-2 text-sm ml-2">
                 <li className="flex gap-2">
-                  <span className="text-[#232999] flex-shrink-0">•</span>
+                  <span className={darkMode ? 'text-indigo-400 flex-shrink-0' : 'text-[#232999] flex-shrink-0'}>•</span>
                   <span>
                     <strong>{tx("Sans engagement", "No commitment", "Ohne Bindung")} :</strong>{' '}
                     {tx("paiement mensuel automatique. Annulable à tout moment, effective à la fin du mois en cours payé.", "automatic monthly payment. Cancellable anytime, effective at the end of the current paid month.", "automatische monatliche Zahlung. Jederzeit kündbar, gültig zum Ende des laufenden bezahlten Monats.")}
                   </span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-[#232999] flex-shrink-0">•</span>
+                  <span className={darkMode ? 'text-indigo-400 flex-shrink-0' : 'text-[#232999] flex-shrink-0'}>•</span>
                   <span>
                     <strong>{tx("Engagement 6 mois", "6-month commitment", "6-Monats-Bindung")} :</strong>{' '}
                     {tx("paiement mensuel avec un tarif réduit. Le Client s'engage pour 6 mois consécutifs. L'abonnement se renouvelle ensuite mensuellement, annulable à tout moment.", "monthly payment at a reduced rate. The Client commits for 6 consecutive months. The subscription then renews monthly, cancellable anytime.", "monatliche Zahlung zu reduziertem Tarif. Der Kunde verpflichtet sich für 6 aufeinanderfolgende Monate. Das Abonnement verlängert sich danach monatlich und ist jederzeit kündbar.")}
                   </span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-[#232999] flex-shrink-0">•</span>
+                  <span className={darkMode ? 'text-indigo-400 flex-shrink-0' : 'text-[#232999] flex-shrink-0'}>•</span>
                   <span>
                     <strong>{tx("Engagement 12 mois", "12-month commitment", "12-Monats-Bindung")} :</strong>{' '}
                     {tx("paiement mensuel avec un tarif encore plus avantageux. Le Client s'engage pour 12 mois consécutifs. L'abonnement se renouvelle ensuite mensuellement.", "monthly payment at an even more favorable rate. The Client commits for 12 consecutive months. The subscription then renews monthly.", "monatliche Zahlung zu noch günstigerem Tarif. Der Kunde verpflichtet sich für 12 aufeinanderfolgende Monate. Das Abonnement verlängert sich danach monatlich.")}
@@ -371,7 +371,7 @@ export default function CGV() {
             </div>
 
             {/* Paiement total */}
-            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
               <h4 className={`font-semibold mb-2 ${darkMode ? 'text-gray-200' : 'text-gray-900'}`}>
                 {tx("4.2 Paiement total avec rabais (option)", "4.2 Total payment with discount (option)", "4.2 Gesamtzahlung mit Rabatt (Option)")}
               </h4>
@@ -402,7 +402,7 @@ export default function CGV() {
             </div>
 
             {/* Stages */}
-            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
               <h4 className={`font-semibold mb-2 ${darkMode ? 'text-gray-200' : 'text-gray-900'}`}>
                 {tx("4.3 Stages vacances", "4.3 Vacation camps", "4.3 Ferien-Camps")}
               </h4>
@@ -424,8 +424,8 @@ export default function CGV() {
                 { iconEl: icons.card, title: tx('Carte bancaire', 'Credit/Debit card', 'Bankkarte'), desc: 'Visa, Mastercard, American Express, via Stripe (PCI-DSS L1)' },
                 { iconEl: icons.phone, title: 'Apple Pay / Google Pay / TWINT', desc: tx('Via Stripe, disponible selon l\'appareil et le pays', 'Via Stripe, depending on device and country', 'Via Stripe, je nach Gerät und Land') },
               ].map((pm, i) => (
-                <div key={i} className={`flex items-start gap-3 p-4 rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
-                  <span className="text-[#232999] flex-shrink-0">{pm.iconEl}</span>
+                <div key={i} className={`flex items-start gap-3 p-4 rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
+                  <span className={darkMode ? 'text-indigo-300 flex-shrink-0' : 'text-[#232999] flex-shrink-0'}>{pm.iconEl}</span>
                   <div><p className="font-semibold text-sm">{pm.title}</p><p className="text-xs mt-0.5">{pm.desc}</p></div>
                 </div>
               ))}
@@ -453,8 +453,8 @@ export default function CGV() {
               { iconEl: icons.calendar, text: tx("Horaires flexibles à convenir : du lundi au samedi, 09h00–20h00 (heure suisse). Stages : du lundi au vendredi sur les périodes de vacances scolaires.", "Flexible schedule: Monday to Saturday, 09:00–20:00 (Swiss time). Camps: Monday to Friday during school holidays.", "Flexible Zeiten: Montag bis Samstag, 09:00–20:00 (Schweizer Zeit). Camps: Montag bis Freitag in den Schulferien.") },
               { iconEl: icons.check, text: tx("Un certificat de réussite numérique est remis à chaque élève à l'issue de chaque parcours achevé. Pour les Premium : bilan vidéo personnalisé envoyé chaque mois aux parents.", "A digital certificate of achievement is issued to each student upon completion of each course. For Premium: personalised video report sent monthly to parents.", "Ein digitales Leistungszertifikat wird jedem Schüler nach Abschluss jedes Kurses ausgestellt. Für Premium: monatlicher personalisierter Videobericht an die Eltern.") },
             ].map((item, i) => (
-              <div key={i} className={`flex items-start gap-3 p-3 rounded-xl ${darkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
-                <span className="text-[#232999] flex-shrink-0 mt-0.5">{item.iconEl}</span>
+              <div key={i} className={`flex items-start gap-3 p-3 rounded-xl ${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-50'}`}>
+                <span className={darkMode ? 'text-indigo-400 flex-shrink-0 mt-0.5' : 'text-[#232999] flex-shrink-0 mt-0.5'}>{item.iconEl}</span>
                 <p>{item.text}</p>
               </div>
             ))}
@@ -481,7 +481,7 @@ export default function CGV() {
             </div>
 
             {/* 6.2 Annulation abonnement sans engagement */}
-            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
               <h4 className={`font-semibold mb-2 ${darkMode ? 'text-gray-200' : 'text-gray-900'}`}>
                 {tx("6.2 Annulation de l'abonnement Premium sans engagement", "6.2 Cancellation of the no-commitment Premium subscription", "6.2 Kündigung des Premium-Abonnements ohne Bindung")}
               </h4>
@@ -495,7 +495,7 @@ export default function CGV() {
             </div>
 
             {/* 6.3 Annulation engagement 6/12 mois */}
-            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
               <h4 className={`font-semibold mb-2 ${darkMode ? 'text-gray-200' : 'text-gray-900'}`}>
                 {tx("6.3 Annulation d'un abonnement avec engagement (3, 6 ou 12 mois)", "6.3 Cancellation of subscription with commitment (3, 6 or 12 months)", "6.3 Kündigung eines Abonnements mit Bindung (3, 6 oder 12 Monate)")}
               </h4>
@@ -523,7 +523,7 @@ export default function CGV() {
             </div>
 
             {/* 6.4 Annulation paiement total */}
-            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
               <h4 className={`font-semibold mb-2 ${darkMode ? 'text-gray-200' : 'text-gray-900'}`}>
                 {tx("6.4 Annulation d'un paiement total (option avec rabais)", "6.4 Cancellation of total payment (discounted option)", "6.4 Kündigung einer Gesamtzahlung (Rabattoption)")}
               </h4>
@@ -537,7 +537,7 @@ export default function CGV() {
             </div>
 
             {/* 6.5 Stages */}
-            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
               <h4 className={`font-semibold mb-2 ${darkMode ? 'text-gray-200' : 'text-gray-900'}`}>
                 {tx("6.5 Annulation d'un stage vacances", "6.5 Vacation camp cancellation", "6.5 Stornierung eines Ferien-Camps")}
               </h4>
@@ -558,7 +558,7 @@ export default function CGV() {
             </div>
 
             {/* 6.6 Report d'une séance */}
-            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+            <div className={`rounded-xl border p-4 ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
               <h4 className={`font-semibold mb-2 ${darkMode ? 'text-gray-200' : 'text-gray-900'}`}>
                 {tx("6.6 Report d'une séance individuelle", "6.6 Rescheduling of an individual session", "6.6 Verschiebung einer einzelnen Sitzung")}
               </h4>
@@ -631,8 +631,8 @@ export default function CGV() {
               tx("Ne pas enregistrer, reproduire ou distribuer les contenus des cours sans autorisation écrite préalable.", "Not record, reproduce or distribute course content without prior written authorization.", "Kursinhalte ohne Genehmigung nicht aufzeichnen oder verteilen."),
               tx("Adopter un comportement respectueux. SKS se réserve le droit d'exclure tout élève dont le comportement perturberait les cours, sans remboursement.", "Behave respectfully. SKS reserves the right to exclude any disruptive student without refund.", "Respektvolles Verhalten. SKS behält sich vor, störende Schüler ohne Rückerstattung auszuschließen."),
             ].map((item, i) => (
-              <div key={i} className={`flex items-start gap-3 p-3 rounded-xl ${darkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
-                <span className="text-[#232999] flex-shrink-0 mt-0.5">{icons.check}</span>
+              <div key={i} className={`flex items-start gap-3 p-3 rounded-xl ${darkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-50'}`}>
+                <span className={darkMode ? 'text-indigo-400 flex-shrink-0 mt-0.5' : 'text-[#232999] flex-shrink-0 mt-0.5'}>{icons.check}</span>
                 <p>{item}</p>
               </div>
             ))}
@@ -687,12 +687,12 @@ export default function CGV() {
               )}
             </p>
             <div className={`flex items-start gap-3 p-4 rounded-xl border ${darkMode ? 'bg-indigo-900/30 border-indigo-700' : 'bg-indigo-50 border-indigo-200'}`}>
-              <span className="text-[#232999] flex-shrink-0 mt-0.5">{icons.headphones}</span>
+              <span className={darkMode ? 'text-indigo-400 flex-shrink-0 mt-0.5' : 'text-[#232999] flex-shrink-0 mt-0.5'}>{icons.headphones}</span>
               <div>
                 <p className={`font-semibold mb-1 ${darkMode ? 'text-indigo-300' : 'text-indigo-800'}`}>{tx("Nous contacter avant tout recours", "Contact us before any recourse", "Kontakt vor jedem Rechtsmittel")}</p>
                 <p className={darkMode ? 'text-indigo-200' : 'text-indigo-700'}>
                   {tx("Pour toute réclamation : ", "For any complaint: ", "Bei Beschwerden: ")}
-                  <a href="mailto:contact@smartkids-school.ch" className="text-[#232999] hover:underline font-semibold">contact@smartkids-school.ch</a>
+                  <a href="mailto:contact@smartkids-school.ch" className={darkMode ? 'text-indigo-400 hover:underline font-semibold' : 'text-[#232999] hover:underline font-semibold'}>contact@smartkids-school.ch</a>
                   {tx(", Réponse garantie sous 48h ouvrables.", ", Response within 48 business hours.", ", Antwort innerhalb von 48 Geschäftsstunden.")}
                 </p>
               </div>
@@ -708,7 +708,7 @@ export default function CGV() {
         href="https://wa.me/41774768492"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
+        className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#1f7a44] hover:bg-[#18613a] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
         title={lang === 'FR' ? 'Nous contacter sur WhatsApp' : lang === 'EN' ? 'Contact us on WhatsApp' : 'Kontaktieren Sie uns auf WhatsApp'}
         aria-label={lang === 'FR' ? 'Contacter sur WhatsApp' : 'Contact WhatsApp'}
         style={{ animation: 'whatsapp-pulse 2.5s ease-in-out infinite' }}

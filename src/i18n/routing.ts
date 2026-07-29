@@ -42,10 +42,21 @@ export function hreflangCode(locale: Locale): string {
   return { FR: 'fr-CH', EN: 'en-CH', DE: 'de-CH' }[locale];
 }
 
+// Code langue simple (fr/en/de) pour l'attribut lang de <html> — distinct de
+// hreflangCode ci-dessus, qui inclut le pays (fr-CH) pour le SEO multilingue.
+function htmlLang(locale: Locale): string {
+  return { FR: 'fr', EN: 'en', DE: 'de' }[locale];
+}
+
 // Injecte/actualise les balises <link rel="alternate" hreflang="..."> + canonical
-// pour la page courante. À appeler depuis le useEffect SEO de chaque page, avec
-// son basePath français (ex: '/tarifs') et sa langue affichée.
+// pour la page courante, et corrige <html lang="..."> en conséquence (sinon il
+// reste figé sur "fr", la valeur codée en dur dans index.html — un vrai souci
+// d'accessibilité : un lecteur d'écran prononcerait une page anglaise avec les
+// règles de prononciation françaises). À appeler depuis le useEffect SEO de
+// chaque page, avec son basePath français (ex: '/tarifs') et sa langue affichée.
 export function setHreflangTags(basePath: string, currentLocale: Locale) {
+  document.documentElement.lang = htmlLang(currentLocale);
+
   const origin = 'https://smartkids-school.ch';
 
   const upsertLink = (rel: string, hreflang: string | null, href: string) => {

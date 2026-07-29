@@ -648,12 +648,12 @@ export default function Stages() {
               <a href={lp('/')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.home}</a>
               <a href={lp('/#parcours')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.programme}</a>
               <a href={lp('/tarifs')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.tarifs}</a>
-              <a href={lp('/stages')} className="text-sm font-semibold text-[#232999]">{t.nav.stages}</a>
+              <a href={lp('/stages')} className={darkMode ? 'text-sm font-semibold text-indigo-400' : 'text-sm font-semibold text-[#232999]'}>{t.nav.stages}</a>
               <a href={lp('/faq')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.faq}</a>
               <a href={lp('/blog')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.blog}</a>
             </div>
             <div className="hidden md:flex items-center gap-3 ml-6">
-              <button onClick={() => setDarkMode(!darkMode)} className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300 cursor-pointer ${darkMode ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-gray-100 border-gray-200 text-gray-700 hover:border-indigo-400'}`}>
+              <button onClick={() => setDarkMode(!darkMode)} aria-label="Toggle theme" className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300 cursor-pointer ${darkMode ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-gray-100 border-gray-200 text-gray-700 hover:border-indigo-400'}`}>
                 {darkMode
                   ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
                   : <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>}
@@ -696,7 +696,7 @@ export default function Stages() {
             <div className="px-4 py-4 space-y-3">
               <a href={lp('/')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.home}</a>
               <a href={lp('/tarifs')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.tarifs}</a>
-              <a href={lp('/stages')} onClick={() => setMobileMenuOpen(false)} className="block text-sm font-semibold py-2 text-[#232999]">{t.nav.stages}</a>
+              <a href={lp('/stages')} onClick={() => setMobileMenuOpen(false)} className={darkMode ? 'block text-sm font-semibold py-2 text-indigo-400' : 'block text-sm font-semibold py-2 text-[#232999]'}>{t.nav.stages}</a>
               <a href={lp('/faq')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.faq}</a>
               <a href={lp('/blog')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.blog}</a>
               <div className="flex gap-2 py-2">
@@ -750,7 +750,7 @@ export default function Stages() {
       <section className={`py-20 px-4 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">{t.whyLabel}</span>
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>{t.whyLabel}</span>
             <h2 className={`text-4xl lg:text-5xl font-bold mt-4 mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.whyTitle}</h2>
             <p className={`text-xl max-w-3xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.whyDesc}</p>
           </div>
@@ -779,7 +779,7 @@ export default function Stages() {
       <section id="formats-stages" className={`py-20 px-4 ${darkMode ? 'bg-gray-950' : 'bg-gradient-to-br from-indigo-50/60 via-slate-50 to-indigo-50/40'}`}>
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">{t.formatsLabel}</span>
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>{t.formatsLabel}</span>
             <h2 className={`text-4xl lg:text-5xl font-bold mt-4 mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.formatsTitle}</h2>
             <p className={`text-xl max-w-3xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.formatsDesc}</p>
           </div>
@@ -868,7 +868,7 @@ export default function Stages() {
       <section id="themes-stages" className={`py-20 px-4 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">{t.themesLabel}</span>
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>{t.themesLabel}</span>
             <h2 className={`text-4xl lg:text-5xl font-bold mt-4 mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.themesTitle}</h2>
             <p className={`text-xl max-w-3xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.themesDesc}</p>
           </div>
@@ -907,7 +907,7 @@ export default function Stages() {
       <section id="calendar-stages" className={`py-20 px-4 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">{t.calendarLabel}</span>
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>{t.calendarLabel}</span>
             <h2 className={`text-4xl lg:text-5xl font-bold mt-4 mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.calendarTitle}</h2>
             <p className={`text-xl max-w-3xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.calendarDesc}</p>
           </div>
@@ -918,7 +918,7 @@ export default function Stages() {
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="text-6xl flex-shrink-0">☀️</div>
                 <div className="flex-1 text-center md:text-left">
-                  <span className="inline-block bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-2 uppercase tracking-wider">
+                  <span className="inline-block bg-amber-700 text-white text-xs font-bold px-3 py-1 rounded-full mb-2 uppercase tracking-wider">
                     {currentLang === 'FR' ? 'Inscriptions ouvertes' : currentLang === 'EN' ? 'Now enrolling' : 'Anmeldung offen'}
                   </span>
                   <h3 className={`text-2xl md:text-3xl font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -928,7 +928,7 @@ export default function Stages() {
                     {currentLang === 'FR' ? '4 demi-journées · Il repart avec son jeu vidéo · 5 enfants max par groupe' : currentLang === 'EN' ? '4 half-days · He leaves with his own video game · 5 children max per group' : '4 Halbtage · Er geht mit seinem eigenen Spiel · Max. 5 Kinder pro Gruppe'}
                   </p>
                   {openWeeksCount > 0 && (
-                    <p className="text-sm font-bold text-amber-600 mt-2">
+                    <p className={`text-sm font-bold mt-2 ${darkMode ? 'text-amber-400' : 'text-amber-700'}`}>
                       <i className="ri-fire-line mr-1"></i>
                       {currentLang === 'FR'
                         ? (openWeeksCount === 1 ? 'Plus qu\'une seule semaine disponible' : `Plus que ${openWeeksCount} semaines disponibles`)
@@ -948,7 +948,7 @@ export default function Stages() {
           {/* Autres périodes : une ligne discrète (les 6 cartes encombraient la page,
               l'été en vedette suffit — remettre une grille quand une autre saison devient active) */}
           <div className={`rounded-2xl border px-6 py-5 flex flex-col sm:flex-row items-center justify-center gap-3 text-center sm:text-left ${darkMode ? 'bg-gray-800/50 border-gray-700 text-gray-300' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
-            <i className="ri-calendar-2-line text-xl text-[#232999]"></i>
+            <i className={darkMode ? 'ri-calendar-2-line text-xl text-indigo-400' : 'ri-calendar-2-line text-xl text-[#232999]'}></i>
             <span className="text-sm">
               {currentLang === 'FR'
                 ? "Des stages ont aussi lieu pendant les vacances d'automne, de Noël, de février et de printemps."
@@ -956,11 +956,11 @@ export default function Stages() {
                 ? 'Camps also take place during autumn, Christmas, February and spring holidays.'
                 : 'Camps finden auch in den Herbst-, Weihnachts-, Februar- und Frühlingsferien statt.'}
             </span>
-            <a href={`mailto:contact@smartkids-school.ch?subject=${encodeURIComponent(currentLang === 'FR' ? 'Être informé des prochains stages (hors été)' : currentLang === 'EN' ? 'Notify me about upcoming camps (outside summer)' : 'Über kommende Camps informiert werden')}`} className="text-sm font-semibold text-[#232999] hover:text-indigo-800 whitespace-nowrap">
+            <a href={`mailto:contact@smartkids-school.ch?subject=${encodeURIComponent(currentLang === 'FR' ? 'Être informé des prochains stages (hors été)' : currentLang === 'EN' ? 'Notify me about upcoming camps (outside summer)' : 'Über kommende Camps informiert werden')}`} className={darkMode ? 'text-sm font-semibold text-indigo-400 hover:text-indigo-800 whitespace-nowrap' : 'text-sm font-semibold text-[#232999] hover:text-indigo-800 whitespace-nowrap'}>
               {currentLang === 'FR' ? 'Être informé →' : currentLang === 'EN' ? 'Get notified →' : 'Informiert werden →'}
             </a>
           </div>
-          <p className={`text-center text-sm mt-10 max-w-2xl mx-auto ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+          <p className={`text-center text-sm mt-10 max-w-2xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             <i className="ri-information-line mr-2"></i>{t.calendarNote}
           </p>
         </div>
@@ -1050,7 +1050,7 @@ export default function Stages() {
       <section className={`py-20 px-4 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">{(t as any).faqLabel}</span>
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>{(t as any).faqLabel}</span>
             <h2 className={`text-4xl lg:text-5xl font-bold mt-4 mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{(t as any).faqTitle}</h2>
             <p className={`text-xl ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{(t as any).faqDesc}</p>
           </div>
@@ -1083,7 +1083,7 @@ export default function Stages() {
                 </h3>
                 <p className={`text-sm mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{selectedStagePeriod}</p>
               </div>
-              <button onClick={closeStageModal} className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors cursor-pointer ${darkMode ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-gray-100 text-gray-600'}`}>
+              <button onClick={closeStageModal} aria-label="Close modal" className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors cursor-pointer ${darkMode ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-gray-100 text-gray-600'}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
             </div>
@@ -1142,7 +1142,7 @@ export default function Stages() {
                                   ? (darkMode ? 'bg-indigo-900/30 border-indigo-500 text-white cursor-pointer' : 'bg-indigo-50 border-indigo-400 ring-2 ring-indigo-200 text-gray-900 cursor-pointer')
                                   : (darkMode ? 'bg-gray-800 border-gray-600 text-gray-300 hover:border-indigo-700 cursor-pointer' : 'bg-white border-gray-300 text-gray-700 hover:border-indigo-300 cursor-pointer')
                             }`}>
-                            {selectedWeek === w.label && !closed && <i className="ri-checkbox-circle-fill text-[#232999] mr-1"></i>}
+                            {selectedWeek === w.label && !closed && <i className={darkMode ? 'ri-checkbox-circle-fill text-indigo-400 mr-1' : 'ri-checkbox-circle-fill text-[#232999] mr-1'}></i>}
                             {w.label}
                             {closed && <span className="ml-2 text-[10px] font-bold uppercase tracking-wide bg-gray-300 text-gray-600 px-2 py-0.5 rounded-full">{statusLabel(w.status)}</span>}
                           </button>
@@ -1317,7 +1317,7 @@ export default function Stages() {
                     : `🔒 ${currentLang === 'FR' ? 'Procéder au paiement sécurisé' : currentLang === 'EN' ? 'Proceed to secure payment' : 'Zur sicheren Zahlung'}`}
                 </button>
 
-                <p className={`text-xs text-center mt-4 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                <p className={`text-xs text-center mt-4 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                   <i className="ri-shield-check-line mr-1 text-emerald-500"></i>
                   {currentLang === 'FR' ? 'Paiement sécurisé via Stripe · Garantie satisfait ou remboursé' : currentLang === 'EN' ? 'Secure payment via Stripe · Money-back guarantee' : 'Sichere Zahlung via Stripe · Geld-zurück-Garantie'}
                 </p>
@@ -1331,7 +1331,7 @@ export default function Stages() {
         href="https://wa.me/41774768492"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
+        className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#1f7a44] hover:bg-[#18613a] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
         title={currentLang === 'FR' ? 'Nous contacter sur WhatsApp' : currentLang === 'EN' ? 'Contact us on WhatsApp' : 'Kontaktieren Sie uns auf WhatsApp'}
         aria-label={currentLang === 'FR' ? 'Contacter sur WhatsApp' : 'Contact WhatsApp'}
         style={{ animation: 'whatsapp-pulse 2.5s ease-in-out infinite' }}

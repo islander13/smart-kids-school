@@ -151,7 +151,7 @@ export default function CookieBanner({ currentLang, darkMode }: CookieBannerProp
               ]).map((item) => (
                 <div key={item.key} className={`flex items-center justify-between gap-3 p-2.5 rounded-lg ${darkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
                   <p className={`text-xs font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{item.label}</p>
-                  <button type="button" onClick={() => setPrefs(p => ({ ...p, [item.key]: !p[item.key] }))} className={`relative flex-shrink-0 w-9 h-5 rounded-full transition-colors duration-200 cursor-pointer focus:outline-none ${prefs[item.key] ? 'bg-[#232999]' : darkMode ? 'bg-gray-600' : 'bg-gray-300'}`} aria-checked={prefs[item.key]} role="switch">
+                  <button type="button" onClick={() => setPrefs(p => ({ ...p, [item.key]: !p[item.key] }))} className={`relative flex-shrink-0 w-9 h-5 rounded-full transition-colors duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#232999] ${prefs[item.key] ? 'bg-[#232999]' : darkMode ? 'bg-gray-600' : 'bg-gray-300'}`} aria-checked={prefs[item.key]} aria-label={item.label} role="switch">
                     <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 ${prefs[item.key] ? 'translate-x-4' : 'translate-x-0.5'}`} />
                   </button>
                 </div>

@@ -688,7 +688,7 @@ export default function Premium() {
                 <span className={`text-5xl font-black ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.planMonthlyPrice}</span>
                 <span className={`text-base ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.planMonthlyUnit}</span>
               </div>
-              <p className={`text-xs uppercase tracking-wider font-semibold mb-6 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>{t.planMonthlySub}</p>
+              <p className={`text-xs uppercase tracking-wider font-semibold mb-6 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{t.planMonthlySub}</p>
               <button onClick={() => openPremiumModal('monthly')}
                 className={`w-full py-3 rounded-full font-bold transition-all cursor-pointer ${darkMode ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-900 hover:bg-gray-800 text-white'}`}>
                 {t.pricingCta}
@@ -697,7 +697,7 @@ export default function Premium() {
 
             {/* Plan 12 mois (mis en avant) */}
             <div className={`relative rounded-3xl p-8 border-2 transition-all hover:shadow-2xl ${darkMode ? 'bg-gradient-to-br from-amber-900/20 to-gray-800 border-amber-500' : 'bg-gradient-to-br from-amber-50 to-white border-amber-400 shadow-xl'}`}>
-              <span className={`absolute -top-3 right-6 px-4 py-1 rounded-full text-xs font-bold ${darkMode ? 'bg-amber-500 text-gray-900' : 'bg-amber-500 text-white'}`}>
+              <span className="absolute -top-3 right-6 px-4 py-1 rounded-full text-xs font-bold bg-amber-500 text-gray-900">
                 {t.pricingBadge}
               </span>
               <h3 className={`text-2xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.planYearlyTitle}</h3>
@@ -711,7 +711,7 @@ export default function Premium() {
               <p className={`text-sm ${darkMode ? 'text-amber-300' : 'text-amber-700'} font-semibold mb-1`}>
                 {currentLang === 'FR' ? 'Engagement 12 mois · 1 paiement' : currentLang === 'EN' ? '12-month commitment · 1 payment' : '12-Monats-Bindung · 1 Zahlung'}
               </p>
-              <p className={`text-xs mb-6 italic ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+              <p className={`text-xs mb-6 italic ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                 {currentLang === 'FR' ? 'Détail tarifaire au moment du paiement' : currentLang === 'EN' ? 'Full pricing details at checkout' : 'Volle Preisangaben beim Checkout'}
               </p>
               <button onClick={() => openPremiumModal('yearly')}
@@ -755,7 +755,7 @@ export default function Premium() {
             </h2>
             <p className={`mb-8 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.ctaQuestionsDesc}</p>
             <a href="https://wa.me/41774768492" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#1ebe5d] text-white px-8 py-4 rounded-full font-bold transition-all hover:shadow-xl hover:scale-105">
+              className="inline-flex items-center gap-3 bg-[#1f7a44] hover:bg-[#18613a] text-white px-8 py-4 rounded-full font-bold transition-all hover:shadow-xl hover:scale-105">
               <i className="ri-whatsapp-line text-xl"></i>{t.ctaQuestionsBtn}
             </a>
           </div>
@@ -855,7 +855,7 @@ export default function Premium() {
                   {submitting ? (currentLang === 'FR' ? 'Envoi…' : 'Sending…') : `🔒 ${t.formSubmit}`}
                 </button>
 
-                <p className={`text-xs text-center mt-4 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                <p className={`text-xs text-center mt-4 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                   <i className="ri-shield-check-line mr-1 text-emerald-500"></i>{t.formSecure}
                 </p>
               </form>
@@ -872,7 +872,7 @@ export default function Premium() {
         href="https://wa.me/41774768492"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
+        className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#1f7a44] hover:bg-[#18613a] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
         title={currentLang === 'FR' ? 'Nous contacter sur WhatsApp' : currentLang === 'EN' ? 'Contact us on WhatsApp' : 'Kontaktieren Sie uns auf WhatsApp'}
         aria-label={currentLang === 'FR' ? 'Contacter sur WhatsApp' : 'Contact WhatsApp'}
         style={{ animation: 'whatsapp-pulse 2.5s ease-in-out infinite' }}

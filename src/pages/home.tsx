@@ -617,6 +617,7 @@ export default function HomePage() {
                 onClick={() => setDarkMode(!darkMode)}
                 className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300 cursor-pointer ${darkMode ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-gray-100 border-gray-200 text-gray-700 hover:border-indigo-400'}`}
                 title={darkMode ? 'Mode clair' : 'Mode sombre'}
+                aria-label="Toggle theme"
               >
                 {darkMode ? (
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -646,6 +647,7 @@ export default function HomePage() {
               {/* MOBILE DARK MODE TOGGLE : crescent moon icon */}
               <button
                 onClick={() => setDarkMode(!darkMode)}
+                aria-label="Toggle theme"
                 className={`w-9 h-9 flex items-center justify-center rounded-full border transition-all duration-300 cursor-pointer ${darkMode ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-gray-100 border-gray-200 text-gray-700'}`}
               >
               {darkMode ? (
@@ -654,7 +656,7 @@ export default function HomePage() {
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 )}
               </button>
-              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className={`p-2 rounded-lg transition-colors cursor-pointer ${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`}>
+              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu" className={`p-2 rounded-lg transition-colors cursor-pointer ${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`}>
                 <i className={`ri-${mobileMenuOpen ? 'close' : 'menu'}-line text-2xl`}></i>
               </button>
             </div>
@@ -744,7 +746,7 @@ export default function HomePage() {
               <img src="/epfl.png" alt="EPFL, École Polytechnique Fédérale de Lausanne" loading="lazy" className={`h-16 md:h-20 w-auto transition-all ${darkMode ? 'invert' : ''}`} />
               <img src="/ethz.png" alt="ETH Zürich, Eidgenössische Technische Hochschule Zürich" loading="lazy" className={`h-16 md:h-20 w-auto transition-all ${darkMode ? 'invert' : ''}`} />
             </div>
-            <p className={`text-xs text-center max-w-xl ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+            <p className={`text-xs text-center max-w-xl ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               {currentLang === 'FR'
                 ? 'Une approche STEM (sciences, technologie, ingénierie et mathématiques) qui développe la logique et la créativité de votre enfant.'
                 : currentLang === 'EN'
@@ -758,7 +760,7 @@ export default function HomePage() {
       <section id="benefits" className={`py-20 px-4 transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">{t.whyChoose}</span>
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>{t.whyChoose}</span>
             <h2 className={`text-4xl lg:text-5xl font-bold mt-4 mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.benefitsTitle}</h2>
             <p className={`text-xl max-w-3xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.benefitsDesc}</p>
           </div>
@@ -786,7 +788,7 @@ export default function HomePage() {
       <section id="parcours" className={`py-20 px-4 transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>
               {currentLang === 'FR' ? 'Programmation éducative' : currentLang === 'EN' ? 'Educational programming' : 'Pädagogisches Programmieren'}
             </span>
             <h2 className={`text-4xl lg:text-5xl font-bold mt-4 mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -828,7 +830,7 @@ export default function HomePage() {
                   <div className="text-center mt-6">
                     <h3 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{stage.level}</h3>
                     <p className={`text-sm font-medium mt-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{stage.label}</p>
-                    <p className={`text-xs mt-2 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>{stage.skills}</p>
+                    <p className={`text-xs mt-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{stage.skills}</p>
                     <span className="inline-block mt-3 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold">
                       ✓ {currentLang === 'FR' ? 'Disponible' : currentLang === 'EN' ? 'Available' : 'Verfügbar'}
                     </span>
@@ -838,7 +840,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <p className={`text-center text-sm mt-12 max-w-2xl mx-auto italic ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+          <p className={`text-center text-sm mt-12 max-w-2xl mx-auto italic ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             {currentLang === 'FR'
               ? "« Programmation éducative » signifie : pas seulement apprendre à coder, mais développer la pensée structurée, la créativité et la persévérance, des compétences transférables à toute la vie."
               : currentLang === 'EN'
@@ -897,7 +899,7 @@ export default function HomePage() {
       <section id="scratch" className={`py-20 px-4 transition-colors duration-300 ${darkMode ? 'bg-gray-950' : 'bg-gradient-to-br from-indigo-50/40 via-slate-50 to-indigo-50/40'}`}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>
               {currentLang === 'FR' ? 'Notre point de départ' : currentLang === 'EN' ? 'Our starting point' : 'Unser Ausgangspunkt'}
             </span>
             <h2 className={`text-3xl lg:text-4xl font-bold mt-4 mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -972,7 +974,7 @@ export default function HomePage() {
       <section id="realisations" className={`py-20 px-4 transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>
               {currentLang === 'FR' ? 'Réalisé par nos élèves' : currentLang === 'EN' ? 'Made by our students' : 'Von unseren Schülern erstellt'}
             </span>
             <h2 className={`text-4xl lg:text-5xl font-bold mt-3 mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -1014,8 +1016,8 @@ export default function HomePage() {
                   <p className={`font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                     {s.name}, {s.age} {currentLang === 'FR' ? 'ans' : currentLang === 'EN' ? 'y/o' : 'J.'}
                   </p>
-                  <p className="text-sm font-semibold text-[#232999] mt-0.5">{s.course}</p>
-                  <p className={`text-xs mt-0.5 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>{s.city} · {s.date}</p>
+                  <p className={darkMode ? 'text-sm font-semibold text-indigo-400 mt-0.5' : 'text-sm font-semibold text-[#232999] mt-0.5'}>{s.course}</p>
+                  <p className={`text-xs mt-0.5 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{s.city} · {s.date}</p>
                 </div>
               </div>
             ))}
@@ -1029,7 +1031,7 @@ export default function HomePage() {
       <section id="avis" className={`py-20 transition-colors duration-300 ${darkMode ? 'bg-gray-950' : 'bg-gradient-to-br from-indigo-50/50 to-white'}`}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 px-4">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>
               {currentLang === 'FR' ? 'Ils nous font confiance' : currentLang === 'EN' ? 'They trust us' : 'Sie vertrauen uns'}
             </span>
             <h2 className={`text-4xl lg:text-5xl font-bold mt-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -1113,7 +1115,7 @@ export default function HomePage() {
       <section className={`py-20 px-4 transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>
               {currentLang === 'FR' ? 'Notre histoire' : currentLang === 'EN' ? 'Our story' : 'Unsere Geschichte'}
             </span>
             <h2 className={`text-4xl lg:text-5xl font-bold mt-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -1153,7 +1155,7 @@ export default function HomePage() {
       <section id="deroulement" className={`py-20 px-4 transition-colors duration-300 ${darkMode ? 'bg-gray-950' : 'bg-gradient-to-br from-slate-50 to-white'}`}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>
               {currentLang === 'FR' ? 'Cours en ligne' : currentLang === 'EN' ? 'Online classes' : 'Online-Unterricht'}
             </span>
             <h2 className={`text-4xl lg:text-5xl font-bold mt-4 mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -1186,7 +1188,7 @@ export default function HomePage() {
       <section id="faq" className={`py-20 px-4 transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">{t.faqLabel}</span>
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>{t.faqLabel}</span>
             <h2 className={`text-4xl lg:text-5xl font-bold mt-4 mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.faqTitle}</h2>
             <p className={`text-xl ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.faqDesc}</p>
           </div>
@@ -1239,7 +1241,7 @@ export default function HomePage() {
             <div className="mb-6">
               <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.message}</label>
               <textarea name="message" value={contactFormData.message} onChange={e => setContactFormData({ ...contactFormData, message: e.target.value })} required maxLength={500} rows={5} className={`w-full px-4 py-3 rounded-xl border focus:border-[#232999] focus:ring-2 focus:ring-indigo-200 outline-none transition-all resize-none text-sm ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-300'}`} placeholder={t.messagePlaceholder}></textarea>
-              <p className={`text-xs mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>{contactFormData.message.length}/500</p>
+              <p className={`text-xs mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{contactFormData.message.length}/500</p>
             </div>
             {submitMessage && <div className={`mb-6 p-4 rounded-xl ${submitMessage.includes('Merci') || submitMessage.includes('Thank') || submitMessage.includes('Danke') ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>{submitMessage}</div>}
             <button type="submit" disabled={isSubmitting} className="w-full bg-gradient-to-r from-[#232999] to-indigo-600 text-white px-8 py-4 rounded-full text-base font-bold hover:shadow-xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 cursor-pointer whitespace-nowrap">
@@ -1257,7 +1259,7 @@ export default function HomePage() {
         href="https://wa.me/41774768492"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
+        className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#1f7a44] hover:bg-[#18613a] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
         title={currentLang === 'FR' ? 'Nous contacter sur WhatsApp' : currentLang === 'EN' ? 'Contact us on WhatsApp' : 'Kontaktieren Sie uns auf WhatsApp'}
         aria-label={currentLang === 'FR' ? 'Contacter sur WhatsApp' : 'Contact WhatsApp'}
         style={{ animation: 'whatsapp-pulse 2.5s ease-in-out infinite' }}
@@ -1350,8 +1352,9 @@ export default function HomePage() {
                       <button
                         type="button"
                         onClick={() => setCookiePrefs(p => ({ ...p, [item.key]: !p[item.key] }))}
-                        className={`relative flex-shrink-0 mt-0.5 w-9 h-5 rounded-full transition-colors duration-200 cursor-pointer focus:outline-none ${cookiePrefs[item.key] ? 'bg-[#232999]' : darkMode ? 'bg-gray-600' : 'bg-gray-300'}`}
+                        className={`relative flex-shrink-0 mt-0.5 w-9 h-5 rounded-full transition-colors duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#232999] ${cookiePrefs[item.key] ? 'bg-[#232999]' : darkMode ? 'bg-gray-600' : 'bg-gray-300'}`}
                         aria-checked={cookiePrefs[item.key]}
+                        aria-label={item.label}
                         role="switch"
                       >
                         <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 ${cookiePrefs[item.key] ? 'translate-x-4' : 'translate-x-0.5'}`} />

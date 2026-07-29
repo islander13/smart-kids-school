@@ -690,13 +690,13 @@ export default function Tarifs() {
             <div className="hidden md:flex items-center gap-8 ml-8">
               <a href={lp('/')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.home}</a>
               <a href={lp('/#parcours')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.programme}</a>
-              <a href={lp('/tarifs')} className="text-sm font-semibold text-[#232999]">{t.nav.tarifs}</a>
+              <a href={lp('/tarifs')} className={darkMode ? 'text-sm font-semibold text-indigo-400' : 'text-sm font-semibold text-[#232999]'}>{t.nav.tarifs}</a>
               <a href={lp('/stages')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.stages}</a>
               <a href={lp('/faq')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.faq}</a>
               <a href={lp('/blog')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.blog}</a>
             </div>
             <div className="hidden md:flex items-center gap-3 ml-6">
-              <button onClick={() => setDarkMode(!darkMode)} className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300 cursor-pointer ${darkMode ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-gray-100 border-gray-200 text-gray-700 hover:border-indigo-400'}`}>
+              <button onClick={() => setDarkMode(!darkMode)} aria-label="Toggle theme" className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300 cursor-pointer ${darkMode ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-gray-100 border-gray-200 text-gray-700 hover:border-indigo-400'}`}>
                 {darkMode
                   ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
                   : <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>}
@@ -738,7 +738,7 @@ export default function Tarifs() {
           <div className={`md:hidden border-t ${darkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-100'}`}>
             <div className="px-4 py-4 space-y-3">
               <a href={lp('/')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.home}</a>
-              <a href={lp('/tarifs')} onClick={() => setMobileMenuOpen(false)} className="block text-sm font-semibold py-2 text-[#232999]">{t.nav.tarifs}</a>
+              <a href={lp('/tarifs')} onClick={() => setMobileMenuOpen(false)} className={darkMode ? 'block text-sm font-semibold py-2 text-indigo-400' : 'block text-sm font-semibold py-2 text-[#232999]'}>{t.nav.tarifs}</a>
               <a href={lp('/stages')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.stages}</a>
               <a href={lp('/faq')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.faq}</a>
               <a href={lp('/blog')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.blog}</a>
@@ -760,7 +760,7 @@ export default function Tarifs() {
         </div>
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="text-center mb-10">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>
               {currentLang === 'FR' ? 'Nos formules' : currentLang === 'EN' ? 'Our plans' : 'Unsere Formeln'}
             </span>
             <h1 className={`text-4xl lg:text-5xl font-bold mt-3 mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.heroTitle}</h1>
@@ -798,7 +798,7 @@ export default function Tarifs() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-baseline gap-2 mb-1">
                   <h3 className={`text-lg font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.how1T}</h3>
-                  <span className={`text-xs font-semibold ${darkMode ? 'text-amber-400' : 'text-amber-600'}`}>{t.how1Sub}</span>
+                  <span className={`text-xs font-semibold ${darkMode ? 'text-amber-400' : 'text-amber-700'}`}>{t.how1Sub}</span>
                 </div>
                 <p className={`text-sm leading-snug ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.how1Desc}</p>
               </div>
@@ -809,7 +809,7 @@ export default function Tarifs() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-baseline gap-2 mb-1">
                   <h3 className={`text-lg font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.how2T}</h3>
-                  <span className={`text-xs font-semibold ${darkMode ? 'text-amber-400' : 'text-amber-600'}`}>{t.how2Sub}</span>
+                  <span className={`text-xs font-semibold ${darkMode ? 'text-amber-400' : 'text-amber-700'}`}>{t.how2Sub}</span>
                 </div>
                 <p className={`text-sm leading-snug ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.how2Desc}</p>
               </div>
@@ -817,7 +817,7 @@ export default function Tarifs() {
           </div>
 
           {/* Note discrète sur fond gris */}
-          <p className={`text-center text-xs mt-6 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+          <p className={`text-center text-xs mt-6 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             <i className="ri-information-line mr-1"></i>{t.howNote}
           </p>
         </div>
@@ -861,11 +861,11 @@ export default function Tarifs() {
                     (darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200')
                   }`}>
                   {card.badge && (
-                    <span className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold whitespace-nowrap ${card.popular ? 'bg-[#232999] text-white' : 'bg-indigo-500 text-white'}`}>{card.badge}</span>
+                    <span className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold whitespace-nowrap ${card.popular ? 'bg-[#232999] text-white' : 'bg-indigo-600 text-white'}`}>{card.badge}</span>
                   )}
                   <div className="text-center mb-5">
                     <h3 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{card.title}</h3>
-                    <p className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>{card.sub}</p>
+                    <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{card.sub}</p>
                   </div>
                   <div className="text-center mb-6">
                     {NB_ENFANTS[selectedFormat] > 1 ? (
@@ -878,7 +878,7 @@ export default function Tarifs() {
                         <p className={`text-xs mt-1 font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                           {currentLang === 'FR' ? '/ mois · par enfant' : currentLang === 'EN' ? '/ month · per child' : '/ Monat · pro Kind'}
                         </p>
-                        <p className={`text-xs mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                        <p className={`text-xs mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                           {currentLang === 'FR' ? `soit ${price} CHF/mois pour les 2 enfants` : currentLang === 'EN' ? `that's ${price} CHF/month for both children` : `d.h. ${price} CHF/Monat für beide Kinder`}
                         </p>
                       </>
@@ -889,7 +889,7 @@ export default function Tarifs() {
                           <span className={`text-5xl font-black ${darkMode ? 'text-white' : 'text-gray-900'}`}>{price}</span>
                           <span className={`text-lg font-semibold ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.chf}</span>
                         </div>
-                        <p className={`text-xs mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>{t.perMonth}</p>
+                        <p className={`text-xs mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{t.perMonth}</p>
                       </>
                     )}
                     <div className="mt-3 min-h-[28px] flex items-center justify-center">
@@ -898,7 +898,7 @@ export default function Tarifs() {
                           −{card.savings}% · {t.save} {(ref - price) * (card.key === 'm6' ? 6 : 12)} CHF
                         </span>
                       ) : (
-                        <span className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+                        <span className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                           {currentLang === 'FR' ? 'Début du parcours' : currentLang === 'EN' ? 'Start of the journey' : 'Beginn des Lernwegs'}
                         </span>
                       )}
@@ -931,7 +931,7 @@ export default function Tarifs() {
             })}
           </div>
 
-          <p className={`text-center text-sm mt-10 max-w-2xl mx-auto ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+          <p className={`text-center text-sm mt-10 max-w-2xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             <i className="ri-information-line mr-2"></i>
             {currentLang === 'FR' ? 'Tous les prix s\'entendent par enfant et par mois. 4 séances de 1h par mois (1 par semaine). Le tarif baisse automatiquement quand un 2e ou 3e enfant rejoint le cours.' : currentLang === 'EN' ? 'All prices per child per month. 4 sessions of 1h per month (1 per week). Price drops automatically when a 2nd or 3rd child joins.' : 'Alle Preise pro Kind und Monat. 4 Sitzungen à 1h pro Monat. Preis sinkt automatisch bei 2. oder 3. Kind.'}
           </p>
@@ -943,7 +943,7 @@ export default function Tarifs() {
       <section className={`py-20 px-4 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>
               {currentLang === 'FR' ? 'Programme inclus' : currentLang === 'EN' ? 'Program included' : 'Programm inklusive'}
             </span>
             <h2 className={`text-3xl lg:text-4xl font-bold mt-3 mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -1018,7 +1018,7 @@ export default function Tarifs() {
                   <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${s.accent ? (darkMode ? 'bg-amber-900/40 text-amber-300' : 'bg-amber-100 text-amber-900') : (darkMode ? 'bg-indigo-900/40 text-indigo-300' : 'bg-indigo-100 text-indigo-900')}`}>
                     {currentLang === 'FR' ? `Étape ${s.step}` : currentLang === 'EN' ? `Step ${s.step}` : `Stufe ${s.step}`}
                   </span>
-                  <span className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>{s.duration[currentLang]}</span>
+                  <span className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{s.duration[currentLang]}</span>
                 </div>
                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-3 ${s.iconBg}`}>
                   <span className="text-2xl">{s.emoji}</span>
@@ -1053,7 +1053,7 @@ export default function Tarifs() {
       <section className={`py-20 px-4 ${darkMode ? 'bg-gray-950' : 'bg-gradient-to-br from-slate-50 to-white'}`}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">{t.incLabel}</span>
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>{t.incLabel}</span>
             <h2 className={`text-3xl lg:text-4xl font-bold mt-3 mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
               {currentLang === 'FR' ? 'Tout est dans le prix affiché' : currentLang === 'EN' ? "It's all in the displayed price" : 'Alles ist im angezeigten Preis enthalten'}
             </h2>
@@ -1108,13 +1108,13 @@ export default function Tarifs() {
           {/* Paiement (ligne unique discrète) */}
           <div className={`rounded-2xl p-5 border ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
-              <span className="flex items-center gap-2"><i className="ri-bank-card-line text-[#232999] text-lg"></i><span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>{currentLang === 'FR' ? 'Carte bancaire' : currentLang === 'EN' ? 'Credit card' : 'Kreditkarte'}</span></span>
+              <span className="flex items-center gap-2"><i className={darkMode ? 'ri-bank-card-line text-indigo-400 text-lg' : 'ri-bank-card-line text-[#232999] text-lg'}></i><span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>{currentLang === 'FR' ? 'Carte bancaire' : currentLang === 'EN' ? 'Credit card' : 'Kreditkarte'}</span></span>
               <span className={darkMode ? 'text-gray-700' : 'text-gray-300'}>·</span>
               <span className="flex items-center gap-2"><i className="ri-bank-line text-emerald-500 text-lg"></i><span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>{currentLang === 'FR' ? 'Virement' : currentLang === 'EN' ? 'Bank transfer' : 'Banküberweisung'}</span></span>
               <span className={darkMode ? 'text-gray-700' : 'text-gray-300'}>·</span>
               <span className="flex items-center gap-2"><i className="ri-calendar-2-line text-indigo-500 text-lg"></i><span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>{currentLang === 'FR' ? 'Paiement en plusieurs fois' : currentLang === 'EN' ? 'Instalments' : 'Ratenzahlung'}</span></span>
               <span className={darkMode ? 'text-gray-700' : 'text-gray-300'}>·</span>
-              <span className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}><i className="ri-shield-check-line mr-1 text-emerald-500"></i>{currentLang === 'FR' ? '100% sécurisé via Stripe' : currentLang === 'EN' ? '100% secure via Stripe' : '100% sicher über Stripe'}</span>
+              <span className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}><i className="ri-shield-check-line mr-1 text-emerald-500"></i>{currentLang === 'FR' ? '100% sécurisé via Stripe' : currentLang === 'EN' ? '100% secure via Stripe' : '100% sicher über Stripe'}</span>
             </div>
           </div>
         </div>
@@ -1161,7 +1161,7 @@ export default function Tarifs() {
           <p className="text-xl text-white/90 mb-10">{t.ctaDesc}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button onClick={() => document.getElementById('tarifs-detailles')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="bg-white text-[#232999] px-8 py-4 rounded-full font-bold hover:shadow-2xl transform hover:scale-105 transition-all cursor-pointer">{t.ctaBtn}</button>
-            <a href="https://wa.me/41774768492" target="_blank" rel="noopener noreferrer" className="bg-[#25D366] hover:bg-[#1ebe5d] text-white px-8 py-4 rounded-full font-bold transition-all">{t.ctaBtn2}</a>
+            <a href="https://wa.me/41774768492" target="_blank" rel="noopener noreferrer" className="bg-[#1f7a44] hover:bg-[#18613a] text-white px-8 py-4 rounded-full font-bold transition-all">{t.ctaBtn2}</a>
           </div>
         </div>
       </section>
@@ -1170,7 +1170,7 @@ export default function Tarifs() {
       <section className={`py-20 px-4 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <span className="text-[#232999] font-semibold text-sm uppercase tracking-wider">{(t as any).faqLabel}</span>
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>{(t as any).faqLabel}</span>
             <h2 className={`text-4xl lg:text-5xl font-bold mt-4 mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{(t as any).faqTitle}</h2>
             <p className={`text-xl ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{(t as any).faqDesc}</p>
           </div>
@@ -1203,7 +1203,7 @@ export default function Tarifs() {
                 </h3>
                 <p className={`text-sm mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{selectedPlan.title} · {selectedPlan.sub}</p>
               </div>
-              <button onClick={closePlanModal} className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors cursor-pointer ${darkMode ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-gray-100 text-gray-600'}`}>
+              <button onClick={closePlanModal} aria-label="Close modal" className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors cursor-pointer ${darkMode ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-gray-100 text-gray-600'}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
             </div>
@@ -1412,7 +1412,7 @@ export default function Tarifs() {
                     : (currentLang === 'FR' ? '🔒 Procéder au paiement sécurisé' : currentLang === 'EN' ? '🔒 Proceed to secure payment' : '🔒 Zur sicheren Zahlung')}
                 </button>
 
-                <p className={`text-xs text-center mt-4 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                <p className={`text-xs text-center mt-4 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                   <i className="ri-shield-check-line mr-1 text-emerald-500"></i>
                   {currentLang === 'FR' ? 'Paiement sécurisé via Stripe · Garantie 1ère séance remboursée' : currentLang === 'EN' ? 'Secure payment via Stripe · 1st session refund guarantee' : 'Sichere Zahlung über Stripe · 1.-Sitzung-Rückerstattungsgarantie'}
                 </p>
@@ -1427,7 +1427,7 @@ export default function Tarifs() {
         href="https://wa.me/41774768492"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
+        className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#1f7a44] hover:bg-[#18613a] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
         title={currentLang === 'FR' ? 'Nous contacter sur WhatsApp' : currentLang === 'EN' ? 'Contact us on WhatsApp' : 'Kontaktieren Sie uns auf WhatsApp'}
         aria-label={currentLang === 'FR' ? 'Contacter sur WhatsApp' : 'Contact WhatsApp'}
         style={{ animation: 'whatsapp-pulse 2.5s ease-in-out infinite' }}
