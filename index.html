@@ -21,8 +21,10 @@
     <meta property="og:url" content="https://smartkids-school.ch" />
     <meta property="og:type" content="website" />
 
-    <!-- Remix Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- Remix Icons — chargement non bloquant : le rendu initial ne doit pas
+         attendre cette feuille de style tierce (icônes, pas de contenu critique). -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" /></noscript>
 
     <!-- Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
