@@ -3,6 +3,7 @@ title: "Coding classes for kids in Fribourg: which language should you choose?"
 description: "Fribourg is a bilingual city: here's why that matters when choosing a coding class for your child, and how we handle it."
 excerpt: "Fribourg is one of the few truly bilingual Swiss cities. For a coding class, the language question deserves to be asked before the content question."
 date: "2026-07-30"
+category: "local"
 ---
 
 In Fribourg, one question comes up more often than elsewhere, even before talking about coding itself: which language will the class be taught in? Straddling French-speaking and German-speaking Switzerland, many Fribourg families already juggle French and German day to day, and naturally look for the same continuity in their child's extracurricular activities.

@@ -3,6 +3,7 @@ title: "Coding classes for kids in Neuchâtel: from watchmaking to code"
 description: "Neuchâtel built its reputation on watchmaking precision and microtechnology. Why this local culture is particularly fertile ground for introducing a child to coding."
 excerpt: "Neuchâtel isn't just any city when it comes to talking about logic and precision with a child. Here's why, and what's actually available locally to learn to code."
 date: "2026-07-30"
+category: "local"
 ---
 
 Neuchâtel has a particular relationship with precision: it's one of the birthplaces of Swiss watchmaking and microtechnology, a region where meticulous assembly and logical reasoning have been part of the industrial landscape for generations. It's no coincidence that many Neuchâtel parents sense a natural closeness between this heritage and coding, which relies on the same reflexes: breaking a complex problem into precise steps, testing, adjusting, trying again until the mechanism works.

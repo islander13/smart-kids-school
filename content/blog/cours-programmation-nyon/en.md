@@ -3,6 +3,7 @@ title: "Coding classes for kids in Nyon: the option for international families"
 description: "Nyon has a large share of international families and bilingual schools. Why a 100% online coding class taught in English is particularly well suited here."
 excerpt: "Between Geneva and Lausanne, Nyon has a distinct profile: many international families, children schooled in English. Here's what that changes when choosing a coding class."
 date: "2026-07-30"
+category: "local"
 ---
 
 Nyon has a somewhat different profile from the rest of French-speaking Switzerland: sitting between Geneva and Lausanne, the region is home to a large share of international families, often connected to organisations based in Geneva or the area's international schools. Many children here are schooled in English, sometimes alongside French or another language at home. For a coding class, that reality concretely changes what matters most when choosing.

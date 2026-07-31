@@ -3,6 +3,7 @@ title: "Cours de programmation pour enfants à Neuchâtel : de l'horlogerie au c
 description: "Neuchâtel a bâti sa réputation sur la précision horlogère et la microtechnique. Pourquoi cette culture locale est un terrain particulièrement favorable pour initier un enfant à la programmation."
 excerpt: "Neuchâtel n'est pas une ville comme les autres pour parler de logique et de précision à un enfant. Voici pourquoi, et ce qui existe concrètement pour apprendre à coder sur place."
 date: "2026-07-30"
+category: "local"
 ---
 
 Neuchâtel a une histoire particulière avec la précision : c'est l'un des berceaux de l'horlogerie suisse et de la microtechnique, une région où l'assemblage minutieux et le raisonnement logique font partie du paysage industriel depuis des générations. Ce n'est pas un hasard si beaucoup de parents neuchâtelois sentent une proximité naturelle entre cet héritage et la programmation, qui repose sur les mêmes réflexes : décomposer un problème complexe en étapes précises, tester, ajuster, recommencer jusqu'à ce que le mécanisme fonctionne.

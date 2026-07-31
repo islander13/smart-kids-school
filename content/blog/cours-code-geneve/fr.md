@@ -3,6 +3,7 @@ title: "Cours de code pour enfants à Genève : comment choisir"
 description: "6 questions concrètes à poser avant d'inscrire son enfant à un cours de programmation à Genève, pour choisir sur des critères plutôt que sur un nom connu."
 excerpt: "Plutôt que de lister ce qui existe à Genève, voici les questions à poser à n'importe quelle école avant de s'engager — la liste qu'on donne nous-mêmes aux parents."
 date: "2026-07-18"
+category: "local"
 ---
 
 À Genève comme ailleurs, le choix d'un cours de programmation pour enfant se fait souvent sur un nom qui revient dans une recherche, ou sur le bouche-à-oreille. C'est un point de départ raisonnable, mais insuffisant pour vraiment comparer. Voici les questions concrètes à poser à n'importe quelle école, y compris la nôtre, avant de s'engager.

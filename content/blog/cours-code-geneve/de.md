@@ -3,6 +3,7 @@ title: "Programmierkurse für Kinder in Genf: Wie wählt man richtig?"
 description: "6 konkrete Fragen, die Sie vor der Anmeldung Ihres Kindes zu einem Programmierkurs in Genf stellen sollten, um nach Kriterien statt nach einem bekannten Namen zu wählen."
 excerpt: "Statt aufzulisten, was es in Genf gibt, hier die Fragen, die Sie jeder Schule vor der Anmeldung stellen sollten — die Liste, die wir Eltern selbst mitgeben."
 date: "2026-07-18"
+category: "local"
 ---
 
 In Genf wie überall wird die Wahl eines Programmierkurses für Kinder oft anhand eines Namens getroffen, der in der Suche immer wieder auftaucht, oder per Mundpropaganda. Das ist ein vernünftiger Ausgangspunkt, aber nicht ausreichend für einen echten Vergleich. Hier sind die konkreten Fragen, die Sie jeder Schule — auch uns — vor der Anmeldung stellen sollten.

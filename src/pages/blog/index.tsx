@@ -12,6 +12,8 @@ const T: Record<Lang, {
   pageSubtitle: string;
   readMore: string;
   minRead: (n: number) => string;
+  localTitle: string;
+  localSubtitle: string;
   navHome: string; navProgramme: string; navTarifs: string; navPremium: string; navStages: string; navFaq: string; navBlog: string; navEnroll: string;
 }> = {
   FR: {
@@ -19,6 +21,8 @@ const T: Record<Lang, {
     pageSubtitle: "Conseils, repères et retours d'expérience pour accompagner votre enfant dans son apprentissage du code.",
     readMore: 'Lire l’article',
     minRead: (n) => `${n} min de lecture`,
+    localTitle: 'Guides par ville',
+    localSubtitle: "Ce qui existe et ce qui compte pour choisir un cours de programmation, ville par ville en Suisse romande.",
     navHome: 'Accueil', navProgramme: 'Programme', navTarifs: 'Tarifs', navPremium: 'Premium', navStages: 'Stages', navFaq: 'FAQ', navBlog: 'Blog', navEnroll: 'Inscrire mon enfant',
   },
   EN: {
@@ -26,6 +30,8 @@ const T: Record<Lang, {
     pageSubtitle: "Advice, benchmarks and lessons learned to support your child's coding journey.",
     readMore: 'Read the article',
     minRead: (n) => `${n} min read`,
+    localTitle: 'City guides',
+    localSubtitle: "What's available and what matters when choosing a coding class, city by city in French-speaking Switzerland.",
     navHome: 'Home', navProgramme: 'Programme', navTarifs: 'Pricing', navPremium: 'Premium', navStages: 'Camps', navFaq: 'FAQ', navBlog: 'Blog', navEnroll: 'Enroll my child',
   },
   DE: {
@@ -33,6 +39,8 @@ const T: Record<Lang, {
     pageSubtitle: 'Tipps, Orientierungshilfen und Erfahrungsberichte, um Ihr Kind beim Programmieren-Lernen zu begleiten.',
     readMore: 'Artikel lesen',
     minRead: (n) => `${n} Min. Lesezeit`,
+    localTitle: 'Ratgeber nach Stadt',
+    localSubtitle: 'Was es gibt und worauf es bei der Wahl eines Programmierkurses ankommt, Stadt für Stadt in der Westschweiz.',
     navHome: 'Startseite', navProgramme: 'Programm', navTarifs: 'Preise', navPremium: 'Premium', navStages: 'Camps', navFaq: 'FAQ', navBlog: 'Blog', navEnroll: 'Kind anmelden',
   },
 };
@@ -60,7 +68,12 @@ export default function BlogIndex() {
   }, [currentLang, darkMode]);
 
   const t = T[currentLang];
-  const articles = getAllArticles(currentLang);
+  const allArticles = getAllArticles(currentLang);
+  // Les guides "par ville" (category: "local") sont regroupés dans une section
+  // secondaire distincte, plus discrète, pour que le flux principal du blog
+  // ne ressemble pas à une liste d'articles SEO génériques.
+  const articles = allArticles.filter(a => a.category !== 'local');
+  const localArticles = allArticles.filter(a => a.category === 'local');
 
   // SEO
   useEffect(() => {
@@ -92,7 +105,7 @@ export default function BlogIndex() {
       '@type': 'Blog',
       name: titles[currentLang],
       url: `https://smartkids-school.ch${localizedPath('/blog', currentLang)}`,
-      blogPost: articles.map(a => ({
+      blogPost: allArticles.map(a => ({
         '@type': 'BlogPosting',
         headline: a.title,
         description: a.description,
@@ -100,7 +113,7 @@ export default function BlogIndex() {
         url: `https://smartkids-school.ch${localizedPath(`/blog/${a.slug}`, currentLang)}`,
       })),
     });
-  }, [currentLang, articles]);
+  }, [currentLang, allArticles]);
 
   return (
     <div className={`min-h-screen font-['Inter',sans-serif] transition-colors duration-300 ${darkMode ? 'bg-gray-950 text-white' : 'bg-white text-gray-900'}`}>
@@ -213,6 +226,31 @@ export default function BlogIndex() {
           ))}
         </div>
       </section>
+
+      {/* ── Guides par ville : section secondaire, volontairement plus discrète
+           que le flux principal ci-dessus (cartes plus compactes, pas de date/
+           temps de lecture en avant) pour que le blog ne se lise pas comme une
+           liste d'articles orientés SEO local. ── */}
+      {localArticles.length > 0 && (
+        <section className={`py-10 px-4 border-t ${darkMode ? 'bg-gray-900 border-gray-800' : 'bg-gray-50 border-gray-200'}`}>
+          <div className="max-w-5xl mx-auto">
+            <h2 className={`text-lg font-bold ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}>{t.localTitle}</h2>
+            <p className={`text-sm mt-1 mb-5 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{t.localSubtitle}</p>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
+              {localArticles.map(a => (
+                <a
+                  key={a.slug}
+                  href={lp(`/blog/${a.slug}`)}
+                  className={`group flex items-center justify-between gap-2 px-4 py-3 rounded-xl border text-sm font-medium transition-all ${darkMode ? 'border-gray-800 bg-gray-800/40 text-gray-300 hover:border-indigo-400 hover:text-white' : 'border-gray-200 bg-white text-gray-700 hover:border-[#232999] hover:text-gray-900'}`}
+                >
+                  <span>{a.title}</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 transition-transform group-hover:translate-x-1"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── WhatsApp Floating Button ── */}
       <a

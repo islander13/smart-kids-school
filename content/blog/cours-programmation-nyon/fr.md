@@ -3,6 +3,7 @@ title: "Cours de programmation pour enfants à Nyon : l'option pour les familles
 description: "Nyon compte une forte proportion de familles internationales et d'écoles bilingues. Pourquoi un cours de programmation en anglais, 100% en ligne, y est particulièrement adapté."
 excerpt: "Entre Genève et Lausanne, Nyon a un profil particulier : beaucoup de familles internationales, des enfants scolarisés en anglais. Voici ce que ça change pour choisir un cours de code."
 date: "2026-07-30"
+category: "local"
 ---
 
 Nyon a un profil un peu différent du reste de la Suisse romande : située entre Genève et Lausanne, la région accueille une forte proportion de familles internationales, souvent liées aux organisations basées à Genève ou aux écoles internationales du secteur. Beaucoup d'enfants y sont scolarisés en anglais, parfois en parallèle du français ou d'une autre langue à la maison. Pour un cours de programmation, cette réalité change concrètement ce qui compte pour bien choisir.

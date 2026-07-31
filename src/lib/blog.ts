@@ -14,6 +14,7 @@ interface ArticleFrontmatter {
   description: string;
   excerpt: string;
   date: string; // format YYYY-MM-DD
+  category?: string; // "local" pour les guides par ville (regroupés à part sur /blog)
 }
 
 export interface ArticleSummary extends ArticleFrontmatter {

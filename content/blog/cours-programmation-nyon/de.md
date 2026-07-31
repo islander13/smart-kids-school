@@ -3,6 +3,7 @@ title: "Programmierkurse für Kinder in Nyon: die Option für internationale Fam
 description: "Nyon hat einen hohen Anteil an internationalen Familien und zweisprachigen Schulen. Warum ein 100 % online auf Englisch unterrichteter Programmierkurs hier besonders passend ist."
 excerpt: "Zwischen Genf und Lausanne hat Nyon ein eigenes Profil: viele internationale Familien, Kinder, die auf Englisch unterrichtet werden. Das ändert einiges bei der Wahl eines Programmierkurses."
 date: "2026-07-30"
+category: "local"
 ---
 
 Nyon hat ein etwas anderes Profil als der Rest der Westschweiz: Zwischen Genf und Lausanne gelegen, beherbergt die Region einen hohen Anteil internationaler Familien, oft verbunden mit in Genf ansässigen Organisationen oder den internationalen Schulen der Region. Viele Kinder werden hier auf Englisch unterrichtet, manchmal parallel zu Französisch oder einer anderen Sprache zu Hause. Für einen Programmierkurs verändert diese Realität ganz konkret, worauf es bei der Wahl ankommt.

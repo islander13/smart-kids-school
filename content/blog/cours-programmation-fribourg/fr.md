@@ -3,6 +3,7 @@ title: "Cours de programmation pour enfants à Fribourg : quelle langue choisir 
 description: "Fribourg est une ville bilingue : voici pourquoi ça change la donne pour choisir un cours de programmation adapté à votre enfant, et comment on gère ça chez nous."
 excerpt: "Fribourg est l'une des rares villes suisses vraiment bilingues. Pour un cours de programmation, cette question de la langue mérite d'être posée avant celle du contenu."
 date: "2026-07-30"
+category: "local"
 ---
 
 À Fribourg, une question revient plus souvent qu'ailleurs avant même de parler de programmation : dans quelle langue va se dérouler le cours ? Ville à cheval entre francophonie et Suisse alémanique, beaucoup de familles fribourgeoises jonglent déjà entre le français et l'allemand au quotidien, et cherchent naturellement une continuité pour les activités extrascolaires de leur enfant.

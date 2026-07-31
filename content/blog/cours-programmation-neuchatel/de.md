@@ -3,6 +3,7 @@ title: "Programmierkurse für Kinder in Neuenburg: von der Uhrmacherei zum Code"
 description: "Neuenburg hat sich seinen Ruf durch Präzisionsuhren und Mikrotechnik aufgebaut. Warum diese lokale Kultur ein besonders fruchtbarer Boden ist, um ein Kind ans Programmieren heranzuführen."
 excerpt: "Neuenburg ist keine gewöhnliche Stadt, wenn es um Logik und Präzision bei einem Kind geht. Hier erfahren Sie, warum, und was vor Ort konkret zum Programmieren lernen verfügbar ist."
 date: "2026-07-30"
+category: "local"
 ---
 
 Neuenburg pflegt eine besondere Beziehung zur Präzision: Die Stadt zählt zu den Wiegen der Schweizer Uhrmacherei und Mikrotechnik — einer Region, in der sorgfältige Montage und logisches Denken seit Generationen zur industriellen Landschaft gehören. Es ist kein Zufall, dass viele Eltern in Neuenburg eine natürliche Nähe zwischen diesem Erbe und dem Programmieren spüren, das auf denselben Reflexen beruht: ein komplexes Problem in präzise Schritte zerlegen, testen, anpassen, so lange wiederholen, bis der Mechanismus funktioniert.

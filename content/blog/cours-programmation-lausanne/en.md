@@ -3,6 +3,7 @@ title: "Coding classes for kids in Lausanne: the complete guide"
 description: "Private lessons, workshops, camps or 100% online: what's available in Lausanne to introduce your child to coding, and how to choose without getting it wrong."
 excerpt: "“Is there a good coding class for kids in Lausanne?” Here's what's actually available, what really matters when choosing, and why online changes the game."
 date: "2026-07-23"
+category: "local"
 ---
 
 "Is there a good coding class for my child in Lausanne?" It's often the first search a Lausanne parent makes once their child shows interest in coding. The good news: options exist, in several forms. The less good news: they're not all equal, and "Lausanne" appearing in a search result doesn't guarantee teaching quality.

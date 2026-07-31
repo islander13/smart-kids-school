@@ -3,6 +3,7 @@ title: "Programmierkurse für Kinder in Freiburg: welche Sprache wählen?"
 description: "Freiburg ist eine zweisprachige Stadt: deshalb lohnt es sich, bei der Wahl eines Programmierkurses zuerst die Sprachfrage zu klären. So handhaben wir das."
 excerpt: "Freiburg ist eine der wenigen wirklich zweisprachigen Schweizer Städte. Bei einem Programmierkurs verdient die Sprachfrage es, vor der Inhaltsfrage gestellt zu werden."
 date: "2026-07-30"
+category: "local"
 ---
 
 In Freiburg stellt sich eine Frage häufiger als anderswo, noch bevor überhaupt vom Programmieren die Rede ist: In welcher Sprache findet der Kurs statt? Als Stadt zwischen der französischsprachigen und der deutschsprachigen Schweiz jonglieren viele Familien in Freiburg bereits im Alltag zwischen Französisch und Deutsch und suchen ganz natürlich nach derselben Kontinuität bei den ausserschulischen Aktivitäten ihres Kindes.

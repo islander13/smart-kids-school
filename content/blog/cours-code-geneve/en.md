@@ -3,6 +3,7 @@ title: "Coding classes for kids in Geneva: how to choose"
 description: "6 concrete questions to ask before enrolling your child in a coding class in Geneva, to choose based on criteria rather than a familiar name."
 excerpt: "Rather than listing what's available in Geneva, here are the questions to ask any school before committing — the list we give parents ourselves."
 date: "2026-07-18"
+category: "local"
 ---
 
 In Geneva as elsewhere, choosing a coding class for a child is often based on a name that keeps coming up in search results, or word of mouth. That's a reasonable starting point, but not enough to really compare. Here are the concrete questions to ask any school, including ours, before committing.

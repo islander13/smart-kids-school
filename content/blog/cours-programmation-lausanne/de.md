@@ -3,6 +3,7 @@ title: "Programmierkurse für Kinder in Lausanne: der komplette Leitfaden"
 description: "Einzelunterricht, Workshops, Camps oder 100% online: Was es in Lausanne gibt, um Kinder ans Programmieren heranzuführen, und wie man richtig wählt."
 excerpt: "«Gibt es einen guten Programmierkurs für Kinder in Lausanne?» Was es wirklich gibt, worauf es bei der Wahl ankommt, und warum Online alles verändert."
 date: "2026-07-23"
+category: "local"
 ---
 
 «Gibt es einen guten Programmierkurs für mein Kind in Lausanne?» Das ist oft die erste Suche, die Eltern in Lausanne starten, sobald ihr Kind Interesse am Programmieren zeigt. Die gute Nachricht: Es gibt Angebote, in mehreren Formen. Die weniger gute: Sie sind nicht alle gleichwertig, und «Lausanne» in einem Suchergebnis garantiert keine pädagogische Qualität.
