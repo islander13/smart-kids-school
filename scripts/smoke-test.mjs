@@ -34,6 +34,9 @@ const pages = [
   '/blog/temps-ecran-consommer-vs-creer', '/en/blog/temps-ecran-consommer-vs-creer', '/de/blog/temps-ecran-consommer-vs-creer',
   '/blog/activites-extrascolaires-rentree', '/en/blog/activites-extrascolaires-rentree', '/de/blog/activites-extrascolaires-rentree',
   '/blog/robotique-enfant-sans-materiel', '/en/blog/robotique-enfant-sans-materiel', '/de/blog/robotique-enfant-sans-materiel',
+  '/blog/cours-programmation-fribourg', '/en/blog/cours-programmation-fribourg', '/de/blog/cours-programmation-fribourg',
+  '/blog/cours-programmation-neuchatel', '/en/blog/cours-programmation-neuchatel', '/de/blog/cours-programmation-neuchatel',
+  '/blog/cours-programmation-nyon', '/en/blog/cours-programmation-nyon', '/de/blog/cours-programmation-nyon',
 ];
 
 const functions = [
