@@ -10,7 +10,7 @@ Neuchâtel a une histoire particulière avec la précision : c'est l'un des berc
 
 ## Un terrain naturellement favorable
 
-Un enfant qui grandit dans une région où la précision et la microtechnique font partie du quotidien — ne serait-ce que par les entreprises locales ou les musées d'horlogerie — n'aborde pas la logique de programmation comme un concept totalement abstrait. Coder, c'est construire un mécanisme invisible mais tout aussi rigoureux qu'un mouvement horloger : chaque instruction doit s'enclencher exactement au bon moment pour que l'ensemble fonctionne.
+Un enfant qui grandit dans une région où la précision et la microtechnique font partie du quotidien — ne serait-ce que par les entreprises locales ou les musées d'horlogerie — n'aborde pas la logique de programmation comme un concept totalement abstrait. Coder, c'est construire un mécanisme invisible mais tout aussi rigoureux qu'un mouvement horloger : chaque instruction doit s'enclencher exactement au bon moment pour que l'ensemble fonctionne. Reste la question naturelle du temps que ça prend — voir notre article [Combien de temps pour savoir coder](/blog/combien-de-temps-pour-savoir-coder) pour des repères concrets.
 
 ## Ce qui existe concrètement pour un enfant à Neuchâtel
 

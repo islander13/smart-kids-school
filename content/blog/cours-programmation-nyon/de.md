@@ -28,6 +28,6 @@ Unsere Kurse sind auf Französisch, Englisch und Deutsch verfügbar, mit demselb
 
 ## Vollständig online: ein echter Vorteil für eine mobile Familie
 
-Für eine internationale Familie in Nyon, die möglicherweise vor einem Umzug steht oder häufig reist, bietet ein Online-Format einen direkten Vorteil: Die Kontinuität der Betreuung hängt nicht von einem bestimmten Standort ab. Die Lehrperson, die den Bildschirm des Kindes sieht und live anleitet, funktioniert von Nyon aus, unterwegs oder nach einem Adresswechsel genau gleich.
+Für eine internationale Familie in Nyon, die möglicherweise vor einem Umzug steht oder häufig reist, bietet ein Online-Format einen direkten Vorteil: Die Kontinuität der Betreuung hängt nicht von einem bestimmten Standort ab. Die Lehrperson, die den Bildschirm des Kindes sieht und live anleitet, funktioniert von Nyon aus, unterwegs oder nach einem Adresswechsel genau gleich. Falls sich die Frage nach Präsenzunterricht dennoch stellt, zeigt unser Artikel [Online- oder Präsenzunterricht, was passt besser](/de/blog/cours-en-ligne-vs-presentiel) die wirklich entscheidenden Vergleichspunkte.
 
 Möchten Sie sehen, wie das in der Sprache Ihrer Wahl aussieht? Die [Preisseite](/de/tarifs) zeigt alle Formeln im Detail, mit einer Garantie: erste Sitzung kostenlos rückerstattet, falls nicht überzeugend.

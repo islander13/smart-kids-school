@@ -10,7 +10,7 @@ In Geneva as elsewhere, choosing a coding class for a child is often based on a 
 
 ## 1. What's the exact programme, and does it adapt to my child's age?
 
-A good answer mentions a clear progression: Scratch for younger children (from age 7), a gentle transition to a text-based language like Python, with defined stages. Be wary of a vague answer like "we adapt case by case" with no further detail — individual adaptation is essential, but it needs to rest on a solid base structure.
+A good answer mentions a clear progression: Scratch for younger children (from age 7), a gentle transition to a text-based language like Python, with defined stages — see our [Scratch vs Python, what's the difference](/en/blog/scratch-vs-python-difference) article if those two names don't mean much to you yet. Be wary of a vague answer like "we adapt case by case" with no further detail — individual adaptation is essential, but it needs to rest on a solid base structure.
 
 ## 2. Who teaches the classes, and based on what method?
 

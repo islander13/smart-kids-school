@@ -28,6 +28,6 @@ Nos cours sont disponibles en français, en anglais et en allemand, avec un prog
 
 ## Le 100% en ligne, un vrai avantage pour une famille mobile
 
-Pour une famille internationale à Nyon, potentiellement amenée à déménager ou à voyager, un format en ligne présente un avantage direct : la continuité du suivi ne dépend pas d'une localisation précise. L'enseignant qui voit l'écran de l'enfant et guide en direct fonctionne exactement de la même façon depuis Nyon, en déplacement, ou après un changement d'adresse.
+Pour une famille internationale à Nyon, potentiellement amenée à déménager ou à voyager, un format en ligne présente un avantage direct : la continuité du suivi ne dépend pas d'une localisation précise. L'enseignant qui voit l'écran de l'enfant et guide en direct fonctionne exactement de la même façon depuis Nyon, en déplacement, ou après un changement d'adresse. Si la question du présentiel se pose malgré tout, notre article [Cours en ligne ou en présentiel, lequel choisir](/blog/cours-en-ligne-vs-presentiel) détaille les vrais points de comparaison.
 
 Vous voulez voir ce que ça donne, dans la langue de votre choix ? La [page Tarifs](/tarifs) détaille les formules, avec une garantie 1ère séance remboursée si ce n'est pas convaincant.

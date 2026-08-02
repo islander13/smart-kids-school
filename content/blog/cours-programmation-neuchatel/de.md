@@ -10,7 +10,7 @@ Neuenburg pflegt eine besondere Beziehung zur Präzision: Die Stadt zählt zu de
 
 ## Ein natürlich fruchtbarer Boden
 
-Ein Kind, das in einer Region aufwächst, in der Präzision und Mikrotechnik zum Alltag gehören — und sei es nur durch lokale Unternehmen oder Uhrenmuseen —, begegnet der Logik des Programmierens nicht als rein abstraktem Konzept. Programmieren bedeutet, einen unsichtbaren, aber ebenso präzisen Mechanismus wie ein Uhrwerk zu bauen: Jede Anweisung muss genau im richtigen Moment einrasten, damit das Ganze funktioniert.
+Ein Kind, das in einer Region aufwächst, in der Präzision und Mikrotechnik zum Alltag gehören — und sei es nur durch lokale Unternehmen oder Uhrenmuseen —, begegnet der Logik des Programmierens nicht als rein abstraktem Konzept. Programmieren bedeutet, einen unsichtbaren, aber ebenso präzisen Mechanismus wie ein Uhrwerk zu bauen: Jede Anweisung muss genau im richtigen Moment einrasten, damit das Ganze funktioniert. Da stellt sich natürlich die Frage, wie lange das dauert — konkrete Richtwerte dazu in unserem Artikel [Wie lange dauert es, programmieren zu lernen](/de/blog/combien-de-temps-pour-savoir-coder).
 
 ## Was es für ein Kind in Neuenburg konkret gibt
 

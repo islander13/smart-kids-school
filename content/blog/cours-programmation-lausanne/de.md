@@ -17,7 +17,7 @@ Meist gibt es drei Formate: Nachmittagsclubs oder Workshops, meist in Gruppen zu
 Der Stadtname im Angebot zählt weniger als drei konkrete Kriterien:
 
 - **Der pädagogische Aufbau.** Ein gutes Programm beginnt mit Scratch (ab 7 Jahren) und führt schrittweise zu Python, mit klaren Etappen — kein generischer Kurs, der ein 8-jähriges Kind und einen 14-jährigen Teenager gleich behandelt.
-- **Das Betreuungsformat.** Standardisierter Gruppenunterricht oder individuelle Sitzungen im Tempo des Kindes: Der Unterschied zeigt sich besonders bei Kindern, die mehr Zeit brauchen, oder umgekehrt in einer Gruppe schnell gelangweilt sind.
+- **Das Betreuungsformat.** Standardisierter Gruppenunterricht oder individuelle Sitzungen im Tempo des Kindes: Der Unterschied zeigt sich besonders bei Kindern, die mehr Zeit brauchen, oder umgekehrt in einer Gruppe schnell gelangweilt sind. Das ist auch eine Frage des Familienbudgets — siehe unseren Vergleich [Solo oder Duo, wie wählt man](/de/blog/solo-ou-duo-comment-choisir), falls Sie zwischen Einzel- und Zweierbetreuung schwanken.
 - **Flexible Zeiten.** Zwischen Schule, Sport und Hausaufgaben ist ein einziger fixer Wochentermin oft das erste Hindernis für Regelmässigkeit — ein Kriterium, das genauso wichtig ist wie der Kursinhalt selbst.
 
 ## Warum 100% online in Lausanne genauso gut funktioniert wie anderswo

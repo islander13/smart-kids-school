@@ -10,7 +10,7 @@ Neuchâtel has a particular relationship with precision: it's one of the birthpl
 
 ## Naturally fertile ground
 
-A child growing up in a region where precision and microtechnology are part of everyday life — if only through local companies or watchmaking museums — doesn't approach coding logic as a fully abstract concept. Coding means building an invisible mechanism, just as rigorous as a watch movement: every instruction has to click into place at exactly the right moment for the whole thing to work.
+A child growing up in a region where precision and microtechnology are part of everyday life — if only through local companies or watchmaking museums — doesn't approach coding logic as a fully abstract concept. Coding means building an invisible mechanism, just as rigorous as a watch movement: every instruction has to click into place at exactly the right moment for the whole thing to work. That naturally raises the question of how long it takes — see our [How long does it take to learn to code](/en/blog/combien-de-temps-pour-savoir-coder) article for concrete benchmarks.
 
 ## What's actually available for a child in Neuchâtel
 

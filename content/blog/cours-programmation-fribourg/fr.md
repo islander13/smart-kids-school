@@ -18,7 +18,7 @@ Comme ailleurs en Suisse romande, on retrouve trois formats principaux : les ate
 
 ## Comment nous gérons cette question
 
-Nos cours sont disponibles en français, en anglais et en allemand, avec un enseignant qui suit le même programme structuré quelle que soit la langue choisie — conçu par des ingénieurs diplômés EPFL et ETHZ. Concrètement, une famille fribourgeoise peut inscrire son enfant en allemand un semestre, puis basculer en français si besoin, sans reprendre le programme à zéro : la progression pédagogique (Scratch puis Python, par étapes claires) reste la même, seule la langue d'enseignement change.
+Nos cours sont disponibles en français, en anglais et en allemand, avec un enseignant qui suit le même programme structuré quelle que soit la langue choisie — conçu par des ingénieurs diplômés EPFL et ETHZ. Concrètement, une famille fribourgeoise peut inscrire son enfant en allemand un semestre, puis basculer en français si besoin, sans reprendre le programme à zéro : la progression pédagogique (Scratch puis Python, par étapes claires — voir notre article [Python pour enfants, par où commencer](/blog/python-pour-enfants-par-ou-commencer) pour le détail) reste la même, seule la langue d'enseignement change.
 
 ## Les autres critères qui comptent, au-delà de la langue
 

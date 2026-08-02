@@ -18,7 +18,7 @@ Wie im Rest der Westschweiz gibt es grundsätzlich drei Formate: Nachmittagsclub
 
 ## Wie wir damit umgehen
 
-Unsere Kurse sind auf Französisch, Englisch und Deutsch verfügbar, wobei die Lehrperson unabhängig von der gewählten Sprache demselben strukturierten Programm folgt — entwickelt von diplomierten EPFL- und ETHZ-Ingenieuren. Konkret kann eine Familie aus Freiburg ihr Kind ein Semester lang auf Deutsch anmelden und später bei Bedarf auf Französisch wechseln, ohne das Programm von vorne zu beginnen: Die pädagogische Progression (zuerst Scratch, dann Python, in klaren Etappen) bleibt gleich, nur die Unterrichtssprache ändert sich.
+Unsere Kurse sind auf Französisch, Englisch und Deutsch verfügbar, wobei die Lehrperson unabhängig von der gewählten Sprache demselben strukturierten Programm folgt — entwickelt von diplomierten EPFL- und ETHZ-Ingenieuren. Konkret kann eine Familie aus Freiburg ihr Kind ein Semester lang auf Deutsch anmelden und später bei Bedarf auf Französisch wechseln, ohne das Programm von vorne zu beginnen: Die pädagogische Progression (zuerst Scratch, dann Python, in klaren Etappen — Details dazu in unserem Artikel [Python für Kinder, wo fängt es an](/de/blog/python-pour-enfants-par-ou-commencer)) bleibt gleich, nur die Unterrichtssprache ändert sich.
 
 ## Die weiteren Kriterien, die neben der Sprache zählen
 

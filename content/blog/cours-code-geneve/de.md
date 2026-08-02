@@ -10,7 +10,7 @@ In Genf wie überall wird die Wahl eines Programmierkurses für Kinder oft anhan
 
 ## 1. Wie sieht das genaue Programm aus, und passt es sich dem Alter meines Kindes an?
 
-Eine gute Antwort nennt einen klaren Aufbau: Scratch für die Jüngeren (ab 7 Jahren), ein sanfter Übergang zu einer Textsprache wie Python, mit definierten Etappen. Seien Sie vorsichtig bei einer vagen Antwort wie «wir passen uns von Fall zu Fall an» ohne weitere Details — individuelle Anpassung ist wichtig, muss aber auf einer soliden Grundstruktur aufbauen.
+Eine gute Antwort nennt einen klaren Aufbau: Scratch für die Jüngeren (ab 7 Jahren), ein sanfter Übergang zu einer Textsprache wie Python, mit definierten Etappen — siehe unseren Artikel [Scratch vs Python, was ist der Unterschied](/de/blog/scratch-vs-python-difference), falls Ihnen diese beiden Namen noch nichts sagen. Seien Sie vorsichtig bei einer vagen Antwort wie «wir passen uns von Fall zu Fall an» ohne weitere Details — individuelle Anpassung ist wichtig, muss aber auf einer soliden Grundstruktur aufbauen.
 
 ## 2. Wer unterrichtet, und nach welcher Methode?
 

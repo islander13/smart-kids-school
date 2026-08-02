@@ -17,7 +17,7 @@ There are generally three formats: after-school clubs or workshops, usually in g
 The city name in the offer matters less than three concrete criteria:
 
 - **The teaching progression.** A good programme starts with Scratch (from age 7) and gradually moves toward Python, with clear stages — not a generic class that treats an 8-year-old and a 14-year-old the same way.
-- **The follow-up format.** Standardised group class or individual sessions adapted to the child's pace: the difference is felt most by children who need more time, or conversely who get bored quickly in a group.
+- **The follow-up format.** Standardised group class or individual sessions adapted to the child's pace: the difference is felt most by children who need more time, or conversely who get bored quickly in a group. It's also a question of family budget — see our [Solo or Duo, how to choose](/en/blog/solo-ou-duo-comment-choisir) comparison if you're torn between one-on-one and paired follow-up.
 - **Schedule flexibility.** Between school, sports and homework, a single fixed weekly slot is often the first obstacle to consistency — a criterion just as important as the class content itself.
 
 ## Why 100% online works just as well in Lausanne as anywhere else

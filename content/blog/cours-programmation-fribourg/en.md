@@ -18,7 +18,7 @@ As elsewhere in French-speaking Switzerland, you'll generally find three formats
 
 ## How we handle this
 
-Our classes are available in French, English and German, with a teacher following the same structured programme regardless of the language chosen — designed by EPFL and ETHZ graduate engineers. In practice, a Fribourg family can enrol their child in German for one term, then switch to French later if needed, without restarting the programme from scratch: the teaching progression (Scratch then Python, in clear stages) stays the same, only the language of instruction changes.
+Our classes are available in French, English and German, with a teacher following the same structured programme regardless of the language chosen — designed by EPFL and ETHZ graduate engineers. In practice, a Fribourg family can enrol their child in German for one term, then switch to French later if needed, without restarting the programme from scratch: the teaching progression (Scratch then Python, in clear stages — see our [Python for kids, where to start](/en/blog/python-pour-enfants-par-ou-commencer) article for the detail) stays the same, only the language of instruction changes.
 
 ## The other criteria that matter, beyond language
 

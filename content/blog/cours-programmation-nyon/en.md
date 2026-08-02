@@ -28,6 +28,6 @@ Our classes are available in French, English and German, with the same structure
 
 ## Fully online: a real advantage for a mobile family
 
-For an international family in Nyon, potentially facing a move or frequent travel, an online format offers a direct advantage: continuity of learning doesn't depend on a specific location. The teacher seeing the child's screen and guiding live works exactly the same way from Nyon, on the road, or after a change of address.
+For an international family in Nyon, potentially facing a move or frequent travel, an online format offers a direct advantage: continuity of learning doesn't depend on a specific location. The teacher seeing the child's screen and guiding live works exactly the same way from Nyon, on the road, or after a change of address. If the in-person question still comes up, our [Online or in-person classes, which to choose](/en/blog/cours-en-ligne-vs-presentiel) article details the real points of comparison.
 
 Want to see what it would look like, in the language of your choice? The [Pricing page](/en/tarifs) details our plans, with a 1st-session guarantee, fully refunded if it's not convincing.

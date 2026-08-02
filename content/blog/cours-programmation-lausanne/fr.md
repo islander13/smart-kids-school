@@ -17,7 +17,7 @@ On trouve généralement trois formats : les clubs ou ateliers après l'école, 
 Le nom de la ville dans l'offre importe moins que trois critères concrets :
 
 - **La progression pédagogique.** Un bon programme part de Scratch (dès 7 ans) et amène progressivement vers Python, avec des étapes claires — pas un cours générique qui traite un enfant de 8 ans et un ado de 14 ans de la même façon.
-- **Le format du suivi.** Cours collectif standardisé ou séances individuelles adaptées au rythme de l'enfant : la différence se ressent surtout pour les enfants qui ont besoin de plus de temps, ou au contraire qui s'ennuient vite dans un groupe.
+- **Le format du suivi.** Cours collectif standardisé ou séances individuelles adaptées au rythme de l'enfant : la différence se ressent surtout pour les enfants qui ont besoin de plus de temps, ou au contraire qui s'ennuient vite dans un groupe. C'est aussi une question de budget familial — voir notre comparatif [Solo ou Duo, comment choisir](/blog/solo-ou-duo-comment-choisir) si vous hésitez entre un suivi individuel ou à deux.
 - **La flexibilité des horaires.** Entre l'école, le sport et les devoirs, un créneau fixe et unique par semaine est souvent le premier obstacle à la régularité — un critère aussi important que le contenu du cours lui-même.
 
 ## Pourquoi le 100% en ligne fonctionne aussi bien à Lausanne qu'ailleurs

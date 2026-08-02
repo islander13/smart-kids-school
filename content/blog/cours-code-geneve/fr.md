@@ -10,7 +10,7 @@ category: "local"
 
 ## 1. Quel est le programme exact, et s'adapte-t-il à l'âge de mon enfant ?
 
-Une bonne réponse mentionne une progression claire : Scratch pour les plus jeunes (dès 7 ans), une transition en douceur vers un langage textuel comme Python, avec des étapes définies. Méfiez-vous d'une réponse vague du type "on adapte au cas par cas" sans plus de détails — l'adaptation individuelle est essentielle, mais elle doit s'appuyer sur une structure de base.
+Une bonne réponse mentionne une progression claire : Scratch pour les plus jeunes (dès 7 ans), une transition en douceur vers un langage textuel comme Python, avec des étapes définies — voir notre article [Scratch vs Python, quelle différence](/blog/scratch-vs-python-difference) si ces deux noms ne vous parlent pas encore. Méfiez-vous d'une réponse vague du type "on adapte au cas par cas" sans plus de détails — l'adaptation individuelle est essentielle, mais elle doit s'appuyer sur une structure de base.
 
 ## 2. Qui donne les cours, et sur quelle méthode ?
 
