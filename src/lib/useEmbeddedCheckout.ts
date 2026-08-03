@@ -19,6 +19,11 @@ import { getStripe } from './stripe';
 export function useEmbeddedCheckout() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isReady, setIsReady] = useState(false);
+  // Stripe.js peut échouer à charger (bloqueur de pub, réseau, CSP...) ou
+  // stripe.createEmbeddedCheckoutPage() peut rejeter (clientSecret expiré,
+  // etc.) — sans ce flag, ces cas laissaient le spinner tourner à l'infini,
+  // sans aucun moyen pour le client de savoir que le paiement est bloqué.
+  const [error, setError] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,18 +34,29 @@ export function useEmbeddedCheckout() {
 
     (async () => {
       const stripe = await getStripe();
-      if (!stripe || cancelled || !containerRef.current) return;
-      checkoutInstance = await stripe.createEmbeddedCheckoutPage({
-        clientSecret,
-        // "checkoutRendered" est censé signaler la fin de l'affichage, mais
-        // ne se déclenche pas de façon fiable dans tous les cas observés —
-        // on s'en sert comme chemin rapide quand il arrive, sans en
-        // dépendre : le filet de sécurité ci-dessous (fallbackTimer) garantit
-        // que le spinner ne reste jamais bloqué indéfiniment.
-        onAnalyticsEvent: (event) => {
-          if (event.eventType === 'checkoutRendered' && !cancelled) setIsReady(true);
-        },
-      });
+      if (cancelled) return;
+      if (!stripe) {
+        setError(true);
+        return;
+      }
+      if (!containerRef.current) return;
+      try {
+        checkoutInstance = await stripe.createEmbeddedCheckoutPage({
+          clientSecret,
+          // "checkoutRendered" est censé signaler la fin de l'affichage, mais
+          // ne se déclenche pas de façon fiable dans tous les cas observés —
+          // on s'en sert comme chemin rapide quand il arrive, sans en
+          // dépendre : le filet de sécurité ci-dessous (fallbackTimer) garantit
+          // que le spinner ne reste jamais bloqué indéfiniment.
+          onAnalyticsEvent: (event) => {
+            if (event.eventType === 'checkoutRendered' && !cancelled) setIsReady(true);
+          },
+        });
+      } catch (err) {
+        console.error('Échec de création du paiement Stripe embarqué:', err);
+        if (!cancelled) setError(true);
+        return;
+      }
       if (cancelled) {
         checkoutInstance.destroy();
         return;
@@ -64,10 +80,15 @@ export function useEmbeddedCheckout() {
     containerRef,
     isActive: clientSecret !== null,
     isReady,
-    start: (secret: string) => setClientSecret(secret),
+    error,
+    start: (secret: string) => {
+      setError(false);
+      setClientSecret(secret);
+    },
     reset: () => {
       setClientSecret(null);
       setIsReady(false);
+      setError(false);
     },
   };
 }

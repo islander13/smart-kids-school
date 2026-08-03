@@ -403,6 +403,7 @@ export default function Premium() {
         body: JSON.stringify({
           productKey: productKey,
           customerEmail: formData.email,
+          locale: currentLang.toLowerCase(),
           metadata: {
             parentName: formData.parentName,
             phone: formData.phone,
@@ -776,15 +777,34 @@ export default function Premium() {
 
             {submitMessage === 'embedded' ? (
               <div className="p-4 sm:p-8">
-                {!checkout.isReady && (
-                  <div className="flex flex-col items-center justify-center py-20 gap-4">
-                    <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
-                    <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                      {currentLang === 'FR' ? 'Chargement du paiement sécurisé…' : currentLang === 'EN' ? 'Loading secure payment…' : 'Sichere Zahlung wird geladen…'}
+                {checkout.error ? (
+                  <div className="flex flex-col items-center justify-center py-16 gap-4 text-center">
+                    <div className="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center text-2xl">⚠️</div>
+                    <p className={`text-sm max-w-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {currentLang === 'FR' ? "Le paiement n'a pas pu se charger (bloqueur de publicités ou problème réseau). Vos informations sont déjà enregistrées." : currentLang === 'EN' ? 'The payment couldn\'t load (ad blocker or network issue). Your details are already saved.' : 'Die Zahlung konnte nicht geladen werden (Werbeblocker oder Netzwerkproblem). Ihre Angaben sind bereits gespeichert.'}
                     </p>
+                    <div className="flex flex-col sm:flex-row gap-2 w-full max-w-sm">
+                      <button onClick={() => { checkout.reset(); setSubmitMessage(''); }} className="flex-1 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all cursor-pointer">
+                        {currentLang === 'FR' ? 'Réessayer' : currentLang === 'EN' ? 'Try again' : 'Erneut versuchen'}
+                      </button>
+                      <a href="https://wa.me/41774768492" target="_blank" rel="noopener noreferrer" className={`flex-1 text-center px-5 py-2.5 rounded-full text-sm font-semibold border transition-all ${darkMode ? 'border-gray-600 text-gray-300 hover:bg-gray-800' : 'border-gray-300 text-gray-700 hover:bg-gray-50'}`}>
+                        WhatsApp
+                      </a>
+                    </div>
                   </div>
+                ) : (
+                  <>
+                    {!checkout.isReady && (
+                      <div className="flex flex-col items-center justify-center py-20 gap-4">
+                        <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+                        <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                          {currentLang === 'FR' ? 'Chargement du paiement sécurisé…' : currentLang === 'EN' ? 'Loading secure payment…' : 'Sichere Zahlung wird geladen…'}
+                        </p>
+                      </div>
+                    )}
+                    <div ref={checkout.containerRef} className={checkout.isReady ? '' : 'invisible h-0 overflow-hidden'} />
+                  </>
                 )}
-                <div ref={checkout.containerRef} className={checkout.isReady ? '' : 'invisible h-0 overflow-hidden'} />
               </div>
             ) : (
               <form onSubmit={handleSubmit} name="premium-enrollment" data-netlify="true" className="p-8">

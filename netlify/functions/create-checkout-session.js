@@ -92,7 +92,11 @@ exports.handler = async (event) => {
 
   try {
     const data = JSON.parse(event.body);
-    const { productKey, customerEmail, metadata } = data;
+    const { productKey, customerEmail, metadata, locale } = data;
+    // La page de paiement Stripe doit parler la langue que le client a
+    // utilisée sur tout le reste du site (FR/EN/DE) — pas systématiquement
+    // le français. On ne fait confiance qu'aux 3 valeurs qu'on sert nous-mêmes.
+    const stripeLocale = ['fr', 'en', 'de'].includes(locale) ? locale : 'fr';
 
     // Validation
     if (!productKey || !PRODUCTS[productKey]) {
@@ -154,8 +158,9 @@ exports.handler = async (event) => {
         productKey: productKey,
         ...metadata,  // parent name, child names, age, etc.
       },
-      // Locale FR (vos clients sont francophones)
-      locale: 'fr',
+      // Langue de la page de paiement Stripe elle-même (distincte de la
+      // devise CHF, forcée plus haut quelle que soit la langue).
+      locale: stripeLocale,
       // Permettre les codes promo
       allow_promotion_codes: true,
       // Collecte de la facturation
