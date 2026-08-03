@@ -427,7 +427,6 @@ export default function Tarifs() {
     // moment-là redonne toujours un lien direct et propre.
     navigate(localizedPath('/tarifs/inscription', currentLang), { replace: true });
     try { (window as any).gtag?.('event', 'plan_modal_open', { plan: key }); } catch {}
-    try { (window as any).fbq?.('track', 'InitiateCheckout', { content_name: title, value: price, currency: 'CHF', content_category: format }); } catch {}
   };
 
   const closePlanModal = () => {
@@ -536,6 +535,11 @@ export default function Tarifs() {
       // ─── 3. Affiche le paiement Stripe directement dans la modal ───
       checkout.start(clientSecret);
       setPlanSubmitMessage('embedded');
+      // InitiateCheckout ici (page de paiement Stripe qui s'ouvre), avec le
+      // montant réellement sélectionné (totalAmount tient compte du mode
+      // "paiement en une fois", contrairement à selectedPlan.price qui reste
+      // toujours le prix mensuel).
+      try { (window as any).fbq?.('track', 'InitiateCheckout', { content_name: selectedPlan.title, value: totalAmount, currency: 'CHF', content_category: selectedPlan.format }); } catch {}
     } catch (err) {
       console.error('Submit error:', err);
       setPlanSubmitMessage('error');

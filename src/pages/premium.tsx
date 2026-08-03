@@ -429,6 +429,10 @@ export default function Premium() {
 
       checkout.start(clientSecret);
       setSubmitMessage('embedded');
+      // InitiateCheckout au moment où la page de paiement Stripe s'ouvre
+      // réellement, pas à l'ouverture du formulaire (comme pour stages/tarifs).
+      const premiumValue = selectedPlan === 'monthly' ? 999 : 10789;
+      try { (window as any).fbq?.('track', 'InitiateCheckout', { content_name: selectedPlan === 'monthly' ? 'Premium Mensuel' : 'Premium 12 mois', value: premiumValue, currency: 'CHF', content_category: 'premium' }); } catch {}
     } catch (err) {
       console.error('Submit error:', err);
       setSubmitMessage('error');
