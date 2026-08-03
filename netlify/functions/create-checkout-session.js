@@ -143,7 +143,12 @@ exports.handler = async (event) => {
       // En mode embedded, une seule URL de retour (après paiement réussi) ;
       // il n'y a plus de "cancel_url" séparée puisque le client ne quitte
       // jamais le site pour annuler — il ferme simplement la modal.
-      return_url: `${process.env.SITE_URL || 'https://smartkids-school.ch'}/merci?session_id={CHECKOUT_SESSION_ID}`,
+      // value/product_key : connus ici (source de vérité des prix), transmis
+      // en clair dans l'URL pour que /merci puisse envoyer un événement
+      // Purchase avec le bon montant (Meta ne peut pas optimiser sur la
+      // valeur d'achat sans ça). Seul {CHECKOUT_SESSION_ID} est un template
+      // rempli par Stripe lui-même après paiement réussi.
+      return_url: `${process.env.SITE_URL || 'https://smartkids-school.ch'}/merci?session_id={CHECKOUT_SESSION_ID}&value=${product.price}&product_key=${encodeURIComponent(productKey)}`,
       // Métadonnées (utiles pour suivi côté Stripe)
       metadata: {
         productKey: productKey,

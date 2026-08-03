@@ -61,13 +61,24 @@ export default function Merci() {
   });
 
   useEffect(() => {
-    // Tracking conversion (Plausible / GA)
+    // Tracking conversion (Plausible / GA / Meta). session_id ne vient que du
+    // return_url Stripe (rempli par Stripe lui-même après paiement réussi en
+    // mode embedded) : son absence signifie que cette page n'a pas été
+    // atteinte via un paiement réel, donc pas d'événement Purchase.
     try {
       const params = new URLSearchParams(window.location.search);
       const sessionId = params.get('session_id');
-      (window as any).gtag?.('event', 'purchase_complete', { session_id: sessionId || 'unknown' });
-      (window as any).plausible?.('Purchase Complete');
-      (window as any).fbq?.('track', 'Purchase', { currency: 'CHF' });
+      if (sessionId) {
+        const value = params.get('value');
+        const productKey = params.get('product_key');
+        (window as any).gtag?.('event', 'purchase_complete', { session_id: sessionId });
+        (window as any).plausible?.('Purchase Complete');
+        (window as any).fbq?.('track', 'Purchase', {
+          currency: 'CHF',
+          ...(value && { value: Number(value) }),
+          ...(productKey && { content_name: productKey }),
+        });
+      }
     } catch {}
 
     document.title = currentLang === 'FR' ? 'Merci !, Smart Kids School' : currentLang === 'EN' ? 'Thank you!, Smart Kids School' : 'Danke!, Smart Kids School';

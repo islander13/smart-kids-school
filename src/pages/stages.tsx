@@ -357,7 +357,6 @@ export default function Stages() {
     // moment-là redonne toujours un lien direct et propre.
     navigate(localizedPath('/stages/inscription', currentLang), { replace: true });
     try { (window as any).gtag?.('event', 'stage_modal_open', { period }); } catch {}
-    try { (window as any).fbq?.('track', 'InitiateCheckout', { content_name: 'Stage été', content_category: period, currency: 'CHF' }); } catch {}
   };
 
   const closeStageModal = () => {
@@ -456,6 +455,11 @@ export default function Stages() {
 
       checkout.start(clientSecret);
       setStageSubmitMessage('embedded');
+      // InitiateCheckout se déclenche ici (page de paiement Stripe qui
+      // s'ouvre), pas à l'ouverture du formulaire de réservation : c'est le
+      // moment où le client entre réellement dans le tunnel de paiement.
+      const stagePrice = stageFormData.numChildren === 1 ? 449 : 799;
+      try { (window as any).fbq?.('track', 'InitiateCheckout', { content_name: 'Stage été', content_category: selectedStagePeriod, value: stagePrice, currency: 'CHF' }); } catch {}
     } catch (err) {
       console.error('Submit error:', err);
       setStageSubmitMessage('error');
