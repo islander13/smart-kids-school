@@ -17,7 +17,7 @@ const T = {
     heroTitle: 'Choisissez votre formule',
     heroPill1: '100% en ligne',
     heroPill2: 'Engagement et abonnement au choix',
-    heroPill3: 'Garantie satisfait ou remboursé',
+    heroPill3: 'Bilan de niveau offert, sans engagement',
 
     // How it works
     howLabel: 'Comment ça marche',
@@ -98,10 +98,13 @@ const T = {
     inc7: 'Reprogrammation gratuite avec préavis de 24h',
     inc8: 'Tarifs préférentiels pour les stages de vacances',
 
-    // Guarantee
-    guaranteeLabel: 'Notre engagement',
-    guaranteeTitle: 'Satisfait ou remboursé après la 1ère séance',
-    guaranteeDesc: "Nous savons que choisir un cours pour son enfant est important. Si après la première séance vous estimez que SKS ne convient pas, nous vous remboursons intégralement. Sans question, sans paperasse.",
+    // Réassurance : bilan de niveau offert (remplace l'ancienne garantie
+    // remboursement, retirée du parcours "cours à l'année" — trop coûteuse
+    // et risquée à l'échelle d'une école à taille humaine. Reste en place
+    // uniquement sur premium.tsx, où l'offre haut de gamme la justifie.)
+    guaranteeLabel: 'Votre premier pas',
+    guaranteeTitle: 'Un bilan de niveau offert, avant tout engagement',
+    guaranteeDesc: "30 minutes avec un enseignant pour évaluer le niveau de votre enfant et construire le programme le plus adapté. Sans engagement, sans carte bancaire.",
 
     // Compare table
     compareLabel: 'Tableau comparatif',
@@ -149,9 +152,9 @@ const T = {
     faqDesc: "Tout ce qu'il faut savoir sur nos formules et engagements.",
     faqs: [
       { q: "À quels horaires les cours ont-ils lieu ?", a: "Vous choisissez : nous sommes ouverts de 9h à 19h et fixons ensemble le créneau qui vous convient (après l'école, le mercredi, le week-end). Le rythme aussi s'adapte à votre enfant, c'est tout l'intérêt d'un cours personnalisé." },
-      { q: "Comment fonctionnent les formules Solo et Duo ?", a: "L'enfant peut suivre le cours en Solo (cours individuel) ou en Duo avec un frère, une sœur ou un ami. Les tarifs les plus avantageux, soit 249 CHF/mois en Solo et 169 CHF/mois par enfant en Duo, correspondent à l'engagement 12 mois, qui couvre le programme de base de programmation éducative avant la spécialisation. Le tarif baisse en Duo car le cours est mutualisé. Pour 3 enfants ou plus, contactez-nous pour un devis sur-mesure." },
-      { q: "Quelle est la différence entre les engagements 3, 6 et 12 mois ?", a: "Plus l'engagement est long, plus le tarif mensuel baisse (jusqu'à -17% sur 12 mois). L'engagement minimum est de 3 mois (la durée d'un module complet) pour que votre enfant aille au bout de son apprentissage. Tous les engagements incluent les mêmes contenus et la garantie 1ère séance." },
-      { q: "Que comprend la 'Garantie 1ère séance' ?", a: "Si après la première séance vous n'êtes pas convaincu, nous vous remboursons intégralement, sans poser de question. C'est notre engagement pour que vous testiez sans risque." },
+      { q: "Comment fonctionnent les formules Solo et Duo ?", a: "L'enfant peut suivre le cours en Solo (cours individuel) ou en Duo avec un frère, une sœur ou un ami. Les tarifs les plus avantageux, soit 249 CHF/mois en Solo et 169 CHF/mois par enfant en Duo, correspondent à l'engagement 12 mois, qui couvre le programme de base de programmation éducative avant la spécialisation. Le tarif baisse en Duo car le cours est mutualisé. Chaque trimestre, l'enfant réalise un projet concret qu'il publie, avec un certificat à la clé pour chaque niveau franchi. Pour 3 enfants ou plus, contactez-nous pour un devis sur-mesure." },
+      { q: "Quelle est la différence entre les engagements 3, 6 et 12 mois ?", a: "Plus l'engagement est long, plus le tarif mensuel baisse (jusqu'à -17% sur 12 mois). L'engagement minimum est de 3 mois (la durée d'un module complet) pour que votre enfant aille au bout de son apprentissage. Tous les engagements incluent exactement le même programme et le même accompagnement." },
+      { q: "Peut-on essayer avant de s'engager ?", a: "Oui : nous proposons un bilan de niveau offert de 30 minutes, sans engagement. C'est l'occasion d'évaluer le niveau de votre enfant avec un enseignant et de lui proposer le programme le plus adapté, avant toute inscription." },
       { q: "Et si je veux changer de niveau d'engagement ?", a: "Vous pouvez à tout moment passer à un engagement plus long (par exemple de 3 à 6 ou 12 mois) pour bénéficier d'un tarif plus avantageux. Le sens inverse n'est pas possible avant la fin de la période d'engagement souscrite." },
       { q: "Quels moyens de paiement acceptez-vous ?", a: "Carte bancaire (Visa, Mastercard, Apple Pay, Google Pay), virement bancaire, et paiement en plusieurs fois. Tous les paiements sont sécurisés via Stripe." },
       { q: "Puis-je annuler mon abonnement ?", a: "L'abonnement court jusqu'à la fin de la période choisie (3, 6 ou 12 mois), puis se renouvelle automatiquement et reste annulable à tout moment ensuite." },
@@ -164,7 +167,7 @@ const T = {
     heroTitle: 'Choose your plan',
     heroPill1: '100% online',
     heroPill2: 'Choose your commitment',
-    heroPill3: 'Money-back guarantee',
+    heroPill3: 'Free level assessment, no commitment',
 
     howLabel: 'How it works',
     howTitle: 'Learn alone or in pairs',
@@ -209,8 +212,8 @@ const T = {
     inc7: 'Free rescheduling with 24h notice',
     inc8: 'Preferential rates for vacation camps',
 
-    guaranteeLabel: 'Our promise', guaranteeTitle: 'Money-back after the 1st session',
-    guaranteeDesc: "Choosing a class for your child matters. If after the first session you feel SKS isn't right, we refund you in full. No questions, no paperwork.",
+    guaranteeLabel: 'Your first step', guaranteeTitle: 'A free level assessment, before any commitment',
+    guaranteeDesc: "30 minutes with a teacher to assess your child's level and build the programme that fits them best. No commitment, no card required.",
 
     compareLabel: 'Comparison', compareTitle: 'All plans at a glance',
     rowFormat: 'Format', rowFormatV1: 'Solo only', rowFormatV2: 'Solo · Duo', rowFormatV3: 'Solo · Duo',
@@ -233,9 +236,9 @@ const T = {
     faqTitle: 'Your questions about our pricing',
     faqs: [
       { q: "What times are the lessons held?", a: "You choose: we're open from 9am to 7pm and agree together on a slot that works for you (after school, Wednesday, the weekend). The pace adapts to your child too, that's the whole point of a personalised course." },
-      { q: "How do Solo and Duo plans work?", a: "The child can take the class Solo (individual) or in Duo with a sibling or friend. The best rates, namely 249 CHF/month Solo and 169 CHF/month per child in Duo, correspond to the 12-month commitment, which covers the core educational programming curriculum before specialization. The rate drops in Duo because the class is shared. For 3 or more children, contact us for a custom quote." },
-      { q: "What's the difference between the 3, 6 and 12 month commitments?", a: "The longer the commitment, the lower the monthly rate (up to -17% over 12 months). The minimum commitment is 3 months (the length of a full module) so your child completes their learning journey. All commitments include the same content and the 1st-session guarantee." },
-      { q: "What is the '1st session guarantee'?", a: "If you're not convinced after the first session, we fully refund you, no questions asked." },
+      { q: "How do Solo and Duo plans work?", a: "The child can take the class Solo (individual) or in Duo with a sibling or friend. The best rates, namely 249 CHF/month Solo and 169 CHF/month per child in Duo, correspond to the 12-month commitment, which covers the core educational programming curriculum before specialization. The rate drops in Duo because the class is shared. Every quarter, the child completes and publishes a real project, earning a certificate for each level reached. For 3 or more children, contact us for a custom quote." },
+      { q: "What's the difference between the 3, 6 and 12 month commitments?", a: "The longer the commitment, the lower the monthly rate (up to -17% over 12 months). The minimum commitment is 3 months (the length of a full module) so your child completes their learning journey. All commitments include exactly the same programme and the same support." },
+      { q: "Can I try it before committing?", a: "Yes: we offer a free 30-minute level assessment, with no commitment. It's a chance to have a teacher evaluate your child's level and recommend the best-fitting programme, before any enrollment." },
       { q: "Can I switch commitment levels?", a: "You can switch to a longer commitment anytime (for example from 3 to 6 or 12 months) to benefit from a better rate. The opposite is not possible before the end of the subscribed period." },
       { q: "Which payment methods do you accept?", a: "Credit card (Visa, Mastercard, Apple Pay, Google Pay), bank transfer, and instalments. All payments are secured via Stripe." },
       { q: "Can I cancel my subscription?", a: "The subscription runs until the end of the chosen period (3, 6 or 12 months), then renews automatically and remains cancellable anytime after." },
@@ -248,7 +251,7 @@ const T = {
     heroTitle: 'Wählen Sie Ihre Formel',
     heroPill1: '100% online',
     heroPill2: 'Engagement frei wählbar',
-    heroPill3: 'Geld-zurück-Garantie',
+    heroPill3: 'Kostenlose Niveaubeurteilung, unverbindlich',
 
     howLabel: 'So funktioniert es', howTitle: 'Allein oder zu zweit lernen',
     howDesc: 'Der Unterricht findet einzeln oder zu zweit statt (zwei Kinder: Geschwister oder Freunde). Zu zweit ist die Dynamik motivierender, und der Preis sinkt für die Familie.',
@@ -291,8 +294,8 @@ const T = {
     inc7: 'Kostenlose Verschiebung mit 24h-Vorlauf',
     inc8: 'Vorzugspreise für Ferien-Camps',
 
-    guaranteeLabel: 'Unser Versprechen', guaranteeTitle: 'Geld zurück nach der 1. Sitzung',
-    guaranteeDesc: 'Wenn SKS nach der ersten Sitzung nicht passt, erstatten wir den vollen Betrag. Ohne Fragen, ohne Papierkram.',
+    guaranteeLabel: 'Ihr erster Schritt', guaranteeTitle: 'Eine kostenlose Niveaubeurteilung, ganz unverbindlich',
+    guaranteeDesc: '30 Minuten mit einer Lehrperson, um das Niveau Ihres Kindes einzuschätzen und das passende Programm zu erstellen. Unverbindlich, keine Kreditkarte nötig.',
 
     compareLabel: 'Vergleich', compareTitle: 'Alle Formeln auf einen Blick',
     rowFormat: 'Format', rowFormatV1: 'Nur Solo', rowFormatV2: 'Solo · Duo', rowFormatV3: 'Solo · Duo',
@@ -315,9 +318,9 @@ const T = {
     faqTitle: 'Ihre Fragen zu unseren Preisen',
     faqs: [
       { q: "Zu welchen Zeiten findet der Unterricht statt?", a: "Sie entscheiden: Wir sind von 9 bis 19 Uhr offen und legen gemeinsam einen passenden Termin fest (nach der Schule, mittwochs, am Wochenende). Auch das Tempo richtet sich nach Ihrem Kind, genau das macht personalisierten Unterricht aus." },
-      { q: "Wie funktionieren Solo und Duo?", a: "Das Kind kann den Kurs solo oder im Duo mit einem Geschwister oder Freund besuchen. Die besten Tarife, nämlich 249 CHF/Monat Solo und 169 CHF/Monat pro Kind im Duo, entsprechen der 12-Monats-Bindung, die das grundlegende Programm der pädagogischen Programmierung vor der Spezialisierung abdeckt. Der Tarif sinkt im Duo, da der Kurs geteilt wird. Für 3 Kinder oder mehr kontaktieren Sie uns für ein individuelles Angebot." },
-      { q: "Unterschied zwischen 3, 6 und 12 Monaten?", a: "Je länger die Bindung, desto niedriger der Monatspreis (bis zu -17% über 12 Monate). Die Mindestbindung beträgt 3 Monate (die Dauer eines vollständigen Moduls), damit Ihr Kind seinen Lernweg abschliesst. Alle Bindungen enthalten dieselben Inhalte und die 1.-Sitzung-Garantie." },
-      { q: "Was ist die '1.-Sitzung-Garantie'?", a: "Wenn Sie nach der ersten Sitzung nicht überzeugt sind, erstatten wir den vollen Betrag, ohne Fragen." },
+      { q: "Wie funktionieren Solo und Duo?", a: "Das Kind kann den Kurs solo oder im Duo mit einem Geschwister oder Freund besuchen. Die besten Tarife, nämlich 249 CHF/Monat Solo und 169 CHF/Monat pro Kind im Duo, entsprechen der 12-Monats-Bindung, die das grundlegende Programm der pädagogischen Programmierung vor der Spezialisierung abdeckt. Der Tarif sinkt im Duo, da der Kurs geteilt wird. Jedes Quartal realisiert und veröffentlicht das Kind ein echtes Projekt und erhält für jedes erreichte Niveau ein Zertifikat. Für 3 Kinder oder mehr kontaktieren Sie uns für ein individuelles Angebot." },
+      { q: "Unterschied zwischen 3, 6 und 12 Monaten?", a: "Je länger die Bindung, desto niedriger der Monatspreis (bis zu -17% über 12 Monate). Die Mindestbindung beträgt 3 Monate (die Dauer eines vollständigen Moduls), damit Ihr Kind seinen Lernweg abschliesst. Alle Bindungen enthalten genau dasselbe Programm und dieselbe Begleitung." },
+      { q: "Kann ich es vor der Anmeldung ausprobieren?", a: "Ja: Wir bieten eine kostenlose, unverbindliche Niveaubeurteilung von 30 Minuten an. Dabei schätzt eine Lehrperson das Niveau Ihres Kindes ein und empfiehlt das passende Programm — ganz ohne Anmeldung." },
       { q: "Kann ich die Bindung ändern?", a: "Sie können jederzeit zu einer längeren Bindung wechseln (z. B. von 3 zu 6 oder 12 Monaten), um von einem besseren Tarif zu profitieren. Umgekehrt erst am Ende der gebuchten Periode." },
       { q: "Welche Zahlungsmethoden?", a: "Kreditkarte (Visa, Mastercard, Apple Pay, Google Pay), Banküberweisung, Ratenzahlung. Sicher über Stripe." },
       { q: "Kann ich kündigen?", a: "Das Abo läuft bis zum Ende der gewählten Periode (3, 6 oder 12 Monate), verlängert sich dann automatisch und bleibt danach jederzeit kündbar." },
@@ -924,7 +927,7 @@ export default function Tarifs() {
                     </li>
                     <li className="flex items-start gap-2">
                       <i className="ri-check-line text-emerald-500 text-lg flex-shrink-0"></i>
-                      <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>{currentLang === 'FR' ? 'Garantie 1ère séance' : currentLang === 'EN' ? '1st session guarantee' : 'Garantie 1. Sitzung'}</span>
+                      <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>{currentLang === 'FR' ? 'Bilan de niveau offert (30 min)' : currentLang === 'EN' ? 'Free level assessment (30 min)' : 'Kostenlose Niveaubeurteilung (30 Min.)'}</span>
                     </li>
                   </ul>
                   <button onClick={() => openPlanModal(selectedFormat, card.key as EngagementKey, card.title, price, card.sub)} className={`block w-full text-center py-3 rounded-full font-bold transition-all mt-auto cursor-pointer ${
@@ -943,7 +946,7 @@ export default function Tarifs() {
         </div>
       </section>
 
-      {/* ── Inclus + Garantie + Paiement (fusionné) ── */}
+      {/* ── Inclus + Bilan de niveau offert + Paiement (fusionné) ── */}
       {/* ── Programme inclus : le parcours de votre enfant ── */}
       <section className={`py-20 px-4 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-6xl mx-auto">
@@ -1070,11 +1073,11 @@ export default function Tarifs() {
           {/* Grille 3×2 des inclusions (chaque carte a sa couleur pour le rythme visuel) */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
             {[
-              { icon: 'ri-focus-3-line', color: 'indigo', t: { FR: 'Cours hebdo', EN: 'Weekly classes', DE: 'Wöchentlicher Unterricht' }, d: { FR: '4 séances/mois · accélérable', EN: '4 sessions/month · can be accelerated', DE: '4 Sitzungen/Monat · beschleunigbar' } },
-              { icon: 'ri-book-open-line', color: 'sky', t: { FR: 'Matériel pédago', EN: 'Learning materials', DE: 'Lernmaterial' }, d: { FR: 'Exercices et projets fournis', EN: 'Exercises and projects provided', DE: 'Übungen und Projekte inklusive' } },
-              { icon: 'ri-line-chart-line', color: 'violet', t: { FR: 'Suivi parents', EN: 'Parent updates', DE: 'Eltern-Austausch' }, d: { FR: 'Point régulier avec vous', EN: 'Regular check-in with you', DE: 'Regelmässiger Austausch' } },
-              { icon: 'ri-medal-line', color: 'amber', t: { FR: 'Certificat', EN: 'Certificate', DE: 'Zertifikat' }, d: { FR: 'À chaque module terminé', EN: 'For every completed module', DE: 'Für jedes abgeschlossene Modul' } },
-              { icon: 'ri-shield-check-line', color: 'emerald', t: { FR: 'Garantie', EN: 'Guarantee', DE: 'Garantie' }, d: { FR: 'Remboursé après 1ère séance', EN: 'Refunded after 1st session', DE: 'Erstattung nach 1. Sitzung' } },
+              { icon: 'ri-code-box-line', color: 'indigo', t: { FR: 'Projet trimestriel', EN: 'Quarterly project', DE: 'Projekt pro Quartal' }, d: { FR: 'Un projet concret réalisé et publié', EN: 'A real project, built and published', DE: 'Ein echtes, veröffentlichtes Projekt' } },
+              { icon: 'ri-book-open-line', color: 'sky', t: { FR: 'Carnet de progression', EN: 'Progress notebook', DE: 'Fortschrittsheft' }, d: { FR: 'Suivi détaillé des compétences acquises', EN: 'Detailed record of skills acquired', DE: 'Detaillierte Übersicht der erworbenen Fähigkeiten' } },
+              { icon: 'ri-line-chart-line', color: 'violet', t: { FR: 'Bilan trimestriel', EN: 'Quarterly review', DE: 'Vierteljährliches Feedback' }, d: { FR: 'Point détaillé avec vous chaque trimestre', EN: 'Detailed check-in with you every quarter', DE: 'Ausführliches Gespräch mit Ihnen pro Quartal' } },
+              { icon: 'ri-medal-line', color: 'amber', t: { FR: 'Certificat par niveau', EN: 'Certificate per level', DE: 'Zertifikat pro Niveau' }, d: { FR: 'Officiel et signé, à chaque niveau franchi', EN: 'Official and signed, for every level completed', DE: 'Offiziell und unterschrieben, für jedes abgeschlossene Niveau' } },
+              { icon: 'ri-calendar-check-line', color: 'emerald', t: { FR: 'Bilan offert', EN: 'Free assessment', DE: 'Kostenlos' }, d: { FR: '30 min, sans engagement', EN: '30 min, no commitment', DE: '30 Min., unverbindlich' } },
               { icon: 'ri-whatsapp-line', color: 'green', t: { FR: 'Support WhatsApp', EN: 'WhatsApp support', DE: 'WhatsApp-Support' }, d: { FR: 'Réponse rapide', EN: 'Quick reply', DE: 'Schnelle Antwort' } },
             ].map((item, i) => {
               const palette = {
@@ -1097,16 +1100,14 @@ export default function Tarifs() {
             })}
           </div>
 
-          {/* Garantie agrandie (remplace la version compacte) */}
+          {/* Bilan de niveau offert — mise en avant (remplace l'ancienne garantie remboursement) */}
           <div className={`rounded-3xl p-6 mb-6 flex items-center gap-5 ${darkMode ? 'bg-emerald-900/20 border-2 border-emerald-500/30' : 'bg-gradient-to-r from-emerald-50 to-emerald-100 border-2 border-emerald-300'}`}>
             <div className={`w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 ${darkMode ? 'bg-emerald-600' : 'bg-emerald-500'}`}>
-              <i className="ri-shield-check-line text-4xl text-white"></i>
+              <i className="ri-calendar-check-line text-4xl text-white"></i>
             </div>
             <div className="flex-1">
               <h3 className={`text-xl font-bold mb-1 ${darkMode ? 'text-emerald-200' : 'text-emerald-900'}`}>{t.guaranteeTitle}</h3>
-              <p className={`text-sm ${darkMode ? 'text-emerald-300/80' : 'text-emerald-800'}`}>
-                {currentLang === 'FR' ? "Sans question, sans paperasse. Si votre enfant n'accroche pas dès la première séance, on vous rembourse intégralement." : currentLang === 'EN' ? "No questions, no paperwork. If your child doesn't connect from the first session, we refund you in full." : 'Keine Fragen, kein Papierkram. Wenn Ihr Kind nicht ab der ersten Sitzung Anschluss findet, erstatten wir Ihnen vollständig.'}
-              </p>
+              <p className={`text-sm ${darkMode ? 'text-emerald-300/80' : 'text-emerald-800'}`}>{t.guaranteeDesc}</p>
             </div>
           </div>
 
@@ -1168,6 +1169,11 @@ export default function Tarifs() {
             <button onClick={() => document.getElementById('tarifs-detailles')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="bg-white text-[#232999] px-8 py-4 rounded-full font-bold hover:shadow-2xl transform hover:scale-105 transition-all cursor-pointer">{t.ctaBtn}</button>
             <a href="https://wa.me/41774768492" target="_blank" rel="noopener noreferrer" className="bg-[#1f7a44] hover:bg-[#18613a] text-white px-8 py-4 rounded-full font-bold transition-all">{t.ctaBtn2}</a>
           </div>
+          {/* Rareté honnête : vraie contrainte d'une école à taille humaine
+              (suivi individuel), pas un compteur ou un chiffre inventé. */}
+          <p className="text-sm text-white/70 mt-6">
+            {currentLang === 'FR' ? 'Nombre de places limité ce trimestre pour garantir un suivi personnalisé.' : currentLang === 'EN' ? 'Limited spots this term to keep every child\'s follow-up personal.' : 'Begrenzte Plätze in diesem Quartal, um eine persönliche Betreuung zu gewährleisten.'}
+          </p>
         </div>
       </section>
 
@@ -1438,7 +1444,7 @@ export default function Tarifs() {
 
                 <p className={`text-xs text-center mt-4 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                   <i className="ri-shield-check-line mr-1 text-emerald-500"></i>
-                  {currentLang === 'FR' ? 'Paiement sécurisé via Stripe · Garantie 1ère séance remboursée' : currentLang === 'EN' ? 'Secure payment via Stripe · 1st session refund guarantee' : 'Sichere Zahlung über Stripe · 1.-Sitzung-Rückerstattungsgarantie'}
+                  {currentLang === 'FR' ? 'Paiement sécurisé via Stripe' : currentLang === 'EN' ? 'Secure payment via Stripe' : 'Sichere Zahlung über Stripe'}
                 </p>
               </form>
             )}
