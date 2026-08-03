@@ -394,9 +394,9 @@ export default function CGV() {
               </ul>
               <p className={`text-xs italic mt-2 ${darkMode ? 'text-amber-300' : 'text-amber-700'}`}>
                 {tx(
-                  "⚠️ Le paiement total n'est pas remboursable une fois la 1ère séance suivie (hors garantie 1ère séance, voir Section 6).",
-                  "⚠️ Total payment is not refundable after the 1st session (except 1st-session guarantee, see Section 6).",
-                  "⚠️ Vollzahlung ist nach der 1. Sitzung nicht erstattungsfähig (außer 1.-Sitzung-Garantie, siehe Abschnitt 6)."
+                  "⚠️ Le paiement total n'est pas remboursable une fois la 1ère séance suivie.",
+                  "⚠️ Total payment is not refundable after the 1st session.",
+                  "⚠️ Vollzahlung ist nach der 1. Sitzung nicht erstattungsfähig."
                 )}
               </p>
             </div>
@@ -469,13 +469,13 @@ export default function CGV() {
             <div className={`rounded-xl border-2 p-4 ${darkMode ? 'bg-emerald-900/20 border-emerald-700' : 'bg-emerald-50 border-emerald-300'}`}>
               <h4 className={`font-bold mb-2 flex items-center gap-2 ${darkMode ? 'text-emerald-300' : 'text-emerald-800'}`}>
                 <span className="text-2xl">✓</span>
-                {tx("6.1 Garantie satisfait ou remboursé (1ère séance)", "6.1 Money-back guarantee (1st session)", "6.1 Geld-zurück-Garantie (1. Sitzung)")}
+                {tx("6.1 Garantie satisfait ou remboursé (Premium et stages)", "6.1 Money-back guarantee (Premium and camps)", "6.1 Geld-zurück-Garantie (Premium und Camps)")}
               </h4>
               <p className="text-sm">
                 {tx(
-                  "Si vous n'êtes pas satisfait de votre 1ère séance, quelle qu'en soit la raison, vous pouvez demander le remboursement intégral de votre paiement initial dans les 7 jours suivant cette 1ère séance. La demande doit être formulée par email à contact@smartkids-school.ch. Cette garantie s'applique à TOUTES les formules (Solo, Duo, Premium, paiements totaux, et stages).",
-                  "If you are not satisfied with your 1st session, for any reason, you can request a full refund of your initial payment within 7 days of this 1st session. The request must be made by email to contact@smartkids-school.ch. This guarantee applies to ALL packages (Solo, Duo, Premium, full payments, and camps).",
-                  "Wenn Sie mit Ihrer 1. Sitzung nicht zufrieden sind, aus welchem Grund auch immer, können Sie innerhalb von 7 Tagen nach dieser 1. Sitzung eine vollständige Rückerstattung Ihrer Erstzahlung beantragen. Die Anfrage muss per E-Mail an contact@smartkids-school.ch erfolgen. Diese Garantie gilt für ALLE Pakete (Solo, Duo, Premium, Vollzahlungen und Camps)."
+                  "Cette garantie s'applique aux formules Premium (mensuel et 12 mois) et aux stages vacances. Si vous n'êtes pas satisfait de votre 1ère séance, quelle qu'en soit la raison, vous pouvez demander le remboursement intégral de votre paiement initial dans les 7 jours suivant cette 1ère séance, par email à contact@smartkids-school.ch. Pour les formules Solo et Duo à l'année, un bilan de niveau offert de 30 minutes est proposé avant toute inscription pour évaluer le niveau de l'enfant et le programme adapté — voir la page Tarifs.",
+                  "This guarantee applies to Premium plans (monthly and 12-month) and vacation camps. If you are not satisfied with your 1st session, for any reason, you can request a full refund of your initial payment within 7 days of this 1st session, by email to contact@smartkids-school.ch. For annual Solo and Duo plans, a free 30-minute level assessment is offered before enrollment to evaluate the child's level and the right programme — see the Pricing page.",
+                  "Diese Garantie gilt für Premium-Pakete (monatlich und 12 Monate) sowie für Ferien-Camps. Wenn Sie mit Ihrer 1. Sitzung nicht zufrieden sind, aus welchem Grund auch immer, können Sie innerhalb von 7 Tagen nach dieser 1. Sitzung eine vollständige Rückerstattung Ihrer Erstzahlung per E-Mail an contact@smartkids-school.ch beantragen. Für die jährlichen Solo- und Duo-Formeln wird vor der Anmeldung eine kostenlose 30-minütige Niveaubeurteilung angeboten, um das Niveau des Kindes und das passende Programm zu ermitteln — siehe die Preise-Seite."
                 )}
               </p>
             </div>
@@ -501,9 +501,9 @@ export default function CGV() {
               </h4>
               <p className="text-sm">
                 {tx(
-                  "En souscrivant à une formule avec engagement, le Client s'engage à régler la totalité des mensualités sur la durée choisie. En cas d'annulation anticipée par le Client (hors garantie 1ère séance) :",
-                  "By subscribing to a commitment plan, the Client agrees to pay all monthly fees for the chosen duration. In case of early cancellation by the Client (excluding 1st-session guarantee):",
-                  "Mit dem Abschluss eines Bindungspakets verpflichtet sich der Kunde, alle monatlichen Gebühren für die gewählte Dauer zu begleichen. Bei vorzeitiger Kündigung durch den Kunden (außer 1.-Sitzung-Garantie):"
+                  "En souscrivant à une formule avec engagement, le Client s'engage à régler la totalité des mensualités sur la durée choisie. En cas d'annulation anticipée par le Client :",
+                  "By subscribing to a commitment plan, the Client agrees to pay all monthly fees for the chosen duration. In case of early cancellation by the Client:",
+                  "Mit dem Abschluss eines Bindungspakets verpflichtet sich der Kunde, alle monatlichen Gebühren für die gewählte Dauer zu begleichen. Bei vorzeitiger Kündigung durch den Kunden:"
                 )}
               </p>
               <ul className="space-y-1 ml-4 mt-2 text-sm">
@@ -529,9 +529,9 @@ export default function CGV() {
               </h4>
               <p className="text-sm">
                 {tx(
-                  "Le paiement total en une fois (environ -10% par rapport au paiement mensuel, quelle que soit la durée : 3, 6 ou 12 mois) est ferme et définitif. Aucun remboursement n'est possible une fois la 1ère séance suivie, hors application de la garantie 1ère séance (Section 6.1) ou cas exceptionnel évalué au cas par cas.",
-                  "The one-time full payment (approximately -10% compared to the monthly payment, regardless of duration: 3, 6 or 12 months) is firm and final. No refund is possible after the 1st session, except for the 1st-session guarantee (Section 6.1) or exceptional case evaluated individually.",
-                  "Die Vollzahlung auf einmal (ca. -10% gegenüber der monatlichen Zahlung, unabhängig von der Dauer: 3, 6 oder 12 Monate) ist verbindlich und endgültig. Keine Rückerstattung nach der 1. Sitzung, außer 1.-Sitzung-Garantie (Abschnitt 6.1) oder Ausnahmefall im Einzelfall."
+                  "Le paiement total en une fois (environ -10% par rapport au paiement mensuel, quelle que soit la durée : 3, 6 ou 12 mois) est ferme et définitif. Aucun remboursement n'est possible une fois la 1ère séance suivie, hors cas exceptionnel évalué au cas par cas.",
+                  "The one-time full payment (approximately -10% compared to the monthly payment, regardless of duration: 3, 6 or 12 months) is firm and final. No refund is possible after the 1st session, except for an exceptional case evaluated individually.",
+                  "Die Vollzahlung auf einmal (ca. -10% gegenüber der monatlichen Zahlung, unabhängig von der Dauer: 3, 6 oder 12 Monate) ist verbindlich und endgültig. Keine Rückerstattung nach der 1. Sitzung, ausser bei einem im Einzelfall geprüften Ausnahmefall."
                 )}
               </p>
             </div>
