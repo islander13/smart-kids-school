@@ -211,6 +211,27 @@ export default function FAQ() {
     setMeta('og:title', titles[currentLang], 'property');
     setMeta('og:url', `https://smartkids-school.ch${localizedPath('/faq', currentLang)}`, 'property');
     setHreflangTags('/faq', currentLang);
+
+    // JSON-LD FAQPage : toutes les questions (général + tarifs + stages),
+    // contrairement à home.tsx qui n'en reprend qu'un extrait. C'est cette
+    // page qui a le contenu le plus complet pour un rich result Google.
+    let faqEl = document.querySelector('script[type="application/ld+json"][data-sks="faq-full"]') as HTMLScriptElement;
+    if (!faqEl) {
+      faqEl = document.createElement('script');
+      faqEl.type = 'application/ld+json';
+      faqEl.setAttribute('data-sks', 'faq-full');
+      document.head.appendChild(faqEl);
+    }
+    const allQA = [...T[currentLang].general, ...T[currentLang].pricing, ...T[currentLang].stages];
+    faqEl.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: allQA.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a },
+      })),
+    });
   }, [currentLang]);
 
   const t = T[currentLang];
