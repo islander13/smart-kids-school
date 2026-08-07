@@ -37,6 +37,7 @@ const pages = [
   '/blog/cours-programmation-fribourg', '/en/blog/cours-programmation-fribourg', '/de/blog/cours-programmation-fribourg',
   '/blog/cours-programmation-neuchatel', '/en/blog/cours-programmation-neuchatel', '/de/blog/cours-programmation-neuchatel',
   '/blog/cours-programmation-nyon', '/en/blog/cours-programmation-nyon', '/de/blog/cours-programmation-nyon',
+  '/espace', '/en/espace', '/de/espace',
 ];
 
 const functions = [

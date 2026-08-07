@@ -13,6 +13,7 @@ const Merci = lazy(() => import("../pages/merci"));
 const Premium = lazy(() => import("../pages/premium"));
 const BlogIndex = lazy(() => import("../pages/blog/index"));
 const BlogArticle = lazy(() => import("../pages/blog/article"));
+const Espace = lazy(() => import("../pages/espace"));
 
 // Chaque page indexable (BASE_PATHS) est montée sous 3 URLs : française (sans
 // préfixe), /en/... et /de/.... Les 3 rendent le même composant, qui détecte
@@ -56,10 +57,19 @@ const blogRoutes: RouteObject[] = LOCALES.flatMap((locale) => [
   { path: localizedPath("/blog/:slug", locale), element: <BlogArticle /> },
 ]);
 
+// Espace membre privé : volontairement hors BASE_PATHS (pas dans le sitemap,
+// pas de hreflang public — voir la balise noindex posée dans espace.tsx),
+// mais toujours routé sous les 3 langues comme le reste du site.
+const espaceRoutes: RouteObject[] = LOCALES.map((locale) => ({
+  path: localizedPath("/espace", locale),
+  element: <Espace />,
+}));
+
 const routes: RouteObject[] = [
   ...localizedRoutes,
   ...formDeeplinkRoutes,
   ...blogRoutes,
+  ...espaceRoutes,
   {
     path: "*",
     element: <NotFound />,

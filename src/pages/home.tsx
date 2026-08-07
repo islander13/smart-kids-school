@@ -610,6 +610,9 @@ export default function HomePage() {
               ].map(item => (
                 <a key={item.href} href={lp(item.href)} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{item.label}</a>
               ))}
+              <a href={lp('/espace')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>
+                {currentLang === 'FR' ? 'Mon espace' : currentLang === 'EN' ? 'My space' : 'Mein Bereich'}
+              </a>
             </div>
             <div className="hidden md:flex items-center gap-3 ml-6">
               {/* DARK MODE TOGGLE : crescent moon icon */}
@@ -668,6 +671,9 @@ export default function HomePage() {
               {[{ href: '/', label: t.accueil }, { href: '/#parcours', label: t.programme }, { href: '/tarifs', label: currentLang === 'FR' ? 'Tarifs' : currentLang === 'EN' ? 'Pricing' : 'Preise' }, { href: '/stages', label: currentLang === 'FR' ? 'Stages' : currentLang === 'EN' ? 'Camps' : 'Camps' }, { href: '/faq', label: t.faq }, { href: '/blog', label: 'Blog' }].map(item => (
                 <a key={item.href} href={lp(item.href)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{item.label}</a>
               ))}
+              <a href={lp('/espace')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                {currentLang === 'FR' ? 'Mon espace' : currentLang === 'EN' ? 'My space' : 'Mein Bereich'}
+              </a>
               <div className="flex gap-2 py-2">
                 {(['FR', 'EN', 'DE'] as Lang[]).map(lang => (
                   <button key={lang} onClick={() => { setCurrentLang(lang); navigate(localizedPath('/', lang)); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${currentLang === lang ? 'bg-[#232999] text-white' : darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-700'}`}>{lang}</button>
