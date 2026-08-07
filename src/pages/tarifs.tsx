@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
 import { useEmbeddedCheckout } from '../lib/useEmbeddedCheckout';
+import { ESPACE_NAV_VISIBLE } from '../data/espaceContent';
 
 type Lang = 'FR' | 'EN' | 'DE';
 type FormatKey = 'solo' | 'duo';
@@ -702,7 +703,9 @@ export default function Tarifs() {
               <a href={lp('/stages')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.stages}</a>
               <a href={lp('/faq')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.faq}</a>
               <a href={lp('/blog')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.blog}</a>
-              <a href={lp('/espace')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>{t.nav.espace}</a>
+              {ESPACE_NAV_VISIBLE && (
+                <a href={lp('/espace')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>{t.nav.espace}</a>
+              )}
             </div>
             <div className="hidden md:flex items-center gap-3 ml-6">
               <button onClick={() => setDarkMode(!darkMode)} aria-label="Toggle theme" className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300 cursor-pointer ${darkMode ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-gray-100 border-gray-200 text-gray-700 hover:border-indigo-400'}`}>
@@ -751,7 +754,9 @@ export default function Tarifs() {
               <a href={lp('/stages')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.stages}</a>
               <a href={lp('/faq')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.faq}</a>
               <a href={lp('/blog')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.blog}</a>
-              <a href={lp('/espace')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>{t.nav.espace}</a>
+              {ESPACE_NAV_VISIBLE && (
+                <a href={lp('/espace')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>{t.nav.espace}</a>
+              )}
               <div className="flex gap-2 py-2">
                 {(['FR', 'EN', 'DE'] as Lang[]).map(lang => (
                   <button key={lang} onClick={() => { setCurrentLang(lang); setMobileMenuOpen(false); navigate(localizedPath('/tarifs', lang)); }} className={`px-4 py-2 rounded-lg text-sm font-medium cursor-pointer ${currentLang === lang ? 'bg-[#232999] text-white' : darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-700'}`}>{lang}</button>

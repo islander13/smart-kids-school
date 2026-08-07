@@ -17,6 +17,13 @@
 // la structure existante (ce sont des extensions additives).
 // ─────────────────────────────────────────────────────────────────────────
 
+// Interrupteur unique : masque le lien "Mon espace" de la navigation sur
+// tout le site pendant qu'on finalise le contenu et qu'on teste (Identity,
+// vidéos réelles, etc.), sans désactiver la page elle-même — /espace reste
+// accessible par URL directe pour continuer à tester. Remettre à `true`
+// quand l'espace est prêt à être annoncé publiquement.
+export const ESPACE_NAV_VISIBLE = false;
+
 export type VideoProvider = 'youtube' | 'vimeo';
 
 export interface LocalizedText {
