@@ -85,9 +85,11 @@ function EspaceContent() {
     const hash = window.location.hash;
     const recovery = hash.match(/recovery_token=([^&]+)/);
     const confirmation = hash.match(/confirmation_token=([^&]+)/);
+    const invite = hash.match(/invite_token=([^&]+)/);
     return {
       recoveryToken: recovery ? decodeURIComponent(recovery[1]) : null,
       confirmationToken: confirmation ? decodeURIComponent(confirmation[1]) : null,
+      inviteToken: invite ? decodeURIComponent(invite[1]) : null,
     };
   });
   const [confirming, setConfirming] = useState(!!tokens.confirmationToken);
@@ -238,7 +240,11 @@ function EspaceContent() {
             </div>
           ) : tokens.recoveryToken ? (
             <div className={`max-w-md mx-auto rounded-3xl border-2 p-8 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200 shadow-lg'}`}>
-              <ResetPasswordForm darkMode={darkMode} currentLang={currentLang} token={tokens.recoveryToken} />
+              <ResetPasswordForm darkMode={darkMode} currentLang={currentLang} token={tokens.recoveryToken} mode="recovery" />
+            </div>
+          ) : tokens.inviteToken ? (
+            <div className={`max-w-md mx-auto rounded-3xl border-2 p-8 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200 shadow-lg'}`}>
+              <ResetPasswordForm darkMode={darkMode} currentLang={currentLang} token={tokens.inviteToken} mode="invite" />
             </div>
           ) : user ? (
             <>

@@ -42,6 +42,9 @@ interface AuthContextValue {
   requestPasswordRecovery: (email: string) => Promise<void>;
   confirmPasswordRecovery: (token: string, newPassword: string) => Promise<void>;
   confirmSignup: (token: string) => Promise<void>;
+  /** Consomme un lien d'invitation (mode Identity "Invite only") : le
+   * destinataire choisit son mot de passe et est connecté directement. */
+  acceptInvite: (token: string, password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -131,9 +134,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const acceptInvite = useCallback(async (token: string, password: string) => {
+    try {
+      const invitedUser = await auth.acceptInvite(token, password, true);
+      setUser(invitedUser);
+    } catch (err) {
+      throw new Error(extractErrorMessage(err));
+    }
+  }, []);
+
   const value = useMemo<AuthContextValue>(() => ({
-    user, loading, settings, signUp, logIn, logOut, requestPasswordRecovery, confirmPasswordRecovery, confirmSignup,
-  }), [user, loading, settings, signUp, logIn, logOut, requestPasswordRecovery, confirmPasswordRecovery, confirmSignup]);
+    user, loading, settings, signUp, logIn, logOut, requestPasswordRecovery, confirmPasswordRecovery, confirmSignup, acceptInvite,
+  }), [user, loading, settings, signUp, logIn, logOut, requestPasswordRecovery, confirmPasswordRecovery, confirmSignup, acceptInvite]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

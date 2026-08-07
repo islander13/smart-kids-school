@@ -3,39 +3,48 @@ import type { Locale } from '../../i18n/routing';
 import { useAuth } from '../../contexts/AuthContext';
 
 const T: Record<Locale, {
-  intro: string; password: string; passwordConfirm: string; submit: string; submitting: string;
-  mismatchError: string; genericError: string;
+  introRecovery: string; introInvite: string;
+  password: string; passwordConfirm: string; submit: string; submitting: string;
+  mismatchError: string; genericErrorRecovery: string; genericErrorInvite: string;
 }> = {
   FR: {
-    intro: 'Choisissez votre nouveau mot de passe.',
-    password: 'Nouveau mot de passe', passwordConfirm: 'Confirmer le mot de passe',
+    introRecovery: 'Choisissez votre nouveau mot de passe.',
+    introInvite: 'Bienvenue ! Choisissez votre mot de passe pour activer votre compte.',
+    password: 'Mot de passe', passwordConfirm: 'Confirmer le mot de passe',
     submit: 'Valider', submitting: 'Enregistrement…',
     mismatchError: 'Les mots de passe ne correspondent pas.',
-    genericError: "Le lien a peut-être expiré. Refaites une demande de réinitialisation.",
+    genericErrorRecovery: "Le lien a peut-être expiré. Refaites une demande de réinitialisation.",
+    genericErrorInvite: "Ce lien d'invitation n'est plus valide. Demandez une nouvelle invitation.",
   },
   EN: {
-    intro: 'Choose your new password.',
-    password: 'New password', passwordConfirm: 'Confirm password',
+    introRecovery: 'Choose your new password.',
+    introInvite: 'Welcome! Choose your password to activate your account.',
+    password: 'Password', passwordConfirm: 'Confirm password',
     submit: 'Confirm', submitting: 'Saving…',
     mismatchError: 'Passwords do not match.',
-    genericError: 'The link may have expired. Request a new reset link.',
+    genericErrorRecovery: 'The link may have expired. Request a new reset link.',
+    genericErrorInvite: 'This invitation link is no longer valid. Ask for a new invite.',
   },
   DE: {
-    intro: 'Wählen Sie Ihr neues Passwort.',
-    password: 'Neues Passwort', passwordConfirm: 'Passwort bestätigen',
+    introRecovery: 'Wählen Sie Ihr neues Passwort.',
+    introInvite: 'Willkommen! Wählen Sie Ihr Passwort, um Ihr Konto zu aktivieren.',
+    password: 'Passwort', passwordConfirm: 'Passwort bestätigen',
     submit: 'Bestätigen', submitting: 'Wird gespeichert…',
     mismatchError: 'Die Passwörter stimmen nicht überein.',
-    genericError: 'Der Link ist möglicherweise abgelaufen. Fordern Sie einen neuen Link an.',
+    genericErrorRecovery: 'Der Link ist möglicherweise abgelaufen. Fordern Sie einen neuen Link an.',
+    genericErrorInvite: 'Dieser Einladungslink ist nicht mehr gültig. Fordern Sie eine neue Einladung an.',
   },
 };
 
-export default function ResetPasswordForm({ darkMode, currentLang, token }: {
+export default function ResetPasswordForm({ darkMode, currentLang, token, mode }: {
   darkMode: boolean;
   currentLang: Locale;
   token: string;
+  /** "recovery" = lien mot de passe oublié, "invite" = lien d'invitation Identity. */
+  mode: 'recovery' | 'invite';
 }) {
   const t = T[currentLang];
-  const { confirmPasswordRecovery } = useAuth();
+  const { confirmPasswordRecovery, acceptInvite } = useAuth();
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -53,11 +62,15 @@ export default function ResetPasswordForm({ darkMode, currentLang, token }: {
     setSubmitting(true);
     setError(null);
     try {
-      await confirmPasswordRecovery(token, password);
+      if (mode === 'invite') {
+        await acceptInvite(token, password);
+      } else {
+        await confirmPasswordRecovery(token, password);
+      }
       // Succès : AuthContext.user est maintenant peuplé, la page /espace
       // bascule d'elle-même vers la bibliothèque vidéo.
     } catch {
-      setError(t.genericError);
+      setError(mode === 'invite' ? t.genericErrorInvite : t.genericErrorRecovery);
     } finally {
       setSubmitting(false);
     }
@@ -65,7 +78,7 @@ export default function ResetPasswordForm({ darkMode, currentLang, token }: {
 
   return (
     <form onSubmit={handleSubmit}>
-      <p className={`text-sm mb-5 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.intro}</p>
+      <p className={`text-sm mb-5 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{mode === 'invite' ? t.introInvite : t.introRecovery}</p>
       <div className="mb-4">
         <label htmlFor="reset-password" className={labelClass}>{t.password}</label>
         <input id="reset-password" type="password" autoComplete="new-password" required minLength={6} value={password} onChange={e => setPassword(e.target.value)} className={inputClass} />
