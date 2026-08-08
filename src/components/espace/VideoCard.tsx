@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { EspaceVideo } from '../../data/espaceContent';
 import type { Locale } from '../../i18n/routing';
 
@@ -25,10 +26,20 @@ export default function VideoCard({ video, darkMode, currentLang, watched, onPla
   currentLang: Locale;
   watched: boolean;
   onPlay: () => void;
-  onToggleWatched: () => void;
+  onToggleWatched: () => void | Promise<void>;
 }) {
   const thumbnail = thumbnailFor(video);
   const t = WATCHED_LABEL[currentLang];
+  const [pending, setPending] = useState(false);
+
+  const handleToggle = async () => {
+    setPending(true);
+    try {
+      await onToggleWatched();
+    } finally {
+      setPending(false);
+    }
+  };
 
   return (
     <div className={`group flex flex-col rounded-2xl border-2 overflow-hidden transition-all hover:shadow-lg ${darkMode ? 'border-gray-700 bg-gray-800/50 hover:border-indigo-400' : 'border-gray-200 bg-white hover:border-[#232999]'}`}>
@@ -57,9 +68,10 @@ export default function VideoCard({ video, darkMode, currentLang, watched, onPla
         <p className={`text-xs leading-relaxed flex-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{video.description[currentLang]}</p>
         <button
           type="button"
-          onClick={onToggleWatched}
+          onClick={handleToggle}
+          disabled={pending}
           aria-pressed={watched}
-          className={`mt-3 self-start flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors cursor-pointer ${
+          className={`mt-3 self-start flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed ${
             watched
               ? darkMode ? 'bg-emerald-900/30 border-emerald-700 text-emerald-300' : 'bg-emerald-50 border-emerald-200 text-emerald-700'
               : darkMode ? 'border-gray-600 text-gray-400 hover:border-emerald-500 hover:text-emerald-400' : 'border-gray-300 text-gray-500 hover:border-emerald-400 hover:text-emerald-600'

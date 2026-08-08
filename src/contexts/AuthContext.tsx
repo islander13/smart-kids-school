@@ -140,12 +140,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const logOut = useCallback(async () => {
+  // Passe aussi par la file d'attente : sans ça, une mutation de progression
+  // lancée juste avant un clic sur "Se déconnecter" pourrait se terminer
+  // APRÈS le logout et rappeler setUser(...) avec un utilisateur non-nul,
+  // ramenant visuellement l'UI en état connecté juste après la déconnexion.
+  const logOut = useCallback(() => enqueueMutation(async () => {
     if (auth.currentUser()) {
       try { await auth.currentUser()!.logout(); } catch { /* on efface l'état local dans tous les cas */ }
     }
     setUser(null);
-  }, []);
+  }), [enqueueMutation]);
 
   const requestPasswordRecovery = useCallback(async (email: string) => {
     try {
