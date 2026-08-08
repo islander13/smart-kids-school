@@ -158,7 +158,7 @@ export const ESPACE_SECTIONS: EspaceSection[] = [
           DE: 'Dieselbe Anleitung wie im Video, zum Ausdrucken.',
         },
         type: 'pdf',
-        url: '/resources/REPLACE_WITH_FILE.pdf',
+        url: '/resources/fiche-installation-scratch.pdf',
       },
       {
         id: 'carnet-jeune-codeur-scratch',
