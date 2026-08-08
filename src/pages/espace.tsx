@@ -134,6 +134,7 @@ function EspaceContent() {
   }, [currentLang]);
 
   const t = T[currentLang];
+  const nextVideo = getNextUnwatchedVideo(ESPACE_SECTIONS, progress);
 
   const handleLogout = async () => {
     setLoggingOut(true);
@@ -261,10 +262,19 @@ function EspaceContent() {
                 <p className={`text-base mt-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.welcomeBack}</p>
               </div>
               {ESPACE_SECTIONS.some(s => s.videos.length > 0) && (
-                <ContinueBanner next={getNextUnwatchedVideo(ESPACE_SECTIONS, progress)} darkMode={darkMode} currentLang={currentLang} onPlay={setPlayingVideo} />
+                <ContinueBanner next={nextVideo} darkMode={darkMode} currentLang={currentLang} onPlay={setPlayingVideo} />
               )}
               {ESPACE_SECTIONS.map(section => (
-                <VideoSectionBlock key={section.key} section={section} darkMode={darkMode} currentLang={currentLang} progress={progress} onPlay={setPlayingVideo} onToggleWatched={toggleVideoWatched} />
+                <VideoSectionBlock
+                  key={section.key}
+                  section={section}
+                  darkMode={darkMode}
+                  currentLang={currentLang}
+                  progress={progress}
+                  defaultExpanded={nextVideo?.section.key === section.key}
+                  onPlay={setPlayingVideo}
+                  onToggleWatched={toggleVideoWatched}
+                />
               ))}
             </>
           ) : (

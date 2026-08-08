@@ -4,10 +4,11 @@ import type { Locale } from '../../i18n/routing';
 import { useAuth } from '../../contexts/AuthContext';
 import { getQuizResult } from '../../utils/progress';
 
-type Phase = 'summary' | 'answering' | 'result';
+type Phase = 'idle' | 'summary' | 'answering' | 'result';
 
 const T: Record<Locale, {
   title: string; bestScore: (score: number, total: number) => string;
+  start: (count: number) => string;
   retry: string; submit: string; submitting: string;
   scoreResult: (score: number, total: number) => string;
   saveError: string;
@@ -15,6 +16,7 @@ const T: Record<Locale, {
   FR: {
     title: 'Quiz de la section',
     bestScore: (s, t) => `Votre meilleur score : ${s}/${t}`,
+    start: (n) => `Commencer le quiz (${n} question${n > 1 ? 's' : ''})`,
     retry: 'Refaire le quiz',
     submit: 'Valider mes réponses', submitting: 'Envoi…',
     scoreResult: (s, t) => `${s}/${t} bonnes réponses`,
@@ -23,6 +25,7 @@ const T: Record<Locale, {
   EN: {
     title: 'Section quiz',
     bestScore: (s, t) => `Your best score: ${s}/${t}`,
+    start: (n) => `Start the quiz (${n} question${n > 1 ? 's' : ''})`,
     retry: 'Retry the quiz',
     submit: 'Submit my answers', submitting: 'Submitting…',
     scoreResult: (s, t) => `${s}/${t} correct answers`,
@@ -31,6 +34,7 @@ const T: Record<Locale, {
   DE: {
     title: 'Quiz zum Abschnitt',
     bestScore: (s, t) => `Ihr bestes Ergebnis: ${s}/${t}`,
+    start: (n) => `Quiz starten (${n} Frage${n > 1 ? 'n' : ''})`,
     retry: 'Quiz wiederholen',
     submit: 'Antworten absenden', submitting: 'Wird gesendet…',
     scoreResult: (s, t) => `${s}/${t} richtige Antworten`,
@@ -58,7 +62,7 @@ export default function QuizBlock({ section, darkMode, currentLang }: {
   const quiz = section.quiz;
   const bestResult = getQuizResult(progress, section);
 
-  const [phase, setPhase] = useState<Phase>(bestResult ? 'summary' : 'answering');
+  const [phase, setPhase] = useState<Phase>(bestResult ? 'summary' : 'idle');
   const [answers, setAnswers] = useState<Record<string, Set<string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [lastScore, setLastScore] = useState(0);
@@ -107,7 +111,13 @@ export default function QuizBlock({ section, darkMode, currentLang }: {
     <div className="mb-8">
       <h3 className={`text-sm font-bold uppercase tracking-wide mb-3 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{t.title}</h3>
 
-      {phase === 'summary' && bestResult ? (
+      {phase === 'idle' ? (
+        <div className={cardClass}>
+          <button type="button" onClick={() => setPhase('answering')} className="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-[#232999] to-indigo-600 hover:shadow-lg transition-all cursor-pointer">
+            <i className="ri-play-fill"></i>{t.start(quiz.questions.length)}
+          </button>
+        </div>
+      ) : phase === 'summary' && bestResult ? (
         <div className={`${cardClass} flex items-center justify-between flex-wrap gap-4`}>
           <p className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.bestScore(bestResult.bestScoreCount, bestResult.totalQuestions)}</p>
           <button type="button" onClick={restart} className={`px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-colors cursor-pointer ${darkMode ? 'border-indigo-400 text-indigo-400 hover:bg-indigo-900/20' : 'border-[#232999] text-[#232999] hover:bg-indigo-50'}`}>
