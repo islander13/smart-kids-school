@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import GoTrue, { User, type Settings } from 'gotrue-js';
 import { EMPTY_PROGRESS, withUpdatedBadges, type EspaceProgress } from '../utils/progress';
 import { ESPACE_SECTIONS } from '../data/espaceContent';
@@ -96,6 +96,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => { cancelled = true; };
   }, []);
 
+  // setRole/toggleVideoWatched/submitQuizResult/linkChild lisent tous
+  // current.user_metadata puis écrivent une version modifiée. Si deux appels
+  // se chevauchent (ex: double-clic rapide sur "Marquer comme vue" pour deux
+  // vidéos différentes avant que la première requête ne revienne), les deux
+  // partent de la même donnée de départ et le second à répondre écrase le
+  // premier — une vidéo marquée vue redeviendrait silencieusement non-vue.
+  // On sérialise donc ces mutations : chacune ne démarre qu'une fois la
+  // précédente terminée (succès ou échec), pour toujours lire l'état à jour.
+  const mutationQueueRef = useRef<Promise<unknown>>(Promise.resolve());
+  const enqueueMutation = useCallback(<T,>(fn: () => Promise<T>): Promise<T> => {
+    const run = mutationQueueRef.current.then(fn, fn);
+    mutationQueueRef.current = run.then(() => undefined, () => undefined);
+    return run;
+  }, []);
+
   const signUp = useCallback(async (email: string, password: string) => {
     try {
       await auth.signup(email, password);
@@ -186,7 +201,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [user]);
 
-  const setRole = useCallback(async (newRole: EspaceRole) => {
+  const setRole = useCallback((newRole: EspaceRole) => enqueueMutation(async () => {
     const current = auth.currentUser();
     if (!current) throw new Error('not_authenticated');
     try {
@@ -195,9 +210,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (err) {
       throw new Error(extractErrorMessage(err));
     }
-  }, []);
+  }), [enqueueMutation]);
 
-  const toggleVideoWatched = useCallback(async (videoId: string) => {
+  const toggleVideoWatched = useCallback((videoId: string) => enqueueMutation(async () => {
     const current = auth.currentUser();
     if (!current) throw new Error('not_authenticated');
     const raw = current.user_metadata?.progress as Partial<EspaceProgress> | undefined;
@@ -216,9 +231,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (err) {
       throw new Error(extractErrorMessage(err));
     }
-  }, []);
+  }), [enqueueMutation]);
 
-  const submitQuizResult = useCallback(async (sectionKey: string, scoreCount: number, totalQuestions: number) => {
+  const submitQuizResult = useCallback((sectionKey: string, scoreCount: number, totalQuestions: number) => enqueueMutation(async () => {
     const current = auth.currentUser();
     if (!current) throw new Error('not_authenticated');
     const raw = current.user_metadata?.progress as Partial<EspaceProgress> | undefined;
@@ -244,9 +259,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (err) {
       throw new Error(extractErrorMessage(err));
     }
-  }, []);
+  }), [enqueueMutation]);
 
-  const linkChild = useCallback(async (email: string) => {
+  const linkChild = useCallback((email: string) => enqueueMutation(async () => {
     const current = auth.currentUser();
     if (!current) throw new Error('not_authenticated');
     try {
@@ -267,7 +282,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (err) {
       throw new Error(extractErrorMessage(err));
     }
-  }, []);
+  }), [enqueueMutation]);
 
   const value = useMemo<AuthContextValue>(() => ({
     user, loading, settings, signUp, logIn, logOut, requestPasswordRecovery, confirmPasswordRecovery, confirmSignup, acceptInvite,

@@ -1,10 +1,10 @@
 import type { EspaceResource, ResourceType } from '../../data/espaceContent';
 import type { Locale } from '../../i18n/routing';
 
-const T: Record<Locale, { title: string; download: string }> = {
-  FR: { title: 'Ressources', download: 'Télécharger' },
-  EN: { title: 'Resources', download: 'Download' },
-  DE: { title: 'Materialien', download: 'Herunterladen' },
+const T: Record<Locale, { title: string }> = {
+  FR: { title: 'Ressources' },
+  EN: { title: 'Resources' },
+  DE: { title: 'Materialien' },
 };
 
 const TYPE_ICON: Record<ResourceType, string> = {
