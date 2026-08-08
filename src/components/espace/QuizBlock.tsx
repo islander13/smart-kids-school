@@ -56,7 +56,7 @@ export default function QuizBlock({ section, darkMode, currentLang }: {
   const { progress, submitQuizResult } = useAuth();
   const t = T[currentLang];
   const quiz = section.quiz;
-  const bestResult = getQuizResult(progress, section.key);
+  const bestResult = getQuizResult(progress, section);
 
   const [phase, setPhase] = useState<Phase>(bestResult ? 'summary' : 'answering');
   const [answers, setAnswers] = useState<Record<string, Set<string>>>({});

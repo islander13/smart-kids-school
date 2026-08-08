@@ -61,13 +61,23 @@ export function hasQuiz(section: EspaceSection): boolean {
   return !!section.quiz && section.quiz.questions.length > 0;
 }
 
-export function getQuizResult(progress: EspaceProgress, sectionKey: string): QuizResult | undefined {
-  return progress.quizzes?.[sectionKey];
+/**
+ * Résultat enregistré pour cette section, ou undefined si aucun essai n'a
+ * encore été fait — ou si le quiz a changé depuis (nombre de questions
+ * différent) : un score enregistré avec l'ancien nombre de questions ne
+ * doit pas continuer à compter pour la réussite/le badge une fois le
+ * contenu modifié, l'élève doit refaire le quiz mis à jour.
+ */
+export function getQuizResult(progress: EspaceProgress, section: EspaceSection): QuizResult | undefined {
+  const result = progress.quizzes?.[section.key];
+  if (!result) return undefined;
+  if (section.quiz && result.totalQuestions !== section.quiz.questions.length) return undefined;
+  return result;
 }
 
-/** Ratio du meilleur essai (0 à 1), ou null si aucun essai n'a encore été fait. */
+/** Ratio du meilleur essai (0 à 1), ou null si aucun essai valide n'a encore été fait. */
 export function getQuizBestRatio(section: EspaceSection, progress: EspaceProgress): number | null {
-  const result = getQuizResult(progress, section.key);
+  const result = getQuizResult(progress, section);
   if (!result || result.totalQuestions === 0) return null;
   return result.bestScoreCount / result.totalQuestions;
 }
