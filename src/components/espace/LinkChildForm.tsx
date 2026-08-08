@@ -8,12 +8,11 @@ const T: Record<Locale, {
 }> = {
   FR: {
     title: 'Lier le compte de mon enfant',
-    emailLabel: 'Email du compte élève de votre enfant',
+    emailLabel: 'Email du compte de votre enfant',
     submit: 'Lier ce compte', submitting: 'Liaison…',
     success: 'Compte lié avec succès !',
     errors: {
-      child_not_found: "Aucun compte élève ne correspond à cet email. Vérifiez qu'il a bien créé son compte.",
-      not_a_student_account: "Ce compte n'est pas déclaré comme compte élève.",
+      child_not_found: "Aucun compte ne correspond à cet email. Vérifiez qu'il a bien créé son compte.",
       cannot_link_self: 'Vous ne pouvez pas vous lier à votre propre compte.',
       link_failed: 'Une erreur est survenue. Réessayez.',
       server_error: 'Une erreur est survenue. Réessayez.',
@@ -22,12 +21,11 @@ const T: Record<Locale, {
   },
   EN: {
     title: "Link your child's account",
-    emailLabel: "Your child's student account email",
+    emailLabel: "Your child's account email",
     submit: 'Link this account', submitting: 'Linking…',
     success: 'Account linked successfully!',
     errors: {
-      child_not_found: 'No student account matches this email. Make sure they created their account first.',
-      not_a_student_account: 'This account is not registered as a student account.',
+      child_not_found: 'No account matches this email. Make sure they created their account first.',
       cannot_link_self: 'You cannot link to your own account.',
       link_failed: 'Something went wrong. Please try again.',
       server_error: 'Something went wrong. Please try again.',
@@ -36,12 +34,11 @@ const T: Record<Locale, {
   },
   DE: {
     title: 'Konto Ihres Kindes verknüpfen',
-    emailLabel: 'E-Mail des Schülerkontos Ihres Kindes',
+    emailLabel: 'E-Mail des Kontos Ihres Kindes',
     submit: 'Konto verknüpfen', submitting: 'Wird verknüpft…',
     success: 'Konto erfolgreich verknüpft!',
     errors: {
-      child_not_found: 'Kein Schülerkonto mit dieser E-Mail gefunden. Stellen Sie sicher, dass es bereits erstellt wurde.',
-      not_a_student_account: 'Dieses Konto ist nicht als Schülerkonto registriert.',
+      child_not_found: 'Kein Konto mit dieser E-Mail gefunden. Stellen Sie sicher, dass es bereits erstellt wurde.',
       cannot_link_self: 'Sie können sich nicht mit Ihrem eigenen Konto verknüpfen.',
       link_failed: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
       server_error: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',

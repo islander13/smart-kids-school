@@ -47,5 +47,8 @@
 # redirection visible), garde les paramètres de requête (?key=...&status=...).
 /admin  /.netlify/functions/admin-enrollments  200
 
+# Idem, pour l'activité de "Mon espace" (comptes Identity, progression, badges).
+/admin/espace  /.netlify/functions/admin-espace-activity  200
+
 # ═══ SPA CATCH-ALL (doit être EN DERNIER) ════════════════════════════════════
 /*    /index.html    200

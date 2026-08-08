@@ -9,6 +9,7 @@ import ResetPasswordForm from '../components/espace/ResetPasswordForm';
 import VideoSectionBlock from '../components/espace/VideoSectionBlock';
 import VideoPlayer from '../components/espace/VideoPlayer';
 import RoleSelector from '../components/espace/RoleSelector';
+import RoleSwitcher from '../components/espace/RoleSwitcher';
 import ContinueBanner from '../components/espace/ContinueBanner';
 import ParentDashboard from '../components/espace/ParentDashboard';
 import { ESPACE_SECTIONS, type EspaceVideo } from '../data/espaceContent';
@@ -257,9 +258,12 @@ function EspaceContent() {
             <ParentDashboard darkMode={darkMode} currentLang={currentLang} />
           ) : user ? (
             <>
-              <div className="mb-10">
-                <h1 className={`text-3xl lg:text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.pageTitle}</h1>
-                <p className={`text-base mt-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.welcomeBack}</p>
+              <div className="flex items-start justify-between gap-4 flex-wrap mb-10">
+                <div>
+                  <h1 className={`text-3xl lg:text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.pageTitle}</h1>
+                  <p className={`text-base mt-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.welcomeBack}</p>
+                </div>
+                {role && <RoleSwitcher currentRole={role} darkMode={darkMode} currentLang={currentLang} />}
               </div>
               {ESPACE_SECTIONS.some(s => s.videos.length > 0) && (
                 <ContinueBanner next={nextVideo} darkMode={darkMode} currentLang={currentLang} onPlay={setPlayingVideo} />

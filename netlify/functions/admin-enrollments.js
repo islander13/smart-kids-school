@@ -62,6 +62,8 @@ function renderPage({ rows, statusFilter, sourceFilter, stats, key }) {
     .wrap { max-width: 1200px; margin: 0 auto; }
     h1 { font-size: 22px; margin-bottom: 4px; }
     .sub { color: #64748b; font-size: 14px; margin-bottom: 24px; }
+    .nav { margin-bottom: 20px; }
+    .nav a { color: #232999; font-size: 13px; font-weight: 600; text-decoration: none; }
     .stats { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
     .stat { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; min-width: 140px; }
     .stat .n { font-size: 24px; font-weight: 700; }
@@ -75,6 +77,7 @@ function renderPage({ rows, statusFilter, sourceFilter, stats, key }) {
 </head>
 <body>
   <div class="wrap">
+    <div class="nav"><a href="/admin/espace?key=${encodeURIComponent(key)}">Activité "Mon espace" →</a></div>
     <h1>Inscriptions Smart Kids School</h1>
     <p class="sub">${rows.length} résultat(s)${statusFilter ? ` · filtré sur "${escapeHtml(statusFilter)}"` : ''}</p>
 

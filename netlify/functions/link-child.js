@@ -45,9 +45,10 @@ exports.handler = async (event, context) => {
     if (child.id === caller.sub) {
       return { statusCode: 400, body: JSON.stringify({ error: 'cannot_link_self' }) };
     }
-    if ((child.user_metadata || {}).role !== 'student') {
-      return { statusCode: 400, body: JSON.stringify({ error: 'not_a_student_account' }) };
-    }
+    // Pas de vérification de "rôle élève" ici : le rôle n'est qu'une préférence
+    // d'affichage que chaque compte peut changer à tout moment (voir
+    // RoleSwitcher côté client), pas une propriété de sécurité — n'importe
+    // quel compte a une progression et peut donc être lié.
 
     // context.clientContext.user est un résumé issu du JWT : on relit le
     // compte parent complet (app_metadata à jour) avant de le modifier.

@@ -9,21 +9,21 @@ const T: Record<Locale, {
   error: string;
 }> = {
   FR: {
-    title: 'Bienvenue !', subtitle: 'Pour commencer, dites-nous qui vous êtes.',
+    title: 'Bienvenue !', subtitle: 'Pour commencer, dites-nous qui utilise ce compte. Vous pourrez changer d’avis à tout moment.',
     student: "Je suis l'élève", studentDesc: 'Accès aux vidéos de cours et à ma progression.',
-    parent: 'Je suis parent', parentDesc: "Suivi de la progression de mon enfant, sans accès aux vidéos.",
+    parent: 'Je suis parent', parentDesc: "Suivi de la progression, sans accès aux vidéos.",
     error: "Une erreur est survenue. Réessayez.",
   },
   EN: {
-    title: 'Welcome!', subtitle: "To get started, let us know who you are.",
+    title: 'Welcome!', subtitle: "To get started, tell us who is using this account. You can switch anytime.",
     student: "I'm the student", studentDesc: 'Access to class videos and my progress.',
-    parent: "I'm a parent", parentDesc: "Follow my child's progress, without access to the videos.",
+    parent: "I'm a parent", parentDesc: "Progress tracking, without access to the videos.",
     error: 'Something went wrong. Please try again.',
   },
   DE: {
-    title: 'Willkommen!', subtitle: 'Sagen Sie uns zunächst, wer Sie sind.',
+    title: 'Willkommen!', subtitle: 'Sagen Sie uns zunächst, wer dieses Konto nutzt. Sie können jederzeit wechseln.',
     student: 'Ich bin die Schülerin/der Schüler', studentDesc: 'Zugang zu den Kursvideos und meinem Fortschritt.',
-    parent: 'Ich bin ein Elternteil', parentDesc: 'Verfolgen Sie den Fortschritt Ihres Kindes, ohne Zugriff auf die Videos.',
+    parent: 'Ich bin ein Elternteil', parentDesc: 'Fortschrittsverfolgung, ohne Zugriff auf die Videos.',
     error: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
   },
 };
