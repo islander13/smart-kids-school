@@ -1,0 +1,19 @@
+# ─────────────────────────────────────────────────────────────────────────
+# Force ces types de fichiers à être traités comme binaires par Git, quelle
+# que soit la config locale (core.autocrlf, etc.) : certains PDF confondent
+# la détection heuristique de Git et déclenchent une conversion de fin de
+# ligne (LF/CRLF) qui corromprait le fichier. Concerne surtout
+# public/resources/ (PDF, fiches, futurs projets Scratch .sb3) et les
+# images déjà présentes dans public/.
+# ─────────────────────────────────────────────────────────────────────────
+*.pdf binary
+*.sb3 binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.jfif binary
+*.webp binary
+*.ico binary
+*.mp4 binary
+*.woff binary
+*.woff2 binary
