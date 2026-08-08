@@ -5,11 +5,13 @@ import { ESPACE_SECTIONS } from '../../data/espaceContent';
 import { getSectionProgress, getTotalProgress, type EspaceProgress } from '../../utils/progress';
 import ProgressBar from './ProgressBar';
 import LinkChildForm from './LinkChildForm';
+import SectionBadge from './SectionBadge';
 
 interface ChildSummary {
   id: string;
   email: string;
   watched: string[];
+  badges: Record<string, string>;
   lastActivityAt: string | null;
 }
 
@@ -17,7 +19,7 @@ const DATE_LOCALE: Record<Locale, string> = { FR: 'fr-CH', EN: 'en-GB', DE: 'de-
 
 const T: Record<Locale, {
   title: string; empty: string; loading: string; error: string;
-  overall: string; lastActivity: string; never: string;
+  overall: string; lastActivity: string; never: string; badges: string;
 }> = {
   FR: {
     title: 'Progression de mon enfant',
@@ -27,6 +29,7 @@ const T: Record<Locale, {
     overall: 'Progression totale',
     lastActivity: 'Dernière activité',
     never: 'Aucune activité pour le moment',
+    badges: 'Badges obtenus',
   },
   EN: {
     title: "My child's progress",
@@ -36,6 +39,7 @@ const T: Record<Locale, {
     overall: 'Overall progress',
     lastActivity: 'Last activity',
     never: 'No activity yet',
+    badges: 'Badges earned',
   },
   DE: {
     title: 'Fortschritt meines Kindes',
@@ -45,6 +49,7 @@ const T: Record<Locale, {
     overall: 'Gesamtfortschritt',
     lastActivity: 'Letzte Aktivität',
     never: 'Noch keine Aktivität',
+    badges: 'Erhaltene Abzeichen',
   },
 };
 
@@ -100,8 +105,9 @@ export default function ParentDashboard({ darkMode, currentLang }: { darkMode: b
       ) : (
         <div className="space-y-6 mb-10">
           {children.map(child => {
-            const progress: EspaceProgress = { watched: child.watched };
+            const progress: EspaceProgress = { watched: child.watched, badges: child.badges };
             const { watchedCount, totalCount } = getTotalProgress(ESPACE_SECTIONS, progress);
+            const badgeEntries = Object.entries(child.badges || {});
             return (
               <div key={child.id} className={`p-6 rounded-2xl border-2 ${darkMode ? 'border-gray-700 bg-gray-800/50' : 'border-gray-200 bg-white shadow-sm'}`}>
                 <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
@@ -129,6 +135,21 @@ export default function ParentDashboard({ darkMode, currentLang }: { darkMode: b
                     );
                   })}
                 </div>
+
+                {badgeEntries.length > 0 && (
+                  <div className="mt-5">
+                    <p className={`text-xs font-semibold uppercase tracking-wide mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{t.badges}</p>
+                    <div className="flex flex-wrap gap-3">
+                      {badgeEntries.map(([sectionKey, unlockedAt]) => {
+                        const section = ESPACE_SECTIONS.find(s => s.key === sectionKey);
+                        if (!section) return null;
+                        return (
+                          <SectionBadge key={sectionKey} sectionTitle={section.title[currentLang]} unlockedAt={unlockedAt} darkMode={darkMode} currentLang={currentLang} />
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
             );
           })}

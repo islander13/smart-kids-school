@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import GoTrue, { User, type Settings } from 'gotrue-js';
-import { EMPTY_PROGRESS, type EspaceProgress } from '../utils/progress';
+import { EMPTY_PROGRESS, withUpdatedBadges, type EspaceProgress } from '../utils/progress';
+import { ESPACE_SECTIONS } from '../data/espaceContent';
 
 // ─────────────────────────────────────────────────────────────────────────
 // Authentification "Mon espace" via Netlify Identity (GoTrue), pas de gestion
@@ -64,6 +65,8 @@ interface AuthContextValue {
   /** Progression de l'utilisateur courant (pertinent seulement pour role === 'student'). */
   progress: EspaceProgress;
   toggleVideoWatched: (videoId: string) => Promise<void>;
+  /** Enregistre un essai de quiz ; ne garde que le meilleur score. */
+  submitQuizResult: (sectionKey: string, scoreCount: number, totalQuestions: number) => Promise<void>;
   /** Rattache un compte élève (par email) au compte parent courant, via la
    * fonction serverless link-child (seule capable d'écrire app_metadata). */
   linkChild: (email: string) => Promise<void>;
@@ -174,7 +177,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const progress = useMemo<EspaceProgress>(() => {
     const raw = user?.user_metadata?.progress as Partial<EspaceProgress> | undefined;
     if (!raw || !Array.isArray(raw.watched)) return EMPTY_PROGRESS;
-    return { watched: raw.watched, lastWatchedVideoId: raw.lastWatchedVideoId, lastActivityAt: raw.lastActivityAt };
+    return {
+      watched: raw.watched,
+      lastWatchedVideoId: raw.lastWatchedVideoId,
+      lastActivityAt: raw.lastActivityAt,
+      quizzes: raw.quizzes,
+      badges: raw.badges,
+    };
   }, [user]);
 
   const setRole = useCallback(async (newRole: EspaceRole) => {
@@ -194,11 +203,41 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const raw = current.user_metadata?.progress as Partial<EspaceProgress> | undefined;
     const watched = Array.isArray(raw?.watched) ? raw!.watched as string[] : [];
     const nextWatched = watched.includes(videoId) ? watched.filter(id => id !== videoId) : [...watched, videoId];
-    const nextProgress: EspaceProgress = {
+    const nextProgress = withUpdatedBadges(ESPACE_SECTIONS, {
       watched: nextWatched,
       lastWatchedVideoId: videoId,
       lastActivityAt: new Date().toISOString(),
+      quizzes: raw?.quizzes,
+      badges: raw?.badges,
+    });
+    try {
+      const updated = await current.update({ data: { ...current.user_metadata, progress: nextProgress } });
+      setUser(cloneUser(updated));
+    } catch (err) {
+      throw new Error(extractErrorMessage(err));
+    }
+  }, []);
+
+  const submitQuizResult = useCallback(async (sectionKey: string, scoreCount: number, totalQuestions: number) => {
+    const current = auth.currentUser();
+    if (!current) throw new Error('not_authenticated');
+    const raw = current.user_metadata?.progress as Partial<EspaceProgress> | undefined;
+    const previousBest = raw?.quizzes?.[sectionKey]?.bestScoreCount ?? -1;
+    const nextQuizzes = {
+      ...raw?.quizzes,
+      [sectionKey]: {
+        bestScoreCount: Math.max(previousBest, scoreCount),
+        totalQuestions,
+        lastAttemptAt: new Date().toISOString(),
+      },
     };
+    const nextProgress = withUpdatedBadges(ESPACE_SECTIONS, {
+      watched: Array.isArray(raw?.watched) ? raw!.watched as string[] : [],
+      lastWatchedVideoId: raw?.lastWatchedVideoId,
+      lastActivityAt: new Date().toISOString(),
+      quizzes: nextQuizzes,
+      badges: raw?.badges,
+    });
     try {
       const updated = await current.update({ data: { ...current.user_metadata, progress: nextProgress } });
       setUser(cloneUser(updated));
@@ -232,9 +271,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<AuthContextValue>(() => ({
     user, loading, settings, signUp, logIn, logOut, requestPasswordRecovery, confirmPasswordRecovery, confirmSignup, acceptInvite,
-    role, setRole, progress, toggleVideoWatched, linkChild,
+    role, setRole, progress, toggleVideoWatched, submitQuizResult, linkChild,
   }), [user, loading, settings, signUp, logIn, logOut, requestPasswordRecovery, confirmPasswordRecovery, confirmSignup, acceptInvite,
-    role, setRole, progress, toggleVideoWatched, linkChild]);
+    role, setRole, progress, toggleVideoWatched, submitQuizResult, linkChild]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

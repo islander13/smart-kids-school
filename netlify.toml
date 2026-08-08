@@ -47,6 +47,13 @@
   [headers.values]
     Cache-Control = "public, max-age=2592000"
 
+# Ressources téléchargeables de "Mon espace" (PDF, fiches, projets Scratch) :
+# même logique que /videos/*.
+[[headers]]
+  for = "/resources/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
 # Images statiques à la racine de /public
 [[headers]]
   for = "/*.jpg"

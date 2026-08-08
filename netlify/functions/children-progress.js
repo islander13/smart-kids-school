@@ -6,10 +6,11 @@
 // link-child.js). Un parent ne peut lire que SES enfants liés — jamais la
 // liste complète des comptes — grâce à ce filtrage côté serveur.
 //
-// Minimisation des données : seuls id, email et la liste des ids de vidéos
-// vues sont renvoyés (pas de nom, pas d'autre champ de user_metadata). Le
-// détail par section est recalculé côté client à partir d'ESPACE_SECTIONS
-// (contenu public), pas besoin de le dupliquer ici.
+// Minimisation des données : id, email, ids de vidéos vues et dates
+// d'obtention des badges — jamais les scores de quiz détaillés (le parent
+// voit "badge obtenu", pas le détail des réponses). Le détail par section
+// est recalculé côté client à partir d'ESPACE_SECTIONS (contenu public),
+// pas besoin de le dupliquer ici.
 // ─────────────────────────────────────────────────────────────────────────
 
 exports.handler = async (event, context) => {
@@ -36,6 +37,7 @@ exports.handler = async (event, context) => {
             id: child.id,
             email: child.email,
             watched: Array.isArray(progress.watched) ? progress.watched : [],
+            badges: progress.badges && typeof progress.badges === 'object' ? progress.badges : {},
             lastActivityAt: progress.lastActivityAt || null,
           };
         } catch {
