@@ -1,5 +1,7 @@
 import type { EspaceSection, EspaceVideo } from '../../data/espaceContent';
 import type { Locale } from '../../i18n/routing';
+import { getSectionProgress, isVideoWatched, type EspaceProgress } from '../../utils/progress';
+import ProgressBar from './ProgressBar';
 import VideoCard from './VideoCard';
 
 const T: Record<Locale, { empty: string }> = {
@@ -8,17 +10,23 @@ const T: Record<Locale, { empty: string }> = {
   DE: { empty: 'Noch keine Videos in diesem Bereich.' },
 };
 
-export default function VideoSectionBlock({ section, darkMode, currentLang, onPlay }: {
+export default function VideoSectionBlock({ section, darkMode, currentLang, progress, onPlay, onToggleWatched }: {
   section: EspaceSection;
   darkMode: boolean;
   currentLang: Locale;
+  progress: EspaceProgress;
   onPlay: (video: EspaceVideo) => void;
+  onToggleWatched: (videoId: string) => void;
 }) {
   const t = T[currentLang];
+  const { watchedCount, totalCount } = getSectionProgress(section, progress);
 
   return (
     <section className="mb-12">
-      <h2 className={`text-xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{section.title[currentLang]}</h2>
+      <div className="flex items-center justify-between gap-4 flex-wrap mb-4">
+        <h2 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{section.title[currentLang]}</h2>
+        {totalCount > 0 && <div className="w-40"><ProgressBar watched={watchedCount} total={totalCount} darkMode={darkMode} /></div>}
+      </div>
       {section.videos.length === 0 ? (
         <div className={`p-6 rounded-2xl border text-sm text-center ${darkMode ? 'border-gray-700 text-gray-500' : 'border-gray-200 text-gray-500'}`}>
           {t.empty}
@@ -26,7 +34,15 @@ export default function VideoSectionBlock({ section, darkMode, currentLang, onPl
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {section.videos.map(video => (
-            <VideoCard key={video.id} video={video} darkMode={darkMode} currentLang={currentLang} onPlay={() => onPlay(video)} />
+            <VideoCard
+              key={video.id}
+              video={video}
+              darkMode={darkMode}
+              currentLang={currentLang}
+              watched={isVideoWatched(progress, video.id)}
+              onPlay={() => onPlay(video)}
+              onToggleWatched={() => onToggleWatched(video.id)}
+            />
           ))}
         </div>
       )}

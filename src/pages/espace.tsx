@@ -8,7 +8,11 @@ import AuthPanel from '../components/espace/AuthPanel';
 import ResetPasswordForm from '../components/espace/ResetPasswordForm';
 import VideoSectionBlock from '../components/espace/VideoSectionBlock';
 import VideoPlayer from '../components/espace/VideoPlayer';
+import RoleSelector from '../components/espace/RoleSelector';
+import ContinueBanner from '../components/espace/ContinueBanner';
+import ParentDashboard from '../components/espace/ParentDashboard';
 import { ESPACE_SECTIONS, type EspaceVideo } from '../data/espaceContent';
+import { getNextUnwatchedVideo, isVideoWatched } from '../utils/progress';
 
 type Lang = Locale;
 
@@ -76,7 +80,7 @@ function EspaceContent() {
   const [playingVideo, setPlayingVideo] = useState<EspaceVideo | null>(null);
   const [loggingOut, setLoggingOut] = useState(false);
 
-  const { user, loading, logOut, confirmSignup } = useAuth();
+  const { user, loading, logOut, confirmSignup, role, progress, toggleVideoWatched } = useAuth();
 
   // Liens envoyés par Netlify Identity par email : #recovery_token=... pour
   // "mot de passe oublié", #confirmation_token=... pour confirmer un compte
@@ -246,14 +250,21 @@ function EspaceContent() {
             <div className={`max-w-md mx-auto rounded-3xl border-2 p-8 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200 shadow-lg'}`}>
               <ResetPasswordForm darkMode={darkMode} currentLang={currentLang} token={tokens.inviteToken} mode="invite" />
             </div>
+          ) : user && !role ? (
+            <RoleSelector darkMode={darkMode} currentLang={currentLang} />
+          ) : user && role === 'parent' ? (
+            <ParentDashboard darkMode={darkMode} currentLang={currentLang} />
           ) : user ? (
             <>
               <div className="mb-10">
                 <h1 className={`text-3xl lg:text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.pageTitle}</h1>
                 <p className={`text-base mt-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.welcomeBack}</p>
               </div>
+              {ESPACE_SECTIONS.some(s => s.videos.length > 0) && (
+                <ContinueBanner next={getNextUnwatchedVideo(ESPACE_SECTIONS, progress)} darkMode={darkMode} currentLang={currentLang} onPlay={setPlayingVideo} />
+              )}
               {ESPACE_SECTIONS.map(section => (
-                <VideoSectionBlock key={section.key} section={section} darkMode={darkMode} currentLang={currentLang} onPlay={setPlayingVideo} />
+                <VideoSectionBlock key={section.key} section={section} darkMode={darkMode} currentLang={currentLang} progress={progress} onPlay={setPlayingVideo} onToggleWatched={toggleVideoWatched} />
               ))}
             </>
           ) : (
@@ -263,7 +274,13 @@ function EspaceContent() {
       </section>
 
       {playingVideo && (
-        <VideoPlayer video={playingVideo} currentLang={currentLang} onClose={() => setPlayingVideo(null)} />
+        <VideoPlayer
+          video={playingVideo}
+          currentLang={currentLang}
+          watched={isVideoWatched(progress, playingVideo.id)}
+          onToggleWatched={() => toggleVideoWatched(playingVideo.id)}
+          onClose={() => setPlayingVideo(null)}
+        />
       )}
 
       <Footer currentLang={currentLang} darkMode={darkMode} />

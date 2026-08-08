@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import GoTrue, { User, type Settings } from 'gotrue-js';
+import { EMPTY_PROGRESS, type EspaceProgress } from '../utils/progress';
 
 // ─────────────────────────────────────────────────────────────────────────
 // Authentification "Mon espace" via Netlify Identity (GoTrue), pas de gestion
@@ -20,6 +21,16 @@ const auth = new GoTrue({
 // Extrait un message d'erreur lisible depuis les erreurs GoTrue (HTTP/JSON)
 // ou toute autre exception, sans jamais laisser passer une erreur brute non
 // traduite à l'écran.
+// User.update()/getUserData() (gotrue-js) mutent l'instance existante et
+// renvoient CETTE MÊME référence plutôt qu'un objet neuf. Un setUser(updated)
+// avec updated === user (même référence) est un no-op pour React (bailout
+// sur Object.is) : l'UI ne se re-rendrait pas après un setRole/toggleVideoWatched
+// alors que les données ont bien changé. On clone superficiellement (même
+// prototype, donc mêmes méthodes .jwt()/.update()/...) pour forcer le re-render.
+function cloneUser(u: User): User {
+  return Object.create(Object.getPrototypeOf(u), Object.getOwnPropertyDescriptors(u)) as User;
+}
+
 function extractErrorMessage(err: unknown): string {
   if (err && typeof err === 'object') {
     const withJson = err as { json?: { error_description?: string; msg?: string; error?: string } };
@@ -30,6 +41,8 @@ function extractErrorMessage(err: unknown): string {
   if (err instanceof Error) return err.message;
   return 'unknown_error';
 }
+
+export type EspaceRole = 'student' | 'parent';
 
 interface AuthContextValue {
   user: User | null;
@@ -45,6 +58,15 @@ interface AuthContextValue {
   /** Consomme un lien d'invitation (mode Identity "Invite only") : le
    * destinataire choisit son mot de passe et est connecté directement. */
   acceptInvite: (token: string, password: string) => Promise<void>;
+  /** null tant que l'utilisateur n'a pas choisi son rôle au premier login. */
+  role: EspaceRole | null;
+  setRole: (role: EspaceRole) => Promise<void>;
+  /** Progression de l'utilisateur courant (pertinent seulement pour role === 'student'). */
+  progress: EspaceProgress;
+  toggleVideoWatched: (videoId: string) => Promise<void>;
+  /** Rattache un compte élève (par email) au compte parent courant, via la
+   * fonction serverless link-child (seule capable d'écrire app_metadata). */
+  linkChild: (email: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -143,9 +165,76 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  // Rôle et progression sont stockés dans user_metadata (auto-écrit par
+  // l'utilisateur via User.update({ data: {...} }), fusionné côté serveur
+  // GoTrue avec les clés existantes). Pas de service supplémentaire : voir
+  // l'explication complète donnée à l'utilisateur, résumée dans le commit.
+  const role = (user?.user_metadata?.role as EspaceRole | undefined) ?? null;
+
+  const progress = useMemo<EspaceProgress>(() => {
+    const raw = user?.user_metadata?.progress as Partial<EspaceProgress> | undefined;
+    if (!raw || !Array.isArray(raw.watched)) return EMPTY_PROGRESS;
+    return { watched: raw.watched, lastWatchedVideoId: raw.lastWatchedVideoId, lastActivityAt: raw.lastActivityAt };
+  }, [user]);
+
+  const setRole = useCallback(async (newRole: EspaceRole) => {
+    const current = auth.currentUser();
+    if (!current) throw new Error('not_authenticated');
+    try {
+      const updated = await current.update({ data: { ...current.user_metadata, role: newRole } });
+      setUser(cloneUser(updated));
+    } catch (err) {
+      throw new Error(extractErrorMessage(err));
+    }
+  }, []);
+
+  const toggleVideoWatched = useCallback(async (videoId: string) => {
+    const current = auth.currentUser();
+    if (!current) throw new Error('not_authenticated');
+    const raw = current.user_metadata?.progress as Partial<EspaceProgress> | undefined;
+    const watched = Array.isArray(raw?.watched) ? raw!.watched as string[] : [];
+    const nextWatched = watched.includes(videoId) ? watched.filter(id => id !== videoId) : [...watched, videoId];
+    const nextProgress: EspaceProgress = {
+      watched: nextWatched,
+      lastWatchedVideoId: videoId,
+      lastActivityAt: new Date().toISOString(),
+    };
+    try {
+      const updated = await current.update({ data: { ...current.user_metadata, progress: nextProgress } });
+      setUser(cloneUser(updated));
+    } catch (err) {
+      throw new Error(extractErrorMessage(err));
+    }
+  }, []);
+
+  const linkChild = useCallback(async (email: string) => {
+    const current = auth.currentUser();
+    if (!current) throw new Error('not_authenticated');
+    try {
+      const token = await current.jwt();
+      const res = await fetch('/.netlify/functions/link-child', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}) as { error?: string });
+        throw new Error(body.error || 'link_failed');
+      }
+      // app_metadata.linkedChildren a été écrit côté serveur : on recharge
+      // l'utilisateur pour que le reste de l'app voie le nouveau lien.
+      const refreshed = await current.getUserData();
+      setUser(cloneUser(refreshed));
+    } catch (err) {
+      throw new Error(extractErrorMessage(err));
+    }
+  }, []);
+
   const value = useMemo<AuthContextValue>(() => ({
     user, loading, settings, signUp, logIn, logOut, requestPasswordRecovery, confirmPasswordRecovery, confirmSignup, acceptInvite,
-  }), [user, loading, settings, signUp, logIn, logOut, requestPasswordRecovery, confirmPasswordRecovery, confirmSignup, acceptInvite]);
+    role, setRole, progress, toggleVideoWatched, linkChild,
+  }), [user, loading, settings, signUp, logIn, logOut, requestPasswordRecovery, confirmPasswordRecovery, confirmSignup, acceptInvite,
+    role, setRole, progress, toggleVideoWatched, linkChild]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
