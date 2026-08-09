@@ -38,11 +38,11 @@ export default function RoleSwitcher({ currentRole, darkMode, currentLang }: {
   const inactiveClass = darkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100';
 
   return (
-    <div className={`inline-flex items-center gap-1 p-1 rounded-full border flex-shrink-0 ${darkMode ? 'border-gray-700 bg-gray-800/50' : 'border-gray-200 bg-gray-50'}`}>
-      <button type="button" disabled={pending !== null} onClick={() => switchTo('student')} className={`${baseClass} ${currentRole === 'student' ? activeClass : inactiveClass}`}>
+    <div role="group" aria-label={`${t.student} / ${t.parent}`} className={`inline-flex items-center gap-1 p-1 rounded-full border flex-shrink-0 ${darkMode ? 'border-gray-700 bg-gray-800/50' : 'border-gray-200 bg-gray-50'}`}>
+      <button type="button" disabled={pending !== null} aria-pressed={currentRole === 'student'} onClick={() => switchTo('student')} className={`${baseClass} ${currentRole === 'student' ? activeClass : inactiveClass}`}>
         <i className="ri-graduation-cap-line mr-1.5"></i>{t.student}
       </button>
-      <button type="button" disabled={pending !== null} onClick={() => switchTo('parent')} className={`${baseClass} ${currentRole === 'parent' ? activeClass : inactiveClass}`}>
+      <button type="button" disabled={pending !== null} aria-pressed={currentRole === 'parent'} onClick={() => switchTo('parent')} className={`${baseClass} ${currentRole === 'parent' ? activeClass : inactiveClass}`}>
         <i className="ri-user-heart-line mr-1.5"></i>{t.parent}
       </button>
     </div>
