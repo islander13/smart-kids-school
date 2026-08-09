@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
@@ -476,6 +476,12 @@ export default function Premium() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showModal]);
 
+  // Focus posé sur le bouton fermer à l'ouverture (accessibilité clavier).
+  const modalCloseButtonRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (showModal) modalCloseButtonRef.current?.focus();
+  }, [showModal]);
+
   const lockBody = showModal;
   useEffect(() => {
     document.body.style.overflow = lockBody ? 'hidden' : '';
@@ -776,9 +782,9 @@ export default function Premium() {
 
       {/* ── Modal d'inscription Premium ── */}
       {showModal && (
-        <div className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm p-4 overflow-y-auto" onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}>
+        <div className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm p-4 overflow-y-auto" onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }} role="dialog" aria-modal="true">
           <div className={`relative w-full max-w-2xl mx-auto my-8 rounded-3xl shadow-2xl ${darkMode ? 'bg-gray-900 border border-gray-700' : 'bg-white'}`}>
-            <button onClick={closeModal} aria-label="Close modal" className={`absolute top-4 right-4 p-2 rounded-full z-10 cursor-pointer ${darkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-500 hover:bg-gray-100'}`}>
+            <button ref={modalCloseButtonRef} onClick={closeModal} aria-label="Close modal" className={`absolute top-4 right-4 p-2 rounded-full z-10 cursor-pointer ${darkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-500 hover:bg-gray-100'}`}>
               <i className="ri-close-line text-2xl"></i>
             </button>
 
@@ -841,39 +847,39 @@ export default function Premium() {
 
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formParent} *</label>
-                    <input type="text" name="parentName" value={formData.parentName} onChange={e => setFormData({...formData, parentName: e.target.value})} required className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
+                    <label htmlFor="premium-parent-name" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formParent} *</label>
+                    <input id="premium-parent-name" type="text" name="parentName" value={formData.parentName} onChange={e => setFormData({...formData, parentName: e.target.value})} required className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
                   </div>
                   <div>
-                    <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formEmail} *</label>
-                    <input type="email" name="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} required className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
+                    <label htmlFor="premium-email" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formEmail} *</label>
+                    <input id="premium-email" type="email" name="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} required className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formPhone} *</label>
-                    <input type="tel" name="phone" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} required placeholder="+41 XX XXX XX XX" className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
+                    <label htmlFor="premium-phone" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formPhone} *</label>
+                    <input id="premium-phone" type="tel" name="phone" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} required placeholder="+41 XX XXX XX XX" className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
                   </div>
                   <div>
-                    <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formChildAge} *</label>
-                    <input type="number" name="childAge" value={formData.childAge} onChange={e => setFormData({...formData, childAge: e.target.value})} required min="7" max="17" className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
+                    <label htmlFor="premium-child-age" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formChildAge} *</label>
+                    <input id="premium-child-age" type="number" name="childAge" value={formData.childAge} onChange={e => setFormData({...formData, childAge: e.target.value})} required min="7" max="17" className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formChild} *</label>
-                  <input type="text" name="childName" value={formData.childName} onChange={e => setFormData({...formData, childName: e.target.value})} required className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
+                  <label htmlFor="premium-child-name" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formChild} *</label>
+                  <input id="premium-child-name" type="text" name="childName" value={formData.childName} onChange={e => setFormData({...formData, childName: e.target.value})} required className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
                 </div>
 
                 <div className="mb-4">
-                  <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formObjectives}</label>
-                  <textarea name="objectives" value={formData.objectives} onChange={e => setFormData({...formData, objectives: e.target.value})} rows={3} className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
+                  <label htmlFor="premium-objectives" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formObjectives}</label>
+                  <textarea id="premium-objectives" name="objectives" value={formData.objectives} onChange={e => setFormData({...formData, objectives: e.target.value})} rows={3} className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
                 </div>
 
                 <div className="mb-6">
-                  <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formBestTime}</label>
-                  <input type="text" name="bestTime" value={formData.bestTime} onChange={e => setFormData({...formData, bestTime: e.target.value})} placeholder={currentLang === 'FR' ? 'Ex : mardi 18h, samedi matin...' : currentLang === 'EN' ? 'E.g.: Tue 6pm, Sat morning...' : 'z.B.: Di 18h, Sa morgens...'} className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
+                  <label htmlFor="premium-best-time" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.formBestTime}</label>
+                  <input id="premium-best-time" type="text" name="bestTime" value={formData.bestTime} onChange={e => setFormData({...formData, bestTime: e.target.value})} placeholder={currentLang === 'FR' ? 'Ex : mardi 18h, samedi matin...' : currentLang === 'EN' ? 'E.g.: Tue 6pm, Sat morning...' : 'z.B.: Di 18h, Sa morgens...'} className={`w-full px-4 py-3 rounded-xl border focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
                 </div>
 
                 {submitMessage === 'error' && (

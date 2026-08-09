@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { parseLocaleFromPath, localizedPath } from '../i18n/routing';
+import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
 
 type Lang = 'FR' | 'EN' | 'DE';
 
@@ -83,6 +83,20 @@ export default function Merci() {
 
     document.title = currentLang === 'FR' ? 'Merci !, Smart Kids School' : currentLang === 'EN' ? 'Thank you!, Smart Kids School' : 'Danke!, Smart Kids School';
     document.documentElement.lang = { FR: 'fr', EN: 'en', DE: 'de' }[currentLang];
+
+    // Page de confirmation post-paiement : aucune valeur pour un visiteur
+    // venant de la recherche (contenu hors contexte sans paiement réel
+    // derrière), donc noindex — comme les variantes /inscription des pages
+    // tarifs/stages/premium. Volontairement absente de sitemap.xml pour la
+    // même raison.
+    const setMeta = (name: string, content: string, attr = 'name') => {
+      let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement;
+      if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
+      el.content = content;
+    };
+    setMeta('robots', 'noindex, follow');
+    setMeta('description', currentLang === 'FR' ? 'Confirmation de votre inscription Smart Kids School.' : currentLang === 'EN' ? 'Confirmation of your Smart Kids School enrollment.' : 'Bestätigung Ihrer Anmeldung bei Smart Kids School.');
+    setHreflangTags('/merci', currentLang);
   }, [currentLang]);
 
   // Re-sync depuis localStorage quand l'onglet redevient visible (fix mobile)

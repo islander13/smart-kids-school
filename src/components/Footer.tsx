@@ -79,6 +79,7 @@ export default function Footer({ currentLang, darkMode }: FooterProps) {
                 onChange={e => setNewsletterEmail(e.target.value)}
                 required
                 placeholder={tr('votre@email.com', 'your@email.com', 'ihre@email.com')}
+                aria-label={tr('Adresse email', 'Email address', 'E-Mail-Adresse')}
                 className="flex-1 px-4 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-white/40 text-sm"
                 disabled={newsletterStatus === 'sending' || newsletterStatus === 'success'}
               />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import CookieBanner from '../../components/CookieBanner';
@@ -108,6 +108,12 @@ export default function ShopProduct() {
     // closeModal est redéfinie à chaque rendu mais fait toujours la même chose ;
     // l'omettre évite de ré-attacher inutilement l'écouteur à chaque frappe.
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showModal]);
+
+  // Focus posé sur le bouton fermer à l'ouverture (accessibilité clavier).
+  const modalCloseButtonRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (showModal) modalCloseButtonRef.current?.focus();
   }, [showModal]);
 
   useEffect(() => {
@@ -260,9 +266,9 @@ export default function ShopProduct() {
 
       {/* ── Modal d'achat ── */}
       {showModal && (
-        <div className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm p-4 overflow-y-auto" onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}>
+        <div className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm p-4 overflow-y-auto" onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }} role="dialog" aria-modal="true">
           <div className={`relative w-full max-w-lg mx-auto my-8 rounded-3xl shadow-2xl ${darkMode ? 'bg-gray-900 border border-gray-700' : 'bg-white'}`}>
-            <button onClick={closeModal} aria-label="Close modal" className={`absolute top-4 right-4 p-2 rounded-full z-10 cursor-pointer ${darkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-500 hover:bg-gray-100'}`}>
+            <button ref={modalCloseButtonRef} onClick={closeModal} aria-label="Close modal" className={`absolute top-4 right-4 p-2 rounded-full z-10 cursor-pointer ${darkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-500 hover:bg-gray-100'}`}>
               <i className="ri-close-line text-2xl"></i>
             </button>
 
@@ -284,8 +290,8 @@ export default function ShopProduct() {
                 </div>
 
                 <div className="mb-6">
-                  <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.emailLabel} *</label>
-                  <input type="email" value={email} onChange={e => setEmail(e.target.value)} required className={`w-full px-4 py-3 rounded-xl border focus:border-[#232999] focus:ring-2 focus:ring-indigo-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
+                  <label htmlFor="shop-checkout-email" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.emailLabel} *</label>
+                  <input id="shop-checkout-email" type="email" value={email} onChange={e => setEmail(e.target.value)} required className={`w-full px-4 py-3 rounded-xl border focus:border-[#232999] focus:ring-2 focus:ring-indigo-200 outline-none text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
                 </div>
 
                 {submitMessage === 'error' && (

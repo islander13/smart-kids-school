@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
@@ -563,6 +563,12 @@ export default function Tarifs() {
     // closePlanModal est redéfinie à chaque rendu mais fait toujours la même
     // chose ; l'omettre évite de ré-attacher inutilement l'écouteur à chaque frappe.
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showPlanModal]);
+
+  // Focus posé sur le bouton fermer à l'ouverture (accessibilité clavier).
+  const planModalCloseButtonRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (showPlanModal) planModalCloseButtonRef.current?.focus();
   }, [showPlanModal]);
 
   // Re-sync depuis localStorage quand l'onglet redevient visible
@@ -1212,7 +1218,7 @@ export default function Tarifs() {
 
       {/* ── Modal d'inscription ── */}
       {showPlanModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto p-4 bg-black/50 backdrop-blur-sm" onClick={closePlanModal}>
+        <div className="fixed inset-0 z-50 overflow-y-auto p-4 bg-black/50 backdrop-blur-sm" onClick={closePlanModal} role="dialog" aria-modal="true">
           <div className={`rounded-3xl max-w-2xl w-full mx-auto my-8 ${darkMode ? 'bg-gray-900' : 'bg-white'}`} onClick={e => e.stopPropagation()}>
             <div className={`sticky top-0 border-b px-8 py-6 flex items-center justify-between rounded-t-3xl ${darkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'}`}>
               <div>
@@ -1221,7 +1227,7 @@ export default function Tarifs() {
                 </h3>
                 <p className={`text-sm mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{selectedPlan.title} · {selectedPlan.sub}</p>
               </div>
-              <button onClick={closePlanModal} aria-label="Close modal" className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors cursor-pointer ${darkMode ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-gray-100 text-gray-600'}`}>
+              <button ref={planModalCloseButtonRef} onClick={closePlanModal} aria-label="Close modal" className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors cursor-pointer ${darkMode ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-gray-100 text-gray-600'}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
             </div>
@@ -1372,10 +1378,11 @@ export default function Tarifs() {
                             </p>
                             <div className="grid md:grid-cols-3 gap-3">
                               <div className="md:col-span-2">
-                                <label className={`block text-xs font-semibold mb-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                <label htmlFor={`plan-child-${idx}-name`} className={`block text-xs font-semibold mb-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                                   {currentLang === 'FR' ? 'Prénom *' : currentLang === 'EN' ? 'First name *' : 'Vorname *'}
                                 </label>
                                 <input
+                                  id={`plan-child-${idx}-name`}
                                   type="text"
                                   value={planFormData.children[idx].name}
                                   onChange={e => {
@@ -1388,10 +1395,11 @@ export default function Tarifs() {
                                 />
                               </div>
                               <div>
-                                <label className={`block text-xs font-semibold mb-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                <label htmlFor={`plan-child-${idx}-age`} className={`block text-xs font-semibold mb-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                                   {currentLang === 'FR' ? 'Âge *' : currentLang === 'EN' ? 'Age *' : 'Alter *'}
                                 </label>
                                 <input
+                                  id={`plan-child-${idx}-age`}
                                   type="number"
                                   min="7"
                                   value={planFormData.children[idx].age}

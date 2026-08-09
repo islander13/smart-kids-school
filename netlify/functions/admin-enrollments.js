@@ -14,6 +14,7 @@
 // ─────────────────────────────────────────────────────────────────────────
 
 const { getDatabase } = require('@netlify/database');
+const { isValidAdminKey } = require('./lib/adminAuth');
 
 function escapeHtml(str) {
   if (str === null || str === undefined) return '';
@@ -111,7 +112,7 @@ function renderPage({ rows, statusFilter, sourceFilter, stats, key }) {
 exports.handler = async (event) => {
   const params = event.queryStringParameters || {};
 
-  if (!process.env.ADMIN_SECRET || params.key !== process.env.ADMIN_SECRET) {
+  if (!isValidAdminKey(params.key)) {
     return { statusCode: 401, body: 'Accès refusé.' };
   }
 

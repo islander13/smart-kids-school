@@ -363,6 +363,7 @@ export default function FAQ() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder={t.searchPlaceholder}
+              aria-label={t.searchPlaceholder}
               className={`w-full pl-12 pr-4 py-3.5 rounded-full border-2 outline-none transition-all text-sm ${darkMode ? 'bg-gray-800 border-gray-700 text-white focus:border-indigo-400' : 'bg-white border-gray-200 text-gray-900 focus:border-[#232999] focus:shadow-lg'}`}
             />
           </div>

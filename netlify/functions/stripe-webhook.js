@@ -53,15 +53,17 @@ exports.handler = async (event) => {
     const session = stripeEvent.data.object;
 
     // Trace fiable et permanente dans les logs Netlify (Functions → stripe-webhook)
-    // : même si tout le reste échoue, la preuve du paiement existe ici.
+    // : même si tout le reste échoue, la preuve du paiement existe ici. Limité
+    // au strict nécessaire pour la réconciliation (qui a payé quoi, combien) —
+    // pas le nom/âge de l'enfant, le téléphone ni les objectifs en texte libre
+    // (déjà dans Stripe et dans la table enrollments quand l'écriture réussit,
+    // inutile de les dupliquer dans les logs).
     console.log('✅ Paiement confirmé par Stripe:', JSON.stringify({
       sessionId: session.id,
       email: session.customer_email || session.customer_details?.email,
       amountTotal: session.amount_total ? session.amount_total / 100 : null,
       currency: session.currency,
       productKey: session.metadata?.productKey,
-      parentName: session.metadata?.parentName,
-      metadata: session.metadata,
     }, null, 2));
 
     const isShopOrder = session.metadata?.type === 'shop';

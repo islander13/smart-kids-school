@@ -17,6 +17,8 @@
 // utilisable depuis cette page protégée par clé plutôt que par login.
 // ─────────────────────────────────────────────────────────────────────────
 
+const { isValidAdminKey } = require('./lib/adminAuth');
+
 function escapeHtml(str) {
   if (str === null || str === undefined) return '';
   return String(str)
@@ -114,7 +116,7 @@ function renderPage({ rows, stats, key }) {
 exports.handler = async (event, context) => {
   const params = event.queryStringParameters || {};
 
-  if (!process.env.ADMIN_SECRET || params.key !== process.env.ADMIN_SECRET) {
+  if (!isValidAdminKey(params.key)) {
     return { statusCode: 401, body: 'Accès refusé.' };
   }
 

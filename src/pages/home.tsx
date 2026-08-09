@@ -1237,21 +1237,21 @@ export default function HomePage() {
             <input type="hidden" name="form-name" value="contact" />
             <div className="grid md:grid-cols-2 gap-6 mb-6">
               <div>
-                <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.fullName}</label>
-                <input type="text" name="name" value={contactFormData.name} onChange={e => setContactFormData({ ...contactFormData, name: e.target.value })} required className={`w-full px-4 py-3 rounded-xl border focus:border-[#232999] focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-300'}`} placeholder={t.fullName} />
+                <label htmlFor="contact-name" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.fullName}</label>
+                <input id="contact-name" type="text" name="name" value={contactFormData.name} onChange={e => setContactFormData({ ...contactFormData, name: e.target.value })} required className={`w-full px-4 py-3 rounded-xl border focus:border-[#232999] focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-300'}`} placeholder={t.fullName} />
               </div>
               <div>
-                <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Email</label>
-                <input type="email" name="email" value={contactFormData.email} onChange={e => setContactFormData({ ...contactFormData, email: e.target.value })} required className={`w-full px-4 py-3 rounded-xl border focus:border-[#232999] focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-300'}`} placeholder="votre@email.com" />
+                <label htmlFor="contact-email" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Email</label>
+                <input id="contact-email" type="email" name="email" value={contactFormData.email} onChange={e => setContactFormData({ ...contactFormData, email: e.target.value })} required className={`w-full px-4 py-3 rounded-xl border focus:border-[#232999] focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-300'}`} placeholder="votre@email.com" />
               </div>
             </div>
             <div className="mb-6">
-              <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.phoneOptional}</label>
-              <input type="tel" name="phone" value={contactFormData.phone} onChange={e => setContactFormData({ ...contactFormData, phone: e.target.value })} className={`w-full px-4 py-3 rounded-xl border focus:border-[#232999] focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-300'}`} placeholder="+41 XX XXX XX XX" />
+              <label htmlFor="contact-phone" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.phoneOptional}</label>
+              <input id="contact-phone" type="tel" name="phone" value={contactFormData.phone} onChange={e => setContactFormData({ ...contactFormData, phone: e.target.value })} className={`w-full px-4 py-3 rounded-xl border focus:border-[#232999] focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-300'}`} placeholder="+41 XX XXX XX XX" />
             </div>
             <div className="mb-6">
-              <label className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.message}</label>
-              <textarea name="message" value={contactFormData.message} onChange={e => setContactFormData({ ...contactFormData, message: e.target.value })} required maxLength={500} rows={5} className={`w-full px-4 py-3 rounded-xl border focus:border-[#232999] focus:ring-2 focus:ring-indigo-200 outline-none transition-all resize-none text-sm ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-300'}`} placeholder={t.messagePlaceholder}></textarea>
+              <label htmlFor="contact-message" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.message}</label>
+              <textarea id="contact-message" name="message" value={contactFormData.message} onChange={e => setContactFormData({ ...contactFormData, message: e.target.value })} required maxLength={500} rows={5} className={`w-full px-4 py-3 rounded-xl border focus:border-[#232999] focus:ring-2 focus:ring-indigo-200 outline-none transition-all resize-none text-sm ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-300'}`} placeholder={t.messagePlaceholder}></textarea>
               <p className={`text-xs mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{contactFormData.message.length}/500</p>
             </div>
             {submitMessage && <div className={`mb-6 p-4 rounded-xl ${submitMessage.includes('Merci') || submitMessage.includes('Thank') || submitMessage.includes('Danke') ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>{submitMessage}</div>}
