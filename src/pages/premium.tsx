@@ -365,6 +365,11 @@ export default function Premium() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Garde-fou anti double-soumission : le `disabled` du bouton ne repeint
+    // pas forcément assez vite pour bloquer un double-clic rapide, ce qui
+    // créerait deux sessions Stripe (et deux lignes enrollments) pour la
+    // même inscription.
+    if (submitting) return;
     setSubmitting(true);
     setSubmitMessage('');
     try {

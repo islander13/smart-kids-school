@@ -94,6 +94,7 @@
       <input type="text" name="plan" />
       <input type="text" name="planKey" />
       <input type="text" name="planPrice" />
+      <input type="text" name="paymentMode" />
       <input type="text" name="parentName" />
       <input type="email" name="email" />
       <input type="tel" name="phone" />
@@ -105,16 +106,26 @@
       <textarea name="message"></textarea>
     </form>
 
+    <!-- Champs alignés sur ce que stages.tsx soumet réellement (formData.append,
+         voir handleStageSubmit) : la déclaration statique doit lister EXACTEMENT
+         les mêmes champs, sans quoi Netlify Forms peut ne pas tous les inclure
+         dans l'email de notification (schéma appris au build sur ce formulaire
+         caché, pas sur le vrai formulaire React qui n'existe qu'au runtime). -->
     <form name="stage-enrollment" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="text" name="bot-field" />
       <input type="text" name="period" />
+      <input type="text" name="selectedWeek" />
       <input type="text" name="parentName" />
-      <input type="text" name="childName" />
-      <input type="number" name="childAge" />
       <input type="email" name="email" />
       <input type="tel" name="phone" />
       <input type="text" name="preferredSession" />
       <textarea name="message"></textarea>
+      <input type="text" name="numChildren" />
+      <input type="text" name="child1Name" />
+      <input type="number" name="child1Age" />
+      <input type="text" name="child2Name" />
+      <input type="number" name="child2Age" />
+      <input type="text" name="priceTotal" />
     </form>
 
     <form name="premium-enrollment" data-netlify="true" netlify-honeypot="bot-field" hidden>

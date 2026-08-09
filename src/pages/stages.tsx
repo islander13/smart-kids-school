@@ -372,6 +372,11 @@ export default function Stages() {
 
   const handleStageSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Garde-fou anti double-soumission : le `disabled` du bouton ne repeint
+    // pas forcément assez vite pour bloquer un double-clic rapide, ce qui
+    // créerait deux sessions Stripe (et deux lignes enrollments) pour la
+    // même inscription.
+    if (stageSubmitting) return;
     setStageSubmitting(true);
     setStageSubmitMessage('');
 
@@ -432,12 +437,16 @@ export default function Stages() {
             parentName: stageFormData.parentName,
             phone: stageFormData.phone,
             period: selectedStagePeriod,
+            selectedWeek: selectedWeek,
             preferredSession: stageFormData.preferredSession,
             numChildren: String(stageFormData.numChildren),
             child1Name: validChildren[0]?.name || '',
             child1Age: validChildren[0]?.age || '',
             child2Name: validChildren[1]?.name || '',
             child2Age: validChildren[1]?.age || '',
+            // Tronqué pour respecter la limite Stripe de 500 caractères par
+            // valeur de métadonnée (le champ n'a pas de maxLength côté formulaire).
+            message: stageFormData.message.slice(0, 500),
           },
         }),
       });

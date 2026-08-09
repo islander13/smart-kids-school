@@ -371,7 +371,7 @@ export default function Tarifs() {
   const toggleFaq = (i: number) => setOpenFaq(openFaq === i ? null : i);
   const [showLangDropdown, setShowLangDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  // ── Modal d'inscription (avec support multi-enfants pour Duo/Trio) ──
+  // ── Modal d'inscription (avec support multi-enfants pour Duo) ──
   const [showPlanModal, setShowPlanModal] = useState(false);
   const [paymentMode, setPaymentMode] = useState<'monthly' | 'once'>('monthly');
   const [selectedPlan, setSelectedPlan] = useState<{
@@ -387,7 +387,7 @@ export default function Tarifs() {
     parentName: '',
     email: '',
     phone: '',
-    children: [{ name: '', age: '' }, { name: '', age: '' }, { name: '', age: '' }],
+    children: [{ name: '', age: '' }, { name: '', age: '' }],
     message: '',
   });
   const [planSubmitMessage, setPlanSubmitMessage] = useState('');
@@ -445,10 +445,15 @@ export default function Tarifs() {
 
   const handlePlanSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Garde-fou anti double-soumission : le `disabled` du bouton ne repeint
+    // pas forcément assez vite pour bloquer un double-clic rapide, ce qui
+    // créerait deux sessions Stripe (et deux lignes enrollments) pour la
+    // même inscription.
+    if (planSubmitting) return;
     setPlanSubmitting(true);
     setPlanSubmitMessage('');
 
-    const numChildren = selectedPlan.format === 'solo' ? 1 : selectedPlan.format === 'duo' ? 2 : 3;
+    const numChildren = selectedPlan.format === 'solo' ? 1 : 2;
     const validChildren = planFormData.children.slice(0, numChildren);
 
     // Validation côté client : tous les enfants doivent être remplis
@@ -515,11 +520,15 @@ export default function Tarifs() {
           metadata: {
             parentName: planFormData.parentName,
             phone: planFormData.phone,
+            paymentMode,
             numChildren: String(numChildren),
             child1Name: validChildren[0]?.name || '',
             child1Age: validChildren[0]?.age || '',
             child2Name: validChildren[1]?.name || '',
             child2Age: validChildren[1]?.age || '',
+            // Tronqué pour respecter la limite Stripe de 500 caractères par
+            // valeur de métadonnée (le champ n'a pas de maxLength côté formulaire).
+            message: planFormData.message.slice(0, 500),
           },
         }),
       });
@@ -1361,7 +1370,7 @@ export default function Tarifs() {
 
                 {/* ── Section enfants (1, 2 ou 3 selon formule) ── */}
                 {(() => {
-                  const numChildren = selectedPlan.format === 'solo' ? 1 : selectedPlan.format === 'duo' ? 2 : 3;
+                  const numChildren = selectedPlan.format === 'solo' ? 1 : 2;
                   return (
                     <div className={`mb-6 p-5 rounded-2xl border-2 ${darkMode ? 'bg-gray-800/50 border-gray-700' : 'bg-indigo-50/40 border-indigo-200'}`}>
                       <h4 className={`font-bold mb-4 flex items-center gap-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
