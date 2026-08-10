@@ -24,15 +24,16 @@
 # plus tard une fois le HTTPS confirmé stable sur toutes les routes.
 # Permissions-Policy laisse "payment" ouvert car le checkout Stripe embarqué
 # (tarifs.tsx, stages.tsx, shop/product.tsx) en a besoin.
-# Content-Security-Policy en mode Report-Only (volontaire) : le site n'en
-# avait aucune jusqu'ici. Passer directement en mode bloquant sans pouvoir
-# tester contre la vraie prod (checkout Stripe embarqué, vidéos YouTube/Vimeo
-# de "Mon espace", GA4, Meta Pixel) risquerait de casser un paiement en
-# silence. En Report-Only, rien n'est bloqué : les violations apparaissent
-# juste dans la console navigateur (Application/Security > CSP violations),
-# ce qui permet de vérifier qu'aucune ressource légitime n'est signalée avant
-# de renommer l'en-tête en "Content-Security-Policy" (sans "-Report-Only")
-# pour la faire vraiment appliquer.
+# Content-Security-Policy en mode BLOQUANT (passée de Report-Only à
+# appliquée) : la version Report-Only a été testée contre la vraie prod
+# (script Playwright écoutant securitypolicyviolation) sur accueil, tarifs,
+# stages, premium — modal Stripe embarqué réellement ouverte à chaque fois —
+# blog (liste + article), mon espace et FAQ, avec cookies acceptés
+# (déclenche Plausible + consentement Meta Pixel). Un vrai oubli a été
+# trouvé et corrigé (plausible.io) ; après correction, zéro violation sur
+# l'ensemble de ces parcours. Seul point non testable sans compte : la
+# lecture vidéo dans "Mon espace" (frame-src YouTube/Vimeo, domaines
+# officiels fixes, risque faible).
 [[headers]]
   for = "/*"
   [headers.values]
@@ -41,7 +42,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Strict-Transport-Security = "max-age=31536000"
     Permissions-Policy = "geolocation=(), microphone=(), camera=(), usb=(), magnetometer=(), gyroscope=()"
-    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://connect.facebook.net https://js.stripe.com https://plausible.io; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; frame-src https://js.stripe.com https://hooks.stripe.com https://www.youtube-nocookie.com https://player.vimeo.com; connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://analytics.google.com https://connect.facebook.net https://www.facebook.com https://plausible.io; object-src 'none'; base-uri 'self'; form-action 'self'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://connect.facebook.net https://js.stripe.com https://plausible.io; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; frame-src https://js.stripe.com https://hooks.stripe.com https://www.youtube-nocookie.com https://player.vimeo.com; connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://analytics.google.com https://connect.facebook.net https://www.facebook.com https://plausible.io; object-src 'none'; base-uri 'self'; form-action 'self'"
 
 # Assets Vite (JS/CSS hashés dans le nom de fichier) : cache long et immuable,
 # un changement de contenu produit toujours un nouveau nom de fichier.
