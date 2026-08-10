@@ -25,7 +25,46 @@ function sourceFromProductKey(productKey) {
   return 'tarifs';
 }
 
-exports.handler = async (event) => {
+// Crée (ou invite) le compte "Mon espace" du client juste après un paiement
+// réel — c'est ce qui remplace l'inscription libre : personne ne peut plus
+// se créer un compte tout seul (voir Site settings → Identity → Registration
+// → "Invite only" côté dashboard Netlify, seule action encore manuelle), et
+// un client qui paie reçoit automatiquement l'email d'invitation Identity
+// standard, sans intervention manuelle de l'école.
+//
+// context.clientContext.identity ({ url, token }) donne un accès admin à
+// l'API Identity du site sur CHAQUE invocation de fonction, dès qu'Identity
+// est activé — même mécanisme déjà utilisé par link-child.js et
+// admin-espace-activity.js, aucune variable d'environnement à ajouter.
+async function inviteEspaceAccount(identity, email) {
+  if (!identity || !email) return;
+  try {
+    const res = await fetch(`${identity.url}/admin/users`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${identity.token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    if (res.ok) {
+      console.log(`Invitation "Mon espace" envoyée à ${email}`);
+      return;
+    }
+    const body = await res.json().catch(() => ({}));
+    const alreadyExists = res.status === 422 && /already been registered|already exists/i.test(body.msg || body.error_description || '');
+    if (alreadyExists) {
+      // Cas normal : un client qui se réinscrit (2e année, stage après
+      // l'abonnement annuel...) a déjà un compte Identity. Rien à faire.
+      return;
+    }
+    console.error(`Invitation "Mon espace" échouée pour ${email} (statut ${res.status}):`, body.msg || body.error_description || JSON.stringify(body));
+  } catch (err) {
+    // Ne fait jamais échouer le webhook pour un problème d'invitation : le
+    // paiement est déjà confirmé et loggé, c'est l'essentiel. L'école peut
+    // toujours inviter la personne manuellement depuis le dashboard Identity.
+    console.error(`Erreur invitation "Mon espace" pour ${email} (non bloquante):`, err.message);
+  }
+}
+
+exports.handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method not allowed' };
   }
@@ -121,6 +160,8 @@ exports.handler = async (event) => {
       return { statusCode: 200, body: JSON.stringify({ received: true }) };
     }
 
+    const email = session.customer_email || session.customer_details?.email || null;
+
     // Marque la ligne comme payée (créée lors de create-checkout-session.js).
     // UPSERT : si la ligne n'existait pas (ex: écriture initiale échouée),
     // on la crée quand même — le paiement confirmé ne doit jamais se perdre.
@@ -128,7 +169,6 @@ exports.handler = async (event) => {
       // En "Lambda compatibility mode" (exports.handler), Netlify n'injecte
       // pas automatiquement la chaîne de connexion : on la passe nous-mêmes.
       const { sql } = getDatabase({ connectionString: process.env.NETLIFY_DB_URL });
-      const email = session.customer_email || session.customer_details?.email || null;
       const amount = session.amount_total ? session.amount_total / 100 : null;
       await sql`
         INSERT INTO enrollments (
@@ -149,6 +189,10 @@ exports.handler = async (event) => {
       console.error('Mise à jour base de données échouée (non bloquante):', dbError.message);
     }
 
+    // Donne accès à "Mon espace" au client qui vient de payer (voir la
+    // fonction inviteEspaceAccount plus haut pour le détail).
+    await inviteEspaceAccount(context && context.clientContext && context.clientContext.identity, email);
+
     // Notification par email : réutilise Netlify Forms (déjà en place pour
     // les autres formulaires du site) pour envoyer un email de confirmation
     // sans dépendre d'un nouveau service tiers.
@@ -157,7 +201,7 @@ exports.handler = async (event) => {
       const params = new URLSearchParams();
       params.append('form-name', 'payment-confirmed');
       params.append('sessionId', session.id);
-      params.append('email', session.customer_email || session.customer_details?.email || '');
+      params.append('email', email || '');
       params.append('amount', session.amount_total ? `${session.amount_total / 100} ${(session.currency || 'chf').toUpperCase()}` : '');
       params.append('productKey', session.metadata?.productKey || '');
       params.append('parentName', session.metadata?.parentName || '');
