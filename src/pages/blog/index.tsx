@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import CookieBanner from '../../components/CookieBanner';
 import { parseLocaleFromPath, localizedPath, setHreflangTags, type Locale } from '../../i18n/routing';
-import { getAllArticles } from '../../lib/blog';
+import { getAllArticles, type ArticleSummary } from '../../lib/blog';
 import { ESPACE_NAV_VISIBLE } from '../../data/espaceContent';
 
 type Lang = Locale;
@@ -69,7 +69,16 @@ export default function BlogIndex() {
   }, [currentLang, darkMode]);
 
   const t = T[currentLang];
-  const allArticles = getAllArticles(currentLang);
+  const [allArticles, setAllArticles] = useState<ArticleSummary[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    getAllArticles(currentLang).then(data => {
+      if (!cancelled) setAllArticles(data);
+    });
+    return () => { cancelled = true; };
+  }, [currentLang]);
+
   // Les guides "par ville" (category: "local") sont regroupés dans une section
   // secondaire distincte, plus discrète, pour que le flux principal du blog
   // ne ressemble pas à une liste d'articles SEO génériques.

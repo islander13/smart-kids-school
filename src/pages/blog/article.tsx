@@ -3,7 +3,7 @@ import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import CookieBanner from '../../components/CookieBanner';
 import { parseLocaleFromPath, localizedPath, setHreflangTags, type Locale } from '../../i18n/routing';
-import { getArticle } from '../../lib/blog';
+import { getArticle, type Article } from '../../lib/blog';
 import { ESPACE_NAV_VISIBLE } from '../../data/espaceContent';
 
 type Lang = Locale;
@@ -67,7 +67,18 @@ export default function BlogArticle() {
   }, [currentLang, darkMode]);
 
   const t = T[currentLang];
-  const article = slug ? getArticle(slug, currentLang) : null;
+  // undefined = chargement en cours, null = introuvable (slug/langue invalides)
+  const [article, setArticle] = useState<Article | null | undefined>(undefined);
+
+  useEffect(() => {
+    let cancelled = false;
+    if (!slug) { setArticle(null); return; }
+    setArticle(undefined);
+    getArticle(slug, currentLang).then(a => {
+      if (!cancelled) setArticle(a);
+    });
+    return () => { cancelled = true; };
+  }, [slug, currentLang]);
 
   // SEO — ne s'exécute que si l'article existe (l'appel est conditionné juste en dessous)
   useEffect(() => {
@@ -105,7 +116,7 @@ export default function BlogArticle() {
     });
   }, [article, currentLang]);
 
-  if (!slug || !article) {
+  if (!slug || article === null) {
     return <Navigate to={lp('/blog')} replace />;
   }
 
@@ -199,18 +210,26 @@ export default function BlogArticle() {
         <div className="max-w-2xl mx-auto">
           <a href={lp('/blog')} className={`text-sm font-medium ${darkMode ? 'text-indigo-400 hover:text-indigo-300' : 'text-[#232999] hover:text-indigo-700'}`}>{t.backToBlog}</a>
 
-          <header className="mt-6 mb-10">
-            <p className={`text-sm font-semibold uppercase tracking-wider ${darkMode ? 'text-indigo-400' : 'text-[#232999]'}`}>
-              {new Date(article.date).toLocaleDateString(currentLang === 'FR' ? 'fr-CH' : currentLang === 'EN' ? 'en-GB' : 'de-CH', { day: 'numeric', month: 'long', year: 'numeric' })}
-              {' · '}{t.minRead(article.readTimeMinutes)}
-            </p>
-            <h1 className={`text-3xl lg:text-4xl font-bold leading-tight mt-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{article.title}</h1>
-          </header>
+          {!article ? (
+            <div className="flex justify-center py-24">
+              <div className="w-10 h-10 border-4 border-[#232999] border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            <>
+              <header className="mt-6 mb-10">
+                <p className={`text-sm font-semibold uppercase tracking-wider ${darkMode ? 'text-indigo-400' : 'text-[#232999]'}`}>
+                  {new Date(article.date).toLocaleDateString(currentLang === 'FR' ? 'fr-CH' : currentLang === 'EN' ? 'en-GB' : 'de-CH', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  {' · '}{t.minRead(article.readTimeMinutes)}
+                </p>
+                <h1 className={`text-3xl lg:text-4xl font-bold leading-tight mt-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{article.title}</h1>
+              </header>
 
-          <div
-            className={`prose prose-lg max-w-none ${darkMode ? 'prose-invert' : ''}`}
-            dangerouslySetInnerHTML={{ __html: article.html }}
-          />
+              <div
+                className={`prose prose-lg max-w-none ${darkMode ? 'prose-invert' : ''}`}
+                dangerouslySetInnerHTML={{ __html: article.html }}
+              />
+            </>
+          )}
         </div>
       </article>
 
