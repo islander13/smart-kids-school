@@ -129,7 +129,7 @@ export default function Premium() {
 
   const T = {
     FR: {
-      navAccueil: 'Accueil', navTarifs: 'Tarifs', navStages: 'Stages', navFaq: 'FAQ', navBlog: 'Blog', navEspace: 'Mon espace',
+      navAccueil: 'Accueil', navTarifs: 'Tarifs', navStages: 'Stages', navBlog: 'Blog', navEspace: 'Mon espace',
       navContact: 'Nous contacter',
       heroBadge: '🎓 Mentorat individuel · 3 places par année scolaire',
       heroTitle: "Pour l'enfant qui veut en faire quelque chose",
@@ -206,7 +206,7 @@ export default function Premium() {
       ctaQuestionsBtn: 'Discuter avec le fondateur',
     },
     EN: {
-      navAccueil: 'Home', navTarifs: 'Pricing', navStages: 'Camps', navFaq: 'FAQ', navBlog: 'Blog', navEspace: 'My space',
+      navAccueil: 'Home', navTarifs: 'Pricing', navStages: 'Camps', navBlog: 'Blog', navEspace: 'My space',
       navContact: 'Contact us',
       heroBadge: '🎓 One-to-one mentoring · 3 spots per school year',
       heroTitle: 'For the child who wants to build something',
@@ -283,7 +283,7 @@ export default function Premium() {
       ctaQuestionsBtn: 'Talk with the founder',
     },
     DE: {
-      navAccueil: 'Startseite', navTarifs: 'Preise', navStages: 'Camps', navFaq: 'FAQ', navBlog: 'Blog', navEspace: 'Mein Bereich',
+      navAccueil: 'Startseite', navTarifs: 'Preise', navStages: 'Camps', navBlog: 'Blog', navEspace: 'Mein Bereich',
       navContact: 'Kontakt',
       heroBadge: '🎓 Einzelmentoring · 3 Plätze pro Schuljahr',
       heroTitle: 'Für das Kind, das etwas daraus machen will',
@@ -518,7 +518,6 @@ export default function Premium() {
               <a href={lp('/')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navAccueil}</a>
               <a href={lp('/tarifs')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navTarifs}</a>
               <a href={lp('/stages')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navStages}</a>
-              <a href={lp('/faq')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navFaq}</a>
               <a href={lp('/blog')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navBlog}</a>
               {ESPACE_NAV_VISIBLE && (
                 <a href={lp('/espace')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>{t.navEspace}</a>
@@ -566,7 +565,6 @@ export default function Premium() {
               <a href={lp('/')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navAccueil}</a>
               <a href={lp('/tarifs')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navTarifs}</a>
               <a href={lp('/stages')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navStages}</a>
-              <a href={lp('/faq')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navFaq}</a>
               <a href={lp('/blog')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navBlog}</a>
               {ESPACE_NAV_VISIBLE && (
                 <a href={lp('/espace')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>{t.navEspace}</a>

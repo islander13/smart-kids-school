@@ -140,6 +140,19 @@
       <input type="text" name="bestTime" />
     </form>
 
+    <!-- Cours d'essai gratuit (tarifs-v2.tsx) : formulaire de prise de contact
+         pur, sans Stripe — le champ "childAge" reste du texte (pas number, ex.
+         "8 ans" ou "8-9 ans" pour laisser une marge au parent). -->
+    <form name="trial-lesson" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="bot-field" />
+      <input type="text" name="parentName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="childName" />
+      <input type="text" name="childAge" />
+      <textarea name="message"></textarea>
+    </form>
+
     <!-- Soumis uniquement par le webhook Stripe (netlify/functions/stripe-webhook.js),
          jamais par un visiteur : confirmation qu'un paiement a réellement abouti,
          même si le client ferme son onglet avant d'atteindre /merci. -->

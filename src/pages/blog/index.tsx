@@ -15,7 +15,7 @@ const T: Record<Lang, {
   minRead: (n: number) => string;
   localTitle: string;
   localSubtitle: string;
-  navHome: string; navProgramme: string; navTarifs: string; navPremium: string; navStages: string; navFaq: string; navBlog: string; navEspace: string; navEnroll: string;
+  navHome: string; navProgramme: string; navTarifs: string; navPremium: string; navStages: string; navBlog: string; navEspace: string; navEnroll: string;
 }> = {
   FR: {
     pageTitle: 'Le blog Smart Kids School',
@@ -24,7 +24,7 @@ const T: Record<Lang, {
     minRead: (n) => `${n} min de lecture`,
     localTitle: 'Guides par ville',
     localSubtitle: "Ce qui existe et ce qui compte pour choisir un cours de programmation, ville par ville en Suisse romande.",
-    navHome: 'Accueil', navProgramme: 'Programme', navTarifs: 'Tarifs', navPremium: 'Premium', navStages: 'Stages', navFaq: 'FAQ', navBlog: 'Blog', navEspace: 'Mon espace', navEnroll: 'Inscrire mon enfant',
+    navHome: 'Accueil', navProgramme: 'Programme', navTarifs: 'Tarifs', navPremium: 'Premium', navStages: 'Stages', navBlog: 'Blog', navEspace: 'Mon espace', navEnroll: 'Inscrire mon enfant',
   },
   EN: {
     pageTitle: 'The Smart Kids School blog',
@@ -33,7 +33,7 @@ const T: Record<Lang, {
     minRead: (n) => `${n} min read`,
     localTitle: 'City guides',
     localSubtitle: "What's available and what matters when choosing a coding class, city by city in French-speaking Switzerland.",
-    navHome: 'Home', navProgramme: 'Programme', navTarifs: 'Pricing', navPremium: 'Premium', navStages: 'Camps', navFaq: 'FAQ', navBlog: 'Blog', navEspace: 'My space', navEnroll: 'Enroll my child',
+    navHome: 'Home', navProgramme: 'Programme', navTarifs: 'Pricing', navPremium: 'Premium', navStages: 'Camps', navBlog: 'Blog', navEspace: 'My space', navEnroll: 'Enroll my child',
   },
   DE: {
     pageTitle: 'Der Smart Kids School Blog',
@@ -42,7 +42,7 @@ const T: Record<Lang, {
     minRead: (n) => `${n} Min. Lesezeit`,
     localTitle: 'Ratgeber nach Stadt',
     localSubtitle: 'Was es gibt und worauf es bei der Wahl eines Programmierkurses ankommt, Stadt für Stadt in der Westschweiz.',
-    navHome: 'Startseite', navProgramme: 'Programm', navTarifs: 'Preise', navPremium: 'Premium', navStages: 'Camps', navFaq: 'FAQ', navBlog: 'Blog', navEspace: 'Mein Bereich', navEnroll: 'Kind anmelden',
+    navHome: 'Startseite', navProgramme: 'Programm', navTarifs: 'Preise', navPremium: 'Premium', navStages: 'Camps', navBlog: 'Blog', navEspace: 'Mein Bereich', navEnroll: 'Kind anmelden',
   },
 };
 
@@ -140,7 +140,6 @@ export default function BlogIndex() {
               <a href={lp('/#parcours')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navProgramme}</a>
               <a href={lp('/tarifs')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navTarifs}</a>
               <a href={lp('/stages')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navStages}</a>
-              <a href={lp('/faq')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.navFaq}</a>
               <a href={lp('/blog')} className={darkMode ? 'text-sm font-semibold text-indigo-400' : 'text-sm font-semibold text-[#232999]'}>{t.navBlog}</a>
               {ESPACE_NAV_VISIBLE && (
                 <a href={lp('/espace')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>{t.navEspace}</a>
@@ -194,7 +193,6 @@ export default function BlogIndex() {
               <a href={lp('/#parcours')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.navProgramme}</a>
               <a href={lp('/tarifs')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.navTarifs}</a>
               <a href={lp('/stages')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.navStages}</a>
-              <a href={lp('/faq')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.navFaq}</a>
               <a href={lp('/blog')} className={darkMode ? 'block text-sm font-semibold py-2 text-indigo-400' : 'block text-sm font-semibold py-2 text-[#232999]'}>{t.navBlog}</a>
               {ESPACE_NAV_VISIBLE && (
                 <a href={lp('/espace')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>{t.navEspace}</a>

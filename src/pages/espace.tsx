@@ -28,7 +28,7 @@ const T: Record<Lang, {
   backToLogin: string;
 }> = {
   FR: {
-    nav: { home: 'Accueil', tarifs: 'Tarifs', premium: 'Premium', stages: 'Stages', faq: 'FAQ', blog: 'Blog', espace: 'Mon espace' },
+    nav: { home: 'Accueil', tarifs: 'Tarifs', premium: 'Premium', stages: 'Stages', blog: 'Blog', espace: 'Mon espace' },
     pageTitle: 'Mon espace',
     welcomeBack: 'Content de vous revoir !',
     logout: 'Se déconnecter',
@@ -38,7 +38,7 @@ const T: Record<Lang, {
     backToLogin: '← Retour à la connexion',
   },
   EN: {
-    nav: { home: 'Home', tarifs: 'Pricing', premium: 'Premium', stages: 'Camps', faq: 'FAQ', blog: 'Blog', espace: 'My space' },
+    nav: { home: 'Home', tarifs: 'Pricing', premium: 'Premium', stages: 'Camps', blog: 'Blog', espace: 'My space' },
     pageTitle: 'My space',
     welcomeBack: 'Welcome back!',
     logout: 'Log out',
@@ -48,7 +48,7 @@ const T: Record<Lang, {
     backToLogin: '← Back to login',
   },
   DE: {
-    nav: { home: 'Startseite', tarifs: 'Preise', premium: 'Premium', stages: 'Camps', faq: 'FAQ', blog: 'Blog', espace: 'Mein Bereich' },
+    nav: { home: 'Startseite', tarifs: 'Preise', premium: 'Premium', stages: 'Camps', blog: 'Blog', espace: 'Mein Bereich' },
     pageTitle: 'Mein Bereich',
     welcomeBack: 'Schön, Sie wiederzusehen!',
     logout: 'Abmelden',
@@ -156,7 +156,6 @@ function EspaceContent() {
               <a href={lp('/')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.home}</a>
               <a href={lp('/tarifs')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.tarifs}</a>
               <a href={lp('/stages')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.stages}</a>
-              <a href={lp('/faq')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.faq}</a>
               <a href={lp('/espace')} className={darkMode ? 'text-sm font-semibold text-indigo-400' : 'text-sm font-semibold text-[#232999]'}>{t.nav.espace}</a>
             </div>
             <div className="hidden md:flex items-center gap-3 ml-6">
@@ -210,7 +209,6 @@ function EspaceContent() {
               <a href={lp('/')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.nav.home}</a>
               <a href={lp('/tarifs')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.nav.tarifs}</a>
               <a href={lp('/stages')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.nav.stages}</a>
-              <a href={lp('/faq')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.nav.faq}</a>
               <a href={lp('/espace')} className={darkMode ? 'block text-sm font-semibold py-2 text-indigo-400' : 'block text-sm font-semibold py-2 text-[#232999]'}>{t.nav.espace}</a>
               <div className="flex gap-2 py-2">
                 {(['FR', 'EN', 'DE'] as Lang[]).map(lang => (

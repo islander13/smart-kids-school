@@ -10,7 +10,7 @@ type Lang = 'FR' | 'EN' | 'DE';
 
 const T = {
   FR: {
-    nav: { home: 'Accueil', tarifs: 'Tarifs', premium: 'Premium', stages: 'Stages', programme: 'Programme', faq: 'FAQ', blog: 'Blog', espace: 'Mon espace', enroll: 'Inscrire mon enfant' },
+    nav: { home: 'Accueil', tarifs: 'Tarifs', premium: 'Premium', stages: 'Stages', programme: 'Programme', blog: 'Blog', espace: 'Mon espace', enroll: 'Inscrire mon enfant' },
     heroBadge: 'Stages Vacances · 100% en ligne',
     heroTitle1: 'Les vacances deviennent une',
     heroTitle2: 'aventure de code',
@@ -147,7 +147,7 @@ const T = {
     ],
   },
   EN: {
-    nav: { home: 'Home', tarifs: 'Pricing', premium: 'Premium', stages: 'Camps', programme: 'Program', faq: 'FAQ', blog: 'Blog', espace: 'My space', enroll: 'Enroll my child' },
+    nav: { home: 'Home', tarifs: 'Pricing', premium: 'Premium', stages: 'Camps', programme: 'Program', blog: 'Blog', espace: 'My space', enroll: 'Enroll my child' },
     heroBadge: 'Vacation Camps · 100% online',
     heroTitle1: 'Vacation becomes a',
     heroTitle2: 'coding adventure',
@@ -235,7 +235,7 @@ const T = {
     ],
   },
   DE: {
-    nav: { home: 'Startseite', tarifs: 'Preise', premium: 'Premium', stages: 'Camps', programme: 'Programm', faq: 'FAQ', blog: 'Blog', espace: 'Mein Bereich', enroll: 'Kind anmelden' },
+    nav: { home: 'Startseite', tarifs: 'Preise', premium: 'Premium', stages: 'Camps', programme: 'Programm', blog: 'Blog', espace: 'Mein Bereich', enroll: 'Kind anmelden' },
     heroBadge: 'Ferien-Camps · 100% online',
     heroTitle1: 'Ferien werden zum',
     heroTitle2: 'Code-Abenteuer',
@@ -670,7 +670,6 @@ export default function Stages() {
               <a href={lp('/#parcours')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.programme}</a>
               <a href={lp('/tarifs')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.tarifs}</a>
               <a href={lp('/stages')} className={darkMode ? 'text-sm font-semibold text-indigo-400' : 'text-sm font-semibold text-[#232999]'}>{t.nav.stages}</a>
-              <a href={lp('/faq')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.faq}</a>
               <a href={lp('/blog')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.blog}</a>
               {ESPACE_NAV_VISIBLE && (
                 <a href={lp('/espace')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>{t.nav.espace}</a>
@@ -721,7 +720,6 @@ export default function Stages() {
               <a href={lp('/')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.home}</a>
               <a href={lp('/tarifs')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.tarifs}</a>
               <a href={lp('/stages')} onClick={() => setMobileMenuOpen(false)} className={darkMode ? 'block text-sm font-semibold py-2 text-indigo-400' : 'block text-sm font-semibold py-2 text-[#232999]'}>{t.nav.stages}</a>
-              <a href={lp('/faq')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.faq}</a>
               <a href={lp('/blog')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.blog}</a>
               {ESPACE_NAV_VISIBLE && (
                 <a href={lp('/espace')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>{t.nav.espace}</a>

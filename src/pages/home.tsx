@@ -9,7 +9,7 @@ type Lang = 'FR' | 'EN' | 'DE';
 
 interface Translations {
   // Nav
-  accueil: string; programme: string; faq: string; inscrire: string;
+  accueil: string; programme: string; inscrire: string;
   // Hero
   heroTitle1: string; heroTitle2: string; heroDesc: string; discoverProgram: string; studentsTrained: string; satisfaction: string;
   // Benefits
@@ -36,7 +36,6 @@ const T: Record<Lang, Translations> = {
     // Nav
     accueil: 'Accueil',
     programme: 'Programme',
-    faq: 'FAQ',
     inscrire: 'Inscrivez votre enfant',
     // Hero
     heroTitle1: 'Apprendre à coder,',
@@ -126,7 +125,6 @@ const T: Record<Lang, Translations> = {
     // Nav
     accueil: 'Home',
     programme: 'Curriculum',
-    faq: 'FAQ',
     inscrire: 'Enroll your child',
     // Hero
     heroTitle1: 'Learn to code,',
@@ -216,7 +214,6 @@ const T: Record<Lang, Translations> = {
     // Nav
     accueil: 'Startseite',
     programme: 'Programm',
-    faq: 'FAQ',
     inscrire: 'Kind anmelden',
     // Hero
     heroTitle1: 'Programmieren lernen,',
@@ -606,7 +603,6 @@ export default function HomePage() {
                 { href: '/#parcours', label: t.programme },
                 { href: '/tarifs', label: currentLang === 'FR' ? 'Tarifs' : currentLang === 'EN' ? 'Pricing' : 'Preise' },
                 { href: '/stages', label: currentLang === 'FR' ? 'Stages' : currentLang === 'EN' ? 'Camps' : 'Camps' },
-                { href: '/faq', label: t.faq },
                 { href: '/blog', label: 'Blog' },
               ].map(item => (
                 <a key={item.href} href={lp(item.href)} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{item.label}</a>
@@ -671,7 +667,7 @@ export default function HomePage() {
         {mobileMenuOpen && (
           <div className={`md:hidden border-t ${darkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-100'}`}>
             <div className="px-4 py-4 space-y-3">
-              {[{ href: '/', label: t.accueil }, { href: '/#parcours', label: t.programme }, { href: '/tarifs', label: currentLang === 'FR' ? 'Tarifs' : currentLang === 'EN' ? 'Pricing' : 'Preise' }, { href: '/stages', label: currentLang === 'FR' ? 'Stages' : currentLang === 'EN' ? 'Camps' : 'Camps' }, { href: '/faq', label: t.faq }, { href: '/blog', label: 'Blog' }].map(item => (
+              {[{ href: '/', label: t.accueil }, { href: '/#parcours', label: t.programme }, { href: '/tarifs', label: currentLang === 'FR' ? 'Tarifs' : currentLang === 'EN' ? 'Pricing' : 'Preise' }, { href: '/stages', label: currentLang === 'FR' ? 'Stages' : currentLang === 'EN' ? 'Camps' : 'Camps' }, { href: '/blog', label: 'Blog' }].map(item => (
                 <a key={item.href} href={lp(item.href)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{item.label}</a>
               ))}
               {ESPACE_NAV_VISIBLE && (

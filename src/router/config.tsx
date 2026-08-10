@@ -14,6 +14,7 @@ const Premium = lazy(() => import("../pages/premium"));
 const BlogIndex = lazy(() => import("../pages/blog/index"));
 const BlogArticle = lazy(() => import("../pages/blog/article"));
 const Espace = lazy(() => import("../pages/espace"));
+const TarifsV2 = lazy(() => import("../pages/tarifs-v2"));
 
 // Chaque page indexable (BASE_PATHS) est montée sous 3 URLs : française (sans
 // préfixe), /en/... et /de/.... Les 3 rendent le même composant, qui détecte
@@ -65,11 +66,22 @@ const espaceRoutes: RouteObject[] = LOCALES.map((locale) => ({
   element: <Espace />,
 }));
 
+// Aperçu temporaire de la refonte "cours d'essai gratuit" de /tarifs (voir
+// tarifs-v2.tsx) : accessible seulement par lien direct, hors BASE_PATHS
+// (pas de sitemap, pas de hreflang, noindex — même logique qu'espaceRoutes
+// ci-dessus). À SUPPRIMER une fois la refonte validée et basculée sur
+// /tarifs (remplacer tarifs.tsx par tarifs-v2.tsx et retirer ce bloc).
+const tarifsV2Routes: RouteObject[] = LOCALES.map((locale) => ({
+  path: localizedPath("/tarifs-v2", locale),
+  element: <TarifsV2 />,
+}));
+
 const routes: RouteObject[] = [
   ...localizedRoutes,
   ...formDeeplinkRoutes,
   ...blogRoutes,
   ...espaceRoutes,
+  ...tarifsV2Routes,
   {
     path: "*",
     element: <NotFound />,

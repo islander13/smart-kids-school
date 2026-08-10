@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { parseLocaleFromPath, localizedPath } from "../i18n/routing";
 
 const T = {
-  FR: { title: 'Page introuvable', desc: "Cette page n'existe pas ou a été déplacée.", home: "← Retour à l'accueil", pricing: 'Voir nos tarifs', nav: { home: 'Accueil', tarifs: 'Tarifs', stages: 'Stages', faq: 'FAQ' } },
-  EN: { title: 'Page not found', desc: 'This page does not exist or has been moved.', home: '← Back to home', pricing: 'See our pricing', nav: { home: 'Home', tarifs: 'Pricing', stages: 'Camps', faq: 'FAQ' } },
-  DE: { title: 'Seite nicht gefunden', desc: 'Diese Seite existiert nicht oder wurde verschoben.', home: '← Zurück zur Startseite', pricing: 'Unsere Preise ansehen', nav: { home: 'Startseite', tarifs: 'Preise', stages: 'Camps', faq: 'FAQ' } },
+  FR: { title: 'Page introuvable', desc: "Cette page n'existe pas ou a été déplacée.", home: "← Retour à l'accueil", pricing: 'Voir nos tarifs', nav: { home: 'Accueil', tarifs: 'Tarifs', stages: 'Stages' } },
+  EN: { title: 'Page not found', desc: 'This page does not exist or has been moved.', home: '← Back to home', pricing: 'See our pricing', nav: { home: 'Home', tarifs: 'Pricing', stages: 'Camps' } },
+  DE: { title: 'Seite nicht gefunden', desc: 'Diese Seite existiert nicht oder wurde verschoben.', home: '← Zurück zur Startseite', pricing: 'Unsere Preise ansehen', nav: { home: 'Startseite', tarifs: 'Preise', stages: 'Camps' } },
 };
 
 export default function NotFound() {
@@ -62,7 +62,6 @@ export default function NotFound() {
           <a href={lp('/')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.home}</a>
           <a href={lp('/tarifs')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.tarifs}</a>
           <a href={lp('/stages')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.stages}</a>
-          <a href={lp('/faq')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.faq}</a>
         </div>
       </nav>
       <div className="flex-1 flex flex-col items-center justify-center px-4 text-center relative overflow-hidden">

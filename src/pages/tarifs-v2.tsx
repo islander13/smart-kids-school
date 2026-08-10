@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
-import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
+import { parseLocaleFromPath, localizedPath } from '../i18n/routing';
 import { useEmbeddedCheckout } from '../lib/useEmbeddedCheckout';
 import { ESPACE_NAV_VISIBLE } from '../data/espaceContent';
 
@@ -14,11 +14,21 @@ type EngagementKey = 'm3' | 'm6' | 'm12';
 const T = {
   FR: {
     nav: { home: 'Accueil', tarifs: 'Tarifs', premium: 'Premium', stages: 'Stages', programme: 'Programme', blog: 'Blog', espace: 'Mon espace', enroll: 'Inscrire mon enfant' },
-    heroBadge: 'Tarifs',
-    heroTitle: 'Choisissez votre formule',
-    heroPill1: '100% en ligne',
-    heroPill2: 'Engagement et abonnement au choix',
-    heroPill3: 'Bilan de niveau offert, sans engagement',
+    heroBadge: 'Cours à l\'année',
+    heroTitle: 'Votre enfant apprend à créer, pas seulement à consommer',
+    heroSubtitle: "Un parcours de programmation qui transforme la curiosité en vrai savoir-faire : projets concrets, suivi personnalisé, certificat à chaque étape.",
+
+    // Cours d'essai gratuit — porte d'entrée principale du tunnel, avant tout
+    // engagement ou paiement (remplace l'ancienne réassurance "bilan de niveau
+    // offert", trop discrète et jamais présentée comme LA première étape).
+    trialEyebrow: 'Votre premier pas, sans risque',
+    trialTitle: 'Réservez un cours d\'essai gratuit',
+    trialDuration: '30 min',
+    trialSub: "Sans engagement, sans carte bancaire. On rencontre votre enfant, on évalue son niveau, et on répond à toutes vos questions.",
+    trialCtaBtn: 'Réserver mon cours d\'essai gratuit',
+    trialBadge: 'Gratuit · 30 min · Sans carte bancaire',
+    preferTrialPre: 'Vous préférez essayer d\'abord ?',
+    preferTrialLink: 'Réservez un cours d\'essai gratuit',
 
     // How it works
     howLabel: 'Comment ça marche',
@@ -64,9 +74,15 @@ const T = {
     threeMonths: '3 mois',
     sixMonths: '6 mois',
     twelveMonths: '12 mois',
+    // Bénéfice par palier d'engagement, affiché dans la liste de la carte —
+    // remplace l'ancien "Accès garanti X mois", redondant avec le titre de
+    // la carte (qui affiche déjà la durée).
+    moduleBenefitM3: 'Un module complet, du début à la fin',
+    moduleBenefitM6: 'Deux modules pour ancrer les acquis',
+    moduleBenefitM12: 'Le parcours complet, de Scratch à la spécialisation',
 
     // CTA
-    chooseThis: 'Choisir cette formule',
+    chooseThis: 'S\'inscrire à cette formule',
     mostPopular: '⭐ Le plus choisi',
     bestValue: '🎁 Meilleure valeur',
 
@@ -98,14 +114,6 @@ const T = {
     inc6: 'Accompagnement et points réguliers avec les parents',
     inc7: 'Reprogrammation gratuite avec préavis de 24h',
     inc8: 'Tarifs préférentiels pour les stages de vacances',
-
-    // Réassurance : bilan de niveau offert (remplace l'ancienne garantie
-    // remboursement, retirée du parcours "cours à l'année" — trop coûteuse
-    // et risquée à l'échelle d'une école à taille humaine. Reste en place
-    // uniquement sur premium.tsx, où l'offre haut de gamme la justifie.)
-    guaranteeLabel: 'Votre premier pas',
-    guaranteeTitle: 'Un bilan de niveau offert, avant tout engagement',
-    guaranteeDesc: "30 minutes avec un enseignant pour évaluer le niveau de votre enfant et construire le programme le plus adapté. Sans engagement, sans carte bancaire.",
 
     // Compare table
     compareLabel: 'Tableau comparatif',
@@ -155,20 +163,27 @@ const T = {
       { q: "À quels horaires les cours ont-ils lieu ?", a: "Vous choisissez : nous sommes ouverts de 9h à 19h et fixons ensemble le créneau qui vous convient (après l'école, le mercredi, le week-end). Le rythme aussi s'adapte à votre enfant, c'est tout l'intérêt d'un cours personnalisé." },
       { q: "Comment fonctionnent les formules Solo et Duo ?", a: "L'enfant peut suivre le cours en Solo (cours individuel) ou en Duo avec un frère, une sœur ou un ami. Les tarifs les plus avantageux, soit 249 CHF/mois en Solo et 169 CHF/mois par enfant en Duo, correspondent à l'engagement 12 mois, qui couvre le programme de base de programmation éducative avant la spécialisation. Le tarif baisse en Duo car le cours est mutualisé. Chaque trimestre, l'enfant réalise un projet concret qu'il publie, avec un certificat à la clé pour chaque niveau franchi. Pour 3 enfants ou plus, contactez-nous pour un devis sur-mesure." },
       { q: "Quelle est la différence entre les engagements 3, 6 et 12 mois ?", a: "Plus l'engagement est long, plus le tarif mensuel baisse (jusqu'à -17% sur 12 mois). L'engagement minimum est de 3 mois (la durée d'un module complet) pour que votre enfant aille au bout de son apprentissage. Tous les engagements incluent exactement le même programme et le même accompagnement." },
-      { q: "Peut-on essayer avant de s'engager ?", a: "Oui : nous proposons un bilan de niveau offert de 30 minutes, sans engagement. C'est l'occasion d'évaluer le niveau de votre enfant avec un enseignant et de lui proposer le programme le plus adapté, avant toute inscription." },
+      { q: "Comment se passe le cours d'essai gratuit ?", a: "C'est une séance de 30 minutes en ligne avec un enseignant, entièrement gratuite et sans carte bancaire. On rencontre votre enfant, on évalue son niveau, et on répond à toutes vos questions avant de vous proposer le programme le plus adapté. Aucun engagement à la clé : c'est le point de départ recommandé, avant toute inscription." },
       { q: "Et si je veux changer de niveau d'engagement ?", a: "Vous pouvez à tout moment passer à un engagement plus long (par exemple de 3 à 6 ou 12 mois) pour bénéficier d'un tarif plus avantageux. Le sens inverse n'est pas possible avant la fin de la période d'engagement souscrite." },
       { q: "Quels moyens de paiement acceptez-vous ?", a: "Carte bancaire (Visa, Mastercard, Apple Pay, Google Pay), virement bancaire, et paiement en plusieurs fois. Tous les paiements sont sécurisés via Stripe." },
       { q: "Puis-je annuler mon abonnement ?", a: "L'abonnement court jusqu'à la fin de la période choisie (3, 6 ou 12 mois), puis se renouvelle automatiquement et reste annulable à tout moment ensuite." },
-      { q: "Y a-t-il des frais cachés ?", a: "Non. Le prix affiché est tout compris : cours, plateforme, certificat, ressources. Aucun frais d'inscription, aucune surprise." },
+      { q: "Y a-t-il des frais cachés ?", a: "Non. Le prix affiché est tout compris : cours, accès à la plateforme Mon espace (replays, exercices, quiz, suivi de progression), certificat, ressources. Aucun frais d'inscription, aucune surprise." },
     ],
   },
   EN: {
     nav: { home: 'Home', tarifs: 'Pricing', premium: 'Premium', stages: 'Camps', programme: 'Program', blog: 'Blog', espace: 'My space', enroll: 'Enroll my child' },
-    heroBadge: 'Pricing',
-    heroTitle: 'Choose your plan',
-    heroPill1: '100% online',
-    heroPill2: 'Choose your commitment',
-    heroPill3: 'Free level assessment, no commitment',
+    heroBadge: 'Year-round classes',
+    heroTitle: 'Your child learns to create, not just consume',
+    heroSubtitle: "A coding path that turns curiosity into real know-how: concrete projects, personal follow-up, a certificate at every step.",
+
+    trialEyebrow: 'Your first step, risk-free',
+    trialTitle: 'Book a free trial lesson',
+    trialDuration: '30 min',
+    trialSub: "No commitment, no credit card. We meet your child, assess their level, and answer all your questions.",
+    trialCtaBtn: 'Book my free trial lesson',
+    trialBadge: 'Free · 30 min · No credit card',
+    preferTrialPre: 'Prefer to try it first?',
+    preferTrialLink: 'Book a free trial lesson',
 
     howLabel: 'How it works',
     howTitle: 'Learn alone or in pairs',
@@ -193,7 +208,10 @@ const T = {
     fourSessions: '4 sessions', twelveSessions: '12 sessions', twentyfour: '24 sessions', fortyeight: '48 sessions',
     cancel: 'Cancel anytime', accessFor: 'Access guaranteed for',
     threeMonths: '3 months', sixMonths: '6 months', twelveMonths: '12 months',
-    chooseThis: 'Choose this plan', mostPopular: '⭐ Most chosen', bestValue: '🎁 Best value',
+    moduleBenefitM3: 'One full module, start to finish',
+    moduleBenefitM6: 'Two modules to make it stick',
+    moduleBenefitM12: 'The complete path, from Scratch to specialization',
+    chooseThis: 'Enroll in this plan', mostPopular: '⭐ Most chosen', bestValue: '🎁 Best value',
 
     extrasLabel: 'Other options', extrasTitle: 'Not ready for a subscription?',
     packT: '5-session pack', packP: 'CHF 419', packPSub: '(CHF 84 per session)',
@@ -212,9 +230,6 @@ const T = {
     inc6: 'Regular support and check-ins with parents',
     inc7: 'Free rescheduling with 24h notice',
     inc8: 'Preferential rates for vacation camps',
-
-    guaranteeLabel: 'Your first step', guaranteeTitle: 'A free level assessment, before any commitment',
-    guaranteeDesc: "30 minutes with a teacher to assess your child's level and build the programme that fits them best. No commitment, no card required.",
 
     compareLabel: 'Comparison', compareTitle: 'All plans at a glance',
     rowFormat: 'Format', rowFormatV1: 'Solo only', rowFormatV2: 'Solo · Duo', rowFormatV3: 'Solo · Duo',
@@ -239,20 +254,27 @@ const T = {
       { q: "What times are the lessons held?", a: "You choose: we're open from 9am to 7pm and agree together on a slot that works for you (after school, Wednesday, the weekend). The pace adapts to your child too, that's the whole point of a personalised course." },
       { q: "How do Solo and Duo plans work?", a: "The child can take the class Solo (individual) or in Duo with a sibling or friend. The best rates, namely 249 CHF/month Solo and 169 CHF/month per child in Duo, correspond to the 12-month commitment, which covers the core educational programming curriculum before specialization. The rate drops in Duo because the class is shared. Every quarter, the child completes and publishes a real project, earning a certificate for each level reached. For 3 or more children, contact us for a custom quote." },
       { q: "What's the difference between the 3, 6 and 12 month commitments?", a: "The longer the commitment, the lower the monthly rate (up to -17% over 12 months). The minimum commitment is 3 months (the length of a full module) so your child completes their learning journey. All commitments include exactly the same programme and the same support." },
-      { q: "Can I try it before committing?", a: "Yes: we offer a free 30-minute level assessment, with no commitment. It's a chance to have a teacher evaluate your child's level and recommend the best-fitting programme, before any enrollment." },
+      { q: "How does the free trial lesson work?", a: "It's a 30-minute online session with a teacher, entirely free and with no credit card required. We meet your child, assess their level, and answer all your questions before recommending the best-fitting programme. No commitment attached: it's the recommended starting point, before any enrollment." },
       { q: "Can I switch commitment levels?", a: "You can switch to a longer commitment anytime (for example from 3 to 6 or 12 months) to benefit from a better rate. The opposite is not possible before the end of the subscribed period." },
       { q: "Which payment methods do you accept?", a: "Credit card (Visa, Mastercard, Apple Pay, Google Pay), bank transfer, and instalments. All payments are secured via Stripe." },
       { q: "Can I cancel my subscription?", a: "The subscription runs until the end of the chosen period (3, 6 or 12 months), then renews automatically and remains cancellable anytime after." },
-      { q: "Are there hidden fees?", a: "No. The price is all-inclusive: classes, platform, certificate, resources. No registration fees, no surprises." },
+      { q: "Are there hidden fees?", a: "No. The price is all-inclusive: classes, access to the Mon espace platform (replays, exercises, quizzes, progress tracking), certificate, resources. No registration fees, no surprises." },
     ],
   },
   DE: {
     nav: { home: 'Startseite', tarifs: 'Preise', premium: 'Premium', stages: 'Camps', programme: 'Programm', blog: 'Blog', espace: 'Mein Bereich', enroll: 'Kind anmelden' },
-    heroBadge: 'Preise',
-    heroTitle: 'Wählen Sie Ihre Formel',
-    heroPill1: '100% online',
-    heroPill2: 'Engagement frei wählbar',
-    heroPill3: 'Kostenlose Niveaubeurteilung, unverbindlich',
+    heroBadge: 'Jahreskurse',
+    heroTitle: 'Ihr Kind lernt zu erschaffen, nicht nur zu konsumieren',
+    heroSubtitle: "Ein Programmierweg, der Neugier in echtes Können verwandelt: konkrete Projekte, persönliche Begleitung, ein Zertifikat bei jedem Schritt.",
+
+    trialEyebrow: 'Ihr erster Schritt, ganz risikofrei',
+    trialTitle: 'Kostenlose Probestunde buchen',
+    trialDuration: '30 Min.',
+    trialSub: "Unverbindlich, keine Kreditkarte. Wir lernen Ihr Kind kennen, beurteilen sein Niveau und beantworten alle Ihre Fragen.",
+    trialCtaBtn: 'Meine kostenlose Probestunde buchen',
+    trialBadge: 'Kostenlos · 30 Min. · Keine Kreditkarte',
+    preferTrialPre: 'Möchten Sie zuerst ausprobieren?',
+    preferTrialLink: 'Kostenlose Probestunde buchen',
 
     howLabel: 'So funktioniert es', howTitle: 'Allein oder zu zweit lernen',
     howDesc: 'Der Unterricht findet einzeln oder zu zweit statt (zwei Kinder: Geschwister oder Freunde). Zu zweit ist die Dynamik motivierender, und der Preis sinkt für die Familie.',
@@ -275,7 +297,10 @@ const T = {
     fourSessions: '4 Sitzungen', twelveSessions: '12 Sitzungen', twentyfour: '24 Sitzungen', fortyeight: '48 Sitzungen',
     cancel: 'Jederzeit kündbar', accessFor: 'Zugang garantiert für',
     threeMonths: '3 Monate', sixMonths: '6 Monate', twelveMonths: '12 Monate',
-    chooseThis: 'Diese Formel wählen', mostPopular: '⭐ Am häufigsten gewählt', bestValue: '🎁 Bestes Angebot',
+    moduleBenefitM3: 'Ein vollständiges Modul, von Anfang bis Ende',
+    moduleBenefitM6: 'Zwei Module zur Vertiefung',
+    moduleBenefitM12: 'Der vollständige Weg, von Scratch bis zur Spezialisierung',
+    chooseThis: 'Für diese Formel anmelden', mostPopular: '⭐ Am häufigsten gewählt', bestValue: '🎁 Bestes Angebot',
 
     extrasLabel: 'Andere Optionen', extrasTitle: 'Noch nicht bereit für ein Abo?',
     packT: '5er-Paket', packP: 'CHF 419', packPSub: '(84 CHF/Sitzung)',
@@ -294,9 +319,6 @@ const T = {
     inc6: 'Regelmässige Begleitung und Austausch mit den Eltern',
     inc7: 'Kostenlose Verschiebung mit 24h-Vorlauf',
     inc8: 'Vorzugspreise für Ferien-Camps',
-
-    guaranteeLabel: 'Ihr erster Schritt', guaranteeTitle: 'Eine kostenlose Niveaubeurteilung, ganz unverbindlich',
-    guaranteeDesc: '30 Minuten mit einer Lehrperson, um das Niveau Ihres Kindes einzuschätzen und das passende Programm zu erstellen. Unverbindlich, keine Kreditkarte nötig.',
 
     compareLabel: 'Vergleich', compareTitle: 'Alle Formeln auf einen Blick',
     rowFormat: 'Format', rowFormatV1: 'Nur Solo', rowFormatV2: 'Solo · Duo', rowFormatV3: 'Solo · Duo',
@@ -321,11 +343,11 @@ const T = {
       { q: "Zu welchen Zeiten findet der Unterricht statt?", a: "Sie entscheiden: Wir sind von 9 bis 19 Uhr offen und legen gemeinsam einen passenden Termin fest (nach der Schule, mittwochs, am Wochenende). Auch das Tempo richtet sich nach Ihrem Kind, genau das macht personalisierten Unterricht aus." },
       { q: "Wie funktionieren Solo und Duo?", a: "Das Kind kann den Kurs solo oder im Duo mit einem Geschwister oder Freund besuchen. Die besten Tarife, nämlich 249 CHF/Monat Solo und 169 CHF/Monat pro Kind im Duo, entsprechen der 12-Monats-Bindung, die das grundlegende Programm der pädagogischen Programmierung vor der Spezialisierung abdeckt. Der Tarif sinkt im Duo, da der Kurs geteilt wird. Jedes Quartal realisiert und veröffentlicht das Kind ein echtes Projekt und erhält für jedes erreichte Niveau ein Zertifikat. Für 3 Kinder oder mehr kontaktieren Sie uns für ein individuelles Angebot." },
       { q: "Unterschied zwischen 3, 6 und 12 Monaten?", a: "Je länger die Bindung, desto niedriger der Monatspreis (bis zu -17% über 12 Monate). Die Mindestbindung beträgt 3 Monate (die Dauer eines vollständigen Moduls), damit Ihr Kind seinen Lernweg abschliesst. Alle Bindungen enthalten genau dasselbe Programm und dieselbe Begleitung." },
-      { q: "Kann ich es vor der Anmeldung ausprobieren?", a: "Ja: Wir bieten eine kostenlose, unverbindliche Niveaubeurteilung von 30 Minuten an. Dabei schätzt eine Lehrperson das Niveau Ihres Kindes ein und empfiehlt das passende Programm — ganz ohne Anmeldung." },
+      { q: "Wie läuft die kostenlose Probestunde ab?", a: "Es ist eine 30-minütige Online-Sitzung mit einer Lehrperson, komplett kostenlos und ohne Kreditkarte. Wir lernen Ihr Kind kennen, beurteilen sein Niveau und beantworten alle Ihre Fragen, bevor wir das passende Programm empfehlen. Ganz unverbindlich: Das ist der empfohlene Startpunkt, vor jeder Anmeldung." },
       { q: "Kann ich die Bindung ändern?", a: "Sie können jederzeit zu einer längeren Bindung wechseln (z. B. von 3 zu 6 oder 12 Monaten), um von einem besseren Tarif zu profitieren. Umgekehrt erst am Ende der gebuchten Periode." },
       { q: "Welche Zahlungsmethoden?", a: "Kreditkarte (Visa, Mastercard, Apple Pay, Google Pay), Banküberweisung, Ratenzahlung. Sicher über Stripe." },
       { q: "Kann ich kündigen?", a: "Das Abo läuft bis zum Ende der gewählten Periode (3, 6 oder 12 Monate), verlängert sich dann automatisch und bleibt danach jederzeit kündbar." },
-      { q: "Versteckte Gebühren?", a: "Nein. Der Preis ist alles inklusive, keine Anmeldegebühren, keine Überraschungen." },
+      { q: "Versteckte Gebühren?", a: "Nein. Der Preis ist alles inklusive: Kurse, Zugang zur Plattform Mon espace (Wiederholungen, Übungen, Quiz, Fortschrittsverfolgung), Zertifikat, Ressourcen. Keine Anmeldegebühren, keine Überraschungen." },
     ],
   },
 };
@@ -359,7 +381,7 @@ const REFERENCE: Record<FormatKey, number> = { solo: 299, duo: 398 };
 // Nombre d'enfants par formule
 const NB_ENFANTS: Record<FormatKey, number> = { solo: 1, duo: 2 };
 
-export default function Tarifs() {
+export default function TarifsV2() {
   const [currentLang, setCurrentLang] = useState<Lang>(() => parseLocaleFromPath(window.location.pathname).locale);
   const navigate = useNavigate();
   const lp = (path: string) => localizedPath(path, currentLang);
@@ -392,6 +414,82 @@ export default function Tarifs() {
   });
   const [planSubmitMessage, setPlanSubmitMessage] = useState('');
   const [planSubmitting, setPlanSubmitting] = useState(false);
+
+  // ── Modal du cours d'essai gratuit (porte d'entrée principale, sans Stripe) ──
+  const [showTrialModal, setShowTrialModal] = useState(false);
+  const [trialFormData, setTrialFormData] = useState({
+    parentName: '',
+    email: '',
+    phone: '',
+    childName: '',
+    childAge: '',
+    message: '',
+  });
+  const [trialSubmitting, setTrialSubmitting] = useState(false);
+  const [trialSubmitMessage, setTrialSubmitMessage] = useState<'' | 'success' | 'error'>('');
+  const trialModalCloseButtonRef = useRef<HTMLButtonElement>(null);
+
+  const openTrialModal = () => {
+    setTrialSubmitMessage('');
+    setShowTrialModal(true);
+    try { (window as any).gtag?.('event', 'trial_modal_open'); } catch {}
+  };
+  const closeTrialModal = () => {
+    setShowTrialModal(false);
+    setTrialSubmitMessage('');
+  };
+
+  const handleTrialSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Même garde-fou anti double-soumission que le formulaire d'inscription :
+    // sans elle, un double-clic enverrait deux notifications par e-mail pour
+    // la même demande de cours d'essai.
+    if (trialSubmitting) return;
+    setTrialSubmitting(true);
+    setTrialSubmitMessage('');
+    try {
+      const body = new URLSearchParams();
+      body.append('form-name', 'trial-lesson');
+      body.append('parentName', trialFormData.parentName);
+      body.append('email', trialFormData.email);
+      body.append('phone', trialFormData.phone);
+      body.append('childName', trialFormData.childName);
+      body.append('childAge', trialFormData.childAge);
+      body.append('message', trialFormData.message);
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      });
+      if (res.ok) {
+        setTrialSubmitMessage('success');
+        setTrialFormData({ parentName: '', email: '', phone: '', childName: '', childAge: '', message: '' });
+        try { (window as any).gtag?.('event', 'trial_lesson_submit'); } catch {}
+        try { (window as any).fbq?.('track', 'Lead', { content_name: 'Cours d\'essai gratuit', content_category: 'tarifs' }); } catch {}
+      } else {
+        setTrialSubmitMessage('error');
+      }
+    } catch (err) {
+      console.error('Trial submit error:', err);
+      setTrialSubmitMessage('error');
+    } finally {
+      setTrialSubmitting(false);
+    }
+  };
+
+  // ESC pour fermer la modal du cours d'essai
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showTrialModal) closeTrialModal();
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [showTrialModal]);
+
+  // Focus posé sur le bouton fermer à l'ouverture (accessibilité clavier).
+  useEffect(() => {
+    if (showTrialModal) trialModalCloseButtonRef.current?.focus();
+  }, [showTrialModal]);
 
   // Nombre de mois par formule d'engagement
   const MONTHS: Record<EngagementKey, number> = { m3: 3, m6: 6, m12: 12 };
@@ -607,71 +705,26 @@ export default function Tarifs() {
     } catch {}
   }, [darkMode, currentLang]);
 
-  // SEO
+  // SEO — page de PRÉVISUALISATION uniquement (voir router/config.tsx) : pas
+  // de sitemap, pas de hreflang, pas de JSON-LD Course. Simple noindex,
+  // nofollow, sur le modèle d'espace.tsx, tant que cette page n'a pas
+  // remplacé /tarifs pour de bon.
   useEffect(() => {
     const titles: Record<Lang, string> = {
-      FR: 'Tarifs cours programmation enfants, Solo, Duo | Smart Kids School',
-      EN: 'Pricing for kids coding classes, Solo, Duo | Smart Kids School',
-      DE: 'Preise Programmierkurse Kinder, Solo, Duo | Smart Kids School',
-    };
-    const descs: Record<Lang, string> = {
-      FR: 'Cours de programmation pour enfants en Suisse romande. Tarifs Solo, Duo. Engagement 3, 6 ou 12 mois. Dès 169 CHF/mois par enfant.',
-      EN: 'Kids coding classes in Switzerland. Solo, Duo pricing. 3, 6 or 12-month commitment. From CHF 169/month per child.',
-      DE: 'Programmierkurse für Kinder in der Schweiz. Solo, Duo Preise. 3, 6 oder 12 Monate Bindung. Ab 169 CHF/Monat pro Kind.',
+      FR: '[Aperçu] Tarifs — Smart Kids School',
+      EN: '[Preview] Pricing — Smart Kids School',
+      DE: '[Vorschau] Preise — Smart Kids School',
     };
     document.title = titles[currentLang];
-    const setMeta = (name: string, content: string, attr = 'name') => {
-      let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement;
-      if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
-      el.content = content;
-    };
-    setMeta('description', descs[currentLang]);
-    setMeta('og:title', titles[currentLang], 'property');
-    setMeta('og:description', descs[currentLang], 'property');
-    const { basePath } = parseLocaleFromPath(window.location.pathname);
-    const isFormDeeplink = basePath.endsWith('/inscription');
-    setMeta('og:url', `https://smartkids-school.ch${localizedPath(basePath, currentLang)}`, 'property');
-    if (isFormDeeplink) {
-      setMeta('robots', 'noindex, follow');
-    } else {
-      setHreflangTags('/tarifs', currentLang);
+    document.documentElement.lang = { FR: 'fr', EN: 'en', DE: 'de' }[currentLang];
+    let robots = document.querySelector('meta[name="robots"]') as HTMLMetaElement | null;
+    if (!robots) {
+      robots = document.createElement('meta');
+      robots.name = 'robots';
+      document.head.appendChild(robots);
     }
-
-    // Données structurées (Course + offres) : permet à Google d'afficher les
-    // prix directement dans les résultats de recherche pour cette page.
-    let ldEl = document.querySelector('script[type="application/ld+json"][data-sks="tarifs"]') as HTMLScriptElement;
-    if (!ldEl) {
-      ldEl = document.createElement('script');
-      ldEl.type = 'application/ld+json';
-      ldEl.setAttribute('data-sks', 'tarifs');
-      document.head.appendChild(ldEl);
-    }
-    const durationLabel = (m: number) => currentLang === 'FR' ? `${m} mois` : currentLang === 'EN' ? `${m} months` : `${m} Monate`;
-    const offerFor = (format: FormatKey, engagement: EngagementKey, months: number) => ({
-      '@type': 'Offer',
-      name: `${format === 'solo' ? 'Solo' : 'Duo'} — ${durationLabel(months)}`,
-      price: String(PRICES_PAR_ENFANT[format][engagement]),
-      priceCurrency: 'CHF',
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: String(PRICES_PAR_ENFANT[format][engagement]),
-        priceCurrency: 'CHF',
-        unitCode: 'MON',
-        unitText: currentLang === 'FR' ? 'par mois, par enfant' : currentLang === 'EN' ? 'per month, per child' : 'pro Monat, pro Kind',
-      },
-      url: 'https://smartkids-school.ch' + localizedPath('/tarifs', currentLang),
-    });
-    ldEl.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Course',
-      name: currentLang === 'FR' ? 'Cours de programmation pour enfants — Solo & Duo' : currentLang === 'EN' ? 'Coding classes for kids — Solo & Duo' : 'Programmierkurse für Kinder — Solo & Duo',
-      description: descs[currentLang],
-      provider: { '@type': 'EducationalOrganization', name: 'Smart Kids School', sameAs: 'https://smartkids-school.ch' },
-      offers: [
-        offerFor('solo', 'm3', 3), offerFor('solo', 'm6', 6), offerFor('solo', 'm12', 12),
-        offerFor('duo', 'm3', 3), offerFor('duo', 'm6', 6), offerFor('duo', 'm12', 12),
-      ],
-    });
+    robots.content = 'noindex, nofollow';
+    return () => { if (robots) robots.content = 'index, follow'; };
   }, [currentLang]);
 
   const t = T[currentLang];
@@ -684,9 +737,9 @@ export default function Tarifs() {
   const sessions48 = currentLang === 'FR' ? '48 séances de 1h au total' : currentLang === 'EN' ? '48 sessions of 1h total' : '48 Sitzungen à 1h gesamt';
 
   const engagementCards: { key: EngagementKey; title: string; sub: string; sessions: string; access: string; badge?: string; savings: number; popular?: boolean; best?: boolean }[] = [
-    { key: 'm3', title: t.eng3, sub: t.eng3Sub, sessions: sessions12, access: `${t.accessFor} ${t.threeMonths}`, savings: 0 },
-    { key: 'm6', title: t.eng6, sub: t.eng6Sub, sessions: sessions24, access: `${t.accessFor} ${t.sixMonths}`, badge: t.mostPopular, popular: true, savings: Math.round((1 - prices.m6 / ref) * 100) },
-    { key: 'm12', title: t.eng12, sub: t.eng12Sub, sessions: sessions48, access: `${t.accessFor} ${t.twelveMonths}`, badge: t.bestValue, best: true, savings: Math.round((1 - prices.m12 / ref) * 100) },
+    { key: 'm3', title: t.eng3, sub: t.eng3Sub, sessions: sessions12, access: t.moduleBenefitM3, savings: 0 },
+    { key: 'm6', title: t.eng6, sub: t.eng6Sub, sessions: sessions24, access: t.moduleBenefitM6, badge: t.mostPopular, popular: true, savings: Math.round((1 - prices.m6 / ref) * 100) },
+    { key: 'm12', title: t.eng12, sub: t.eng12Sub, sessions: sessions48, access: t.moduleBenefitM12, badge: t.bestValue, best: true, savings: Math.round((1 - prices.m12 / ref) * 100) },
   ];
 
   // Lien direct vers le formulaire (ex: /tarifs/inscription) : ouvre la modal
@@ -780,46 +833,93 @@ export default function Tarifs() {
         )}
       </nav>
 
-      {/* ── Hero + How it works (fusionné, condensé) ── */}
-      <section className={`relative pt-32 pb-12 px-4 overflow-hidden ${darkMode ? 'bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800' : 'bg-gradient-to-br from-indigo-50 via-blue-50 to-slate-50'}`}>
+      {/* ── Hero : titre + promesse de valeur (résultat, pas le volume horaire) ── */}
+      <section className={`relative pt-32 pb-10 px-4 overflow-hidden ${darkMode ? 'bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800' : 'bg-gradient-to-br from-indigo-50 via-blue-50 to-slate-50'}`}>
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-10 w-72 h-72 bg-[#232999] rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-400 rounded-full blur-3xl"></div>
         </div>
-        <div className="max-w-5xl mx-auto relative z-10">
-          <div className="text-center mb-10">
-            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>
-              {currentLang === 'FR' ? 'Nos formules' : currentLang === 'EN' ? 'Our plans' : 'Unsere Formeln'}
-            </span>
-            <h1 className={`text-4xl lg:text-5xl font-bold mt-3 mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.heroTitle}</h1>
-            <p className={`text-base max-w-2xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.howDesc}</p>
-            <div className={`mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${darkMode ? 'bg-gray-800 text-gray-300 border border-gray-700' : 'bg-white text-gray-700 border border-indigo-100 shadow-sm'}`}>
-              <span>🎖️</span>
-              <span>{currentLang === 'FR' ? 'Programme conçu par des ingénieurs diplômés' : currentLang === 'EN' ? 'Curriculum designed by engineers from' : 'Lehrplan entwickelt von Ingenieuren der'}</span>
-              <img src="/epfl.png" alt="EPFL" className={`h-8 w-auto inline-block ${darkMode ? 'invert' : ''}`} />
-              <img src="/ethz.png" alt="ETH Zürich" className={`h-8 w-auto inline-block ${darkMode ? 'invert' : ''}`} />
-            </div>
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>
+            {t.heroBadge}
+          </span>
+          <h1 className={`text-4xl lg:text-5xl font-bold mt-3 mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.heroTitle}</h1>
+          <p className={`text-base max-w-2xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.heroSubtitle}</p>
+          <div className={`mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${darkMode ? 'bg-gray-800 text-gray-300 border border-gray-700' : 'bg-white text-gray-700 border border-indigo-100 shadow-sm'}`}>
+            <span>🎖️</span>
+            <span>{currentLang === 'FR' ? 'Programme conçu par des ingénieurs diplômés' : currentLang === 'EN' ? 'Curriculum designed by engineers from' : 'Lehrplan entwickelt von Ingenieuren der'}</span>
+            <img src="/epfl.png" alt="EPFL" className={`h-8 w-auto inline-block ${darkMode ? 'invert' : ''}`} />
+            <img src="/ethz.png" alt="ETH Zürich" className={`h-8 w-auto inline-block ${darkMode ? 'invert' : ''}`} />
+          </div>
+        </div>
+      </section>
 
-            {/* Bande "sur-mesure" : les 3 questions que les parents posent vraiment au téléphone.
-                Placée haut et visible (avant, l'info était noyée dans la FAQ). */}
-            <div className="grid sm:grid-cols-3 gap-3 max-w-3xl mx-auto mt-8">
-              {[
-                { icon: 'ri-time-line', t: { FR: 'Horaires à la carte', EN: 'Hours to suit you', DE: 'Zeiten nach Wahl' }, d: { FR: 'De 9h à 19h · vous choisissez vos créneaux', EN: '9am to 7pm · you pick your slots', DE: '9 bis 19 Uhr · Sie wählen' } },
-                { icon: 'ri-speed-up-line', t: { FR: 'Rythme adapté', EN: 'Pace that adapts', DE: 'Angepasstes Tempo' }, d: { FR: "Le programme suit votre enfant, pas l'inverse", EN: 'The programme follows your child, not the reverse', DE: 'Das Programm folgt Ihrem Kind' } },
-                { icon: 'ri-user-heart-line', t: { FR: 'Attention entière', EN: 'Undivided attention', DE: 'Volle Aufmerksamkeit' }, d: { FR: 'Cours individuel ou en duo, jamais en masse', EN: 'One-to-one or duo, never a crowd', DE: 'Einzeln oder zu zweit, nie in Masse' } },
-              ].map((item, i) => (
-                <div key={i} className={`flex items-start gap-3 p-4 rounded-2xl border text-left ${darkMode ? 'bg-gray-800/60 border-gray-700' : 'bg-white border-indigo-100 shadow-sm'}`}>
-                  <i className={`${item.icon} text-xl text-[#232999] mt-0.5`}></i>
-                  <div>
-                    <p className={`text-sm font-bold leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>{item.t[currentLang]}</p>
-                    <p className={`text-xs mt-1 leading-snug ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{item.d[currentLang]}</p>
-                  </div>
-                </div>
-              ))}
+      {/* ── CTA principal : cours d'essai gratuit ── */}
+      {/* La vraie porte d'entrée du tunnel : avant, un parent convaincu devait
+          payer un abonnement de plusieurs centaines de francs sans jamais nous
+          avoir parlé. Ce bandeau, juste sous le titre, est volontairement le
+          premier choix visible sur la page — avant même les prix. Couleur
+          #d99a2b (le second accent de marque) pour le distinguer visuellement
+          des formules payantes (indigo #232999), plus loin sur la page. */}
+      <section id="essai-gratuit" className={`px-4 py-10 ${darkMode ? 'bg-gray-950' : 'bg-white'}`}>
+        <div className="max-w-4xl mx-auto">
+          <div className={`rounded-3xl border-2 p-6 sm:p-8 flex flex-col md:flex-row items-center gap-6 md:gap-8 ${darkMode ? 'bg-gradient-to-br from-amber-900/20 to-gray-800 border-[#d99a2b]/50' : 'bg-gradient-to-br from-amber-50 to-white border-[#d99a2b]/60'} shadow-lg`}>
+            <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center text-3xl sm:text-4xl bg-[#d99a2b]">
+              🎓
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#d99a2b] mb-1">{t.trialEyebrow}</p>
+              <h2 className={`text-2xl sm:text-3xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                {t.trialTitle} <span className={darkMode ? 'text-gray-400 font-semibold text-lg' : 'text-gray-500 font-semibold text-lg'}>· {t.trialDuration}</span>
+              </h2>
+              <p className={`text-sm sm:text-base ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>{t.trialSub}</p>
+            </div>
+            <div className="flex-shrink-0 flex flex-col items-center gap-2 w-full md:w-auto">
+              <button onClick={openTrialModal} className="w-full md:w-auto bg-[#d99a2b] hover:bg-[#c08823] text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer whitespace-nowrap">
+                {t.trialCtaBtn}
+              </button>
+              <span className={`text-xs font-medium ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{t.trialBadge}</span>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* 2 cards Solo/Duo plus compactes */}
+      {/* ── Bande "sur-mesure" : les 3 questions que les parents posent vraiment
+          au téléphone. Reste tôt sur la page (avant, l'info était noyée dans
+          la FAQ), juste après le choix entre essayer ou payer directement. ── */}
+      <section className={`px-4 pb-12 ${darkMode ? 'bg-gray-950' : 'bg-white'}`}>
+        <div className="max-w-3xl mx-auto grid sm:grid-cols-3 gap-3">
+          {[
+            { icon: 'ri-time-line', t: { FR: 'Horaires à la carte', EN: 'Hours to suit you', DE: 'Zeiten nach Wahl' }, d: { FR: 'De 9h à 19h · vous choisissez vos créneaux', EN: '9am to 7pm · you pick your slots', DE: '9 bis 19 Uhr · Sie wählen' } },
+            { icon: 'ri-speed-up-line', t: { FR: 'Rythme adapté', EN: 'Pace that adapts', DE: 'Angepasstes Tempo' }, d: { FR: "Le programme suit votre enfant, pas l'inverse", EN: 'The programme follows your child, not the reverse', DE: 'Das Programm folgt Ihrem Kind' } },
+            { icon: 'ri-user-heart-line', t: { FR: 'Attention entière', EN: 'Undivided attention', DE: 'Volle Aufmerksamkeit' }, d: { FR: 'Cours individuel ou en duo, jamais en masse', EN: 'One-to-one or duo, never a crowd', DE: 'Einzeln oder zu zweit, nie in Masse' } },
+          ].map((item, i) => (
+            <div key={i} className={`flex items-start gap-3 p-4 rounded-2xl border text-left ${darkMode ? 'bg-gray-800/60 border-gray-700' : 'bg-indigo-50/40 border-indigo-100'}`}>
+              <i className={`${item.icon} text-xl text-[#232999] mt-0.5`}></i>
+              <div>
+                <p className={`text-sm font-bold leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>{item.t[currentLang]}</p>
+                <p className={`text-xs mt-1 leading-snug ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{item.d[currentLang]}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Format selector + engagement cards (fusionné : plus de titre redondant, on enchaîne sur le choix) ── */}
+      <section id="tarifs-detailles" className={`py-16 px-4 ${darkMode ? 'bg-gray-950' : 'bg-gradient-to-br from-indigo-50/60 via-slate-50 to-indigo-50/40'}`}>
+        <div className="max-w-6xl mx-auto mb-10">
+          <div className="text-center mb-8">
+            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>
+              {currentLang === 'FR' ? 'Vous êtes déjà convaincu ?' : currentLang === 'EN' ? 'Already convinced?' : 'Bereits überzeugt?'}
+            </span>
+            <h2 className={`text-3xl font-bold mt-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              {currentLang === 'FR' ? 'Choisissez votre formule' : currentLang === 'EN' ? 'Choose your plan' : 'Wählen Sie Ihre Formel'}
+            </h2>
+          </div>
+          <p className={`text-base max-w-2xl mx-auto text-center mb-8 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.howDesc}</p>
+
+          {/* 2 cards Solo/Duo : la mécanique du produit, utile ici, au moment
+              où elle sert vraiment à choisir — pas en tout premier sur la page. */}
           <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
             <div className={`flex gap-4 p-5 rounded-2xl border ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} transition-all hover:shadow-md`}>
               <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[#232999] to-indigo-500 rounded-xl flex items-center justify-center text-2xl">👤</div>
@@ -844,15 +944,10 @@ export default function Tarifs() {
             </div>
           </div>
 
-          {/* Note discrète sur fond gris */}
           <p className={`text-center text-xs mt-6 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             <i className="ri-information-line mr-1"></i>{t.howNote}
           </p>
         </div>
-      </section>
-
-      {/* ── Format selector + engagement cards (fusionné : plus de titre redondant, on enchaîne sur le choix) ── */}
-      <section id="tarifs-detailles" className={`py-16 px-4 ${darkMode ? 'bg-gray-950' : 'bg-gradient-to-br from-indigo-50/60 via-slate-50 to-indigo-50/40'}`}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
             <p className={`text-sm max-w-2xl mx-auto italic ${darkMode ? 'text-emerald-300' : 'text-emerald-700'}`}>
@@ -947,7 +1042,7 @@ export default function Tarifs() {
                     </li>
                     <li className="flex items-start gap-2">
                       <i className="ri-check-line text-emerald-500 text-lg flex-shrink-0"></i>
-                      <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>{currentLang === 'FR' ? 'Bilan de niveau offert (30 min)' : currentLang === 'EN' ? 'Free level assessment (30 min)' : 'Kostenlose Niveaubeurteilung (30 Min.)'}</span>
+                      <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>{currentLang === 'FR' ? 'Accès à Mon espace inclus' : currentLang === 'EN' ? 'Mon espace platform included' : 'Zugang zu Mon espace inklusive'}</span>
                     </li>
                   </ul>
                   <button onClick={() => openPlanModal(selectedFormat, card.key as EngagementKey, card.title, price, card.sub)} className={`block w-full text-center py-3 rounded-full font-bold transition-all mt-auto cursor-pointer ${
@@ -959,14 +1054,21 @@ export default function Tarifs() {
             })}
           </div>
 
-          <p className={`text-center text-sm mt-10 max-w-2xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+          {/* Réassurance : rappelle la porte d'entrée gratuite juste sous les
+              boutons de paiement, pour ceux qui hésitent encore. */}
+          <p className={`text-center text-sm font-medium mt-8 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            {t.preferTrialPre}{' '}
+            <a href="#essai-gratuit" className={darkMode ? 'text-[#e8b455] font-bold hover:underline' : 'text-[#d99a2b] font-bold hover:underline'}>{t.preferTrialLink}</a>
+          </p>
+
+          <p className={`text-center text-sm mt-4 max-w-2xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
             <i className="ri-information-line mr-2"></i>
             {currentLang === 'FR' ? 'Tous les prix s\'entendent par enfant et par mois. 4 séances de 1h par mois (1 par semaine). Le tarif baisse automatiquement quand un 2e ou 3e enfant rejoint le cours.' : currentLang === 'EN' ? 'All prices per child per month. 4 sessions of 1h per month (1 per week). Price drops automatically when a 2nd or 3rd child joins.' : 'Alle Preise pro Kind und Monat. 4 Sitzungen à 1h pro Monat. Preis sinkt automatisch bei 2. oder 3. Kind.'}
           </p>
         </div>
       </section>
 
-      {/* ── Inclus + Bilan de niveau offert + Paiement (fusionné) ── */}
+      {/* ── Bénéfices : ce que l'enfant obtient concrètement + Paiement (fusionné) ── */}
       {/* ── Programme inclus : le parcours de votre enfant ── */}
       <section className={`py-20 px-4 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-6xl mx-auto">
@@ -1097,7 +1199,7 @@ export default function Tarifs() {
               { icon: 'ri-book-open-line', color: 'sky', t: { FR: 'Carnet de progression', EN: 'Progress notebook', DE: 'Fortschrittsheft' }, d: { FR: 'Suivi détaillé des compétences acquises', EN: 'Detailed record of skills acquired', DE: 'Detaillierte Übersicht der erworbenen Fähigkeiten' } },
               { icon: 'ri-line-chart-line', color: 'violet', t: { FR: 'Bilan trimestriel', EN: 'Quarterly review', DE: 'Vierteljährliches Feedback' }, d: { FR: 'Point détaillé avec vous chaque trimestre', EN: 'Detailed check-in with you every quarter', DE: 'Ausführliches Gespräch mit Ihnen pro Quartal' } },
               { icon: 'ri-medal-line', color: 'amber', t: { FR: 'Certificat par niveau', EN: 'Certificate per level', DE: 'Zertifikat pro Niveau' }, d: { FR: 'Officiel et signé, à chaque niveau franchi', EN: 'Official and signed, for every level completed', DE: 'Offiziell und unterschrieben, für jedes abgeschlossene Niveau' } },
-              { icon: 'ri-calendar-check-line', color: 'emerald', t: { FR: 'Bilan offert', EN: 'Free assessment', DE: 'Kostenlos' }, d: { FR: '30 min, sans engagement', EN: '30 min, no commitment', DE: '30 Min., unverbindlich' } },
+              { icon: 'ri-dashboard-3-line', color: 'emerald', t: { FR: 'Accès à Mon espace', EN: 'Mon espace platform', DE: 'Zugang zu Mon espace' }, d: { FR: 'Cours en replay, exercices, quiz et suivi de progression', EN: 'Lesson replays, exercises, quizzes and progress tracking', DE: 'Kursaufzeichnungen, Übungen, Quiz und Fortschrittsverfolgung' } },
               { icon: 'ri-whatsapp-line', color: 'green', t: { FR: 'Support WhatsApp', EN: 'WhatsApp support', DE: 'WhatsApp-Support' }, d: { FR: 'Réponse rapide', EN: 'Quick reply', DE: 'Schnelle Antwort' } },
             ].map((item, i) => {
               const palette = {
@@ -1120,14 +1222,17 @@ export default function Tarifs() {
             })}
           </div>
 
-          {/* Bilan de niveau offert — mise en avant (remplace l'ancienne garantie remboursement) */}
-          <div className={`rounded-3xl p-6 mb-6 flex items-center gap-5 ${darkMode ? 'bg-emerald-900/20 border-2 border-emerald-500/30' : 'bg-gradient-to-r from-emerald-50 to-emerald-100 border-2 border-emerald-300'}`}>
-            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 ${darkMode ? 'bg-emerald-600' : 'bg-emerald-500'}`}>
+          {/* Rappel du cours d'essai gratuit — remplace l'ancienne carte "bilan
+              de niveau offert" : même idée de réassurance, mais qui pointe
+              maintenant vers LE vrai point d'entrée, en haut de page. */}
+          <div className={`rounded-3xl p-6 mb-6 flex items-center gap-5 ${darkMode ? 'bg-amber-900/10 border-2 border-[#d99a2b]/30' : 'bg-gradient-to-r from-amber-50 to-white border-2 border-[#d99a2b]/40'}`}>
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 bg-[#d99a2b]">
               <i className="ri-calendar-check-line text-4xl text-white"></i>
             </div>
             <div className="flex-1">
-              <h3 className={`text-xl font-bold mb-1 ${darkMode ? 'text-emerald-200' : 'text-emerald-900'}`}>{t.guaranteeTitle}</h3>
-              <p className={`text-sm ${darkMode ? 'text-emerald-300/80' : 'text-emerald-800'}`}>{t.guaranteeDesc}</p>
+              <h3 className={`text-xl font-bold mb-1 ${darkMode ? 'text-amber-200' : 'text-amber-900'}`}>{t.trialTitle}</h3>
+              <p className={`text-sm mb-3 ${darkMode ? 'text-amber-300/80' : 'text-amber-800'}`}>{t.trialSub}</p>
+              <a href="#essai-gratuit" className={`inline-block text-sm font-bold hover:underline ${darkMode ? 'text-[#e8b455]' : 'text-[#d99a2b]'}`}>{t.trialCtaBtn} →</a>
             </div>
           </div>
 
@@ -1467,6 +1572,101 @@ export default function Tarifs() {
                 <p className={`text-xs text-center mt-4 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                   <i className="ri-shield-check-line mr-1 text-emerald-500"></i>
                   {currentLang === 'FR' ? 'Paiement sécurisé via Stripe' : currentLang === 'EN' ? 'Secure payment via Stripe' : 'Sichere Zahlung über Stripe'}
+                </p>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ── Modal du cours d'essai gratuit (pas de Stripe, Netlify Forms pur) ── */}
+      {showTrialModal && (
+        <div className="fixed inset-0 z-50 overflow-y-auto p-4 bg-black/50 backdrop-blur-sm" onClick={closeTrialModal} role="dialog" aria-modal="true">
+          <div className={`rounded-3xl max-w-lg w-full mx-auto my-8 ${darkMode ? 'bg-gray-900' : 'bg-white'}`} onClick={e => e.stopPropagation()}>
+            <div className={`sticky top-0 border-b px-8 py-6 flex items-center justify-between rounded-t-3xl ${darkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'}`}>
+              <div>
+                <h3 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.trialTitle}</h3>
+                <p className={`text-sm mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.trialBadge}</p>
+              </div>
+              <button ref={trialModalCloseButtonRef} onClick={closeTrialModal} aria-label="Close modal" className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors cursor-pointer ${darkMode ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-gray-100 text-gray-600'}`}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+
+            {trialSubmitMessage === 'success' ? (
+              <div className="p-8 flex flex-col items-center justify-center text-center py-16 gap-4">
+                <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-3xl">✅</div>
+                <h4 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                  {currentLang === 'FR' ? 'Merci !' : currentLang === 'EN' ? 'Thank you!' : 'Danke!'}
+                </h4>
+                <p className={`text-sm max-w-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  {currentLang === 'FR' ? 'On vous recontacte sous 24h pour fixer le créneau du cours d\'essai.' : currentLang === 'EN' ? 'We\'ll get back to you within 24h to schedule the trial lesson.' : 'Wir melden uns innerhalb von 24h, um den Termin für die Probestunde zu vereinbaren.'}
+                </p>
+                <button onClick={closeTrialModal} className="mt-2 bg-[#232999] hover:bg-[#1a1f7a] text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all cursor-pointer">
+                  {currentLang === 'FR' ? 'Fermer' : currentLang === 'EN' ? 'Close' : 'Schliessen'}
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleTrialSubmit} name="trial-lesson" data-netlify="true" className="p-8" id="trial-form">
+                <input type="hidden" name="form-name" value="trial-lesson" />
+
+                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label htmlFor="trial-parent" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {currentLang === 'FR' ? 'Nom du parent *' : currentLang === 'EN' ? "Parent's name *" : 'Name des Elternteils *'}
+                    </label>
+                    <input id="trial-parent" type="text" name="parentName" value={trialFormData.parentName} onChange={e => setTrialFormData({ ...trialFormData, parentName: e.target.value })} required className={`w-full px-4 py-3 rounded-xl border focus:border-[#d99a2b] focus:ring-2 focus:ring-amber-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
+                  </div>
+                  <div>
+                    <label htmlFor="trial-email" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Email *</label>
+                    <input id="trial-email" type="email" name="email" value={trialFormData.email} onChange={e => setTrialFormData({ ...trialFormData, email: e.target.value })} required className={`w-full px-4 py-3 rounded-xl border focus:border-[#d99a2b] focus:ring-2 focus:ring-amber-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} placeholder="votre@email.com" />
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <label htmlFor="trial-phone" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    {currentLang === 'FR' ? 'Téléphone ou WhatsApp *' : currentLang === 'EN' ? 'Phone or WhatsApp *' : 'Telefon oder WhatsApp *'}
+                  </label>
+                  <input id="trial-phone" type="tel" name="phone" value={trialFormData.phone} onChange={e => setTrialFormData({ ...trialFormData, phone: e.target.value })} required className={`w-full px-4 py-3 rounded-xl border focus:border-[#d99a2b] focus:ring-2 focus:ring-amber-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} placeholder="+41 XX XXX XX XX" />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label htmlFor="trial-child-name" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {currentLang === 'FR' ? 'Prénom de l\'enfant *' : currentLang === 'EN' ? "Child's first name *" : 'Vorname des Kindes *'}
+                    </label>
+                    <input id="trial-child-name" type="text" name="childName" value={trialFormData.childName} onChange={e => setTrialFormData({ ...trialFormData, childName: e.target.value })} required className={`w-full px-4 py-3 rounded-xl border focus:border-[#d99a2b] focus:ring-2 focus:ring-amber-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
+                  </div>
+                  <div>
+                    <label htmlFor="trial-child-age" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {currentLang === 'FR' ? 'Âge de l\'enfant *' : currentLang === 'EN' ? "Child's age *" : 'Alter des Kindes *'}
+                    </label>
+                    <input id="trial-child-age" type="text" name="childAge" value={trialFormData.childAge} onChange={e => setTrialFormData({ ...trialFormData, childAge: e.target.value })} required className={`w-full px-4 py-3 rounded-xl border focus:border-[#d99a2b] focus:ring-2 focus:ring-amber-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} placeholder={currentLang === 'FR' ? 'ex. 9 ans' : currentLang === 'EN' ? 'e.g. 9 years' : 'z.B. 9 Jahre'} />
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <label htmlFor="trial-message" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    {currentLang === 'FR' ? 'Message ou questions (optionnel)' : currentLang === 'EN' ? 'Message or questions (optional)' : 'Nachricht oder Fragen (optional)'}
+                  </label>
+                  <textarea id="trial-message" name="message" value={trialFormData.message} onChange={e => setTrialFormData({ ...trialFormData, message: e.target.value })} rows={3} className={`w-full px-4 py-3 rounded-xl border focus:border-[#d99a2b] focus:ring-2 focus:ring-amber-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} />
+                </div>
+
+                {trialSubmitMessage === 'error' && (
+                  <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">
+                    <i className="ri-error-warning-line mr-1"></i>
+                    {currentLang === 'FR' ? "Une erreur est survenue. Merci de nous écrire à contact@smartkids-school.ch ou via WhatsApp." : currentLang === 'EN' ? 'Something went wrong. Please email us or use WhatsApp.' : 'Ein Fehler ist aufgetreten. Bitte E-Mail oder WhatsApp.'}
+                  </div>
+                )}
+
+                <button type="submit" disabled={trialSubmitting} className="w-full bg-[#d99a2b] hover:bg-[#c08823] text-white px-6 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed">
+                  {trialSubmitting
+                    ? (currentLang === 'FR' ? 'Envoi en cours…' : currentLang === 'EN' ? 'Sending…' : 'Wird gesendet…')
+                    : t.trialCtaBtn}
+                </button>
+
+                <p className={`text-xs text-center mt-4 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                  {t.trialBadge}
                 </p>
               </form>
             )}
