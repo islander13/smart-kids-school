@@ -90,8 +90,14 @@ exports.handler = async (event) => {
     };
   }
 
+  let data;
   try {
-    const data = JSON.parse(event.body);
+    data = JSON.parse(event.body || '{}');
+  } catch {
+    return { statusCode: 400, headers: corsHeaders, body: JSON.stringify({ error: 'Invalid request body' }) };
+  }
+
+  try {
     const { productKey, customerEmail, metadata, locale } = data;
     // La page de paiement Stripe doit parler la langue que le client a
     // utilisée sur tout le reste du site (FR/EN/DE) — pas systématiquement

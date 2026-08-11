@@ -12,7 +12,7 @@ import { useAuth } from '../../contexts/AuthContext';
 //     "nextSession": {
 //       "label": "Cours hebdo",                         (optionnel)
 //       "dateTime": "2026-08-13T17:00:00+02:00",         (ISO 8601, avec fuseau)
-//       "joinUrl": "https://zoom.us/j/xxxxxxxxx"
+//       "joinUrl": "https://zoom.us/j/xxxxxxxxx"          (doit commencer par https://)
 //     }
 //   }
 // app_metadata (pas user_metadata) volontairement : ce champ n'est pas
@@ -30,6 +30,11 @@ function readNextSession(raw: unknown): NextSession | null {
   if (!raw || typeof raw !== 'object') return null;
   const obj = raw as Record<string, unknown>;
   if (typeof obj.dateTime !== 'string' || typeof obj.joinUrl !== 'string') return null;
+  // app_metadata n'est modifiable que par l'école (admin), pas par le compte
+  // lui-même — mais on valide quand même le schéma de l'URL avant de le
+  // poser dans un href : une faute de frappe ne doit jamais produire un lien
+  // javascript:/data: cliquable.
+  if (!/^https:\/\//i.test(obj.joinUrl)) return null;
   const date = new Date(obj.dateTime);
   if (Number.isNaN(date.getTime())) return null;
   return {

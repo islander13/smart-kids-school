@@ -1379,7 +1379,7 @@ export default function Stages() {
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#1f7a44] hover:bg-[#18613a] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
         title={currentLang === 'FR' ? 'Nous contacter sur WhatsApp' : currentLang === 'EN' ? 'Contact us on WhatsApp' : 'Kontaktieren Sie uns auf WhatsApp'}
-        aria-label={currentLang === 'FR' ? 'Contacter sur WhatsApp' : 'Contact WhatsApp'}
+        aria-label={currentLang === 'FR' ? 'Contacter sur WhatsApp' : currentLang === 'EN' ? 'Contact WhatsApp' : 'Kontakt per WhatsApp'}
         style={{ animation: 'whatsapp-pulse 2.5s ease-in-out infinite' }}
       >
         <style>{`

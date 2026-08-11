@@ -892,7 +892,7 @@ export default function Premium() {
                 )}
 
                 <button type="submit" disabled={submitting} className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-6 py-4 rounded-full font-bold transition-all hover:shadow-xl cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed">
-                  {submitting ? (currentLang === 'FR' ? 'Envoi…' : 'Sending…') : `🔒 ${t.formSubmit}`}
+                  {submitting ? (currentLang === 'FR' ? 'Envoi en cours…' : currentLang === 'EN' ? 'Sending…' : 'Wird gesendet…') : `🔒 ${t.formSubmit}`}
                 </button>
 
                 <p className={`text-xs text-center mt-4 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -914,7 +914,7 @@ export default function Premium() {
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-40 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center bg-[#1f7a44] hover:bg-[#18613a] text-white rounded-full shadow-xl hover:shadow-green-400/50 transition-all duration-300 hover:scale-110 group"
         title={currentLang === 'FR' ? 'Nous contacter sur WhatsApp' : currentLang === 'EN' ? 'Contact us on WhatsApp' : 'Kontaktieren Sie uns auf WhatsApp'}
-        aria-label={currentLang === 'FR' ? 'Contacter sur WhatsApp' : 'Contact WhatsApp'}
+        aria-label={currentLang === 'FR' ? 'Contacter sur WhatsApp' : currentLang === 'EN' ? 'Contact WhatsApp' : 'Kontakt per WhatsApp'}
         style={{ animation: 'whatsapp-pulse 2.5s ease-in-out infinite' }}
       >
         <style>{`

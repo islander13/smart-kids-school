@@ -38,8 +38,14 @@ exports.handler = async (event) => {
     return { statusCode: 503, headers: corsHeaders, body: JSON.stringify({ error: 'Shop not yet available' }) };
   }
 
+  let data;
   try {
-    const data = JSON.parse(event.body);
+    data = JSON.parse(event.body || '{}');
+  } catch {
+    return { statusCode: 400, headers: corsHeaders, body: JSON.stringify({ error: 'Invalid request body' }) };
+  }
+
+  try {
     const { productKey, customerEmail } = data;
 
     if (!productKey || !SHOP_PRODUCTS[productKey]) {

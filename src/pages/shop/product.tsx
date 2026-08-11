@@ -124,6 +124,11 @@ export default function ShopProduct() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!product) return;
+    // Garde-fou anti double-soumission : le `disabled` du bouton ne repeint
+    // pas forcément assez vite pour bloquer un double-clic rapide, ce qui
+    // créerait deux sessions Stripe (et deux lignes shop_orders) pour le
+    // même achat — même pattern que tarifs.tsx/premium.tsx/stages.tsx.
+    if (submitting) return;
     setSubmitting(true);
     setSubmitMessage('');
     try {
