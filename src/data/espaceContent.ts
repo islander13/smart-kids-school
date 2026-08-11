@@ -28,12 +28,13 @@
 // décrit que le contenu, jamais qui a fait quoi.
 // ─────────────────────────────────────────────────────────────────────────
 
-// Interrupteur unique : masque le lien "Mon espace" de la navigation sur
-// tout le site pendant qu'on finalise le contenu et qu'on teste (Identity,
-// vidéos réelles, etc.), sans désactiver la page elle-même — /espace reste
-// accessible par URL directe pour continuer à tester. Remettre à `true`
-// quand l'espace est prêt à être annoncé publiquement.
-export const ESPACE_NAV_VISIBLE = false;
+// Interrupteur unique : affiche/masque le lien "Mon espace" dans la
+// navigation sur tout le site. /espace reste, dans tous les cas, accessible
+// par URL directe : ce flag ne fait QUE changer la visibilité du lien, pas
+// le contrôle d'accès. Ce dernier vit entièrement côté Netlify Identity
+// (Site settings > Identity > Registration : "Invite only" — voir aussi
+// l'invitation automatique après paiement dans stripe-webhook.js).
+export const ESPACE_NAV_VISIBLE = true;
 
 export type VideoProvider = 'youtube' | 'vimeo';
 
