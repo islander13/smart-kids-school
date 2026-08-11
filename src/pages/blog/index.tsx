@@ -98,8 +98,10 @@ export default function BlogIndex() {
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
       el.content = content;
     };
-    setMeta('description', currentLang === 'FR' ? "Le blog Smart Kids School : conseils, repères par âge et retours d'expérience sur l'apprentissage du code pour enfants." : currentLang === 'EN' ? "The Smart Kids School blog: advice, age benchmarks and lessons learned about teaching kids to code." : 'Der Smart Kids School Blog: Tipps, Altersrichtwerte und Erfahrungen rund ums Programmieren-Lernen für Kinder.');
+    const blogDescription = currentLang === 'FR' ? "Le blog Smart Kids School : conseils, repères par âge et retours d'expérience sur l'apprentissage du code pour enfants." : currentLang === 'EN' ? "The Smart Kids School blog: advice, age benchmarks and lessons learned about teaching kids to code." : 'Der Smart Kids School Blog: Tipps, Altersrichtwerte und Erfahrungen rund ums Programmieren-Lernen für Kinder.';
+    setMeta('description', blogDescription);
     setMeta('og:title', titles[currentLang], 'property');
+    setMeta('og:description', blogDescription, 'property');
     setMeta('og:url', `https://smartkids-school.ch${localizedPath('/blog', currentLang)}`, 'property');
     setHreflangTags('/blog', currentLang);
 

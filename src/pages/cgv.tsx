@@ -71,9 +71,9 @@ export default function CGV() {
       DE: 'Allgemeine Geschäftsbedingungen | Smart Kids School',
     };
     const descs: Record<Lang, string> = {
-      FR: 'Conditions générales de vente de Smart Kids School, cours de programmation Scratch en ligne pour enfants en Suisse. Tarifs, annulation, remboursement, droit applicable.',
-      EN: "Smart Kids School's terms and conditions of sale, online Scratch programming classes for children in Switzerland. Pricing, cancellation, refunds, applicable law.",
-      DE: 'Allgemeine Geschäftsbedingungen von Smart Kids School, Online-Scratch-Programmierkurse für Kinder in der Schweiz. Preise, Kündigung, Rückerstattung, anwendbares Recht.',
+      FR: 'Conditions générales de vente Smart Kids School : cours de programmation en ligne pour enfants. Tarifs, annulation, remboursement, droit applicable.',
+      EN: "Smart Kids School's terms and conditions of sale: online coding classes for children. Pricing, cancellation, refunds, applicable law.",
+      DE: 'Allgemeine Geschäftsbedingungen von Smart Kids School: Online-Programmierkurse für Kinder. Preise, Kündigung, Rückerstattung, anwendbares Recht.',
     };
     document.title = titles[lang];
     setMeta('description', descs[lang]);

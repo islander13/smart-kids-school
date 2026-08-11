@@ -15,8 +15,21 @@
 // ─────────────────────────────────────────────────────────────────────────
 
 const { getDatabase } = require('@netlify/database');
+const { isValidAdminKey } = require('./lib/adminAuth');
 
-exports.handler = async () => {
+exports.handler = async (event) => {
+  // Comme toute Netlify Function, cette URL est publiquement joignable
+  // indépendamment du "@daily" ci-dessous (netlify.toml) — Netlify marque
+  // ses propres invocations planifiées avec cet en-tête précisément pour
+  // permettre de les distinguer d'un appel public. Secours : une clé admin
+  // en query string (même secret que /admin) pour un déclenchement manuel
+  // volontaire (tests), au cas où l'en-tête venait à changer côté Netlify.
+  const isScheduledInvocation = event.headers['x-netlify-event'] === 'schedule';
+  const isManualAdminTrigger = isValidAdminKey((event.queryStringParameters || {}).key);
+  if (!isScheduledInvocation && !isManualAdminTrigger) {
+    return { statusCode: 401, body: 'Unauthorized' };
+  }
+
   try {
     const { sql } = getDatabase({ connectionString: process.env.NETLIFY_DB_URL });
 

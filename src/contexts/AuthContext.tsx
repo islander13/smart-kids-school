@@ -67,9 +67,10 @@ interface AuthContextValue {
   toggleVideoWatched: (videoId: string) => Promise<void>;
   /** Enregistre un essai de quiz ; ne garde que le meilleur score. */
   submitQuizResult: (sectionKey: string, scoreCount: number, totalQuestions: number) => Promise<void>;
-  /** Rattache un compte élève (par email) au compte parent courant, via la
-   * fonction serverless link-child (seule capable d'écrire app_metadata). */
-  linkChild: (email: string) => Promise<void>;
+  /** Rattache un compte élève (par code de liaison, voir get-link-code) au
+   * compte parent courant, via la fonction serverless link-child (seule
+   * capable d'écrire app_metadata). */
+  linkChild: (code: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -265,7 +266,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }), [enqueueMutation]);
 
-  const linkChild = useCallback((email: string) => enqueueMutation(async () => {
+  const linkChild = useCallback((code: string) => enqueueMutation(async () => {
     const current = auth.currentUser();
     if (!current) throw new Error('not_authenticated');
     try {
@@ -273,7 +274,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const res = await fetch('/.netlify/functions/link-child', {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ code }),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}) as { error?: string });

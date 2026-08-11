@@ -81,7 +81,7 @@ const T: Record<Lang, {
       { q: "Quels sont les thèmes proposés ?", a: "Trois thèmes au choix selon les périodes : 'Crée ton premier jeu vidéo' (Scratch), Python Turtle (introduction au code), et Python pur (programmation avancée)." },
       { q: "À partir de quel âge peut-on participer aux stages ?", a: "Les stages sont ouverts dès 7 ans. Les groupes sont constitués par tranches d'âge proches pour garantir une dynamique adaptée." },
       { q: "Comment se passe l'inscription ?", a: "Cliquez sur 'Inscrire mon enfant' à côté de la période souhaitée. Nous vous recontactons sous 24h pour confirmer la place et procéder au paiement sécurisé." },
-      { q: "Quel est le prix des stages ?", a: "449 CHF la semaine (4 demi-journées). Une réduction de 10% est appliquée pour le 2e enfant inscrit dans la même famille." },
+      { q: "Quel est le prix des stages ?", a: "449 CHF la semaine (4 demi-journées). Une réduction de 11% est appliquée pour le 2e enfant inscrit dans la même famille." },
       { q: "Que se passe-t-il en cas d'annulation ?", a: "Annulation gratuite jusqu'à 14 jours avant le début du stage. Au-delà, des frais peuvent s'appliquer (voir CGV). En cas d'imprévu majeur, nous trouvons toujours une solution." },
       { q: "Le stage donne-t-il lieu à un projet final ?", a: "Oui. Chaque stage se termine par un projet final que l'enfant peut présenter à sa famille et conserver. Un certificat de formation est également remis." },
     ],
@@ -122,7 +122,7 @@ const T: Record<Lang, {
       { q: "Which themes are offered?", a: "Three themes available depending on periods: 'Build your first video game' (Scratch), Python Turtle (intro to code), and Pure Python (advanced)." },
       { q: "What's the minimum age?", a: "Camps are open from age 7. Groups are formed by close age ranges to ensure proper dynamics." },
       { q: "How does enrollment work?", a: "Click 'Enroll my child' next to your chosen period. We contact you within 24h to confirm the spot and process secure payment." },
-      { q: "What's the price?", a: "CHF 449 per week (4 half-days). 10% discount for a 2nd child in the same family." },
+      { q: "What's the price?", a: "CHF 449 per week (4 half-days). 11% discount for a 2nd child in the same family." },
       { q: "Cancellation policy?", a: "Free cancellation up to 14 days before the camp. Beyond that, fees may apply (see T&Cs). For major issues, we always find a solution." },
       { q: "Is there a final project?", a: "Yes. Each camp ends with a final project the child can present to their family and keep. A training certificate is also issued." },
     ],
@@ -163,7 +163,7 @@ const T: Record<Lang, {
       { q: "Welche Themen?", a: "Drei Themen je nach Periode: 'Baue dein erstes Videospiel' (Scratch), Python Turtle (Einführung), und reines Python (Fortgeschrittene)." },
       { q: "Mindestalter?", a: "Camps ab 7 Jahren. Gruppen werden nach Alter zusammengestellt." },
       { q: "Wie funktioniert die Anmeldung?", a: "Klicken Sie auf 'Kind anmelden' bei der gewünschten Periode. Wir kontaktieren Sie innerhalb 24h zur Bestätigung und sicheren Zahlung." },
-      { q: "Preis?", a: "449 CHF pro Woche (4 Halbtage). 10% Rabatt für ein 2. Kind aus der gleichen Familie." },
+      { q: "Preis?", a: "449 CHF pro Woche (4 Halbtage). 11% Rabatt für ein 2. Kind aus der gleichen Familie." },
       { q: "Stornierung?", a: "Kostenlose Stornierung bis 14 Tage vor Camp. Danach können Gebühren anfallen (siehe AGB). Bei grossen Problemen finden wir immer eine Lösung." },
       { q: "Abschlussprojekt?", a: "Ja. Jedes Camp endet mit einem Abschlussprojekt, das das Kind präsentieren und behalten kann. Plus ein Ausbildungszertifikat." },
     ],
@@ -208,8 +208,10 @@ export default function FAQ() {
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
       el.content = content;
     };
-    setMeta('description', currentLang === 'FR' ? 'Toutes les réponses sur les cours, tarifs et stages Smart Kids School.' : currentLang === 'EN' ? 'All answers about classes, pricing and camps at Smart Kids School.' : 'Alle Antworten zu Kursen, Preisen und Camps bei Smart Kids School.');
+    const faqDescription = currentLang === 'FR' ? 'Toutes les réponses sur les cours, tarifs et stages Smart Kids School.' : currentLang === 'EN' ? 'All answers about classes, pricing and camps at Smart Kids School.' : 'Alle Antworten zu Kursen, Preisen und Camps bei Smart Kids School.';
+    setMeta('description', faqDescription);
     setMeta('og:title', titles[currentLang], 'property');
+    setMeta('og:description', faqDescription, 'property');
     setMeta('og:url', `https://smartkids-school.ch${localizedPath('/faq', currentLang)}`, 'property');
     setHreflangTags('/faq', currentLang);
 

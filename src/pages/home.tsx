@@ -359,14 +359,14 @@ export default function HomePage() {
     const langMap: Record<string, string> = { FR: 'fr', EN: 'en', DE: 'de' };
     document.documentElement.lang = langMap[currentLang] || 'fr';
     const titles: Record<string, string> = {
-      FR: 'Smart Kids School, Programmation, robotique et IA pour enfants en Suisse romande',
-      EN: 'Smart Kids School, Coding, robotics and AI for kids across Switzerland',
-      DE: 'Smart Kids School, Programmieren, Robotik und KI für Kinder in der Schweiz',
+      FR: 'Smart Kids School — Programmation, robotique et IA pour enfants',
+      EN: 'Smart Kids School — Coding, robotics and AI for kids',
+      DE: 'Smart Kids School — Programmieren, Robotik und KI für Kinder',
     };
     const descriptions: Record<string, string> = {
-      FR: 'École en ligne de programmation pour enfants dès 7 ans. Cours conçus par des ingénieurs EPFL & ETHZ. 100% en ligne, partout en Suisse romande : Lausanne, Genève, Fribourg, Neuchâtel, Sion, Vevey, Yverdon, Nyon, Morges. Scratch, Python, IA, robotique, STEM. Solo · Duo dès 169 CHF/mois par enfant.',
-      EN: 'Online coding school for kids from age 7. Classes designed by EPFL & ETHZ engineers. 100% online, across Switzerland: Lausanne, Geneva, Fribourg, Neuchâtel. Scratch, Python, AI, robotics, STEM. Solo · Duo from CHF 169/month per child.',
-      DE: 'Online-Programmierschule für Kinder ab 7 Jahren. Kurse von EPFL- & ETHZ-Ingenieuren. 100% online, schweizweit. Scratch, Python, KI, Robotik, MINT. Solo · Duo ab 169 CHF/Monat pro Kind.',
+      FR: "École en ligne de programmation pour enfants dès 7 ans, conçue par des ingénieurs EPFL & ETHZ. Scratch, Python, IA, robotique. Solo ou Duo dès 169 CHF/mois.",
+      EN: 'Online coding school for kids from age 7, designed by EPFL & ETHZ engineers. Scratch, Python, AI, robotics. Solo or Duo from CHF 169/month.',
+      DE: 'Online-Programmierschule für Kinder ab 7 Jahren, von EPFL- und ETHZ-Ingenieuren konzipiert. Scratch, Python, KI, Robotik. Solo oder Duo ab 169 CHF/Monat.',
     };
     document.title = titles[currentLang];
     const setMeta = (name: string, content: string, attr = 'name') => {

@@ -81,7 +81,7 @@ export default function Merci() {
       }
     } catch {}
 
-    document.title = currentLang === 'FR' ? 'Merci !, Smart Kids School' : currentLang === 'EN' ? 'Thank you!, Smart Kids School' : 'Danke!, Smart Kids School';
+    document.title = currentLang === 'FR' ? 'Merci ! | Smart Kids School' : currentLang === 'EN' ? 'Thank you! | Smart Kids School' : 'Danke! | Smart Kids School';
     document.documentElement.lang = { FR: 'fr', EN: 'en', DE: 'de' }[currentLang];
 
     // Page de confirmation post-paiement : aucune valeur pour un visiteur

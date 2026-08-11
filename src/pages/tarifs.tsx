@@ -69,8 +69,6 @@ const T = {
     twelveSessions: '12 séances',
     twentyfour: '24 séances',
     fortyeight: '48 séances',
-    cancel: 'Résiliable à tout moment',
-    accessFor: 'Accès garanti',
     threeMonths: '3 mois',
     sixMonths: '6 mois',
     twelveMonths: '12 mois',
@@ -206,7 +204,6 @@ const T = {
     perMonth: '/ month', perChild: 'per child', save: 'Save', chf: 'CHF',
     sessionsPerMonth: '1h sessions per month', sessionsTotal: '1h sessions total',
     fourSessions: '4 sessions', twelveSessions: '12 sessions', twentyfour: '24 sessions', fortyeight: '48 sessions',
-    cancel: 'Cancel anytime', accessFor: 'Access guaranteed for',
     threeMonths: '3 months', sixMonths: '6 months', twelveMonths: '12 months',
     moduleBenefitM3: 'One full module, start to finish',
     moduleBenefitM6: 'Two modules to make it stick',
@@ -295,7 +292,6 @@ const T = {
     perMonth: '/ Monat', perChild: 'pro Kind', save: 'Ersparnis', chf: 'CHF',
     sessionsPerMonth: 'Sitzungen à 1h pro Monat', sessionsTotal: 'Sitzungen à 1h gesamt',
     fourSessions: '4 Sitzungen', twelveSessions: '12 Sitzungen', twentyfour: '24 Sitzungen', fortyeight: '48 Sitzungen',
-    cancel: 'Jederzeit kündbar', accessFor: 'Zugang garantiert für',
     threeMonths: '3 Monate', sixMonths: '6 Monate', twelveMonths: '12 Monate',
     moduleBenefitM3: 'Ein vollständiges Modul, von Anfang bis Ende',
     moduleBenefitM6: 'Zwei Module zur Vertiefung',
@@ -1277,7 +1273,7 @@ export default function Tarifs() {
             <div className="flex-1">
               <h3 className={`text-xl font-bold mb-1 ${darkMode ? 'text-amber-200' : 'text-amber-900'}`}>{t.trialTitle}</h3>
               <p className={`text-sm mb-3 ${darkMode ? 'text-amber-300/80' : 'text-amber-800'}`}>{t.trialSub}</p>
-              <a href="#essai-gratuit" className={`inline-block text-sm font-bold hover:underline ${darkMode ? 'text-[#e8b455]' : 'text-[#d99a2b]'}`}>{t.trialCtaBtn} →</a>
+              <button type="button" onClick={openTrialModal} className={`inline-block text-sm font-bold hover:underline cursor-pointer ${darkMode ? 'text-[#e8b455]' : 'text-[#d99a2b]'}`}>{t.trialCtaBtn} →</button>
             </div>
           </div>
 
@@ -1292,6 +1288,14 @@ export default function Tarifs() {
               <span className={darkMode ? 'text-gray-700' : 'text-gray-300'}>·</span>
               <span className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}><i className="ri-shield-check-line mr-1 text-emerald-500"></i>{currentLang === 'FR' ? '100% sécurisé via Stripe' : currentLang === 'EN' ? '100% secure via Stripe' : '100% sicher über Stripe'}</span>
             </div>
+            {/* Le formulaire en ligne ci-dessus ne prend que la carte bancaire
+                (Stripe) : virement et paiement échelonné sont volontairement
+                des arrangements manuels (voir pay2D/pay3D), pas une option du
+                formulaire — le préciser évite la mauvaise surprise au moment
+                de payer, pour un parent qui comptait sur l'un des deux. */}
+            <p className={`text-xs text-center mt-3 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+              {currentLang === 'FR' ? 'Le formulaire en ligne prend la carte bancaire. Pour un virement ou un paiement échelonné, contactez-nous avant de vous inscrire.' : currentLang === 'EN' ? 'The online form takes credit card payment. For a bank transfer or instalments, contact us before enrolling.' : 'Das Online-Formular akzeptiert Kreditkarte. Für Banküberweisung oder Ratenzahlung kontaktieren Sie uns vor der Anmeldung.'}
+            </p>
           </div>
         </div>
       </section>

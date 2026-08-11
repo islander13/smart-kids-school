@@ -63,6 +63,17 @@ export interface EspaceVideo {
   thumbnail?: string;
 }
 
+// Valeur d'espace réservé utilisée pendant la préparation du contenu, avant
+// que la vraie vidéo YouTube/Vimeo ne soit tournée. Tant qu'un `embedId`
+// vaut ça, la vidéo est traitée comme "pas encore publiée" partout dans
+// l'app (VideoCard, ContinueBanner, calculs de progression) plutôt que
+// d'ouvrir un lecteur cassé sur une vraie vidéo qui n'existe pas.
+export const PLACEHOLDER_EMBED_ID = 'REPLACE_WITH_YOUTUBE_ID';
+
+export function isPlaceholderVideo(video: EspaceVideo): boolean {
+  return video.embedId === PLACEHOLDER_EMBED_ID;
+}
+
 export type ResourceType = 'pdf' | 'fiche' | 'projet';
 
 export interface EspaceResource {

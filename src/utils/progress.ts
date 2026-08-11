@@ -1,4 +1,4 @@
-import type { EspaceSection, EspaceVideo } from '../data/espaceContent';
+import { isPlaceholderVideo, type EspaceSection, type EspaceVideo } from '../data/espaceContent';
 
 // ─────────────────────────────────────────────────────────────────────────
 // Calculs de progression, dérivés à la volée depuis ESPACE_SECTIONS (contenu)
@@ -31,8 +31,12 @@ export function isVideoWatched(progress: EspaceProgress, videoId: string): boole
 }
 
 export function getSectionProgress(section: EspaceSection, progress: EspaceProgress): { watchedCount: number; totalCount: number } {
-  const totalCount = section.videos.length;
-  const watchedCount = section.videos.filter(v => progress.watched.includes(v.id)).length;
+  // Une vidéo encore en espace réservé (embedId placeholder) ne compte pas
+  // dans le total : sans ça, une section pas encore publiée afficherait
+  // "0/2 vues" au lieu de ne montrer aucune barre de progression.
+  const publishedVideos = section.videos.filter(v => !isPlaceholderVideo(v));
+  const totalCount = publishedVideos.length;
+  const watchedCount = publishedVideos.filter(v => progress.watched.includes(v.id)).length;
   return { watchedCount, totalCount };
 }
 
@@ -49,12 +53,18 @@ export function getTotalProgress(sections: EspaceSection[], progress: EspaceProg
 export function getNextUnwatchedVideo(sections: EspaceSection[], progress: EspaceProgress): { section: EspaceSection; video: EspaceVideo } | null {
   for (const section of sections) {
     for (const video of section.videos) {
+      if (isPlaceholderVideo(video)) continue;
       if (!progress.watched.includes(video.id)) {
         return { section, video };
       }
     }
   }
   return null;
+}
+
+/** true si au moins une vidéo, dans une section quelconque, est réellement publiée (pas un placeholder). */
+export function hasAnyPublishedVideo(sections: EspaceSection[]): boolean {
+  return sections.some(section => section.videos.some(v => !isPlaceholderVideo(v)));
 }
 
 export function hasQuiz(section: EspaceSection): boolean {

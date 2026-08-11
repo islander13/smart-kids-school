@@ -13,8 +13,9 @@ import RoleSwitcher from '../components/espace/RoleSwitcher';
 import ContinueBanner from '../components/espace/ContinueBanner';
 import ParentDashboard from '../components/espace/ParentDashboard';
 import NextSessionCard from '../components/espace/NextSessionCard';
+import MyLinkCode from '../components/espace/MyLinkCode';
 import { ESPACE_SECTIONS, type EspaceVideo } from '../data/espaceContent';
-import { getNextUnwatchedVideo, isVideoWatched } from '../utils/progress';
+import { getNextUnwatchedVideo, hasAnyPublishedVideo, isVideoWatched } from '../utils/progress';
 
 type Lang = Locale;
 
@@ -273,7 +274,8 @@ function EspaceContent() {
                 {role && <RoleSwitcher currentRole={role} darkMode={darkMode} currentLang={currentLang} />}
               </div>
               <NextSessionCard darkMode={darkMode} currentLang={currentLang} />
-              {ESPACE_SECTIONS.some(s => s.videos.length > 0) && (
+              <MyLinkCode darkMode={darkMode} currentLang={currentLang} />
+              {hasAnyPublishedVideo(ESPACE_SECTIONS) && (
                 <ContinueBanner next={nextVideo} darkMode={darkMode} currentLang={currentLang} onPlay={setPlayingVideo} />
               )}
               {ESPACE_SECTIONS.map(section => (

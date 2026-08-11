@@ -8,6 +8,7 @@ import LinkChildForm from './LinkChildForm';
 import SectionBadge from './SectionBadge';
 import RoleSwitcher from './RoleSwitcher';
 import NextSessionCard from './NextSessionCard';
+import MyLinkCode from './MyLinkCode';
 
 interface ChildSummary {
   id: string;
@@ -158,6 +159,7 @@ export default function ParentDashboard({ darkMode, currentLang }: { darkMode: b
       </div>
 
       <NextSessionCard darkMode={darkMode} currentLang={currentLang} />
+      <MyLinkCode darkMode={darkMode} currentLang={currentLang} />
 
       <div className="space-y-6 mb-10">
         {/* Le compte connecté a toujours sa propre progression : dans une famille avec un
