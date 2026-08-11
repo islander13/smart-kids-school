@@ -7,6 +7,7 @@ import ProgressBar from './ProgressBar';
 import LinkChildForm from './LinkChildForm';
 import SectionBadge from './SectionBadge';
 import RoleSwitcher from './RoleSwitcher';
+import NextSessionCard from './NextSessionCard';
 
 interface ChildSummary {
   id: string;
@@ -155,6 +156,8 @@ export default function ParentDashboard({ darkMode, currentLang }: { darkMode: b
         <h1 className={`text-3xl lg:text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.title}</h1>
         {role && <RoleSwitcher currentRole={role} darkMode={darkMode} currentLang={currentLang} />}
       </div>
+
+      <NextSessionCard darkMode={darkMode} currentLang={currentLang} />
 
       <div className="space-y-6 mb-10">
         {/* Le compte connecté a toujours sa propre progression : dans une famille avec un

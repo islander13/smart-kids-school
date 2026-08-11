@@ -12,13 +12,14 @@ import RoleSelector from '../components/espace/RoleSelector';
 import RoleSwitcher from '../components/espace/RoleSwitcher';
 import ContinueBanner from '../components/espace/ContinueBanner';
 import ParentDashboard from '../components/espace/ParentDashboard';
+import NextSessionCard from '../components/espace/NextSessionCard';
 import { ESPACE_SECTIONS, type EspaceVideo } from '../data/espaceContent';
 import { getNextUnwatchedVideo, isVideoWatched } from '../utils/progress';
 
 type Lang = Locale;
 
 const T: Record<Lang, {
-  nav: { home: string; tarifs: string; premium: string; stages: string; faq: string; blog: string; espace: string };
+  nav: { home: string; tarifs: string; premium: string; stages: string; blog: string; espace: string };
   pageTitle: string;
   welcomeBack: string;
   logout: string;
@@ -26,6 +27,8 @@ const T: Record<Lang, {
   confirming: string;
   confirmError: string;
   backToLogin: string;
+  introTitle: string;
+  introDesc: string;
 }> = {
   FR: {
     nav: { home: 'Accueil', tarifs: 'Tarifs', premium: 'Premium', stages: 'Stages', blog: 'Blog', espace: 'Mon espace' },
@@ -36,6 +39,8 @@ const T: Record<Lang, {
     confirming: 'Confirmation de votre compte…',
     confirmError: "Ce lien de confirmation n'est plus valide. Essayez de vous connecter directement.",
     backToLogin: '← Retour à la connexion',
+    introTitle: 'Ce que contient Mon espace',
+    introDesc: "L'espace personnel de votre enfant pour continuer à apprendre entre deux cours.",
   },
   EN: {
     nav: { home: 'Home', tarifs: 'Pricing', premium: 'Premium', stages: 'Camps', blog: 'Blog', espace: 'My space' },
@@ -46,6 +51,8 @@ const T: Record<Lang, {
     confirming: 'Confirming your account…',
     confirmError: 'This confirmation link is no longer valid. Try logging in directly.',
     backToLogin: '← Back to login',
+    introTitle: "What's inside My space",
+    introDesc: "Your child's personal space to keep learning between lessons.",
   },
   DE: {
     nav: { home: 'Startseite', tarifs: 'Preise', premium: 'Premium', stages: 'Camps', blog: 'Blog', espace: 'Mein Bereich' },
@@ -56,6 +63,8 @@ const T: Record<Lang, {
     confirming: 'Ihr Konto wird bestätigt…',
     confirmError: 'Dieser Bestätigungslink ist nicht mehr gültig. Versuchen Sie sich direkt anzumelden.',
     backToLogin: '← Zurück zur Anmeldung',
+    introTitle: 'Was Mein Bereich enthält',
+    introDesc: 'Der persönliche Bereich Ihres Kindes, um zwischen den Kursen weiterzulernen.',
   },
 };
 
@@ -263,6 +272,7 @@ function EspaceContent() {
                 </div>
                 {role && <RoleSwitcher currentRole={role} darkMode={darkMode} currentLang={currentLang} />}
               </div>
+              <NextSessionCard darkMode={darkMode} currentLang={currentLang} />
               {ESPACE_SECTIONS.some(s => s.videos.length > 0) && (
                 <ContinueBanner next={nextVideo} darkMode={darkMode} currentLang={currentLang} onPlay={setPlayingVideo} />
               )}
@@ -280,7 +290,31 @@ function EspaceContent() {
               ))}
             </>
           ) : (
-            <AuthPanel darkMode={darkMode} currentLang={currentLang} />
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start max-w-5xl mx-auto">
+              <div className="lg:pt-4">
+                <h1 className={`text-2xl lg:text-3xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.introTitle}</h1>
+                <p className={`text-base mb-8 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.introDesc}</p>
+                <div className="space-y-5">
+                  {[
+                    { icon: 'ri-play-circle-line', t: { FR: 'Cours en replay', EN: 'Lesson replays', DE: 'Kursaufzeichnungen' }, d: { FR: 'Chaque vidéo reste disponible pour revoir une notion à tout moment', EN: 'Every video stays available to revisit a concept anytime', DE: 'Jedes Video bleibt verfügbar, um einen Begriff jederzeit zu wiederholen' } },
+                    { icon: 'ri-questionnaire-line', t: { FR: 'Quiz de validation', EN: 'Validation quizzes', DE: 'Verständnis-Quiz' }, d: { FR: 'Un quiz court à la fin de chaque section pour vérifier ce qui est acquis', EN: 'A short quiz at the end of each section to check what has been learned', DE: 'Ein kurzes Quiz am Ende jedes Abschnitts, um das Gelernte zu prüfen' } },
+                    { icon: 'ri-medal-line', d: { FR: 'Chaque étape franchie débloque un badge, visible par toute la famille', EN: 'Every milestone unlocks a badge, visible to the whole family', DE: 'Jeder Meilenstein schaltet ein Abzeichen frei, für die ganze Familie sichtbar' }, t: { FR: 'Badges & progression', EN: 'Badges & progress', DE: 'Abzeichen & Fortschritt' } },
+                    { icon: 'ri-download-2-line', t: { FR: 'Ressources à télécharger', EN: 'Downloadable resources', DE: 'Herunterladbare Ressourcen' }, d: { FR: 'Fiches, exercices et projets Scratch, pour pratiquer hors ligne', EN: 'Worksheets, exercises and Scratch projects, to practise offline', DE: 'Arbeitsblätter, Übungen und Scratch-Projekte zum Offline-Üben' } },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className={`flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center ${darkMode ? 'bg-indigo-900/40' : 'bg-indigo-100'}`}>
+                        <i className={`${item.icon} text-lg ${darkMode ? 'text-indigo-300' : 'text-[#232999]'}`}></i>
+                      </div>
+                      <div>
+                        <p className={`text-sm font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{item.t[currentLang]}</p>
+                        <p className={`text-xs mt-0.5 leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{item.d[currentLang]}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <AuthPanel darkMode={darkMode} currentLang={currentLang} />
+            </div>
           )}
         </div>
       </section>
