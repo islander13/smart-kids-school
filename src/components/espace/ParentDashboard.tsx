@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { Locale } from '../../i18n/routing';
 import { useAuth } from '../../contexts/AuthContext';
-import { ESPACE_SECTIONS } from '../../data/espaceContent';
+import { ESPACE_SECTIONS, isPlaceholderVideo } from '../../data/espaceContent';
 import { getSectionProgress, getTotalProgress, type EspaceProgress } from '../../utils/progress';
 import ProgressBar from './ProgressBar';
 import LinkChildForm from './LinkChildForm';
@@ -89,8 +89,9 @@ function ProgressCard({ label, progress, lastActivityAt, darkMode, currentLang, 
       </div>
 
       <div className="space-y-3">
-        {ESPACE_SECTIONS.filter(s => s.videos.length > 0).map(section => {
+        {ESPACE_SECTIONS.filter(s => s.videos.some(v => !isPlaceholderVideo(v))).map(section => {
           const { watchedCount: sw, totalCount: st } = getSectionProgress(section, progress);
+          if (st === 0) return null;
           return (
             <div key={section.key}>
               <p className={`text-xs mb-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{section.title[currentLang]}</p>

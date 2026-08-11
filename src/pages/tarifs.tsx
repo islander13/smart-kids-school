@@ -916,7 +916,7 @@ export default function Tarifs() {
               <p className={`text-sm sm:text-base ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>{t.trialSub}</p>
             </div>
             <div className="flex-shrink-0 flex flex-col items-center gap-2 w-full md:w-auto">
-              <button onClick={openTrialModal} className="w-full md:w-auto bg-[#d99a2b] hover:bg-[#c08823] text-white px-8 py-4 rounded-full font-bold hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer whitespace-nowrap">
+              <button onClick={openTrialModal} className="w-full md:w-auto bg-[#d99a2b] hover:bg-[#c08823] text-gray-900 px-8 py-4 rounded-full font-bold hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer whitespace-nowrap">
                 {t.trialCtaBtn}
               </button>
               <span className={`text-xs font-medium ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{t.trialBadge}</span>
@@ -1293,7 +1293,7 @@ export default function Tarifs() {
                 des arrangements manuels (voir pay2D/pay3D), pas une option du
                 formulaire — le préciser évite la mauvaise surprise au moment
                 de payer, pour un parent qui comptait sur l'un des deux. */}
-            <p className={`text-xs text-center mt-3 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+            <p className="text-xs text-center mt-3 text-gray-500">
               {currentLang === 'FR' ? 'Le formulaire en ligne prend la carte bancaire. Pour un virement ou un paiement échelonné, contactez-nous avant de vous inscrire.' : currentLang === 'EN' ? 'The online form takes credit card payment. For a bank transfer or instalments, contact us before enrolling.' : 'Das Online-Formular akzeptiert Kreditkarte. Für Banküberweisung oder Ratenzahlung kontaktieren Sie uns vor der Anmeldung.'}
             </p>
           </div>
@@ -1708,7 +1708,7 @@ export default function Tarifs() {
                   </div>
                 )}
 
-                <button type="submit" disabled={trialSubmitting} className="w-full bg-[#d99a2b] hover:bg-[#c08823] text-white px-6 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed">
+                <button type="submit" disabled={trialSubmitting} className="w-full bg-[#d99a2b] hover:bg-[#c08823] text-gray-900 px-6 py-4 rounded-full font-bold hover:shadow-xl transition-all duration-300 cursor-pointer whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed">
                   {trialSubmitting
                     ? (currentLang === 'FR' ? 'Envoi en cours…' : currentLang === 'EN' ? 'Sending…' : 'Wird gesendet…')
                     : t.trialCtaBtn}

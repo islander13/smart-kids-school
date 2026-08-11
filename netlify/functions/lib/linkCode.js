@@ -24,13 +24,23 @@ function computeLinkCode(userId) {
   return `${digest.slice(0, 4)}-${digest.slice(4, 8)}`;
 }
 
+// Ignore tout ce qui n'est pas alphanumérique (tiret, espace...) avant de
+// comparer : un parent qui reçoit le code oralement ou par SMS tape très
+// naturellement "ABCD1234" (sans le tiret) ou "ABCD 1234" — sans ça, une
+// saisie par ailleurs correcte échouait avec un message "aucun compte ne
+// correspond", qui donne l'impression trompeuse que le code lui-même est
+// faux plutôt que juste mal formaté.
+function normalizeCode(code) {
+  return String(code || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+}
+
 // Comparaison à temps constant : même principe que isValidAdminKey (évite
 // qu'un attaquant déduise un code correct octet par octet en mesurant le
 // temps de réponse d'une comparaison naïve sur des milliers de comptes).
 function codeMatches(candidateCode, submittedCode) {
-  const a = Buffer.from(String(candidateCode));
-  const b = Buffer.from(String(submittedCode || ''));
-  return a.length === b.length && crypto.timingSafeEqual(a, b);
+  const a = Buffer.from(normalizeCode(candidateCode));
+  const b = Buffer.from(normalizeCode(submittedCode));
+  return a.length === b.length && a.length > 0 && crypto.timingSafeEqual(a, b);
 }
 
-module.exports = { computeLinkCode, codeMatches };
+module.exports = { computeLinkCode, codeMatches, normalizeCode };

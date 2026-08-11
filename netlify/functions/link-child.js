@@ -55,6 +55,12 @@ exports.handler = async (event, context) => {
   try {
     const child = await findUserByCode(identity, code);
     if (!child) {
+      // Pas de verrou/limite de fréquence (école de petite taille, code sur
+      // 32 bits + coût réel de plusieurs appels API par essai — deviner un
+      // code au hasard n'est pas praticable aujourd'hui). On journalise
+      // quand même l'appelant pour garder une trace en cas d'essais répétés
+      // suspects, sans bloquer personne.
+      console.warn(`link-child: code invalide soumis par le compte ${caller.sub}`);
       return { statusCode: 404, body: JSON.stringify({ error: 'child_not_found' }) };
     }
     if (child.id === caller.sub) {
