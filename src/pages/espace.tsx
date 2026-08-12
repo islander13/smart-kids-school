@@ -14,6 +14,7 @@ import ContinueBanner from '../components/espace/ContinueBanner';
 import ParentDashboard from '../components/espace/ParentDashboard';
 import NextSessionCard from '../components/espace/NextSessionCard';
 import MyLinkCode from '../components/espace/MyLinkCode';
+import SubscriptionEndedNotice from '../components/espace/SubscriptionEndedNotice';
 import { ESPACE_SECTIONS, type EspaceVideo } from '../data/espaceContent';
 import { getNextUnwatchedVideo, hasAnyPublishedVideo, isVideoWatched } from '../utils/progress';
 
@@ -146,6 +147,11 @@ function EspaceContent() {
 
   const t = T[currentLang];
   const nextVideo = getNextUnwatchedVideo(ESPACE_SECTIONS, progress);
+  // Coupé par stripe-webhook.js à la résiliation d'un abonnement récurrent
+  // (voir SubscriptionEndedNotice) — absent/undefined vaut actif, pour ne
+  // jamais bloquer un compte existant créé avant l'ajout de ce champ ou un
+  // compte lié à un paiement unique (jamais concerné par cet indicateur).
+  const subscriptionActive = user?.app_metadata?.subscriptionActive !== false;
 
   const handleLogout = async () => {
     setLoggingOut(true);
@@ -258,6 +264,8 @@ function EspaceContent() {
             <div className={`max-w-md mx-auto rounded-3xl border-2 p-8 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200 shadow-lg'}`}>
               <ResetPasswordForm darkMode={darkMode} currentLang={currentLang} token={tokens.inviteToken} mode="invite" />
             </div>
+          ) : user && !subscriptionActive ? (
+            <SubscriptionEndedNotice darkMode={darkMode} currentLang={currentLang} onLogout={handleLogout} />
           ) : user && !role ? (
             <RoleSelector darkMode={darkMode} currentLang={currentLang} />
           ) : user && role === 'parent' ? (

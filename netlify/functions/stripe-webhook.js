@@ -8,15 +8,22 @@
 //
 // Configuration requise dans Stripe (Developers → Webhooks → Add endpoint) :
 //   URL         : https://smartkids-school.ch/.netlify/functions/stripe-webhook
-//   Événements  : checkout.session.completed
+//   Événements  : checkout.session.completed, customer.subscription.deleted
 // Stripe fournit alors un "Signing secret" (whsec_...) à coller dans les
 // variables d'environnement Netlify sous STRIPE_WEBHOOK_SECRET.
+//
+// customer.subscription.deleted coupe l'accès à "Mon espace" quand un
+// abonnement récurrent (solo/duo/premium mensuel) est résilié — voir plus
+// bas. Stripe ne l'envoie qu'une fois la période déjà payée effectivement
+// terminée (pas au moment où le client clique "annuler"), donc aucune
+// logique de délai de grâce à gérer ici : Stripe s'en charge déjà.
 // ─────────────────────────────────────────────────────────────────────────
 
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const { getDatabase } = require('@netlify/database');
 const { createDownloadToken } = require('./lib/downloadToken');
+const { setSubscriptionActive } = require('./lib/identityUsers');
 
 function sourceFromProductKey(productKey) {
   if (!productKey) return 'tarifs';
@@ -193,6 +200,14 @@ exports.handler = async (event, context) => {
     // transitoire, "resend" manuel) : on retient si la ligne était déjà
     // confirmée AVANT cette écriture, pour ne pas réinviter/ré-notifier sur
     // une simple redélivrance.
+    // customer/subscription : capturés seulement pour retrouver ce compte
+    // plus tard si l'abonnement est résilié (customer.subscription.deleted
+    // ci-dessous). subscription est absent pour un paiement unique (mode
+    // "payment" plutôt que "subscription") — rien à révoquer dans ce cas,
+    // c'est le comportement voulu.
+    const customerId = session.customer || null;
+    const subscriptionId = session.subscription || null;
+
     let wasAlreadyConfirmed = false;
     try {
       // En "Lambda compatibility mode" (exports.handler), Netlify n'injecte
@@ -205,26 +220,43 @@ exports.handler = async (event, context) => {
       await sql`
         INSERT INTO enrollments (
           source, status, parent_name, email, phone,
-          product_key, stripe_session_id, amount_chf, details, updated_at
+          product_key, stripe_session_id, amount_chf, details, updated_at,
+          stripe_customer_id, stripe_subscription_id
         ) VALUES (
           ${sourceFromProductKey(session.metadata?.productKey)}, 'payment_confirmed',
           ${session.metadata?.parentName || null}, ${email}, ${session.metadata?.phone || null},
           ${session.metadata?.productKey || null}, ${session.id}, ${amount},
-          ${JSON.stringify(session.metadata || {})}, NOW()
+          ${JSON.stringify(session.metadata || {})}, NOW(),
+          ${customerId}, ${subscriptionId}
         )
         ON CONFLICT (stripe_session_id) DO UPDATE SET
           status = 'payment_confirmed',
           amount_chf = ${amount},
-          updated_at = NOW()
+          updated_at = NOW(),
+          stripe_customer_id = ${customerId},
+          stripe_subscription_id = ${subscriptionId}
       `;
     } catch (dbError) {
       console.error('Mise à jour base de données échouée (non bloquante):', dbError.message);
     }
 
     if (!wasAlreadyConfirmed) {
+      const identity = context && context.clientContext && context.clientContext.identity;
+
       // Donne accès à "Mon espace" au client qui vient de payer (voir la
       // fonction inviteEspaceAccount plus haut pour le détail).
-      await inviteEspaceAccount(context && context.clientContext && context.clientContext.identity, email);
+      await inviteEspaceAccount(identity, email);
+
+      // Rétablit l'accès si ce compte avait été coupé suite à une résiliation
+      // précédente (voir customer.subscription.deleted plus bas) — un client
+      // qui se réabonne doit retrouver "Mon espace" sans intervention manuelle.
+      // Sans effet sur un compte jamais coupé (le champ est simplement remis
+      // à la même valeur).
+      try {
+        await setSubscriptionActive(identity, email, true);
+      } catch (err) {
+        console.error(`Réactivation de l'accès "Mon espace" échouée pour ${email} (non bloquante):`, err.message);
+      }
 
       // Notification par email : réutilise Netlify Forms (déjà en place pour
       // les autres formulaires du site) pour envoyer un email de confirmation
@@ -253,6 +285,51 @@ exports.handler = async (event, context) => {
         // le paiement est déjà confirmé et loggé, c'est l'essentiel.
         console.error('Erreur notification (non bloquante):', notifyErr.message);
       }
+    }
+  }
+
+  // Un abonnement récurrent (solo/duo/premium mensuel) vient de se terminer
+  // — résiliation explicite du client, ou échecs de paiement répétés menant
+  // Stripe à abandonner l'abonnement. Jusqu'ici, rien ne coupait jamais
+  // l'accès à "Mon espace" dans ce cas : un compte invité une fois gardait
+  // un accès permanent, même après arrêt de tout paiement. On coupe l'accès
+  // (sans supprimer le compte ni la progression — juste un indicateur lu
+  // côté client, voir espace.tsx). Les paiements uniques (mode "payment" :
+  // stages, formules "-once", premium annuel) n'ont pas d'abonnement Stripe
+  // et ne déclenchent donc jamais cet événement — leur accès n'est jamais coupé.
+  if (stripeEvent.type === 'customer.subscription.deleted') {
+    const subscription = stripeEvent.data.object;
+    const customerId = subscription.customer;
+
+    try {
+      const { sql } = getDatabase({ connectionString: process.env.NETLIFY_DB_URL });
+      const rows = await sql`
+        SELECT email FROM enrollments
+        WHERE stripe_customer_id = ${customerId} AND email IS NOT NULL
+        ORDER BY updated_at DESC
+        LIMIT 1
+      `;
+
+      if (rows.length === 0 || !rows[0].email) {
+        console.warn(`subscription.deleted: aucune inscription trouvée pour le client Stripe ${customerId} — accès non coupé.`);
+        return { statusCode: 200, body: JSON.stringify({ received: true }) };
+      }
+
+      const email = rows[0].email;
+
+      await sql`
+        UPDATE enrollments SET status = 'subscription_cancelled', updated_at = NOW()
+        WHERE stripe_customer_id = ${customerId}
+      `;
+
+      const identity = context && context.clientContext && context.clientContext.identity;
+      await setSubscriptionActive(identity, email, false);
+      console.log(`Accès "Mon espace" coupé pour ${email} (abonnement résilié, client Stripe ${customerId}).`);
+    } catch (err) {
+      // Non bloquant, comme le reste de ce webhook : une erreur ici ne doit
+      // jamais faire échouer l'accusé de réception à Stripe. L'école peut
+      // couper l'accès manuellement depuis le dashboard Identity si besoin.
+      console.error(`Erreur lors de la coupure d'accès "Mon espace" pour le client ${customerId} (non bloquante):`, err.message);
     }
   }
 
