@@ -660,13 +660,13 @@ export default function Stages() {
               <img src="/flag-ch.png" alt="Drapeau de la Suisse" width="24" height="24" className="h-6 w-auto rounded-sm shadow-sm" />
             </div>
             <div className="hidden md:flex items-center gap-8 ml-8">
-              <a href={lp('/')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.home}</a>
-              <a href={lp('/#parcours')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.programme}</a>
-              <a href={lp('/tarifs')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.tarifs}</a>
-              <a href={lp('/stages')} className={darkMode ? 'text-sm font-semibold text-indigo-400' : 'text-sm font-semibold text-[#232999]'}>{t.nav.stages}</a>
-              <a href={lp('/blog')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.blog}</a>
+              <a href={lp('/')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.home}</a>
+              <a href={lp('/#parcours')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.programme}</a>
+              <a href={lp('/tarifs')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.tarifs}</a>
+              <a href={lp('/stages')} className={darkMode ? 'text-sm font-semibold text-indigo-400 whitespace-nowrap' : 'text-sm font-semibold text-[#232999] whitespace-nowrap'}>{t.nav.stages}</a>
+              <a href={lp('/blog')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{t.nav.blog}</a>
               {ESPACE_NAV_VISIBLE && (
-                <a href={lp('/espace')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>{t.nav.espace}</a>
+                <a href={lp('/espace')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>{t.nav.espace}</a>
               )}
             </div>
             <div className="hidden md:flex items-center gap-3 ml-6">
@@ -691,7 +691,7 @@ export default function Stages() {
                   </div>
                 )}
               </div>
-              <button onClick={() => openStageModal(`${t.period6Title} (${t.period6Dates})`)} className="bg-[#232999] hover:bg-[#1a1f7a] text-white px-6 py-3 rounded-full text-sm font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer">{t.nav.enroll}</button>
+              <button onClick={() => openStageModal(`${t.period6Title} (${t.period6Dates})`)} className="bg-[#232999] hover:bg-[#1a1f7a] text-white px-6 py-3 rounded-full text-sm font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 whitespace-nowrap cursor-pointer">{t.nav.enroll}</button>
             </div>
 
             {/* Mobile burger + dark toggle */}

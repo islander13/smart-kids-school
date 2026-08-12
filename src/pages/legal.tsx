@@ -123,12 +123,12 @@ export default function LegalNotice() {
 
             {/* Desktop nav */}
             <div className="hidden md:flex items-center gap-8 ml-8">
-              <a href={lp('/')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{tx('Accueil', 'Home', 'Startseite')}</a>
-              <a href={lp('/tarifs')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{tx('Tarifs', 'Pricing', 'Preise')}</a>
-              <a href={lp('/stages')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{tx('Stages', 'Camps', 'Camps')}</a>
-              <a href={lp('/blog')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>Blog</a>
+              <a href={lp('/')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{tx('Accueil', 'Home', 'Startseite')}</a>
+              <a href={lp('/tarifs')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{tx('Tarifs', 'Pricing', 'Preise')}</a>
+              <a href={lp('/stages')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{tx('Stages', 'Camps', 'Camps')}</a>
+              <a href={lp('/blog')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>Blog</a>
               {ESPACE_NAV_VISIBLE && (
-                <a href={lp('/espace')} className={`text-sm font-medium transition-colors ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>{tx('Mon espace', 'My space', 'Mein Bereich')}</a>
+                <a href={lp('/espace')} className={`text-sm font-medium transition-colors whitespace-nowrap ${darkMode ? 'text-gray-500 hover:text-indigo-400' : 'text-gray-500 hover:text-indigo-700'}`}>{tx('Mon espace', 'My space', 'Mein Bereich')}</a>
               )}
             </div>
 
