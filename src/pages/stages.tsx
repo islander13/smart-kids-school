@@ -746,8 +746,8 @@ export default function Stages() {
           <div className={`mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${darkMode ? 'bg-gray-800 text-gray-300 border border-gray-700' : 'bg-white text-gray-700 border border-indigo-100 shadow-sm'}`}>
             <span>🎖️</span>
             <span>{currentLang === 'FR' ? 'Programme conçu par des ingénieurs diplômés' : currentLang === 'EN' ? 'Curriculum designed by engineers from' : 'Lehrplan entwickelt von Ingenieuren der'}</span>
-              <img src="/epfl.png" alt="EPFL" className={`h-8 w-auto inline-block ${darkMode ? 'invert' : ''}`} />
-              <img src="/ethz.png" alt="ETH Zürich" className={`h-8 w-auto inline-block ${darkMode ? 'invert' : ''}`} />
+              <img src="/epfl.png" alt="EPFL" width="1536" height="864" className={`h-8 w-auto inline-block ${darkMode ? 'invert' : ''}`} />
+              <img src="/ethz.png" alt="ETH Zürich" width="600" height="220" className={`h-8 w-auto inline-block ${darkMode ? 'invert' : ''}`} />
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
@@ -916,7 +916,7 @@ export default function Stages() {
               </p>
             </div>
             <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-200">
-              <img src="/certificat-exemple-scratch.png" alt="Exemple de certificat de stage Smart Kids School" loading="lazy" className="w-full h-auto block" />
+              <img src="/certificat-exemple-scratch.png" alt="Exemple de certificat de stage Smart Kids School" loading="lazy" width="1200" height="844" className="w-full h-auto block" />
             </div>
           </div>
         </div>
@@ -1039,7 +1039,7 @@ export default function Stages() {
           <div className={`rounded-3xl p-8 md:p-12 border-2 ${darkMode ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-indigo-500/30' : 'bg-gradient-to-br from-indigo-50 via-white to-amber-50 border-[#232999]/20'}`}>
             <div className="flex flex-col md:flex-row items-center gap-8">
               <a href="https://www.levalentin.ch/" target="_blank" rel="noopener noreferrer" className="flex-shrink-0">
-                <img src="/levalentin.jpg" alt="École du Valentin, Lausanne" loading="lazy" className="h-24 w-auto object-contain rounded-2xl bg-white p-3 shadow-md hover:shadow-xl transition-shadow" />
+                <img src="/levalentin.jpg" alt="École du Valentin, Lausanne" loading="lazy" width="200" height="200" className="h-24 w-auto object-contain rounded-2xl bg-white p-3 shadow-md hover:shadow-xl transition-shadow" />
               </a>
               <div className="flex-1 text-center md:text-left">
                 <h3 className={`text-2xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.partnerTitle}</h3>

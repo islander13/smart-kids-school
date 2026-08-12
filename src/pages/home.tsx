@@ -721,7 +721,7 @@ export default function HomePage() {
               <div className={`relative rounded-3xl overflow-hidden shadow-2xl ${darkMode ? 'bg-gray-800' : 'bg-indigo-50'}`}>
                 <picture>
                   <source srcSet="/home.webp" type="image/webp" />
-                  <img src="/home.jpg" alt="Enfants apprenant la programmation Scratch en ligne, Smart Kids School Suisse" fetchPriority="high" className="w-full h-[480px] object-cover object-center" />
+                  <img src="/home.jpg" alt="Enfants apprenant la programmation Scratch en ligne, Smart Kids School Suisse" fetchPriority="high" width="1200" height="762" className="w-full h-[480px] object-cover object-center" />
                 </picture>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#232999]/15 to-transparent pointer-events-none"></div>
               </div>
@@ -750,8 +750,8 @@ export default function HomePage() {
               {currentLang === 'FR' ? 'Conçu par des ingénieurs diplômés' : currentLang === 'EN' ? 'Designed by graduate engineers from' : 'Konzipiert von Ingenieuren von'}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-4">
-              <img src="/epfl.png" alt="EPFL, École Polytechnique Fédérale de Lausanne" loading="lazy" className={`h-16 md:h-20 w-auto transition-all ${darkMode ? 'invert' : ''}`} />
-              <img src="/ethz.png" alt="ETH Zürich, Eidgenössische Technische Hochschule Zürich" loading="lazy" className={`h-16 md:h-20 w-auto transition-all ${darkMode ? 'invert' : ''}`} />
+              <img src="/epfl.png" alt="EPFL, École Polytechnique Fédérale de Lausanne" loading="lazy" width="1536" height="864" className={`h-16 md:h-20 w-auto transition-all ${darkMode ? 'invert' : ''}`} />
+              <img src="/ethz.png" alt="ETH Zürich, Eidgenössische Technische Hochschule Zürich" loading="lazy" width="600" height="220" className={`h-16 md:h-20 w-auto transition-all ${darkMode ? 'invert' : ''}`} />
             </div>
             <p className={`text-xs text-center max-w-xl ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
               {currentLang === 'FR'

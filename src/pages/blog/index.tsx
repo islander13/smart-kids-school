@@ -218,7 +218,12 @@ export default function BlogIndex() {
       </section>
 
       {/* ── Grille d'articles ── */}
-      <section className={`py-12 px-4 ${darkMode ? 'bg-gray-950' : 'bg-gradient-to-br from-slate-50 to-white'}`}>
+      {/* min-h-screen sur la liste vide : les articles arrivent après un import
+          dynamique (voir src/lib/blog.ts), donc cette grille est vide au tout
+          premier rendu puis se remplit d'un coup — sans réserve d'espace, tout
+          ce qui suit (section "guides locaux", pied de page) sautait brutalement
+          vers le bas dès que la liste se peuplait, mesuré à un CLS de 0,37. */}
+      <section className={`py-12 px-4 ${darkMode ? 'bg-gray-950' : 'bg-gradient-to-br from-slate-50 to-white'} ${allArticles.length === 0 ? 'min-h-screen' : ''}`}>
         <div className="max-w-5xl mx-auto grid sm:grid-cols-2 gap-6">
           {articles.map(a => (
             <a

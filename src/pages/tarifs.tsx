@@ -889,8 +889,8 @@ export default function Tarifs() {
           <div className={`mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${darkMode ? 'bg-gray-800 text-gray-300 border border-gray-700' : 'bg-white text-gray-700 border border-indigo-100 shadow-sm'}`}>
             <span>🎖️</span>
             <span>{currentLang === 'FR' ? 'Programme conçu par des ingénieurs diplômés' : currentLang === 'EN' ? 'Curriculum designed by engineers from' : 'Lehrplan entwickelt von Ingenieuren der'}</span>
-            <img src="/epfl.png" alt="EPFL" className={`h-8 w-auto inline-block ${darkMode ? 'invert' : ''}`} />
-            <img src="/ethz.png" alt="ETH Zürich" className={`h-8 w-auto inline-block ${darkMode ? 'invert' : ''}`} />
+            <img src="/epfl.png" alt="EPFL" width="1536" height="864" className={`h-8 w-auto inline-block ${darkMode ? 'invert' : ''}`} />
+            <img src="/ethz.png" alt="ETH Zürich" width="600" height="220" className={`h-8 w-auto inline-block ${darkMode ? 'invert' : ''}`} />
           </div>
         </div>
       </section>
@@ -1216,7 +1216,7 @@ export default function Tarifs() {
               </p>
             </div>
             <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-200">
-              <img src="/certificat-exemple-python.png" alt="Exemple de certificat Smart Kids School" loading="lazy" className="w-full h-auto block" />
+              <img src="/certificat-exemple-python.png" alt="Exemple de certificat Smart Kids School" loading="lazy" width="1200" height="844" className="w-full h-auto block" />
             </div>
           </div>
         </div>

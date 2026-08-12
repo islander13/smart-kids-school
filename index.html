@@ -26,13 +26,21 @@
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <noscript><link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" /></noscript>
 
-    <!-- Inter font — chargement non bloquant, même logique que Remix Icons
-         ci-dessus : le rendu initial ne doit pas attendre cette feuille de
-         style tierce (la police système sert de repli le temps du chargement). -->
+    <!-- Inter font — volontairement bloquant (contrairement à Remix Icons
+         ci-dessus), avec display=optional. Le "preload + onload" utilisé pour
+         Remix Icons semblait non-bloquant mais causait en réalité un CLS
+         mesuré à 0,53 sur les pages très textuelles (blog) : la feuille de
+         style contenant la règle @font-face n'était appliquée qu'après le
+         premier rendu (déjà peint avec la police système), donc dès qu'Inter
+         finissait de charger — même vite — le texte changeait brutalement de
+         largeur. En laissant le navigateur découvrir cette règle AVANT le
+         premier rendu, "optional" tient sa vraie promesse : soit Inter est
+         prêt à temps (~100ms) et s'affiche direct sans jamais avoir montré la
+         police système, soit la police système reste pour toute la page,
+         sans jamais échanger après coup. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=optional" />
     <!-- ════════════════════════════════════════════════════════════════════
          META PIXEL — actif (ID 1573200597645423)
          Le bloc <noscript> de Meta a été volontairement retiré : il est invalide
@@ -141,8 +149,7 @@
     </form>
 
     <!-- Cours d'essai gratuit (tarifs.tsx) : formulaire de prise de contact
-         pur, sans Stripe — le champ "childAge" reste du texte (pas number, ex.
-         "8 ans" ou "8-9 ans" pour laisser une marge au parent). -->
+         pur, sans Stripe. -->
     <form name="trial-lesson" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="text" name="bot-field" />
       <input type="text" name="parentName" />

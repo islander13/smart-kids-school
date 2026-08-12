@@ -207,7 +207,13 @@ export default function BlogArticle() {
           <a href={lp('/blog')} className={`text-sm font-medium ${darkMode ? 'text-indigo-400 hover:text-indigo-300' : 'text-[#232999] hover:text-indigo-700'}`}>{t.backToBlog}</a>
 
           {!article ? (
-            <div className="flex justify-center py-24">
+            // min-h-screen : le contenu réel de l'article arrive après un import
+            // dynamique (voir src/lib/blog.ts — chargement à la demande, volontaire
+            // pour ne pas embarquer les 57 fichiers Markdown d'un coup). Sans cette
+            // réserve d'espace, ce spinner minuscule se fait remplacer par un
+            // article de plusieurs écrans de haut, poussant tout ce qui suit
+            // (notamment le pied de page) d'un coup — mesuré à un CLS de 0,38.
+            <div className="min-h-screen flex justify-center pt-24">
               <div className="w-10 h-10 border-4 border-[#232999] border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : (

@@ -248,10 +248,12 @@ exports.handler = async (event, context) => {
       await inviteEspaceAccount(identity, email);
 
       // Rétablit l'accès si ce compte avait été coupé suite à une résiliation
-      // précédente (voir customer.subscription.deleted plus bas) — un client
-      // qui se réabonne doit retrouver "Mon espace" sans intervention manuelle.
-      // Sans effet sur un compte jamais coupé (le champ est simplement remis
-      // à la même valeur).
+      // précédente (voir customer.subscription.deleted plus bas) — TOUT
+      // nouveau paiement confirmé sur cet email (réabonnement, mais aussi un
+      // stage ou une formule payée en une fois) redonne accès, cohérent avec
+      // le fait que n'importe quel paiement confirmé invite déjà le compte
+      // ci-dessus. Sans effet sur un compte jamais coupé (le champ est
+      // simplement remis à la même valeur).
       try {
         await setSubscriptionActive(identity, email, true);
       } catch (err) {
