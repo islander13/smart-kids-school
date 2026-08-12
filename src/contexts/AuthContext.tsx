@@ -32,6 +32,17 @@ function cloneUser(u: User): User {
   return Object.create(Object.getPrototypeOf(u), Object.getOwnPropertyDescriptors(u)) as User;
 }
 
+// gotrue-js efface sa PROPRE session en interne (localStorage) si le refresh
+// token est invalide/expiré (onglet resté ouvert des heures) — sans appeler
+// notre setUser. Sans ce resync, l'état React `user` restait "connecté" alors
+// que gotrue-js avait déjà tout effacé côté client : les clics suivants
+// (marquer une vidéo vue, changer de rôle...) échouaient silencieusement pour
+// l'utilisateur, qui ne voyait jamais qu'il fallait se reconnecter. Appelé
+// dans le catch de chaque mutation, avant de relancer l'erreur.
+function syncSessionAfterError(setUser: (u: User | null) => void) {
+  if (!auth.currentUser()) setUser(null);
+}
+
 function extractErrorMessage(err: unknown): string {
   if (err && typeof err === 'object') {
     const withJson = err as { json?: { error_description?: string; msg?: string; error?: string } };
@@ -95,6 +106,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .catch(() => { /* non bloquant : l'UI reste utilisable sans ces réglages */ });
 
     return () => { cancelled = true; };
+  }, []);
+
+  // app_metadata (rôle admin uniquement) peut changer côté serveur pendant
+  // qu'un onglet reste ouvert en arrière-plan — notamment subscriptionActive,
+  // basculé par stripe-webhook.js à la résiliation d'un abonnement. Sans
+  // resync, un onglet resté ouvert des heures continuerait d'afficher le
+  // tableau de bord (donnée `user` en cache) après une résiliation, jusqu'au
+  // prochain rechargement complet. On rafraîchit donc les données utilisateur
+  // à chaque retour au premier plan de l'onglet — pas plus souvent, pour ne
+  // pas multiplier les appels à l'API Identity.
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState !== 'visible') return;
+      const current = auth.currentUser();
+      if (!current) return;
+      current.getUserData()
+        .then((refreshed) => setUser(cloneUser(refreshed)))
+        .catch(() => { /* pas de session valide à rafraîchir : rien à faire ici, validateCurrentSession gère déjà ce cas au montage */ });
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
   }, []);
 
   // setRole/toggleVideoWatched/submitQuizResult/linkChild lisent tous
@@ -213,6 +245,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const updated = await current.update({ data: { ...current.user_metadata, role: newRole } });
       setUser(cloneUser(updated));
     } catch (err) {
+      syncSessionAfterError(setUser);
       throw new Error(extractErrorMessage(err));
     }
   }), [enqueueMutation]);
@@ -234,6 +267,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const updated = await current.update({ data: { ...current.user_metadata, progress: nextProgress } });
       setUser(cloneUser(updated));
     } catch (err) {
+      syncSessionAfterError(setUser);
       throw new Error(extractErrorMessage(err));
     }
   }), [enqueueMutation]);
@@ -262,6 +296,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const updated = await current.update({ data: { ...current.user_metadata, progress: nextProgress } });
       setUser(cloneUser(updated));
     } catch (err) {
+      syncSessionAfterError(setUser);
       throw new Error(extractErrorMessage(err));
     }
   }), [enqueueMutation]);
@@ -285,6 +320,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const refreshed = await current.getUserData();
       setUser(cloneUser(refreshed));
     } catch (err) {
+      syncSessionAfterError(setUser);
       throw new Error(extractErrorMessage(err));
     }
   }), [enqueueMutation]);

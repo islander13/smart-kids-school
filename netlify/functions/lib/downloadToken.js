@@ -40,7 +40,10 @@ function createDownloadToken(sessionId, productKey, validityMs = DEFAULT_VALIDIT
 // Vérifie qu'un jeton correspond bien à la commande donnée et n'a pas expiré.
 function verifyDownloadToken(sessionId, productKey, expiresAt, token) {
   if (!token || !expiresAt) return false;
-  if (new Date(expiresAt).getTime() < Date.now()) return false;
+  const expiresAtMs = new Date(expiresAt).getTime();
+  // Une date invalide (NaN) rendrait "NaN < Date.now()" faux, contournant
+  // silencieusement le rejet voulu ici — Number.isNaN le rend explicite.
+  if (Number.isNaN(expiresAtMs) || expiresAtMs < Date.now()) return false;
   const expected = signPayload(`${sessionId}:${productKey}:${new Date(expiresAt).toISOString()}`);
   // Comparaison à temps constant : évite qu'un attaquant déduise le jeton
   // correct octet par octet en mesurant le temps de réponse.

@@ -8,18 +8,21 @@
 // qui son titulaire a explicitement communiqué ce code (visible seulement
 // une fois connecté à CE compte précis).
 //
-// HMAC-SHA256(ADMIN_SECRET, "link-code:" + userId) plutôt qu'un nouveau
-// secret dédié : ADMIN_SECRET est déjà une variable d'environnement
-// obligatoire (voir lib/adminAuth.js), donc rien à ajouter au dashboard
-// Netlify pour activer cette fonctionnalité. Le préfixe "link-code:" sépare
-// cet usage de tout autre usage futur de la même clé (séparation de domaine).
+// HMAC-SHA256(LINK_CODE_SECRET, "link-code:" + userId), avec un secret DÉDIÉ
+// — pas ADMIN_SECRET. Le réutiliser semblait pratique (rien à ajouter au
+// dashboard Netlify) mais élargissait inutilement l'impact d'une fuite :
+// ADMIN_SECRET apparaît en clair dans l'URL de /admin (historique navigateur,
+// logs, referrer) ; s'il fuit, un attaquant pourrait sinon aussi calculer le
+// code de liaison de n'importe quel compte (ID Identity connu) et se lier à
+// lui pour lire sa progression — un accès qui n'a rien à voir avec /admin.
+// Secrets séparés = fuite de l'un sans impact sur l'autre.
 // ─────────────────────────────────────────────────────────────────────────
 
 const crypto = require('crypto');
 
 function computeLinkCode(userId) {
-  const secret = process.env.ADMIN_SECRET;
-  if (!secret) throw new Error('ADMIN_SECRET manquant');
+  const secret = process.env.LINK_CODE_SECRET;
+  if (!secret) throw new Error('LINK_CODE_SECRET manquant');
   const digest = crypto.createHmac('sha256', secret).update(`link-code:${userId}`).digest('hex').toUpperCase();
   return `${digest.slice(0, 4)}-${digest.slice(4, 8)}`;
 }

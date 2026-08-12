@@ -20,6 +20,12 @@ const COMING_SOON_LABEL: Record<Locale, string> = {
   DE: 'Bald verfügbar',
 };
 
+const ERROR_LABEL: Record<Locale, string> = {
+  FR: 'Session expirée, reconnectez-vous.',
+  EN: 'Session expired, please log back in.',
+  DE: 'Sitzung abgelaufen, bitte erneut anmelden.',
+};
+
 function thumbnailFor(video: EspaceVideo): string | null {
   if (video.thumbnail) return video.thumbnail;
   if (video.provider === 'youtube') return `https://img.youtube.com/vi/${video.embedId}/hqdefault.jpg`;
@@ -37,12 +43,16 @@ export default function VideoCard({ video, darkMode, currentLang, watched, onPla
   const thumbnail = thumbnailFor(video);
   const t = WATCHED_LABEL[currentLang];
   const [pending, setPending] = useState(false);
+  const [error, setError] = useState(false);
   const comingSoon = isPlaceholderVideo(video);
 
   const handleToggle = async () => {
     setPending(true);
+    setError(false);
     try {
       await onToggleWatched();
+    } catch {
+      setError(true);
     } finally {
       setPending(false);
     }
@@ -107,6 +117,7 @@ export default function VideoCard({ video, darkMode, currentLang, watched, onPla
           <i className={watched ? 'ri-checkbox-circle-fill' : 'ri-checkbox-blank-circle-line'}></i>
           {watched ? t.watched : t.markWatched}
         </button>
+        {error && <p className="mt-1.5 text-xs text-red-500">{ERROR_LABEL[currentLang]}</p>}
       </div>
     </div>
   );

@@ -110,6 +110,10 @@ function renderPage({ rows, statusFilter, sourceFilter, stats, key }) {
 }
 
 exports.handler = async (event) => {
+  if (event.httpMethod !== 'GET') {
+    return { statusCode: 405, body: 'Method not allowed' };
+  }
+
   const params = event.queryStringParameters || {};
 
   if (!isValidAdminKey(params.key)) {

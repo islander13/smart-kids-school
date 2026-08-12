@@ -8,6 +8,12 @@ const WATCHED_LABEL: Record<Locale, { watched: string; markWatched: string }> = 
   DE: { watched: 'Gesehen', markWatched: 'Als gesehen markieren' },
 };
 
+const ERROR_LABEL: Record<Locale, string> = {
+  FR: 'Session expirée, reconnectez-vous.',
+  EN: 'Session expired, please log back in.',
+  DE: 'Sitzung abgelaufen, bitte erneut anmelden.',
+};
+
 // Lecteur en modal, monté seulement au clic sur une vidéo (pas d'iframe
 // chargée tant que l'utilisateur n'a pas explicitement choisi de regarder —
 // évite de charger N iframes YouTube/Vimeo au chargement de la page).
@@ -24,11 +30,15 @@ export default function VideoPlayer({ video, currentLang, watched, onToggleWatch
   const t = WATCHED_LABEL[currentLang];
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [pending, setPending] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleToggle = async () => {
     setPending(true);
+    setError(false);
     try {
       await onToggleWatched();
+    } catch {
+      setError(true);
     } finally {
       setPending(false);
     }
@@ -71,6 +81,7 @@ export default function VideoPlayer({ video, currentLang, watched, onToggleWatch
             </button>
           </div>
         </div>
+        {error && <p className="text-red-400 text-xs mb-2 text-right">{ERROR_LABEL[currentLang]}</p>}
         <div className="rounded-2xl overflow-hidden shadow-2xl bg-black" style={{ aspectRatio: '16 / 9' }}>
           <iframe
             src={embedSrc}

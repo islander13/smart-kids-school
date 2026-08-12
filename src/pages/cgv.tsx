@@ -346,12 +346,19 @@ export default function CGV() {
               <h4 className={`font-semibold mb-2 ${darkMode ? 'text-gray-200' : 'text-gray-900'}`}>
                 {tx("4.1 Abonnement mensuel (Solo, Duo, Premium)", "4.1 Monthly subscription (Solo, Duo, Premium)", "4.1 Monatliches Abonnement (Solo, Duo, Premium)")}
               </h4>
+              <p className="text-sm mb-3">
+                {tx(
+                  "Pour Solo et Duo, la durée d'engagement minimale est de 3 mois. Premium Mensuel (999 CHF/mois) est la seule formule sans engagement (voir 6.2).",
+                  "For Solo and Duo, the minimum commitment period is 3 months. Premium Monthly (CHF 999/month) is the only plan without a fixed commitment (see 6.2).",
+                  "Für Solo und Duo beträgt die Mindestbindungsdauer 3 Monate. Premium Monatlich (999 CHF/Monat) ist das einzige Angebot ohne Bindung (siehe 6.2)."
+                )}
+              </p>
               <ul className="space-y-2 text-sm ml-2">
                 <li className="flex gap-2">
                   <span className={darkMode ? 'text-indigo-400 flex-shrink-0' : 'text-[#232999] flex-shrink-0'}>•</span>
                   <span>
-                    <strong>{tx("Sans engagement", "No commitment", "Ohne Bindung")} :</strong>{' '}
-                    {tx("paiement mensuel automatique. Annulable à tout moment, effective à la fin du mois en cours payé.", "automatic monthly payment. Cancellable anytime, effective at the end of the current paid month.", "automatische monatliche Zahlung. Jederzeit kündbar, gültig zum Ende des laufenden bezahlten Monats.")}
+                    <strong>{tx("Engagement 3 mois", "3-month commitment", "3-Monats-Bindung")} :</strong>{' '}
+                    {tx("paiement mensuel automatique. Le Client s'engage pour 3 mois consécutifs (durée minimale). L'abonnement se renouvelle ensuite mensuellement, annulable à tout moment.", "automatic monthly payment. The Client commits for 3 consecutive months (minimum duration). The subscription then renews monthly, cancellable anytime.", "automatische monatliche Zahlung. Der Kunde verpflichtet sich für 3 aufeinanderfolgende Monate (Mindestdauer). Das Abonnement verlängert sich danach monatlich und ist jederzeit kündbar.")}
                   </span>
                 </li>
                 <li className="flex gap-2">

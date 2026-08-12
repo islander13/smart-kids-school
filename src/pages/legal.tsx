@@ -400,6 +400,8 @@ export default function LegalNotice() {
                 { name: 'TWINT', purpose: tx('Paiement mobile suisse (via Stripe)', 'Swiss mobile payment (via Stripe)', 'Schweizer Mobilzahlung (via Stripe)'), link: 'twint.ch/en/privacy' },
                 { name: 'WhatsApp (Meta)', purpose: tx('Lien de contact téléphonique', 'Phone contact link', 'Telefonischer Kontaktlink'), link: 'whatsapp.com/legal/privacy-policy' },
                 { name: 'Google Fonts / Remix Icons', purpose: tx('Polices et icônes (CDN)', 'Fonts and icons (CDN)', 'Schriften und Icons (CDN)'), link: 'policies.google.com/privacy' },
+                { name: 'Google Analytics (GA4)', purpose: tx('Mesure d\'audience du site', 'Site audience measurement', 'Website-Reichweitenmessung'), link: 'policies.google.com/privacy' },
+                { name: 'Meta Pixel', purpose: tx('Mesure de performance publicitaire (Facebook/Instagram)', 'Advertising performance measurement (Facebook/Instagram)', 'Werbeleistungsmessung (Facebook/Instagram)'), link: 'www.facebook.com/privacy/policy' },
               ].map((s, i) => (
                 <div key={i} className={`flex items-start justify-between gap-3 p-3 rounded-xl border ${darkMode ? 'bg-gray-700 border-gray-600 text-gray-300' : 'bg-gray-50 border-gray-200'}`}>
                   <div>
