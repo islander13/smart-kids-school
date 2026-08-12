@@ -206,9 +206,7 @@ function EspaceContent() {
                 )}
               </button>
               <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu" className={`p-2 rounded-lg transition-colors cursor-pointer ${darkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  {mobileMenuOpen ? <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></> : <><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></>}
-                </svg>
+                <i className={`ri-${mobileMenuOpen ? 'close' : 'menu'}-line text-2xl`}></i>
               </button>
             </div>
           </div>
@@ -216,17 +214,17 @@ function EspaceContent() {
         {mobileMenuOpen && (
           <div className={`md:hidden border-t ${darkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-100'}`}>
             <div className="px-4 py-4 space-y-3">
-              <a href={lp('/')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.nav.home}</a>
-              <a href={lp('/tarifs')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.nav.tarifs}</a>
-              <a href={lp('/stages')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.nav.stages}</a>
-              <a href={lp('/espace')} className={darkMode ? 'block text-sm font-semibold py-2 text-indigo-400' : 'block text-sm font-semibold py-2 text-[#232999]'}>{t.nav.espace}</a>
+              <a href={lp('/')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.nav.home}</a>
+              <a href={lp('/tarifs')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.nav.tarifs}</a>
+              <a href={lp('/stages')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{t.nav.stages}</a>
+              <a href={lp('/espace')} onClick={() => setMobileMenuOpen(false)} className={darkMode ? 'block text-sm font-semibold py-2 text-indigo-400' : 'block text-sm font-semibold py-2 text-[#232999]'}>{t.nav.espace}</a>
               <div className="flex gap-2 py-2">
                 {(['FR', 'EN', 'DE'] as Lang[]).map(lang => (
-                  <button key={lang} onClick={() => { setCurrentLang(lang); navigate(localizedPath('/espace', lang)); }} className={`px-4 py-2 rounded-lg text-sm font-medium cursor-pointer ${currentLang === lang ? 'bg-[#232999] text-white' : darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-700'}`}>{lang}</button>
+                  <button key={lang} onClick={() => { setCurrentLang(lang); navigate(localizedPath('/espace', lang)); setMobileMenuOpen(false); }} className={`px-4 py-2 rounded-lg text-sm font-medium cursor-pointer ${currentLang === lang ? 'bg-[#232999] text-white' : darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-700'}`}>{lang}</button>
                 ))}
               </div>
               {user && (
-                <button onClick={handleLogout} disabled={loggingOut} className={`w-full text-left text-sm font-semibold py-2 cursor-pointer disabled:opacity-60 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                <button onClick={() => { setMobileMenuOpen(false); handleLogout(); }} disabled={loggingOut} className={`w-full text-left text-sm font-semibold py-2 cursor-pointer disabled:opacity-60 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   {loggingOut ? t.loggingOut : t.logout}
                 </button>
               )}
