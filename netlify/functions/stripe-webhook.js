@@ -37,7 +37,10 @@ function sourceFromProductKey(productKey) {
 // est activé — même mécanisme déjà utilisé par link-child.js et
 // admin-espace-activity.js, aucune variable d'environnement à ajouter.
 async function inviteEspaceAccount(identity, email) {
-  if (!identity || !email) return;
+  if (!identity || !email) {
+    console.warn(`Invitation "Mon espace" ignorée : identity ou email manquant (email=${email || 'absent'}).`);
+    return;
+  }
   try {
     const res = await fetch(`${identity.url}/admin/users`, {
       method: 'POST',
@@ -113,10 +116,26 @@ exports.handler = async (event, context) => {
       const email = session.customer_email || session.customer_details?.email || null;
       const amount = session.amount_total ? session.amount_total / 100 : null;
       const productKey = session.metadata?.productKey || null;
-      const { token, expiresAt } = createDownloadToken(session.id, productKey || '');
 
+      // Stripe peut renvoyer le même événement plusieurs fois (timeout, 5xx
+      // transitoire, "resend" manuel depuis le dashboard) — un cas normal,
+      // pas une erreur. Si la commande est déjà confirmée, on réutilise son
+      // jeton de téléchargement existant au lieu d'en générer un nouveau :
+      // sinon, le nouveau jeton écrase l'ancien en base et invalide
+      // silencieusement le lien déjà envoyé par email au client.
+      let wasAlreadyConfirmed = false;
+      let token, expiresAt;
       try {
         const { sql } = getDatabase({ connectionString: process.env.NETLIFY_DB_URL });
+        const existing = await sql`SELECT status, download_token, download_token_expires_at FROM shop_orders WHERE stripe_session_id = ${session.id} LIMIT 1`;
+        if (existing.length > 0 && existing[0].download_token) {
+          wasAlreadyConfirmed = existing[0].status === 'payment_confirmed';
+          token = existing[0].download_token;
+          expiresAt = new Date(existing[0].download_token_expires_at);
+        } else {
+          ({ token, expiresAt } = createDownloadToken(session.id, productKey || ''));
+        }
+
         await sql`
           INSERT INTO shop_orders (
             status, product_key, email, stripe_session_id, amount_chf,
@@ -136,25 +155,30 @@ exports.handler = async (event, context) => {
         console.error('Mise à jour shop_orders échouée (non bloquante):', dbError.message);
       }
 
-      try {
-        const siteUrl = process.env.SITE_URL || 'https://smartkids-school.ch';
-        const params = new URLSearchParams();
-        params.append('form-name', 'shop-order-confirmed');
-        params.append('sessionId', session.id);
-        params.append('email', email || '');
-        params.append('amount', amount ? `${amount} ${(session.currency || 'chf').toUpperCase()}` : '');
-        params.append('productKey', productKey || '');
+      // Pas de renvoi d'email de confirmation sur une simple redélivrance de
+      // l'événement (voir commentaire ci-dessus) — seulement à la toute
+      // première confirmation de cette commande.
+      if (!wasAlreadyConfirmed) {
+        try {
+          const siteUrl = process.env.SITE_URL || 'https://smartkids-school.ch';
+          const params = new URLSearchParams();
+          params.append('form-name', 'shop-order-confirmed');
+          params.append('sessionId', session.id);
+          params.append('email', email || '');
+          params.append('amount', amount ? `${amount} ${(session.currency || 'chf').toUpperCase()}` : '');
+          params.append('productKey', productKey || '');
 
-        const res = await fetch(siteUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: params.toString(),
-        });
-        if (!res.ok) {
-          console.error('Notification Netlify Forms échouée (statut ' + res.status + '), mais le paiement est bien confirmé ci-dessus.');
+          const res = await fetch(siteUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params.toString(),
+          });
+          if (!res.ok) {
+            console.error('Notification Netlify Forms échouée (statut ' + res.status + '), mais le paiement est bien confirmé ci-dessus.');
+          }
+        } catch (notifyErr) {
+          console.error('Erreur notification (non bloquante):', notifyErr.message);
         }
-      } catch (notifyErr) {
-        console.error('Erreur notification (non bloquante):', notifyErr.message);
       }
 
       return { statusCode: 200, body: JSON.stringify({ received: true }) };
@@ -165,10 +189,18 @@ exports.handler = async (event, context) => {
     // Marque la ligne comme payée (créée lors de create-checkout-session.js).
     // UPSERT : si la ligne n'existait pas (ex: écriture initiale échouée),
     // on la crée quand même — le paiement confirmé ne doit jamais se perdre.
+    // Stripe peut redélivrer le même événement plusieurs fois (timeout, 5xx
+    // transitoire, "resend" manuel) : on retient si la ligne était déjà
+    // confirmée AVANT cette écriture, pour ne pas réinviter/ré-notifier sur
+    // une simple redélivrance.
+    let wasAlreadyConfirmed = false;
     try {
       // En "Lambda compatibility mode" (exports.handler), Netlify n'injecte
       // pas automatiquement la chaîne de connexion : on la passe nous-mêmes.
       const { sql } = getDatabase({ connectionString: process.env.NETLIFY_DB_URL });
+      const existing = await sql`SELECT status FROM enrollments WHERE stripe_session_id = ${session.id} LIMIT 1`;
+      wasAlreadyConfirmed = existing.length > 0 && existing[0].status === 'payment_confirmed';
+
       const amount = session.amount_total ? session.amount_total / 100 : null;
       await sql`
         INSERT INTO enrollments (
@@ -189,36 +221,38 @@ exports.handler = async (event, context) => {
       console.error('Mise à jour base de données échouée (non bloquante):', dbError.message);
     }
 
-    // Donne accès à "Mon espace" au client qui vient de payer (voir la
-    // fonction inviteEspaceAccount plus haut pour le détail).
-    await inviteEspaceAccount(context && context.clientContext && context.clientContext.identity, email);
+    if (!wasAlreadyConfirmed) {
+      // Donne accès à "Mon espace" au client qui vient de payer (voir la
+      // fonction inviteEspaceAccount plus haut pour le détail).
+      await inviteEspaceAccount(context && context.clientContext && context.clientContext.identity, email);
 
-    // Notification par email : réutilise Netlify Forms (déjà en place pour
-    // les autres formulaires du site) pour envoyer un email de confirmation
-    // sans dépendre d'un nouveau service tiers.
-    try {
-      const siteUrl = process.env.SITE_URL || 'https://smartkids-school.ch';
-      const params = new URLSearchParams();
-      params.append('form-name', 'payment-confirmed');
-      params.append('sessionId', session.id);
-      params.append('email', email || '');
-      params.append('amount', session.amount_total ? `${session.amount_total / 100} ${(session.currency || 'chf').toUpperCase()}` : '');
-      params.append('productKey', session.metadata?.productKey || '');
-      params.append('parentName', session.metadata?.parentName || '');
-      params.append('phone', session.metadata?.phone || '');
+      // Notification par email : réutilise Netlify Forms (déjà en place pour
+      // les autres formulaires du site) pour envoyer un email de confirmation
+      // sans dépendre d'un nouveau service tiers.
+      try {
+        const siteUrl = process.env.SITE_URL || 'https://smartkids-school.ch';
+        const params = new URLSearchParams();
+        params.append('form-name', 'payment-confirmed');
+        params.append('sessionId', session.id);
+        params.append('email', email || '');
+        params.append('amount', session.amount_total ? `${session.amount_total / 100} ${(session.currency || 'chf').toUpperCase()}` : '');
+        params.append('productKey', session.metadata?.productKey || '');
+        params.append('parentName', session.metadata?.parentName || '');
+        params.append('phone', session.metadata?.phone || '');
 
-      const res = await fetch(siteUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params.toString(),
-      });
-      if (!res.ok) {
-        console.error('Notification Netlify Forms échouée (statut ' + res.status + '), mais le paiement est bien confirmé ci-dessus.');
+        const res = await fetch(siteUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params.toString(),
+        });
+        if (!res.ok) {
+          console.error('Notification Netlify Forms échouée (statut ' + res.status + '), mais le paiement est bien confirmé ci-dessus.');
+        }
+      } catch (notifyErr) {
+        // Ne fait jamais échouer le webhook pour un problème de notification :
+        // le paiement est déjà confirmé et loggé, c'est l'essentiel.
+        console.error('Erreur notification (non bloquante):', notifyErr.message);
       }
-    } catch (notifyErr) {
-      // Ne fait jamais échouer le webhook pour un problème de notification :
-      // le paiement est déjà confirmé et loggé, c'est l'essentiel.
-      console.error('Erreur notification (non bloquante):', notifyErr.message);
     }
   }
 

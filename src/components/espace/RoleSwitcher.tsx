@@ -2,10 +2,10 @@ import { useState } from 'react';
 import type { Locale } from '../../i18n/routing';
 import { useAuth, type EspaceRole } from '../../contexts/AuthContext';
 
-const T: Record<Locale, { student: string; parent: string }> = {
-  FR: { student: 'Élève', parent: 'Parent' },
-  EN: { student: 'Student', parent: 'Parent' },
-  DE: { student: 'Schüler:in', parent: 'Elternteil' },
+const T: Record<Locale, { student: string; parent: string; error: string }> = {
+  FR: { student: 'Élève', parent: 'Parent', error: 'Erreur, réessayez' },
+  EN: { student: 'Student', parent: 'Parent', error: 'Error, try again' },
+  DE: { student: 'Schüler:in', parent: 'Elternteil', error: 'Fehler, erneut versuchen' },
 };
 
 // Beaucoup de familles n'ont qu'un seul email (celui du parent) — l'enfant
@@ -22,12 +22,16 @@ export default function RoleSwitcher({ currentRole, darkMode, currentLang }: {
   const t = T[currentLang];
   const { setRole } = useAuth();
   const [pending, setPending] = useState<EspaceRole | null>(null);
+  const [error, setError] = useState(false);
 
   const switchTo = async (role: EspaceRole) => {
     if (role === currentRole || pending) return;
     setPending(role);
+    setError(false);
     try {
       await setRole(role);
+    } catch {
+      setError(true);
     } finally {
       setPending(null);
     }
@@ -38,13 +42,16 @@ export default function RoleSwitcher({ currentRole, darkMode, currentLang }: {
   const inactiveClass = darkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-100';
 
   return (
-    <div role="group" aria-label={`${t.student} / ${t.parent}`} className={`inline-flex items-center gap-1 p-1 rounded-full border flex-shrink-0 ${darkMode ? 'border-gray-700 bg-gray-800/50' : 'border-gray-200 bg-gray-50'}`}>
-      <button type="button" disabled={pending !== null} aria-pressed={currentRole === 'student'} onClick={() => switchTo('student')} className={`${baseClass} ${currentRole === 'student' ? activeClass : inactiveClass}`}>
-        <i className="ri-graduation-cap-line mr-1.5"></i>{t.student}
-      </button>
-      <button type="button" disabled={pending !== null} aria-pressed={currentRole === 'parent'} onClick={() => switchTo('parent')} className={`${baseClass} ${currentRole === 'parent' ? activeClass : inactiveClass}`}>
-        <i className="ri-user-heart-line mr-1.5"></i>{t.parent}
-      </button>
+    <div className="flex items-center gap-2 flex-shrink-0">
+      <div role="group" aria-label={`${t.student} / ${t.parent}`} className={`inline-flex items-center gap-1 p-1 rounded-full border flex-shrink-0 ${darkMode ? 'border-gray-700 bg-gray-800/50' : 'border-gray-200 bg-gray-50'}`}>
+        <button type="button" disabled={pending !== null} aria-pressed={currentRole === 'student'} onClick={() => switchTo('student')} className={`${baseClass} ${currentRole === 'student' ? activeClass : inactiveClass}`}>
+          <i className="ri-graduation-cap-line mr-1.5"></i>{t.student}
+        </button>
+        <button type="button" disabled={pending !== null} aria-pressed={currentRole === 'parent'} onClick={() => switchTo('parent')} className={`${baseClass} ${currentRole === 'parent' ? activeClass : inactiveClass}`}>
+          <i className="ri-user-heart-line mr-1.5"></i>{t.parent}
+        </button>
+      </div>
+      {error && <span className="text-xs text-red-500">{t.error}</span>}
     </div>
   );
 }

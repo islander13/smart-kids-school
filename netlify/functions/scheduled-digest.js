@@ -71,16 +71,36 @@ exports.handler = async (event) => {
     console.log(`Digest: ${abandoned.length} inscription(s) non finalisée(s) entre 2h et 7 jours.`);
 
     // ─── 2. Purge des données de plus de 3 ans (politique de conservation) ───
-    const purged = await sql`
+    // La politique annoncée est "3 ans après la DERNIÈRE INTERACTION", pas 3
+    // ans après la création : on filtre donc sur updated_at (mis à jour à
+    // chaque changement de statut — confirmation de paiement, réinscription,
+    // etc.), pas created_at (figé à la toute première écriture). Avec
+    // created_at, un client inscrit il y a 4 ans mais qui a repayé récemment
+    // (ligne toujours 'payment_confirmed') se faisait purger en pleine
+    // relation active avec l'école.
+    const purgedEnrollments = await sql`
       DELETE FROM enrollments
-      WHERE created_at < NOW() - INTERVAL '3 years'
+      WHERE updated_at < NOW() - INTERVAL '3 years'
       RETURNING id
     `;
-    if (purged.length > 0) {
-      console.log(`Purge RGPD: ${purged.length} inscription(s) de plus de 3 ans supprimée(s).`);
+    if (purgedEnrollments.length > 0) {
+      console.log(`Purge RGPD: ${purgedEnrollments.length} inscription(s) de plus de 3 ans supprimée(s).`);
     }
 
-    return { statusCode: 200, body: JSON.stringify({ abandoned: abandoned.length, purged: purged.length }) };
+    // Les commandes boutique (ebooks) contiennent les mêmes données
+    // personnelles (email) et sont soumises à la même politique de
+    // conservation — jamais purgées jusqu'ici.
+    const purgedShopOrders = await sql`
+      DELETE FROM shop_orders
+      WHERE updated_at < NOW() - INTERVAL '3 years'
+      RETURNING id
+    `;
+    if (purgedShopOrders.length > 0) {
+      console.log(`Purge RGPD: ${purgedShopOrders.length} commande(s) boutique de plus de 3 ans supprimée(s).`);
+    }
+
+    const purged = purgedEnrollments.length + purgedShopOrders.length;
+    return { statusCode: 200, body: JSON.stringify({ abandoned: abandoned.length, purged }) };
   } catch (err) {
     console.error('scheduled-digest error:', err.message);
     return { statusCode: 500, body: err.message };

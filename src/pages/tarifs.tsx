@@ -1690,7 +1690,7 @@ export default function Tarifs() {
                     <label htmlFor="trial-child-age" className={`block text-sm font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                       {currentLang === 'FR' ? 'Âge de l\'enfant *' : currentLang === 'EN' ? "Child's age *" : 'Alter des Kindes *'}
                     </label>
-                    <input id="trial-child-age" type="text" name="childAge" value={trialFormData.childAge} onChange={e => setTrialFormData({ ...trialFormData, childAge: e.target.value })} required className={`w-full px-4 py-3 rounded-xl border focus:border-[#d99a2b] focus:ring-2 focus:ring-amber-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} placeholder={currentLang === 'FR' ? 'ex. 9 ans' : currentLang === 'EN' ? 'e.g. 9 years' : 'z.B. 9 Jahre'} />
+                    <input id="trial-child-age" type="number" min="7" max="17" name="childAge" value={trialFormData.childAge} onChange={e => setTrialFormData({ ...trialFormData, childAge: e.target.value })} required className={`w-full px-4 py-3 rounded-xl border focus:border-[#d99a2b] focus:ring-2 focus:ring-amber-200 outline-none transition-all text-sm ${darkMode ? 'bg-gray-800 border-gray-600 text-white' : 'border-gray-300'}`} placeholder={currentLang === 'FR' ? 'ex. 9' : currentLang === 'EN' ? 'e.g. 9' : 'z.B. 9'} />
                   </div>
                 </div>
 

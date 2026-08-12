@@ -668,16 +668,16 @@ export default function HomePage() {
           <div className={`md:hidden border-t ${darkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-100'}`}>
             <div className="px-4 py-4 space-y-3">
               {[{ href: '/', label: t.accueil }, { href: '/#parcours', label: t.programme }, { href: '/tarifs', label: currentLang === 'FR' ? 'Tarifs' : currentLang === 'EN' ? 'Pricing' : 'Preise' }, { href: '/stages', label: currentLang === 'FR' ? 'Stages' : currentLang === 'EN' ? 'Camps' : 'Camps' }, { href: '/blog', label: 'Blog' }].map(item => (
-                <a key={item.href} href={lp(item.href)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{item.label}</a>
+                <a key={item.href} href={lp(item.href)} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-300 hover:text-indigo-400' : 'text-gray-700 hover:text-indigo-700'}`}>{item.label}</a>
               ))}
               {ESPACE_NAV_VISIBLE && (
-                <a href={lp('/espace')} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                <a href={lp('/espace')} onClick={() => setMobileMenuOpen(false)} className={`block text-sm font-medium py-2 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
                   {currentLang === 'FR' ? 'Mon espace' : currentLang === 'EN' ? 'My space' : 'Mein Bereich'}
                 </a>
               )}
               <div className="flex gap-2 py-2">
                 {(['FR', 'EN', 'DE'] as Lang[]).map(lang => (
-                  <button key={lang} onClick={() => { setCurrentLang(lang); navigate(localizedPath('/', lang)); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${currentLang === lang ? 'bg-[#232999] text-white' : darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-700'}`}>{lang}</button>
+                  <button key={lang} onClick={() => { setCurrentLang(lang); navigate(localizedPath('/', lang)); setMobileMenuOpen(false); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${currentLang === lang ? 'bg-[#232999] text-white' : darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-700'}`}>{lang}</button>
                 ))}
               </div>
               <a href={lp('/tarifs')} onClick={() => setMobileMenuOpen(false)} className="block w-full bg-[#232999] text-white px-6 py-3 rounded-full text-sm font-semibold cursor-pointer whitespace-nowrap text-center">{t.inscrire}</a>
