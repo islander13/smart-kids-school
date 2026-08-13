@@ -9,9 +9,15 @@
 //    envoie un email récapitulatif (via Netlify Forms, même mécanisme que
 //    le webhook Stripe) pour pouvoir relancer ces familles manuellement.
 //
-// 2. Purge RGPD/LPD : supprime les inscriptions de plus de 3 ans, pour
-//    respecter la durée de conservation déjà annoncée dans les mentions
-//    légales ("Nom, email, téléphone — 3 ans après la dernière interaction").
+// 2. Purge RGPD/LPD : supprime les inscriptions de plus de 10 ans, la durée
+//    annoncée dans les mentions légales pour les données de paiement
+//    ("10 ans — obligation légale comptable", art. 958f CO). La ligne
+//    `enrollments`/`shop_orders` mélange données de paiement et coordonnées
+//    du parent dans un même enregistrement : conserver la ligne entière
+//    10 ans plutôt que de découper champ par champ, choix confirmé le 13
+//    août 2026. Les autres durées annoncées (nom/âge de l'enfant, IP/logs,
+//    cookies) ne sont pas concernées par cette purge — elles vivent ailleurs
+//    ou sont gérées séparément.
 // ─────────────────────────────────────────────────────────────────────────
 
 const { getDatabase } = require('@netlify/database');
@@ -70,33 +76,32 @@ exports.handler = async (event) => {
 
     console.log(`Digest: ${abandoned.length} inscription(s) non finalisée(s) entre 2h et 7 jours.`);
 
-    // ─── 2. Purge des données de plus de 3 ans (politique de conservation) ───
-    // La politique annoncée est "3 ans après la DERNIÈRE INTERACTION", pas 3
-    // ans après la création : on filtre donc sur updated_at (mis à jour à
-    // chaque changement de statut — confirmation de paiement, réinscription,
-    // etc.), pas created_at (figé à la toute première écriture). Avec
-    // created_at, un client inscrit il y a 4 ans mais qui a repayé récemment
-    // (ligne toujours 'payment_confirmed') se faisait purger en pleine
-    // relation active avec l'école.
+    // ─── 2. Purge des données de plus de 10 ans (politique de conservation) ───
+    // Le point de départ reste "la DERNIÈRE INTERACTION" (updated_at, mis à
+    // jour à chaque changement de statut — confirmation de paiement,
+    // réinscription, etc.), pas la création (created_at, figée à la toute
+    // première écriture) : un client inscrit il y a 11 ans mais qui a repayé
+    // récemment (ligne toujours 'payment_confirmed') ne doit pas être purgé
+    // en pleine relation active avec l'école.
     const purgedEnrollments = await sql`
       DELETE FROM enrollments
-      WHERE updated_at < NOW() - INTERVAL '3 years'
+      WHERE updated_at < NOW() - INTERVAL '10 years'
       RETURNING id
     `;
     if (purgedEnrollments.length > 0) {
-      console.log(`Purge RGPD: ${purgedEnrollments.length} inscription(s) de plus de 3 ans supprimée(s).`);
+      console.log(`Purge RGPD: ${purgedEnrollments.length} inscription(s) de plus de 10 ans supprimée(s).`);
     }
 
-    // Les commandes boutique (ebooks) contiennent les mêmes données
-    // personnelles (email) et sont soumises à la même politique de
-    // conservation — jamais purgées jusqu'ici.
+    // Les commandes boutique (ebooks) sont elles aussi des transactions
+    // payantes soumises à la même obligation comptable de 10 ans — jamais
+    // purgées jusqu'ici.
     const purgedShopOrders = await sql`
       DELETE FROM shop_orders
-      WHERE updated_at < NOW() - INTERVAL '3 years'
+      WHERE updated_at < NOW() - INTERVAL '10 years'
       RETURNING id
     `;
     if (purgedShopOrders.length > 0) {
-      console.log(`Purge RGPD: ${purgedShopOrders.length} commande(s) boutique de plus de 3 ans supprimée(s).`);
+      console.log(`Purge RGPD: ${purgedShopOrders.length} commande(s) boutique de plus de 10 ans supprimée(s).`);
     }
 
     const purged = purgedEnrollments.length + purgedShopOrders.length;
