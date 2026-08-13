@@ -159,7 +159,12 @@ function renderPage({ rows, statusFilter, sourceFilter, q, stats, key }) {
     .filters { display: flex; gap: 8px; flex-wrap: wrap; }
     .search { display: flex; gap: 8px; }
     .search input[type="text"] { padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 14px; min-width: 200px; }
-    .search button, .csv-link { padding: 8px 16px; border-radius: 8px; border: none; background: #232999; color: white; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+    .search button, .csv-link { padding: 8px 16px; border-radius: 8px; border: none; background: #232999; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+    /* .nav a { color: #232999 } a une spécificité plus élevée (classe + élément)
+       que .csv-link seul (classe) et écrasait sinon ce color:white — texte
+       bleu foncé sur fond bleu foncé, invisible. Cette règle plus spécifique
+       (.nav a.csv-link) reprend la priorité. */
+    .nav a.csv-link { color: white; }
     .table-scroll { overflow-x: auto; border-radius: 12px; border: 1px solid #e2e8f0; }
     table { width: 100%; border-collapse: collapse; background: white; }
     th { text-align: left; padding: 10px 12px; background: #f1f5f9; font-size: 12px; text-transform: uppercase; color: #64748b; white-space: nowrap; }
