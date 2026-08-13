@@ -62,6 +62,14 @@ function renderPage({ rows, statusFilter, sourceFilter, q, stats, key }) {
       ? '<span style="background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;">payé</span>'
       : '<span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;">formulaire seul</span>';
 
+  // Repris dans chaque form ci-dessous (champs cachés) pour revenir sur la
+  // même vue filtrée/recherchée après une action, plutôt que de repartir de
+  // "Tout" à chaque fois.
+  const stateFields = `
+          <input type="hidden" name="status" value="${escapeHtml(statusFilter)}" />
+          <input type="hidden" name="source" value="${escapeHtml(sourceFilter)}" />
+          <input type="hidden" name="q" value="${escapeHtml(q)}" />`;
+
   const espaceCell = (r) => {
     if (!r.hasEspaceAccount) {
       if (r.status !== 'payment_confirmed' || !r.email) return '<span style="color:#94a3b8;font-size:12px;">—</span>';
@@ -69,13 +77,31 @@ function renderPage({ rows, statusFilter, sourceFilter, q, stats, key }) {
         <form method="POST" style="margin:0;" data-confirm="Inviter ${escapeHtml(r.email)} à Mon espace ?">
           <input type="hidden" name="key" value="${escapeHtml(key)}" />
           <input type="hidden" name="action" value="invite" />
-          <input type="hidden" name="email" value="${escapeHtml(r.email)}" />
+          <input type="hidden" name="email" value="${escapeHtml(r.email)}" />${stateFields}
           <button type="submit" style="padding:4px 9px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #c7d2fe;background:#eef2ff;color:#3730a3;white-space:nowrap;">Inviter</button>
         </form>`;
     }
     return r.espaceSubscriptionActive
       ? '<span style="background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap;">compte actif</span>'
       : '<span style="background:#fee2e2;color:#991b1b;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap;">accès coupé</span>';
+  };
+
+  // Confirmation renforcée pour une ligne payée : elle est soumise à
+  // l'obligation de conservation de 10 ans (voir scheduled-digest.js), donc
+  // la supprimer à la main devrait rester l'exception (doublon, ligne de
+  // test, erreur manifeste) — pas un geste anodin comme pour un simple
+  // formulaire jamais payé.
+  const deleteCell = (r) => {
+    const confirmMsg = r.status === 'payment_confirmed'
+      ? `⚠️ Ce paiement est CONFIRMÉ (${escapeHtml(r.parent_name) || escapeHtml(r.email)}). Le supprimer est définitif et peut entrer en conflit avec l'obligation de conservation de 10 ans. Continuer ?`
+      : `Supprimer cette inscription (${escapeHtml(r.parent_name) || escapeHtml(r.email) || 'sans nom'}) ? Définitif.`;
+    return `
+      <form method="POST" style="margin:0;" data-confirm="${confirmMsg}">
+        <input type="hidden" name="key" value="${escapeHtml(key)}" />
+        <input type="hidden" name="action" value="delete" />
+        <input type="hidden" name="id" value="${escapeHtml(r.id)}" />${stateFields}
+        <button type="submit" style="padding:4px 9px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #fecaca;background:#fef2f2;color:#991b1b;white-space:nowrap;">Supprimer</button>
+      </form>`;
   };
 
   const filterLink = (label, statusVal, active) => {
@@ -106,6 +132,7 @@ function renderPage({ rows, statusFilter, sourceFilter, q, stats, key }) {
       <td style="padding:10px 12px;white-space:nowrap;">${r.amount_chf ? escapeHtml(r.amount_chf) + ' CHF' : '—'}</td>
       <td style="padding:10px 12px;white-space:nowrap;">${r.stripe_customer_id ? `<a href="https://dashboard.stripe.com/search?query=${encodeURIComponent(r.stripe_customer_id)}" target="_blank" rel="noopener noreferrer" style="color:#232999;font-size:12px;">Stripe ↗</a>` : '<span style="color:#94a3b8;">—</span>'}</td>
       <td style="padding:10px 12px;">${espaceCell(r)}</td>
+      <td style="padding:10px 12px;">${deleteCell(r)}</td>
     </tr>
   `).join('');
 
@@ -175,7 +202,7 @@ function renderPage({ rows, statusFilter, sourceFilter, q, stats, key }) {
     <table>
       <thead>
         <tr>
-          <th>Date</th><th>Source</th><th>Statut</th><th>Parent</th><th>Email</th><th>Téléphone</th><th>Formule</th><th>Montant</th><th>Stripe</th><th>Mon espace</th>
+          <th>Date</th><th>Source</th><th>Statut</th><th>Parent</th><th>Email</th><th>Téléphone</th><th>Formule</th><th>Montant</th><th>Stripe</th><th>Mon espace</th><th></th>
         </tr>
       </thead>
       <tbody>${rowsHtml}</tbody>
@@ -244,12 +271,27 @@ exports.handler = async (event, context) => {
             console.log(`Admin: invitation Mon espace ${invited ? 'envoyée' : 'déjà existante'} pour ${email}`);
           }
         }
+      } else if (params.get('action') === 'delete') {
+        const id = Number(params.get('id'));
+        if (Number.isInteger(id)) {
+          const { sql } = getDatabase({ connectionString: process.env.NETLIFY_DB_URL });
+          const deleted = await sql`DELETE FROM enrollments WHERE id = ${id} RETURNING email, status`;
+          if (deleted.length > 0) {
+            console.log(`Admin: inscription #${id} supprimée manuellement (${deleted[0].email || 'sans email'}, statut ${deleted[0].status}).`);
+          }
+        }
       }
     } catch (err) {
       console.error('admin-enrollments action error:', err.message);
       return { statusCode: 500, body: 'Erreur: ' + err.message };
     }
-    return { statusCode: 302, headers: { Location: `/admin?key=${encodeURIComponent(key)}` } };
+
+    // Revient sur la même vue filtrée/recherchée plutôt que de repartir de "Tout".
+    const redirectParams = new URLSearchParams({ key });
+    if (params.get('status')) redirectParams.set('status', params.get('status'));
+    if (params.get('source')) redirectParams.set('source', params.get('source'));
+    if (params.get('q')) redirectParams.set('q', params.get('q'));
+    return { statusCode: 302, headers: { Location: `/admin?${redirectParams.toString()}` } };
   }
 
   if (event.httpMethod !== 'GET') {
