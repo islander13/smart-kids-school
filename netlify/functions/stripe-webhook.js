@@ -23,7 +23,7 @@ const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const { getDatabase } = require('@netlify/database');
 const { createDownloadToken } = require('./lib/downloadToken');
-const { setSubscriptionActive } = require('./lib/identityUsers');
+const { setSubscriptionActive, inviteUser } = require('./lib/identityUsers');
 
 function sourceFromProductKey(productKey) {
   if (!productKey) return 'tarifs';
@@ -49,27 +49,17 @@ async function inviteEspaceAccount(identity, email) {
     return;
   }
   try {
-    const res = await fetch(`${identity.url}/admin/users`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${identity.token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
-    });
-    if (res.ok) {
+    const { invited, reason } = await inviteUser(identity, email);
+    if (invited) {
       console.log(`Invitation "Mon espace" envoyée à ${email}`);
-      return;
     }
-    const body = await res.json().catch(() => ({}));
-    const alreadyExists = res.status === 422 && /already been registered|already exists/i.test(body.msg || body.error_description || '');
-    if (alreadyExists) {
-      // Cas normal : un client qui se réinscrit (2e année, stage après
-      // l'abonnement annuel...) a déjà un compte Identity. Rien à faire.
-      return;
-    }
-    console.error(`Invitation "Mon espace" échouée pour ${email} (statut ${res.status}):`, body.msg || body.error_description || JSON.stringify(body));
+    // reason === 'already_exists' : cas normal (client qui se réinscrit,
+    // 2e année, stage après l'abonnement annuel...) — rien à faire.
   } catch (err) {
     // Ne fait jamais échouer le webhook pour un problème d'invitation : le
     // paiement est déjà confirmé et loggé, c'est l'essentiel. L'école peut
-    // toujours inviter la personne manuellement depuis le dashboard Identity.
+    // toujours inviter la personne manuellement depuis /admin (voir
+    // admin-enrollments.js) ou le dashboard Identity.
     console.error(`Erreur invitation "Mon espace" pour ${email} (non bloquante):`, err.message);
   }
 }

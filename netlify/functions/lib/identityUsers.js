@@ -1,11 +1,27 @@
 // ─────────────────────────────────────────────────────────────────────────
-// Recherche d'un compte Netlify Identity par email, et mise à jour de son
-// app_metadata.subscriptionActive — utilisé pour couper/rétablir l'accès à
-// "Mon espace" quand un abonnement Stripe est résilié/repris (voir
-// stripe-webhook.js). Pas d'endpoint admin "get user by email" côté GoTrue :
-// on pagine tous les comptes, comme link-child.js et admin-espace-activity.js
-// le font déjà pour d'autres besoins.
+// Opérations Netlify Identity côté admin (lister, chercher par email,
+// inviter, couper/rétablir l'accès Mon espace) — utilisé par stripe-webhook.js
+// (invitation + révocation automatiques) et par les pages admin-*.js
+// (supervision manuelle). Pas d'endpoint admin "get user by email" côté
+// GoTrue : on pagine tous les comptes pour chercher.
 // ─────────────────────────────────────────────────────────────────────────
+
+async function listAllUsers(identity) {
+  const perPage = 100;
+  const maxPages = 20;
+  const all = [];
+  for (let page = 1; page <= maxPages; page++) {
+    const res = await fetch(`${identity.url}/admin/users?per_page=${perPage}&page=${page}`, {
+      headers: { Authorization: `Bearer ${identity.token}` },
+    });
+    if (!res.ok) throw new Error(`admin list users failed: ${res.status}`);
+    const data = await res.json();
+    const list = Array.isArray(data) ? data : data.users || [];
+    all.push(...list);
+    if (list.length < perPage) break;
+  }
+  return all;
+}
 
 async function findUserByEmail(identity, email) {
   const target = String(email || '').trim().toLowerCase();
@@ -26,6 +42,15 @@ async function findUserByEmail(identity, email) {
   return null;
 }
 
+async function updateAppMetadata(identity, userId, currentAppMetadata, patch) {
+  const res = await fetch(`${identity.url}/admin/users/${userId}`, {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${identity.token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ app_metadata: { ...currentAppMetadata, ...patch } }),
+  });
+  if (!res.ok) throw new Error(`admin update user failed: ${res.status}`);
+}
+
 // active === false : coupe l'accès (compte gardé, progression conservée) —
 // voir la vérification côté client dans espace.tsx.
 // active === true : rétablit l'accès (reprise d'abonnement après résiliation).
@@ -36,12 +61,33 @@ async function setSubscriptionActive(identity, email, active) {
     console.warn(`setSubscriptionActive: aucun compte Identity pour ${email} (active=${active})`);
     return;
   }
-  const res = await fetch(`${identity.url}/admin/users/${user.id}`, {
-    method: 'PUT',
-    headers: { Authorization: `Bearer ${identity.token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ app_metadata: { ...user.app_metadata, subscriptionActive: active } }),
-  });
-  if (!res.ok) throw new Error(`admin update user failed: ${res.status}`);
+  await updateAppMetadata(identity, user.id, user.app_metadata, { subscriptionActive: active });
 }
 
-module.exports = { findUserByEmail, setSubscriptionActive };
+// Variante par ID plutôt que par email : utilisée par les pages admin, qui
+// ont déjà la liste complète des comptes (listAllUsers) et n'ont pas besoin
+// de repaginer pour retrouver le compte à modifier.
+async function setSubscriptionActiveById(identity, userId, currentAppMetadata, active) {
+  await updateAppMetadata(identity, userId, currentAppMetadata, { subscriptionActive: active });
+}
+
+// Invite un nouveau compte "Mon espace". Idempotent : si le compte existe
+// déjà (paiement répété, double-clic...), GoTrue répond 422 "already
+// exists" — traité comme un succès silencieux, pas une erreur.
+async function inviteUser(identity, email) {
+  if (!identity || !email) {
+    return { invited: false, reason: 'missing_identity_or_email' };
+  }
+  const res = await fetch(`${identity.url}/admin/users`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${identity.token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
+  });
+  if (res.ok) return { invited: true };
+  const body = await res.json().catch(() => ({}));
+  const alreadyExists = res.status === 422 && /already been registered|already exists/i.test(body.msg || body.error_description || '');
+  if (alreadyExists) return { invited: false, reason: 'already_exists' };
+  throw new Error(`admin invite user failed (${res.status}): ${body.msg || body.error_description || JSON.stringify(body)}`);
+}
+
+module.exports = { listAllUsers, findUserByEmail, setSubscriptionActive, setSubscriptionActiveById, inviteUser };
