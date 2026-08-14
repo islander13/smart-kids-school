@@ -36,7 +36,7 @@ function renderPage({ rows, stats, key, q }) {
   const roleLabel = (role) =>
     role === 'student' ? '<span style="background:#e0e7ff;color:#232999;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;">élève</span>'
     : role === 'parent' ? '<span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;">parent</span>'
-    : '<span style="background:#f1f5f9;color:#64748b;padding:2px 8px;border-radius:999px;font-size:12px;">—</span>';
+    : '<span style="background:#f1f5f9;color:#475569;padding:2px 8px;border-radius:999px;font-size:12px;">—</span>';
 
   const subscriptionBadge = (active) =>
     active
@@ -92,7 +92,7 @@ function renderPage({ rows, stats, key, q }) {
     .search button { padding: 8px 16px; border-radius: 8px; border: none; background: #232999; color: white; font-size: 13px; font-weight: 600; cursor: pointer; }
     .table-scroll { overflow-x: auto; border-radius: 12px; border: 1px solid #e2e8f0; }
     table { width: 100%; border-collapse: collapse; background: white; }
-    th { text-align: left; padding: 10px 12px; background: #f1f5f9; font-size: 12px; text-transform: uppercase; color: #64748b; white-space: nowrap; }
+    th { text-align: left; padding: 10px 12px; background: #f1f5f9; font-size: 12px; text-transform: uppercase; color: #475569; white-space: nowrap; }
     tr:last-child td { border-bottom: none; }
     .empty { padding: 40px; text-align: center; color: #94a3b8; }
   </style>

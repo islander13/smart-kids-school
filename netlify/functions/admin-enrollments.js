@@ -169,7 +169,7 @@ function renderPage({ rows, statusFilter, sourceFilter, q, stats, key }) {
     .nav a.csv-link { color: white; }
     .table-scroll { overflow-x: auto; border-radius: 12px; border: 1px solid #e2e8f0; }
     table { width: 100%; border-collapse: collapse; background: white; }
-    th { text-align: left; padding: 10px 12px; background: #f1f5f9; font-size: 12px; text-transform: uppercase; color: #64748b; white-space: nowrap; }
+    th { text-align: left; padding: 10px 12px; background: #f1f5f9; font-size: 12px; text-transform: uppercase; color: #475569; white-space: nowrap; }
     tr:last-child td { border-bottom: none; }
     .empty { padding: 40px; text-align: center; color: #94a3b8; }
   </style>
@@ -279,8 +279,12 @@ exports.handler = async (event, context) => {
           }
         }
       } else if (params.get('action') === 'delete') {
-        const id = Number(params.get('id'));
-        if (Number.isInteger(id)) {
+        // Number(null) vaut 0 (pas NaN) : un champ "id" absent serait sinon
+        // traité comme id=0 plutôt que rejeté. Sans risque réel (aucune ligne
+        // n'a l'id 0, SERIAL commence à 1), mais plus correct ainsi.
+        const idParam = params.get('id');
+        const id = idParam ? Number(idParam) : NaN;
+        if (Number.isInteger(id) && id > 0) {
           const { sql } = getDatabase({ connectionString: process.env.NETLIFY_DB_URL });
           const deleted = await sql`DELETE FROM enrollments WHERE id = ${id} RETURNING email, status`;
           if (deleted.length > 0) {
