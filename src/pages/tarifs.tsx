@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
+import ProjectGallery from '../components/ProjectGallery';
 import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
 import { useEmbeddedCheckout } from '../lib/useEmbeddedCheckout';
 import { ESPACE_NAV_VISIBLE } from '../data/espaceContent';
@@ -1222,56 +1223,14 @@ export default function Tarifs() {
         </div>
       </section>
 
-      {/* ── Galerie de projets d'élèves (preuve sociale, même structure que l'accueil) ── */}
-      <section className={`py-20 px-4 ${darkMode ? 'bg-gray-950' : 'bg-gradient-to-br from-slate-50 to-white'}`}>
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <span className={darkMode ? 'text-indigo-400 font-semibold text-sm uppercase tracking-wider' : 'text-[#232999] font-semibold text-sm uppercase tracking-wider'}>
-              {currentLang === 'FR' ? 'Réalisé par nos élèves' : currentLang === 'EN' ? 'Made by our students' : 'Von unseren Schülern erstellt'}
-            </span>
-            <h2 className={`text-3xl lg:text-4xl font-bold mt-3 mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-              {currentLang === 'FR' ? 'Voilà ce que votre enfant va créer' : currentLang === 'EN' ? 'This is what your child will create' : 'Das wird Ihr Kind erschaffen'}
-            </h2>
-            <p className={`text-base max-w-2xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              {currentLang === 'FR' ? "Des projets réels, créés de A à Z à chaque étape du parcours ci-dessus." : currentLang === 'EN' ? 'Real projects, built from scratch at every step of the path above.' : 'Echte Projekte, in jeder Stufe des oben beschriebenen Lernwegs selbst erstellt.'}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {[
-              { name: 'Jonas', age: 8, file: 'Scratch 1', city: 'Lausanne', course: 'Scratch Basics', date: 'Mars 2025' },
-              { name: 'Emma', age: 11, file: 'Scratch 2', city: 'Genève', course: 'Advanced Scratch', date: 'Juin 2025' },
-              { name: 'Alex', age: 12, file: 'Scratch 3', city: 'Morges', course: 'Advanced Scratch', date: 'Nov. 2025' },
-              { name: 'Victor', age: 13, file: 'Scratch 4', city: 'Nyon', course: 'Advanced Scratch', date: 'Févr. 2026' },
-              { name: 'Valentin', age: 14, file: 'Python Turtle 1', city: 'Lausanne', course: 'Python Turtle', date: 'Mars 2026' },
-              { name: 'Nadine', age: 14, file: 'Python Turtle 2', city: 'Genève', course: 'Python Turtle', date: 'Mai 2026' },
-            ].map((s, i) => (
-              <div key={i} className={`rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
-                <div className="aspect-video bg-gray-900 relative" style={{ overflow: 'hidden' }}>
-                  <video
-                    controls
-                    preload="none"
-                    poster={`/videos/posters/${s.file}.jpg`}
-                    playsInline
-                    controlsList="nodownload"
-                    className="w-full h-full object-cover bg-gray-900"
-                    title={`Projet de ${s.name}`}
-                  >
-                    <source src={`/videos/${s.file}.mp4`} type="video/mp4" />
-                  </video>
-                </div>
-                <div className="p-4 text-center">
-                  <p className={`font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                    {s.name}, {s.age} {currentLang === 'FR' ? 'ans' : currentLang === 'EN' ? 'y/o' : 'J.'}
-                  </p>
-                  <p className={darkMode ? 'text-sm font-semibold text-indigo-400 mt-0.5' : 'text-sm font-semibold text-[#232999] mt-0.5'}>{s.course}</p>
-                  <p className={`text-xs mt-0.5 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>{s.city} · {s.date}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProjectGallery
+        darkMode={darkMode}
+        currentLang={currentLang}
+        bgClass={darkMode ? 'bg-gray-950' : 'bg-gradient-to-br from-slate-50 to-white'}
+        eyebrow={currentLang === 'FR' ? 'Réalisé par nos élèves' : currentLang === 'EN' ? 'Made by our students' : 'Von unseren Schülern erstellt'}
+        title={currentLang === 'FR' ? 'Voilà ce que votre enfant va créer' : currentLang === 'EN' ? 'This is what your child will create' : 'Das wird Ihr Kind erschaffen'}
+        description={currentLang === 'FR' ? "Des projets réels, créés de A à Z à chaque étape du parcours ci-dessus." : currentLang === 'EN' ? 'Real projects, built from scratch at every step of the path above.' : 'Echte Projekte, in jeder Stufe des oben beschriebenen Lernwegs selbst erstellt.'}
+      />
 
       <section className={`py-20 px-4 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-5xl mx-auto">
