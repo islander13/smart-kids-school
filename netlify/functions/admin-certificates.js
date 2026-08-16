@@ -20,7 +20,7 @@
 
 const { getDatabase } = require('@netlify/database');
 const { isValidAdminKey } = require('./lib/adminAuth');
-const { listAllUsers, findUserByEmail } = require('./lib/identityUsers');
+const { findUserByEmail, getUserById } = require('./lib/identityUsers');
 const { TABS_CSS, renderAdminTabs } = require('./lib/adminNav');
 
 function escapeHtml(str) {
@@ -63,10 +63,10 @@ function certLink(cert) {
   return `/sks-certificate.html?${qs.toString()}`;
 }
 
-function certRow(cert, key, { showAccount }) {
+function certRow(cert, key, { showAccount, back, isNew }) {
   return `
-    <tr style="border-bottom:1px solid #e2e8f0;">
-      <td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#64748b;">${new Date(cert.created_at).toLocaleDateString('fr-CH')}</td>
+    <tr style="border-bottom:1px solid #e2e8f0;${isNew ? 'background:#eef0fb;' : ''}">
+      <td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#64748b;">${new Date(cert.created_at).toLocaleDateString('fr-CH')}${isNew ? ' <span style="background:#232999;color:white;padding:1px 7px;border-radius:999px;font-size:11px;font-weight:700;margin-left:4px;">nouveau</span>' : ''}</td>
       ${showAccount ? `<td style="padding:10px 12px;"><a href="/admin/certificates?key=${encodeURIComponent(key)}&user=${encodeURIComponent(cert.user_id)}" style="color:#232999;">${escapeHtml(cert.user_email)}</a></td>` : ''}
       <td style="padding:10px 12px;font-weight:600;">${escapeHtml(cert.student_name)}</td>
       <td style="padding:10px 12px;font-size:13px;">${escapeHtml(COURSES[cert.course_key] || cert.course_key)}</td>
@@ -79,14 +79,16 @@ function certRow(cert, key, { showAccount }) {
           <input type="hidden" name="action" value="delete" />
           <input type="hidden" name="certId" value="${escapeHtml(cert.id)}" />
           <input type="hidden" name="user" value="${escapeHtml(cert.user_id)}" />
+          <input type="hidden" name="back" value="${escapeHtml(back)}" />
           <button type="submit" style="padding:5px 10px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #fecaca;background:#fef2f2;color:#991b1b;">Supprimer</button>
         </form>
       </td>
     </tr>`;
 }
 
-function renderPage({ key, targetUserId, targetEmail, accountError, certsForUser, globalCerts, globalStats, q }) {
+function renderPage({ key, targetUserId, targetEmail, accountError, certsForUser, defaultStudentName, justCreatedId, globalCerts, globalStats, q }) {
   const today = new Date().toISOString().slice(0, 10);
+  const accountBack = `/admin/certificates?key=${encodeURIComponent(key)}&user=${encodeURIComponent(targetUserId || '')}`;
 
   const courseOptions = Object.entries(COURSES).map(([k, l]) => `<option value="${k}">${escapeHtml(l)}</option>`).join('');
   const langOptions = Object.entries(LANGS).map(([k, l]) => `<option value="${k}"${k === 'fr' ? ' selected' : ''}>${escapeHtml(l)}</option>`).join('');
@@ -100,7 +102,7 @@ function renderPage({ key, targetUserId, targetEmail, accountError, certsForUser
         <input type="hidden" name="user" value="${escapeHtml(targetUserId)}" />
         <input type="hidden" name="email" value="${escapeHtml(targetEmail)}" />
         <label>Nom de l'élève
-          <input type="text" name="studentName" required placeholder="ex. Emma Dupont" />
+          <input type="text" name="studentName" required placeholder="ex. Emma Dupont" value="${escapeHtml(defaultStudentName)}" />
         </label>
         <label>Cours
           <select name="courseKey">${courseOptions}</select>
@@ -113,6 +115,7 @@ function renderPage({ key, targetUserId, targetEmail, accountError, certsForUser
         </label>
         <button type="submit">Générer</button>
       </form>
+      ${defaultStudentName ? `<p class="hint" style="margin:10px 0 0;">Nom pré-rempli depuis l'inscription (nom du parent) — à corriger si c'est le prénom de l'enfant qui doit apparaître.</p>` : ''}
     </div>
 
     <h2 class="hist-title">Historique (${certsForUser.length})</h2>
@@ -120,7 +123,7 @@ function renderPage({ key, targetUserId, targetEmail, accountError, certsForUser
     <div class="table-scroll">
       <table>
         <thead><tr><th>Généré le</th><th>Nom</th><th>Cours</th><th>Langue</th><th>Date du certificat</th><th>Action</th></tr></thead>
-        <tbody>${certsForUser.map((c) => certRow(c, key, { showAccount: false })).join('')}</tbody>
+        <tbody>${certsForUser.map((c) => certRow(c, key, { showAccount: false, back: accountBack, isNew: String(c.id) === String(justCreatedId) })).join('')}</tbody>
       </table>
     </div>`}
     <p class="back-link"><a href="/admin/certificates?key=${encodeURIComponent(key)}">← Chercher un autre compte</a></p>
@@ -152,7 +155,7 @@ function renderPage({ key, targetUserId, targetEmail, accountError, certsForUser
     <div class="table-scroll">
       <table>
         <thead><tr><th>Généré le</th><th>Compte</th><th>Nom</th><th>Cours</th><th>Langue</th><th>Date du certificat</th><th>Action</th></tr></thead>
-        <tbody>${globalCerts.map((c) => certRow(c, key, { showAccount: true })).join('')}</tbody>
+        <tbody>${globalCerts.map((c) => certRow(c, key, { showAccount: true, back: `/admin/certificates?key=${encodeURIComponent(key)}${q ? `&q=${encodeURIComponent(q)}` : ''}`, isNew: false })).join('')}</tbody>
       </table>
     </div>`}
   `;
@@ -235,6 +238,14 @@ exports.handler = async (event, context) => {
 
     const action = params.get('action');
     const userId = params.get('user') || '';
+    // Emporté par les boutons "Supprimer" pour revenir là où l'admin était
+    // (vue compte ou vue globale, filtre compris) plutôt que d'atterrir
+    // systématiquement sur la vue compte — restreint au chemin attendu pour
+    // qu'un formulaire trafiqué ne puisse pas servir de redirection ouverte.
+    const back = params.get('back') || '';
+    const safeBack = back.startsWith('/admin/certificates?') ? back : '';
+
+    let newCertId = '';
 
     try {
       const { sql } = getDatabase({ connectionString: process.env.NETLIFY_DB_URL });
@@ -250,10 +261,12 @@ exports.handler = async (event, context) => {
           return { statusCode: 400, body: 'Champs invalides — vérifiez le nom, le cours, la langue et la date.' };
         }
 
-        await sql`
+        const inserted = await sql`
           INSERT INTO certificates (user_id, user_email, student_name, course_key, lang, issued_date)
           VALUES (${userId}, ${email}, ${studentName}, ${courseKey}, ${lang}, ${issuedDate})
+          RETURNING id
         `;
+        newCertId = inserted[0] ? String(inserted[0].id) : '';
         console.log(`Admin: certificat généré pour ${email} (${courseKey}, ${lang})`);
       } else if (action === 'delete') {
         const certId = params.get('certId');
@@ -269,7 +282,9 @@ exports.handler = async (event, context) => {
       return { statusCode: 500, body: 'Erreur: ' + err.message };
     }
 
-    const location = `/admin/certificates?key=${encodeURIComponent(key)}${userId ? `&user=${encodeURIComponent(userId)}` : ''}`;
+    const location = safeBack
+      ? safeBack
+      : `/admin/certificates?key=${encodeURIComponent(key)}${userId ? `&user=${encodeURIComponent(userId)}` : ''}${newCertId ? `&justCreated=${encodeURIComponent(newCertId)}` : ''}`;
     return { statusCode: 302, headers: { Location: location } };
   }
 
@@ -307,6 +322,8 @@ exports.handler = async (event, context) => {
           targetEmail: '',
           accountError: `Aucun compte "Mon espace" avec l'email "${params.email}" — le compte doit déjà exister avant de générer un certificat.`,
           certsForUser: [],
+          defaultStudentName: '',
+          justCreatedId: '',
           globalCerts: rows,
           globalStats: stats,
           q: '',
@@ -319,8 +336,7 @@ exports.handler = async (event, context) => {
     let accountError = '';
 
     if (targetUserId) {
-      const users = await listAllUsers(identity);
-      const user = users.find((u) => u.id === targetUserId);
+      const user = await getUserById(identity, targetUserId);
       if (!user) {
         accountError = 'Ce compte est introuvable (peut-être supprimé depuis).';
         targetUserId = '';
@@ -330,11 +346,18 @@ exports.handler = async (event, context) => {
     }
 
     if (targetUserId) {
-      const certsForUser = await sql`SELECT * FROM certificates WHERE user_id = ${targetUserId} ORDER BY created_at DESC`;
+      const [certsForUser, defaultNameRows] = await Promise.all([
+        sql`SELECT * FROM certificates WHERE user_id = ${targetUserId} ORDER BY created_at DESC`,
+        // Meilleure estimation du nom à pré-remplir : le nom du parent fourni
+        // à l'inscription. Reste éditable — l'admin corrige pour le prénom
+        // de l'enfant si besoin.
+        sql`SELECT parent_name FROM enrollments WHERE email = ${targetEmail} AND parent_name IS NOT NULL ORDER BY updated_at DESC LIMIT 1`,
+      ]);
+      const defaultStudentName = (defaultNameRows[0] && defaultNameRows[0].parent_name) || '';
       return {
         statusCode: 200,
         headers: { 'Content-Type': 'text/html; charset=utf-8' },
-        body: renderPage({ key: params.key, targetUserId, targetEmail, accountError: '', certsForUser, globalCerts: [], globalStats: { total: 0, accounts: 0 }, q: '' }),
+        body: renderPage({ key: params.key, targetUserId, targetEmail, accountError: '', certsForUser, defaultStudentName, justCreatedId: params.justCreated || '', globalCerts: [], globalStats: { total: 0, accounts: 0 }, q: '' }),
       };
     }
 
@@ -343,7 +366,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'text/html; charset=utf-8' },
-      body: renderPage({ key: params.key, targetUserId: '', targetEmail: '', accountError, certsForUser: [], globalCerts: rows, globalStats: stats, q }),
+      body: renderPage({ key: params.key, targetUserId: '', targetEmail: '', accountError, certsForUser: [], defaultStudentName: '', justCreatedId: '', globalCerts: rows, globalStats: stats, q }),
     };
   } catch (err) {
     console.error('admin-certificates error:', err.message);

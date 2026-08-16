@@ -23,6 +23,19 @@ async function listAllUsers(identity) {
   return all;
 }
 
+// Récupère un compte par son id en un seul appel — à préférer à
+// listAllUsers()+find() dès qu'on connaît déjà l'id (ex: venir d'un lien
+// depuis une autre page admin), pour ne pas repaginer tous les comptes
+// juste pour en retrouver un seul.
+async function getUserById(identity, userId) {
+  const res = await fetch(`${identity.url}/admin/users/${userId}`, {
+    headers: { Authorization: `Bearer ${identity.token}` },
+  });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`admin get user failed: ${res.status}`);
+  return res.json();
+}
+
 async function findUserByEmail(identity, email) {
   const target = String(email || '').trim().toLowerCase();
   if (!target) return null;
@@ -90,4 +103,4 @@ async function inviteUser(identity, email) {
   throw new Error(`admin invite user failed (${res.status}): ${body.msg || body.error_description || JSON.stringify(body)}`);
 }
 
-module.exports = { listAllUsers, findUserByEmail, setSubscriptionActive, setSubscriptionActiveById, inviteUser };
+module.exports = { listAllUsers, findUserByEmail, getUserById, setSubscriptionActive, setSubscriptionActiveById, inviteUser };
