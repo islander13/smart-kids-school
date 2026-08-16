@@ -67,6 +67,18 @@ function renderPage({ key, targetUserId, targetEmail, accountError, certsForUser
   const courseOptions = Object.entries(COURSES).map(([k, l]) => `<option value="${k}">${escapeHtml(l)}</option>`).join('');
   const langOptions = Object.entries(LANGS).map(([k, l]) => `<option value="${k}"${k === 'fr' ? ' selected' : ''}>${escapeHtml(l)}</option>`).join('');
 
+  // Pour l'avertissement doux "un certificat pour ce cours existe déjà" —
+  // basé sur certsForUser, déjà trié par created_at DESC, donc la première
+  // occurrence par cours est la plus récemment générée.
+  const existingByCourse = {};
+  for (const c of certsForUser) {
+    if (!existingByCourse[c.course_key]) {
+      existingByCourse[c.course_key] = { count: 1, date: toDateStr(c.issued_date) };
+    } else {
+      existingByCourse[c.course_key].count += 1;
+    }
+  }
+
   const accountPanel = targetUserId ? `
     <div class="card gen-card">
       <h2>Générer un certificat pour <span style="color:#232999;">${escapeHtml(targetEmail)}</span></h2>
@@ -79,7 +91,7 @@ function renderPage({ key, targetUserId, targetEmail, accountError, certsForUser
           <input type="text" name="studentName" required placeholder="ex. Emma Dupont" value="${escapeHtml(defaultStudentName)}" />
         </label>
         <label>Cours
-          <select name="courseKey">${courseOptions}</select>
+          <select name="courseKey" id="courseKeySelect" data-existing="${escapeHtml(JSON.stringify(existingByCourse))}">${courseOptions}</select>
         </label>
         <label>Langue
           <select name="lang">${langOptions}</select>
@@ -89,6 +101,7 @@ function renderPage({ key, targetUserId, targetEmail, accountError, certsForUser
         </label>
         <button type="submit">Générer</button>
       </form>
+      <p id="dupWarning" class="dup-warning" style="display:none;"></p>
       ${defaultStudentName ? `<p class="hint" style="margin:10px 0 0;">Nom pré-rempli depuis l'inscription (nom du parent) — à corriger si c'est le prénom de l'enfant qui doit apparaître.</p>` : ''}
     </div>
 
@@ -161,6 +174,7 @@ ${TABS_CSS}
     .find-form input { flex: 1; max-width: 320px; padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 14px; }
     .find-form button { padding: 8px 16px; border-radius: 8px; border: none; background: #232999; color: white; font-size: 13px; font-weight: 600; cursor: pointer; }
     .alert { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; border-radius: 10px; padding: 12px 16px; font-size: 14px; margin-bottom: 20px; }
+    .dup-warning { background: #fef3c7; border: 1px solid #fde68a; color: #92400e; border-radius: 8px; padding: 8px 12px; font-size: 13px; margin: 10px 0 0; }
     .stats { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
     .stat { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; min-width: 140px; }
     .stat .n { font-size: 24px; font-weight: 700; color: #0f172a; }
@@ -191,6 +205,23 @@ ${TABS_CSS}
       var msg = e.target.getAttribute('data-confirm');
       if (msg && !confirm(msg)) e.preventDefault();
     });
+
+    (function () {
+      var sel = document.getElementById('courseKeySelect');
+      var warn = document.getElementById('dupWarning');
+      if (!sel || !warn) return;
+      var existing = {};
+      try { existing = JSON.parse(sel.getAttribute('data-existing') || '{}'); } catch (e) {}
+      function update() {
+        var info = existing[sel.value];
+        if (!info) { warn.style.display = 'none'; return; }
+        var d = new Date(info.date + 'T12:00:00').toLocaleDateString('fr-CH');
+        warn.textContent = 'Un certificat pour ce cours existe déjà pour ce compte (généré le ' + d + (info.count > 1 ? ', ' + info.count + ' au total' : '') + '). Continuer en créera un supplémentaire — utile pour une réémission, pas pour un premier envoi.';
+        warn.style.display = 'block';
+      }
+      sel.addEventListener('change', update);
+      update();
+    })();
   </script>
 </body>
 </html>`;
