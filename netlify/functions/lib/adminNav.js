@@ -21,6 +21,7 @@ function renderAdminTabs(activePage, key) {
     <div class="admin-tabs">
       ${tab('enrollments', `/admin?key=${encKey}`, 'Inscriptions')}
       ${tab('espace', `/admin/espace?key=${encKey}`, 'Mon espace')}
+      ${tab('certificates', `/admin/certificates?key=${encKey}`, 'Certificats')}
     </div>`;
 }
 

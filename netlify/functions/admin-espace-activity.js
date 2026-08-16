@@ -55,7 +55,7 @@ function renderPage({ rows, stats, key, q, filterMode }) {
       <td style="padding:10px 12px;">${r.linkedChildrenCount > 0 ? r.linkedChildrenCount : '—'}</td>
       <td style="padding:10px 12px;white-space:nowrap;font-size:13px;color:#64748b;">${r.lastActivityAt ? new Date(r.lastActivityAt).toLocaleString('fr-CH') : 'jamais'}</td>
       <td style="padding:10px 12px;white-space:nowrap;">
-        <form method="POST" style="margin:0;" data-confirm="${r.subscriptionActive ? `Couper l’accès Mon espace pour ${escapeHtml(r.email)} ?` : `Réactiver l’accès Mon espace pour ${escapeHtml(r.email)} ?`}">
+        <form method="POST" style="margin:0 0 6px;" data-confirm="${r.subscriptionActive ? `Couper l’accès Mon espace pour ${escapeHtml(r.email)} ?` : `Réactiver l’accès Mon espace pour ${escapeHtml(r.email)} ?`}">
           <input type="hidden" name="key" value="${escapeHtml(key)}" />
           <input type="hidden" name="q" value="${escapeHtml(q)}" />
           ${filterMode ? `<input type="hidden" name="filter" value="${escapeHtml(filterMode)}" />` : ''}
@@ -66,6 +66,9 @@ function renderPage({ rows, stats, key, q, filterMode }) {
             ${r.subscriptionActive ? 'Couper l’accès' : 'Réactiver'}
           </button>
         </form>
+        <a href="/admin/certificates?key=${encodeURIComponent(key)}&user=${encodeURIComponent(r.id)}" style="display:inline-block;padding:5px 10px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;background:#e0e7ff;color:#232999;">
+          Certificats${r.certificateCount > 0 ? ` (${r.certificateCount})` : ''}
+        </a>
       </td>
     </tr>
   `).join('');
@@ -151,7 +154,7 @@ ${TABS_CSS}
 }
 
 async function buildRows(identity, q, filterMode) {
-  const [users, planRows] = await Promise.all([
+  const [users, planRows, certCountRows] = await Promise.all([
     listAllUsers(identity),
     (async () => {
       try {
@@ -167,9 +170,19 @@ async function buildRows(identity, q, filterMode) {
         return [];
       }
     })(),
+    (async () => {
+      try {
+        const { sql } = getDatabase({ connectionString: process.env.NETLIFY_DB_URL });
+        return await sql`SELECT user_id, COUNT(*)::int AS n FROM certificates GROUP BY user_id`;
+      } catch (err) {
+        console.error('admin-espace-activity: lecture des certificats échouée (non bloquante):', err.message);
+        return [];
+      }
+    })(),
   ]);
 
   const planByEmail = new Map(planRows.map((r) => [String(r.email || '').toLowerCase(), r.plan_label || r.product_key]));
+  const certCountByUserId = new Map(certCountRows.map((r) => [r.user_id, r.n]));
 
   const target = q.trim().toLowerCase();
   const filtered = target ? users.filter((u) => String(u.email || '').toLowerCase().includes(target)) : users;
@@ -188,6 +201,7 @@ async function buildRows(identity, q, filterMode) {
       badgeCount: progress.badges && typeof progress.badges === 'object' ? Object.keys(progress.badges).length : 0,
       linkedChildrenCount: Array.isArray(appMeta.linkedChildren) ? appMeta.linkedChildren.length : 0,
       lastActivityAt: progress.lastActivityAt || null,
+      certificateCount: certCountByUserId.get(u.id) || 0,
     };
   }).sort((a, b) => {
     if (!a.lastActivityAt && !b.lastActivityAt) return 0;

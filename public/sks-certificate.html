@@ -463,6 +463,22 @@ function getLang() {
 const today = new Date().toISOString().split('T')[0];
 document.getElementById('dateInput').value = today;
 
+// Pré-remplissage depuis l'espace admin : /admin/certificates génère un lien
+// "Ouvrir" avec ces paramètres, pour ne pas avoir à ressaisir nom/cours/date
+// ici à la main. Ignore silencieusement toute clé/valeur inconnue ou absente
+// (le formulaire reste alors utilisable à vide, comme avant).
+(function prefillFromQuery() {
+  const qs = new URLSearchParams(location.search);
+  const name = qs.get('name');
+  const course = qs.get('course');
+  const lang = qs.get('lang');
+  const date = qs.get('date');
+  if (name) document.getElementById('nameInput').value = name;
+  if (course && courses[course]) document.getElementById('courseSelect').value = course;
+  if (lang && UI[lang]) document.getElementById('langSelect').value = lang;
+  if (date) document.getElementById('dateInput').value = date;
+})();
+
 function updateCert() {
   const name = document.getElementById('nameInput').value.trim();
   const course = document.getElementById('courseSelect').value;
