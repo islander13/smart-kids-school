@@ -22,6 +22,7 @@
 const { getDatabase } = require('@netlify/database');
 const { isValidAdminKey } = require('./lib/adminAuth');
 const { listAllUsers, setSubscriptionActiveById } = require('./lib/identityUsers');
+const { TABS_CSS, renderAdminTabs } = require('./lib/adminNav');
 
 function escapeHtml(str) {
   if (str === null || str === undefined) return '';
@@ -32,7 +33,7 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-function renderPage({ rows, stats, key, q }) {
+function renderPage({ rows, stats, key, q, filterMode }) {
   const roleLabel = (role) =>
     role === 'student' ? '<span style="background:#e0e7ff;color:#232999;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;">élève</span>'
     : role === 'parent' ? '<span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;">parent</span>'
@@ -57,6 +58,7 @@ function renderPage({ rows, stats, key, q }) {
         <form method="POST" style="margin:0;" data-confirm="${r.subscriptionActive ? `Couper l’accès Mon espace pour ${escapeHtml(r.email)} ?` : `Réactiver l’accès Mon espace pour ${escapeHtml(r.email)} ?`}">
           <input type="hidden" name="key" value="${escapeHtml(key)}" />
           <input type="hidden" name="q" value="${escapeHtml(q)}" />
+          ${filterMode ? `<input type="hidden" name="filter" value="${escapeHtml(filterMode)}" />` : ''}
           <input type="hidden" name="action" value="toggle-subscription" />
           <input type="hidden" name="userId" value="${escapeHtml(r.id)}" />
           <input type="hidden" name="active" value="${r.subscriptionActive ? 'false' : 'true'}" />
@@ -80,12 +82,15 @@ function renderPage({ rows, stats, key, q }) {
     .wrap { max-width: 1280px; margin: 0 auto; }
     h1 { font-size: 22px; margin-bottom: 4px; }
     .sub { color: #64748b; font-size: 14px; margin-bottom: 24px; }
-    .nav { margin-bottom: 20px; }
-    .nav a { color: #232999; font-size: 13px; font-weight: 600; text-decoration: none; }
-    .nav a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #232999; outline-offset: 2px; }
+    button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid #232999; outline-offset: 2px; }
+${TABS_CSS}
     .stats { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
-    .stat { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; min-width: 140px; }
-    .stat .n { font-size: 24px; font-weight: 700; }
+    .stat { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; min-width: 140px; }
+    a.stat { text-decoration: none; color: inherit; transition: border-color .15s, transform .15s; }
+    a.stat:hover { border-color: #232999; transform: translateY(-1px); }
+    a.stat.active { border-color: #232999; background: #eef0fb; }
+    a.stat.active .l { color: #3730a3; }
+    .stat .n { font-size: 24px; font-weight: 700; color: #0f172a; }
     .stat .l { font-size: 12px; color: #64748b; }
     .search { display: flex; gap: 8px; margin-bottom: 16px; }
     .search input[type="text"] { flex: 1; max-width: 320px; padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 14px; }
@@ -99,13 +104,16 @@ function renderPage({ rows, stats, key, q }) {
 </head>
 <body>
   <div class="wrap">
-    <div class="nav"><a href="/admin?key=${encodeURIComponent(key)}">← Inscriptions</a></div>
+    ${renderAdminTabs('espace', key)}
     <h1>Activité "Mon espace"</h1>
-    <p class="sub">${rows.length} compte(s)${q ? ` · recherche "${escapeHtml(q)}"` : ''}</p>
+    <p class="sub">
+      ${rows.length} compte(s)${filterMode === 'cut' ? ' · accès coupé uniquement' : ''}${q ? ` · recherche "${escapeHtml(q)}"` : ''}
+      ${filterMode ? `<a href="/admin/espace?key=${encodeURIComponent(key)}" style="margin-left:8px;color:#232999;">(effacer ce filtre)</a>` : ''}
+    </p>
 
     <div class="stats">
-      <div class="stat"><div class="n">${stats.total}</div><div class="l">Comptes créés</div></div>
-      <div class="stat"><div class="n">${stats.subscriptionCut}</div><div class="l">Accès coupé</div></div>
+      <a class="stat" href="/admin/espace?key=${encodeURIComponent(key)}"><div class="n">${stats.total}</div><div class="l">Comptes créés</div></a>
+      <a class="stat${filterMode === 'cut' ? ' active' : ''}" href="/admin/espace?key=${encodeURIComponent(key)}&filter=cut"><div class="n">${stats.subscriptionCut}</div><div class="l">Accès coupé</div></a>
       <div class="stat"><div class="n">${stats.withActivity}</div><div class="l">Au moins 1 vidéo vue</div></div>
       <div class="stat"><div class="n">${stats.withBadge}</div><div class="l">Au moins 1 badge</div></div>
       <div class="stat"><div class="n">${stats.activeLast7Days}</div><div class="l">Actifs (7 derniers jours)</div></div>
@@ -113,9 +121,10 @@ function renderPage({ rows, stats, key, q }) {
 
     <form class="search" method="GET" action="/admin/espace">
       <input type="hidden" name="key" value="${escapeHtml(key)}" />
+      ${filterMode ? `<input type="hidden" name="filter" value="${escapeHtml(filterMode)}" />` : ''}
       <input type="text" name="q" value="${escapeHtml(q)}" placeholder="Chercher un email…" aria-label="Chercher un compte par email" />
       <button type="submit">Chercher</button>
-      ${q ? `<a href="/admin/espace?key=${encodeURIComponent(key)}" style="align-self:center;font-size:13px;color:#64748b;text-decoration:none;">Effacer</a>` : ''}
+      ${q ? `<a href="/admin/espace?key=${encodeURIComponent(key)}${filterMode ? `&filter=${filterMode}` : ''}" style="align-self:center;font-size:13px;color:#64748b;text-decoration:none;">Effacer la recherche</a>` : ''}
     </form>
 
     ${rows.length === 0 ? '<div class="empty">Aucun compte ne correspond.</div>' : `
@@ -141,7 +150,7 @@ function renderPage({ rows, stats, key, q }) {
 </html>`;
 }
 
-async function buildRows(identity, q) {
+async function buildRows(identity, q, filterMode) {
   const [users, planRows] = await Promise.all([
     listAllUsers(identity),
     (async () => {
@@ -165,7 +174,7 @@ async function buildRows(identity, q) {
   const target = q.trim().toLowerCase();
   const filtered = target ? users.filter((u) => String(u.email || '').toLowerCase().includes(target)) : users;
 
-  const rows = filtered.map((u) => {
+  const searchScoped = filtered.map((u) => {
     const meta = u.user_metadata || {};
     const progress = meta.progress || {};
     const appMeta = u.app_metadata || {};
@@ -187,14 +196,19 @@ async function buildRows(identity, q) {
     return new Date(b.lastActivityAt) - new Date(a.lastActivityAt);
   });
 
+  // Les stats reflètent la recherche mais PAS le raccourci filterMode — sinon
+  // cliquer "Accès coupé" ferait retomber son propre chiffre à lui-même,
+  // cachant combien il y en avait vraiment avant de filtrer dessus.
   const sevenDaysAgo = Date.now() - 7 * 24 * 3600 * 1000;
   const stats = {
-    total: rows.length,
-    subscriptionCut: rows.filter((r) => !r.subscriptionActive).length,
-    withActivity: rows.filter((r) => r.watchedCount > 0).length,
-    withBadge: rows.filter((r) => r.badgeCount > 0).length,
-    activeLast7Days: rows.filter((r) => r.lastActivityAt && new Date(r.lastActivityAt).getTime() >= sevenDaysAgo).length,
+    total: searchScoped.length,
+    subscriptionCut: searchScoped.filter((r) => !r.subscriptionActive).length,
+    withActivity: searchScoped.filter((r) => r.watchedCount > 0).length,
+    withBadge: searchScoped.filter((r) => r.badgeCount > 0).length,
+    activeLast7Days: searchScoped.filter((r) => r.lastActivityAt && new Date(r.lastActivityAt).getTime() >= sevenDaysAgo).length,
   };
+
+  const rows = filterMode === 'cut' ? searchScoped.filter((r) => !r.subscriptionActive) : searchScoped;
 
   return { rows, stats };
 }
@@ -206,6 +220,7 @@ exports.handler = async (event, context) => {
     const params = new URLSearchParams(event.body || '');
     const key = params.get('key') || '';
     const q = params.get('q') || '';
+    const filterMode = params.get('filter') === 'cut' ? 'cut' : '';
 
     // Vérifie la clé AVANT tout le reste : un appelant non authentifié ne
     // doit voir ni données ni message de diagnostic interne (ex: "Identity
@@ -235,8 +250,11 @@ exports.handler = async (event, context) => {
     }
 
     // Redirect/Get après le POST : évite un resoumission de formulaire si
-    // l'admin recharge la page juste après une action.
-    const location = `/admin/espace?key=${encodeURIComponent(key)}${q ? `&q=${encodeURIComponent(q)}` : ''}`;
+    // l'admin recharge la page juste après une action. Le filtre est
+    // préservé aussi : réactiver un compte depuis la vue "Accès coupé" le
+    // fait naturellement disparaître de cette liste au rechargement, plutôt
+    // que de perdre le filtre et revenir sur la liste complète.
+    const location = `/admin/espace?key=${encodeURIComponent(key)}${q ? `&q=${encodeURIComponent(q)}` : ''}${filterMode ? `&filter=${filterMode}` : ''}`;
     return { statusCode: 302, headers: { Location: location } };
   }
 
@@ -254,12 +272,13 @@ exports.handler = async (event, context) => {
 
   try {
     const q = params.q || '';
-    const { rows, stats } = await buildRows(identity, q);
+    const filterMode = params.filter === 'cut' ? 'cut' : '';
+    const { rows, stats } = await buildRows(identity, q, filterMode);
 
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'text/html; charset=utf-8' },
-      body: renderPage({ rows, stats, key: params.key, q }),
+      body: renderPage({ rows, stats, key: params.key, q, filterMode }),
     };
   } catch (err) {
     console.error('admin-espace-activity error:', err.message);

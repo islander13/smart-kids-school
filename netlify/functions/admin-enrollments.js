@@ -21,6 +21,7 @@
 const { getDatabase } = require('@netlify/database');
 const { isValidAdminKey } = require('./lib/adminAuth');
 const { listAllUsers, inviteUser } = require('./lib/identityUsers');
+const { TABS_CSS, renderAdminTabs } = require('./lib/adminNav');
 
 function escapeHtml(str) {
   if (str === null || str === undefined) return '';
@@ -56,7 +57,7 @@ function toCsv(rows) {
   return lines.join('\n');
 }
 
-function renderPage({ rows, statusFilter, sourceFilter, q, stats, key }) {
+function renderPage({ rows, statusFilter, sourceFilter, q, filterMode, stats, key }) {
   const statusBadge = (status) =>
     status === 'payment_confirmed'
       ? '<span style="background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;">payé</span>'
@@ -104,6 +105,8 @@ function renderPage({ rows, statusFilter, sourceFilter, q, stats, key }) {
       </form>`;
   };
 
+  // Choisir un filtre statut (Tout/Payés/Non payés) quitte le mode "raccourci
+  // stat" (filterMode) s'il était actif, pour ne pas mélanger les deux.
   const filterLink = (label, statusVal, active) => {
     const params = new URLSearchParams();
     params.set('key', key);
@@ -113,12 +116,18 @@ function renderPage({ rows, statusFilter, sourceFilter, q, stats, key }) {
     return `<a href="?${params.toString()}" style="padding:6px 12px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;${active ? 'background:#232999;color:white;' : 'background:#f1f5f9;color:#334155;'}">${label}</a>`;
   };
 
+  // Carte-statistique cliquable : raccourci direct vers les lignes
+  // concernées (ex: "payé sans compte" → uniquement ces lignes-là), pour ne
+  // pas juste voir un chiffre sans pouvoir agir dessus.
+  const statHref = (extraParams) => `?${new URLSearchParams({ key, ...extraParams }).toString()}`;
+
   const csvParams = new URLSearchParams();
   csvParams.set('key', key);
   csvParams.set('format', 'csv');
   if (statusFilter) csvParams.set('status', statusFilter);
   if (sourceFilter) csvParams.set('source', sourceFilter);
   if (q) csvParams.set('q', q);
+  if (filterMode) csvParams.set('filter', filterMode);
 
   const rowsHtml = rows.map(r => `
     <tr style="border-bottom:1px solid #e2e8f0;">
@@ -148,25 +157,20 @@ function renderPage({ rows, statusFilter, sourceFilter, q, stats, key }) {
     .wrap { max-width: 1360px; margin: 0 auto; }
     h1 { font-size: 22px; margin-bottom: 4px; }
     .sub { color: #64748b; font-size: 14px; margin-bottom: 24px; }
-    .nav { margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-    .nav a { color: #232999; font-size: 13px; font-weight: 600; text-decoration: none; }
-    .nav a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #232999; outline-offset: 2px; }
+    button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid #232999; outline-offset: 2px; }
+${TABS_CSS}
     .stats { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
-    .stat { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; min-width: 140px; }
-    .stat .n { font-size: 24px; font-weight: 700; }
+    a.stat { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 14px 18px; min-width: 140px; text-decoration: none; color: inherit; transition: border-color .15s, transform .15s; }
+    a.stat:hover { border-color: #232999; transform: translateY(-1px); }
+    a.stat.active { border-color: #232999; background: #eef0fb; }
+    a.stat.active .l { color: #3730a3; }
+    .stat .n { font-size: 24px; font-weight: 700; color: #0f172a; }
     .stat .l { font-size: 12px; color: #64748b; }
     .toolbar { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
     .filters { display: flex; gap: 8px; flex-wrap: wrap; }
     .search { display: flex; gap: 8px; }
     .search input[type="text"] { padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 14px; min-width: 200px; }
     .search button, .csv-link { padding: 8px 16px; border-radius: 8px; border: none; background: #232999; color: white; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
-    /* .nav a { color: #232999 } a une spécificité plus élevée (classe + élément)
-       que .csv-link seul (classe) et écrasait sinon le color:white ci-dessus —
-       texte bleu foncé sur fond bleu foncé, invisible. Cette règle plus
-       spécifique (.nav a.csv-link) reprend la priorité pour ce lien précis ;
-       .search button n'est pas concerné (pas dans .nav), il garde le
-       color:white de la règle partagée ci-dessus normalement. */
-    .nav a.csv-link { color: white; }
     .table-scroll { overflow-x: auto; border-radius: 12px; border: 1px solid #e2e8f0; }
     table { width: 100%; border-collapse: collapse; background: white; }
     th { text-align: left; padding: 10px 12px; background: #f1f5f9; font-size: 12px; text-transform: uppercase; color: #475569; white-space: nowrap; }
@@ -176,25 +180,25 @@ function renderPage({ rows, statusFilter, sourceFilter, q, stats, key }) {
 </head>
 <body>
   <div class="wrap">
-    <div class="nav">
-      <a href="/admin/espace?key=${encodeURIComponent(key)}">Activité "Mon espace" →</a>
-      <a class="csv-link" href="?${csvParams.toString()}">Exporter en CSV</a>
-    </div>
+    ${renderAdminTabs('enrollments', key)}
     <h1>Inscriptions Smart Kids School</h1>
-    <p class="sub">${rows.length} résultat(s)${statusFilter ? ` · filtré sur "${escapeHtml(statusFilter)}"` : ''}${q ? ` · recherche "${escapeHtml(q)}"` : ''}</p>
+    <p class="sub">
+      ${rows.length} résultat(s)${filterMode === 'no-account' ? ' · payés sans compte Mon espace' : statusFilter ? ` · filtré sur "${escapeHtml(statusFilter)}"` : ''}${q ? ` · recherche "${escapeHtml(q)}"` : ''}
+      ${filterMode ? `<a href="?key=${encodeURIComponent(key)}" style="margin-left:8px;color:#232999;">(effacer ce filtre)</a>` : ''}
+    </p>
 
     <div class="stats">
-      <div class="stat"><div class="n">${stats.total}</div><div class="l">Total</div></div>
-      <div class="stat"><div class="n">${stats.confirmed}</div><div class="l">Paiements confirmés</div></div>
-      <div class="stat"><div class="n">${stats.pending}</div><div class="l">Formulaire seul (non payé)</div></div>
-      <div class="stat"><div class="n">${stats.confirmedWithoutAccount}</div><div class="l">Payé, sans compte Mon espace</div></div>
+      <a class="stat" href="${statHref({})}"><div class="n">${stats.total}</div><div class="l">Total</div></a>
+      <a class="stat" href="${statHref({ status: 'payment_confirmed' })}"><div class="n">${stats.confirmed}</div><div class="l">Paiements confirmés</div></a>
+      <a class="stat" href="${statHref({ status: 'form_submitted' })}"><div class="n">${stats.pending}</div><div class="l">Formulaire seul (non payé)</div></a>
+      <a class="stat${filterMode === 'no-account' ? ' active' : ''}" href="${statHref({ filter: 'no-account' })}"><div class="n">${stats.confirmedWithoutAccount}</div><div class="l">Payé, sans compte Mon espace</div></a>
     </div>
 
     <div class="toolbar">
       <div class="filters">
-        ${filterLink('Tout', '', !statusFilter)}
-        ${filterLink('Payés', 'payment_confirmed', statusFilter === 'payment_confirmed')}
-        ${filterLink('Non payés', 'form_submitted', statusFilter === 'form_submitted')}
+        ${filterLink('Tout', '', !statusFilter && !filterMode)}
+        ${filterLink('Payés', 'payment_confirmed', statusFilter === 'payment_confirmed' && !filterMode)}
+        ${filterLink('Non payés', 'form_submitted', statusFilter === 'form_submitted' && !filterMode)}
       </div>
       <form class="search" method="GET" action="/admin">
         <input type="hidden" name="key" value="${escapeHtml(key)}" />
@@ -202,6 +206,7 @@ function renderPage({ rows, statusFilter, sourceFilter, q, stats, key }) {
         <input type="text" name="q" value="${escapeHtml(q)}" placeholder="Chercher nom ou email…" aria-label="Chercher par nom ou email" />
         <button type="submit">Chercher</button>
       </form>
+      <a class="csv-link" href="?${csvParams.toString()}">Exporter en CSV</a>
     </div>
 
     ${rows.length === 0 ? '<div class="empty">Aucune inscription ne correspond.</div>' : `
@@ -315,25 +320,20 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    const statusFilter = params.status || '';
+    const filterMode = params.filter || '';
+    // "no-account" est un raccourci depuis la carte-stat : implique payé,
+    // pas besoin que l'admin sélectionne aussi "Payés" à côté.
+    const statusFilter = params.status || (filterMode === 'no-account' ? 'payment_confirmed' : '');
     const sourceFilter = params.source || '';
     const q = params.q || '';
 
     const rows = await fetchRows({ statusFilter, sourceFilter, q });
 
-    if (params.format === 'csv') {
-      return {
-        statusCode: 200,
-        headers: {
-          'Content-Type': 'text/csv; charset=utf-8',
-          'Content-Disposition': `attachment; filename="inscriptions-${new Date().toISOString().slice(0, 10)}.csv"`,
-        },
-        body: toCsv(rows),
-      };
-    }
-
     // Croisement avec les comptes Identity : best-effort, n'empêche jamais
     // d'afficher les inscriptions si Identity est momentanément indisponible.
+    // Fait AVANT la branche CSV pour que l'export respecte aussi le filtre
+    // "payé sans compte Mon espace" (ce croisement ne peut pas se faire en
+    // SQL, donc l'ancien ordre — CSV avant croisement — ignorait ce filtre).
     let espaceByEmail = new Map();
     if (identity) {
       try {
@@ -347,7 +347,7 @@ exports.handler = async (event, context) => {
       }
     }
 
-    const enrichedRows = rows.map((r) => {
+    let enrichedRows = rows.map((r) => {
       const hasEspaceAccount = r.email ? espaceByEmail.has(String(r.email).toLowerCase()) : false;
       return {
         ...r,
@@ -355,6 +355,20 @@ exports.handler = async (event, context) => {
         espaceSubscriptionActive: hasEspaceAccount ? espaceByEmail.get(String(r.email).toLowerCase()) : null,
       };
     });
+    if (filterMode === 'no-account') {
+      enrichedRows = enrichedRows.filter((r) => !r.hasEspaceAccount);
+    }
+
+    if (params.format === 'csv') {
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'text/csv; charset=utf-8',
+          'Content-Disposition': `attachment; filename="inscriptions-${new Date().toISOString().slice(0, 10)}.csv"`,
+        },
+        body: toCsv(enrichedRows),
+      };
+    }
 
     // Comptes globaux (pas limités par les filtres/recherche courants), comme
     // total/confirmed/pending ci-dessous — sans ça, "payé sans compte" se
@@ -378,7 +392,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'text/html; charset=utf-8' },
-      body: renderPage({ rows: enrichedRows, statusFilter, sourceFilter, q, stats, key: params.key }),
+      body: renderPage({ rows: enrichedRows, statusFilter, sourceFilter, q, filterMode, stats, key: params.key }),
     };
   } catch (err) {
     console.error('admin-enrollments error:', err.message);
