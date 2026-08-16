@@ -22,6 +22,7 @@ const { getDatabase } = require('@netlify/database');
 const { isValidAdminKey } = require('./lib/adminAuth');
 const { findUserByEmail, getUserById } = require('./lib/identityUsers');
 const { TABS_CSS, renderAdminTabs } = require('./lib/adminNav');
+const { COURSES, LANGS, toDateStr, buildCertOpenUrl: certLink } = require('./lib/certificateCourses');
 
 function escapeHtml(str) {
   if (str === null || str === undefined) return '';
@@ -32,35 +33,8 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-// Doit rester synchronisé avec l'objet `courses` de public/sks-certificate.html.
-const COURSES = {
-  scratch: 'Scratch Basics',
-  advscratch: 'Advanced Scratch',
-  turtle: 'Python Turtle',
-  python: 'Python',
-  bootcamp: 'Bootcamp / Stage',
-};
-const LANGS = { fr: 'Français', en: 'English', de: 'Deutsch' };
-
 function isValidDate(s) {
   return /^\d{4}-\d{2}-\d{2}$/.test(String(s || '')) && !isNaN(new Date(s + 'T00:00:00').getTime());
-}
-
-// Le pilote peut renvoyer une colonne DATE en objet Date (UTC minuit) ou en
-// chaîne selon le contexte — les deux formes doivent aboutir à "AAAA-MM-JJ".
-function toDateStr(v) {
-  if (v instanceof Date) return v.toISOString().slice(0, 10);
-  return String(v).slice(0, 10);
-}
-
-function certLink(cert) {
-  const qs = new URLSearchParams({
-    name: cert.student_name,
-    course: cert.course_key,
-    lang: cert.lang,
-    date: toDateStr(cert.issued_date),
-  });
-  return `/sks-certificate.html?${qs.toString()}`;
 }
 
 function certRow(cert, key, { showAccount, back, isNew }) {

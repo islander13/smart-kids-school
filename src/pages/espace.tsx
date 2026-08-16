@@ -14,6 +14,7 @@ import ContinueBanner from '../components/espace/ContinueBanner';
 import ParentDashboard from '../components/espace/ParentDashboard';
 import NextSessionCard from '../components/espace/NextSessionCard';
 import MyLinkCode from '../components/espace/MyLinkCode';
+import MyCertificates from '../components/espace/MyCertificates';
 import SubscriptionEndedNotice from '../components/espace/SubscriptionEndedNotice';
 import { ESPACE_SECTIONS, type EspaceVideo } from '../data/espaceContent';
 import { getNextUnwatchedVideo, hasAnyPublishedVideo, isVideoWatched } from '../utils/progress';
@@ -281,6 +282,7 @@ function EspaceContent() {
               </div>
               <NextSessionCard darkMode={darkMode} currentLang={currentLang} />
               <MyLinkCode darkMode={darkMode} currentLang={currentLang} />
+              <MyCertificates darkMode={darkMode} currentLang={currentLang} />
               {hasAnyPublishedVideo(ESPACE_SECTIONS) && (
                 <ContinueBanner next={nextVideo} darkMode={darkMode} currentLang={currentLang} onPlay={setPlayingVideo} />
               )}
