@@ -21,6 +21,15 @@
     <meta property="og:url" content="https://smartkids-school.ch" />
     <meta property="og:type" content="website" />
 
+    <!-- Twitter Card — twitter:card était absent (og:* seules ne suffisent pas
+         à garantir un rendu "grande image" sur X/Twitter). home.tsx met déjà
+         twitter:title/description à jour par langue via JS ; card et image
+         n'ont pas besoin de varier par page, posées ici une fois pour toutes. -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Smart Kids School — École en ligne de programmation pour enfants" />
+    <meta name="twitter:description" content="Cours en ligne de programmation, robotique et IA pour enfants dès 7 ans. Suisse." />
+    <meta name="twitter:image" content="https://smartkids-school.ch/og-image.jpg" />
+
     <!-- Remix Icons — chargement non bloquant : le rendu initial ne doit pas
          attendre cette feuille de style tierce (icônes, pas de contenu critique). -->
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
