@@ -27,6 +27,7 @@
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const { getDatabase } = require('@netlify/database');
+const { isRateLimited } = require('./lib/rateLimit');
 
 // Déduit la source (tarifs / stages / premium) à partir du productKey,
 // pour classer chaque ligne de la table `enrollments`.
@@ -87,6 +88,14 @@ exports.handler = async (event) => {
       statusCode: 405,
       headers: corsHeaders,
       body: JSON.stringify({ error: 'Method not allowed' }),
+    };
+  }
+
+  if (isRateLimited(event)) {
+    return {
+      statusCode: 429,
+      headers: { ...corsHeaders, 'Retry-After': '60' },
+      body: JSON.stringify({ error: 'too_many_requests' }),
     };
   }
 

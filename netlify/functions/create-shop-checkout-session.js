@@ -11,6 +11,7 @@ const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const { getDatabase } = require('@netlify/database');
 const { SHOP_PRODUCTS } = require('./lib/shopProducts');
+const { isRateLimited } = require('./lib/rateLimit');
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -24,6 +25,10 @@ exports.handler = async (event) => {
   }
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, headers: corsHeaders, body: JSON.stringify({ error: 'Method not allowed' }) };
+  }
+
+  if (isRateLimited(event)) {
+    return { statusCode: 429, headers: { ...corsHeaders, 'Retry-After': '60' }, body: JSON.stringify({ error: 'too_many_requests' }) };
   }
 
   // Coupe-circuit : cette fonction est déployée dès que le code est sur main
