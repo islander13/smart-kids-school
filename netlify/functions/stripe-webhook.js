@@ -24,6 +24,7 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const { getDatabase } = require('@netlify/database');
 const { createDownloadToken } = require('./lib/downloadToken');
 const { setSubscriptionActive, inviteUser } = require('./lib/identityUsers');
+const { sendErrorAlert } = require('./lib/alertOnError');
 
 function sourceFromProductKey(productKey) {
   if (!productKey) return 'tarifs';
@@ -64,7 +65,23 @@ async function inviteEspaceAccount(identity, email) {
   }
 }
 
+// Point d'entrée réel exposé par Netlify : ne fait qu'appeler
+// handleStripeWebhook ci-dessous, protégé par un filet de sécurité qui
+// alerte par email en cas d'erreur non gérée (bug non couvert par les
+// nombreux try/catch internes déjà présents plus bas, qui eux journalisent
+// silencieusement par design pour ne jamais faire échouer l'accusé de
+// réception à Stripe sur un problème non bloquant).
 exports.handler = async (event, context) => {
+  try {
+    return await handleStripeWebhook(event, context);
+  } catch (err) {
+    console.error('stripe-webhook: erreur non gérée:', err.message, err.stack);
+    await sendErrorAlert('stripe-webhook', err, { eventType: event.headers?.['stripe-signature'] ? 'signed request' : 'unknown' });
+    return { statusCode: 500, body: JSON.stringify({ error: 'internal_error' }) };
+  }
+};
+
+async function handleStripeWebhook(event, context) {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method not allowed' };
   }
@@ -326,4 +343,4 @@ exports.handler = async (event, context) => {
   }
 
   return { statusCode: 200, body: JSON.stringify({ received: true }) };
-};
+}

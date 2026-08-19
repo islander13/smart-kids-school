@@ -28,6 +28,7 @@ const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const { getDatabase } = require('@netlify/database');
 const { isRateLimited } = require('./lib/rateLimit');
+const { sendErrorAlert } = require('./lib/alertOnError');
 
 // Déduit la source (tarifs / stages / premium) à partir du productKey,
 // pour classer chaque ligne de la table `enrollments`.
@@ -211,6 +212,7 @@ exports.handler = async (event) => {
     };
   } catch (error) {
     console.error('Stripe error:', error);
+    await sendErrorAlert('create-checkout-session', error, { productKey: data?.productKey });
     return {
       statusCode: 500,
       headers: corsHeaders,

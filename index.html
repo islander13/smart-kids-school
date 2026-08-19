@@ -177,6 +177,16 @@
       <textarea name="summary"></textarea>
     </form>
 
+    <!-- Soumis uniquement par netlify/functions/lib/alertOnError.js, quand une
+         fonction critique (stripe-webhook, create-checkout-session...) plante
+         avec une erreur non gérée — voir ce fichier pour le détail. -->
+    <form name="function-error-alert" data-netlify="true" hidden>
+      <input type="text" name="functionName" />
+      <input type="text" name="errorMessage" />
+      <textarea name="context"></textarea>
+      <input type="text" name="timestamp" />
+    </form>
+
     <!-- ════════════════════════════════════════════════════════════════════ -->
 
     <div id="root"></div>
