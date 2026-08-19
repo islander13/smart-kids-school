@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
+import { getPageMeta } from '../lib/pageMeta';
 import { useEmbeddedCheckout } from '../lib/useEmbeddedCheckout';
 import { ESPACE_NAV_VISIBLE } from '../data/espaceContent';
 
@@ -518,25 +519,16 @@ export default function Stages() {
   }, [darkMode, currentLang]);
 
   useEffect(() => {
-    const titles: Record<Lang, string> = {
-      FR: 'Stages programmation enfants en ligne, Vacances scolaires Suisse | Smart Kids School',
-      EN: 'Online kids coding camps, School holidays Switzerland | Smart Kids School',
-      DE: 'Online Programmier-Camps für Kinder, Schweizer Schulferien | Smart Kids School',
-    };
-    const descs: Record<Lang, string> = {
-      FR: 'Stages de programmation, robotique et IA en ligne pour enfants dès 7 ans, pendant les vacances scolaires suisses. Ingénieurs EPFL & ETHZ, dès 449 CHF/semaine.',
-      EN: 'Online programming, robotics and AI camps for children from age 7 during Swiss school holidays. Led by EPFL & ETHZ engineers. From CHF 449/week.',
-      DE: 'Online Programmier-, Robotik- und KI-Camps für Kinder ab 7 Jahren während der Schweizer Schulferien. Von EPFL & ETHZ Ingenieuren. Ab 449 CHF/Woche.',
-    };
-    document.title = titles[currentLang];
+    const { title, description } = getPageMeta('/stages', currentLang);
+    document.title = title;
     const setMeta = (name: string, content: string, attr = 'name') => {
       let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement;
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
       el.content = content;
     };
-    setMeta('description', descs[currentLang]);
-    setMeta('og:title', titles[currentLang], 'property');
-    setMeta('og:description', descs[currentLang], 'property');
+    setMeta('description', description);
+    setMeta('og:title', title, 'property');
+    setMeta('og:description', description, 'property');
     const { basePath } = parseLocaleFromPath(window.location.pathname);
     const isFormDeeplink = basePath.endsWith('/inscription');
     setMeta('og:url', `https://smartkids-school.ch${localizedPath(basePath, currentLang)}`, 'property');

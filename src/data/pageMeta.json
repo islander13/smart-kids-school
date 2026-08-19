@@ -1,0 +1,42 @@
+{
+  "/": {
+    "FR": { "title": "Smart Kids School — Programmation, robotique et IA pour enfants", "description": "École en ligne de programmation pour enfants dès 7 ans, conçue par des ingénieurs EPFL & ETHZ. Scratch, Python, IA, robotique. Solo ou Duo dès 169 CHF/mois." },
+    "EN": { "title": "Smart Kids School — Coding, robotics and AI for kids", "description": "Online coding school for kids from age 7, designed by EPFL & ETHZ engineers. Scratch, Python, AI, robotics. Solo or Duo from CHF 169/month." },
+    "DE": { "title": "Smart Kids School — Programmieren, Robotik und KI für Kinder", "description": "Online-Programmierschule für Kinder ab 7 Jahren, von EPFL- und ETHZ-Ingenieuren konzipiert. Scratch, Python, KI, Robotik. Solo oder Duo ab 169 CHF/Monat." }
+  },
+  "/tarifs": {
+    "FR": { "title": "Tarifs cours programmation enfants, Solo, Duo | Smart Kids School", "description": "Cours de programmation pour enfants en Suisse romande. Tarifs Solo, Duo. Engagement 3, 6 ou 12 mois. Dès 169 CHF/mois par enfant." },
+    "EN": { "title": "Pricing for kids coding classes, Solo, Duo | Smart Kids School", "description": "Kids coding classes in Switzerland. Solo, Duo pricing. 3, 6 or 12-month commitment. From CHF 169/month per child." },
+    "DE": { "title": "Preise Programmierkurse Kinder, Solo, Duo | Smart Kids School", "description": "Programmierkurse für Kinder in der Schweiz. Solo, Duo Preise. 3, 6 oder 12 Monate Bindung. Ab 169 CHF/Monat pro Kind." }
+  },
+  "/stages": {
+    "FR": { "title": "Stages programmation enfants en ligne, Vacances scolaires Suisse | Smart Kids School", "description": "Stages de programmation, robotique et IA en ligne pour enfants dès 7 ans, pendant les vacances scolaires suisses. Ingénieurs EPFL & ETHZ, dès 449 CHF/semaine." },
+    "EN": { "title": "Online kids coding camps, School holidays Switzerland | Smart Kids School", "description": "Online programming, robotics and AI camps for children from age 7 during Swiss school holidays. Led by EPFL & ETHZ engineers. From CHF 449/week." },
+    "DE": { "title": "Online Programmier-Camps für Kinder, Schweizer Schulferien | Smart Kids School", "description": "Online Programmier-, Robotik- und KI-Camps für Kinder ab 7 Jahren während der Schweizer Schulferien. Von EPFL & ETHZ Ingenieuren. Ab 449 CHF/Woche." }
+  },
+  "/premium": {
+    "FR": { "title": "Premium, Mentorat individuel | Smart Kids School", "description": "Mentorat individuel avec le fondateur de Smart Kids School. 2 séances par semaine, un vrai projet publié en 12 mois. 3 places par année scolaire." },
+    "EN": { "title": "Premium, One-to-one mentoring | Smart Kids School", "description": "One-to-one mentoring with the founder of Smart Kids School. 2 sessions a week, a real project published within 12 months. 3 spots per school year." },
+    "DE": { "title": "Premium, Einzelmentoring | Smart Kids School", "description": "Einzelmentoring mit dem Gründer von Smart Kids School. 2 Sitzungen pro Woche, ein echtes Projekt in 12 Monaten veröffentlicht. 3 Plätze pro Schuljahr." }
+  },
+  "/faq": {
+    "FR": { "title": "FAQ, Smart Kids School | Réponses à vos questions", "description": "Toutes les réponses sur les cours, tarifs et stages Smart Kids School." },
+    "EN": { "title": "FAQ, Smart Kids School | Answers to your questions", "description": "All answers about classes, pricing and camps at Smart Kids School." },
+    "DE": { "title": "FAQ, Smart Kids School | Antworten auf Ihre Fragen", "description": "Alle Antworten zu Kursen, Preisen und Camps bei Smart Kids School." }
+  },
+  "/legal": {
+    "FR": { "title": "Mentions Légales | Smart Kids School", "description": "Mentions légales de Smart Kids School, école de programmation en ligne pour enfants en Suisse. Éditeur, hébergeur, données personnelles, cookies." },
+    "EN": { "title": "Legal Notice | Smart Kids School", "description": "Legal notice of Smart Kids School, online programming school for children in Switzerland. Publisher, hosting, personal data, cookies." },
+    "DE": { "title": "Impressum | Smart Kids School", "description": "Impressum von Smart Kids School, Online-Programmierschule für Kinder in der Schweiz. Herausgeber, Hosting, personenbezogene Daten, Cookies." }
+  },
+  "/cgv": {
+    "FR": { "title": "Conditions Générales de Vente | Smart Kids School", "description": "Conditions générales de vente Smart Kids School : cours de programmation en ligne pour enfants. Tarifs, annulation, remboursement, droit applicable." },
+    "EN": { "title": "Terms and Conditions of Sale | Smart Kids School", "description": "Smart Kids School's terms and conditions of sale: online coding classes for children. Pricing, cancellation, refunds, applicable law." },
+    "DE": { "title": "Allgemeine Geschäftsbedingungen | Smart Kids School", "description": "Allgemeine Geschäftsbedingungen von Smart Kids School: Online-Programmierkurse für Kinder. Preise, Kündigung, Rückerstattung, anwendbares Recht." }
+  },
+  "/blog": {
+    "FR": { "title": "Blog, Smart Kids School | Conseils pour apprendre le code aux enfants", "description": "Le blog Smart Kids School : conseils, repères par âge et retours d'expérience sur l'apprentissage du code pour enfants." },
+    "EN": { "title": "Blog, Smart Kids School | Advice on teaching kids to code", "description": "The Smart Kids School blog: advice, age benchmarks and lessons learned about teaching kids to code." },
+    "DE": { "title": "Blog, Smart Kids School | Tipps zum Programmieren-Lernen für Kinder", "description": "Der Smart Kids School Blog: Tipps, Altersrichtwerte und Erfahrungen rund ums Programmieren-Lernen für Kinder." }
+  }
+}

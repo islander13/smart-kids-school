@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import ProjectGallery from '../components/ProjectGallery';
 import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
+import { getPageMeta } from '../lib/pageMeta';
 import { useEmbeddedCheckout } from '../lib/useEmbeddedCheckout';
 import { ESPACE_NAV_VISIBLE } from '../data/espaceContent';
 
@@ -704,25 +705,16 @@ export default function Tarifs() {
 
   // SEO
   useEffect(() => {
-    const titles: Record<Lang, string> = {
-      FR: 'Tarifs cours programmation enfants, Solo, Duo | Smart Kids School',
-      EN: 'Pricing for kids coding classes, Solo, Duo | Smart Kids School',
-      DE: 'Preise Programmierkurse Kinder, Solo, Duo | Smart Kids School',
-    };
-    const descs: Record<Lang, string> = {
-      FR: 'Cours de programmation pour enfants en Suisse romande. Tarifs Solo, Duo. Engagement 3, 6 ou 12 mois. Dès 169 CHF/mois par enfant.',
-      EN: 'Kids coding classes in Switzerland. Solo, Duo pricing. 3, 6 or 12-month commitment. From CHF 169/month per child.',
-      DE: 'Programmierkurse für Kinder in der Schweiz. Solo, Duo Preise. 3, 6 oder 12 Monate Bindung. Ab 169 CHF/Monat pro Kind.',
-    };
-    document.title = titles[currentLang];
+    const { title, description } = getPageMeta('/tarifs', currentLang);
+    document.title = title;
     const setMeta = (name: string, content: string, attr = 'name') => {
       let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement;
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
       el.content = content;
     };
-    setMeta('description', descs[currentLang]);
-    setMeta('og:title', titles[currentLang], 'property');
-    setMeta('og:description', descs[currentLang], 'property');
+    setMeta('description', description);
+    setMeta('og:title', title, 'property');
+    setMeta('og:description', description, 'property');
     const { basePath } = parseLocaleFromPath(window.location.pathname);
     const isFormDeeplink = basePath.endsWith('/inscription');
     setMeta('og:url', `https://smartkids-school.ch${localizedPath(basePath, currentLang)}`, 'property');
@@ -760,7 +752,7 @@ export default function Tarifs() {
       '@context': 'https://schema.org',
       '@type': 'Course',
       name: currentLang === 'FR' ? 'Cours de programmation pour enfants — Solo & Duo' : currentLang === 'EN' ? 'Coding classes for kids — Solo & Duo' : 'Programmierkurse für Kinder — Solo & Duo',
-      description: descs[currentLang],
+      description,
       provider: { '@type': 'EducationalOrganization', name: 'Smart Kids School', sameAs: 'https://smartkids-school.ch' },
       offers: [
         offerFor('solo', 'm3', 3), offerFor('solo', 'm6', 6), offerFor('solo', 'm12', 12),

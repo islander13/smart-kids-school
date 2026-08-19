@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
+import { getPageMeta } from '../lib/pageMeta';
 import { ESPACE_NAV_VISIBLE } from '../data/espaceContent';
 
 type Lang = 'FR' | 'EN' | 'DE';
@@ -60,21 +61,12 @@ export default function LegalNotice() {
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
       el.content = content;
     };
-    const titles: Record<Lang, string> = {
-      FR: 'Mentions Légales | Smart Kids School',
-      EN: 'Legal Notice | Smart Kids School',
-      DE: 'Impressum | Smart Kids School',
-    };
-    const descs: Record<Lang, string> = {
-      FR: 'Mentions légales de Smart Kids School, école de programmation en ligne pour enfants en Suisse. Éditeur, hébergeur, données personnelles, cookies.',
-      EN: "Legal notice of Smart Kids School, online programming school for children in Switzerland. Publisher, hosting, personal data, cookies.",
-      DE: 'Impressum von Smart Kids School, Online-Programmierschule für Kinder in der Schweiz. Herausgeber, Hosting, personenbezogene Daten, Cookies.',
-    };
-    document.title = titles[lang];
-    setMeta('description', descs[lang]);
+    const { title, description } = getPageMeta('/legal', lang);
+    document.title = title;
+    setMeta('description', description);
     setMeta('robots', 'index, follow');
-    setMeta('og:title', titles[lang], 'property');
-    setMeta('og:description', descs[lang], 'property');
+    setMeta('og:title', title, 'property');
+    setMeta('og:description', description, 'property');
     setMeta('og:url', `https://smartkids-school.ch${localizedPath('/legal', lang)}`, 'property');
     setHreflangTags('/legal', lang);
   }, [lang]);

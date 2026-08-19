@@ -1,0 +1,326 @@
+{
+  "/": {
+    "title": "Smart Kids School — Programmation, robotique et IA pour enfants",
+    "description": "École en ligne de programmation pour enfants dès 7 ans, conçue par des ingénieurs EPFL & ETHZ. Scratch, Python, IA, robotique. Solo ou Duo dès 169 CHF/mois."
+  },
+  "/en": {
+    "title": "Smart Kids School — Coding, robotics and AI for kids",
+    "description": "Online coding school for kids from age 7, designed by EPFL & ETHZ engineers. Scratch, Python, AI, robotics. Solo or Duo from CHF 169/month."
+  },
+  "/de": {
+    "title": "Smart Kids School — Programmieren, Robotik und KI für Kinder",
+    "description": "Online-Programmierschule für Kinder ab 7 Jahren, von EPFL- und ETHZ-Ingenieuren konzipiert. Scratch, Python, KI, Robotik. Solo oder Duo ab 169 CHF/Monat."
+  },
+  "/tarifs": {
+    "title": "Tarifs cours programmation enfants, Solo, Duo | Smart Kids School",
+    "description": "Cours de programmation pour enfants en Suisse romande. Tarifs Solo, Duo. Engagement 3, 6 ou 12 mois. Dès 169 CHF/mois par enfant."
+  },
+  "/en/tarifs": {
+    "title": "Pricing for kids coding classes, Solo, Duo | Smart Kids School",
+    "description": "Kids coding classes in Switzerland. Solo, Duo pricing. 3, 6 or 12-month commitment. From CHF 169/month per child."
+  },
+  "/de/tarifs": {
+    "title": "Preise Programmierkurse Kinder, Solo, Duo | Smart Kids School",
+    "description": "Programmierkurse für Kinder in der Schweiz. Solo, Duo Preise. 3, 6 oder 12 Monate Bindung. Ab 169 CHF/Monat pro Kind."
+  },
+  "/stages": {
+    "title": "Stages programmation enfants en ligne, Vacances scolaires Suisse | Smart Kids School",
+    "description": "Stages de programmation, robotique et IA en ligne pour enfants dès 7 ans, pendant les vacances scolaires suisses. Ingénieurs EPFL & ETHZ, dès 449 CHF/semaine."
+  },
+  "/en/stages": {
+    "title": "Online kids coding camps, School holidays Switzerland | Smart Kids School",
+    "description": "Online programming, robotics and AI camps for children from age 7 during Swiss school holidays. Led by EPFL & ETHZ engineers. From CHF 449/week."
+  },
+  "/de/stages": {
+    "title": "Online Programmier-Camps für Kinder, Schweizer Schulferien | Smart Kids School",
+    "description": "Online Programmier-, Robotik- und KI-Camps für Kinder ab 7 Jahren während der Schweizer Schulferien. Von EPFL & ETHZ Ingenieuren. Ab 449 CHF/Woche."
+  },
+  "/premium": {
+    "title": "Premium, Mentorat individuel | Smart Kids School",
+    "description": "Mentorat individuel avec le fondateur de Smart Kids School. 2 séances par semaine, un vrai projet publié en 12 mois. 3 places par année scolaire."
+  },
+  "/en/premium": {
+    "title": "Premium, One-to-one mentoring | Smart Kids School",
+    "description": "One-to-one mentoring with the founder of Smart Kids School. 2 sessions a week, a real project published within 12 months. 3 spots per school year."
+  },
+  "/de/premium": {
+    "title": "Premium, Einzelmentoring | Smart Kids School",
+    "description": "Einzelmentoring mit dem Gründer von Smart Kids School. 2 Sitzungen pro Woche, ein echtes Projekt in 12 Monaten veröffentlicht. 3 Plätze pro Schuljahr."
+  },
+  "/faq": {
+    "title": "FAQ, Smart Kids School | Réponses à vos questions",
+    "description": "Toutes les réponses sur les cours, tarifs et stages Smart Kids School."
+  },
+  "/en/faq": {
+    "title": "FAQ, Smart Kids School | Answers to your questions",
+    "description": "All answers about classes, pricing and camps at Smart Kids School."
+  },
+  "/de/faq": {
+    "title": "FAQ, Smart Kids School | Antworten auf Ihre Fragen",
+    "description": "Alle Antworten zu Kursen, Preisen und Camps bei Smart Kids School."
+  },
+  "/legal": {
+    "title": "Mentions Légales | Smart Kids School",
+    "description": "Mentions légales de Smart Kids School, école de programmation en ligne pour enfants en Suisse. Éditeur, hébergeur, données personnelles, cookies."
+  },
+  "/en/legal": {
+    "title": "Legal Notice | Smart Kids School",
+    "description": "Legal notice of Smart Kids School, online programming school for children in Switzerland. Publisher, hosting, personal data, cookies."
+  },
+  "/de/legal": {
+    "title": "Impressum | Smart Kids School",
+    "description": "Impressum von Smart Kids School, Online-Programmierschule für Kinder in der Schweiz. Herausgeber, Hosting, personenbezogene Daten, Cookies."
+  },
+  "/cgv": {
+    "title": "Conditions Générales de Vente | Smart Kids School",
+    "description": "Conditions générales de vente Smart Kids School : cours de programmation en ligne pour enfants. Tarifs, annulation, remboursement, droit applicable."
+  },
+  "/en/cgv": {
+    "title": "Terms and Conditions of Sale | Smart Kids School",
+    "description": "Smart Kids School's terms and conditions of sale: online coding classes for children. Pricing, cancellation, refunds, applicable law."
+  },
+  "/de/cgv": {
+    "title": "Allgemeine Geschäftsbedingungen | Smart Kids School",
+    "description": "Allgemeine Geschäftsbedingungen von Smart Kids School: Online-Programmierkurse für Kinder. Preise, Kündigung, Rückerstattung, anwendbares Recht."
+  },
+  "/blog": {
+    "title": "Blog, Smart Kids School | Conseils pour apprendre le code aux enfants",
+    "description": "Le blog Smart Kids School : conseils, repères par âge et retours d'expérience sur l'apprentissage du code pour enfants."
+  },
+  "/en/blog": {
+    "title": "Blog, Smart Kids School | Advice on teaching kids to code",
+    "description": "The Smart Kids School blog: advice, age benchmarks and lessons learned about teaching kids to code."
+  },
+  "/de/blog": {
+    "title": "Blog, Smart Kids School | Tipps zum Programmieren-Lernen für Kinder",
+    "description": "Der Smart Kids School Blog: Tipps, Altersrichtwerte und Erfahrungen rund ums Programmieren-Lernen für Kinder."
+  },
+  "/blog/activites-extrascolaires-rentree": {
+    "title": "Activités extrascolaires 2026-2027 : pourquoi le code mérite sa place | Smart Kids School",
+    "description": "Musique, sport, code : ces activités ne se concurrencent pas, elles apportent des choses différentes. Ce que la programmation apporte spécifiquement, honnêtement."
+  },
+  "/en/blog/activites-extrascolaires-rentree": {
+    "title": "Extracurricular activities 2026-2027: why coding deserves a spot | Smart Kids School",
+    "description": "Music, sport, coding: these activities aren't competing, they bring different things. What programming specifically brings, honestly."
+  },
+  "/de/blog/activites-extrascolaires-rentree": {
+    "title": "Ausserschulische Aktivitäten 2026-2027: warum Programmieren seinen Platz verdient | Smart Kids School",
+    "description": "Musik, Sport, Programmieren: Diese Aktivitäten konkurrieren nicht, sie bringen unterschiedliche Dinge. Was Programmieren spezifisch bringt, ehrlich betrachtet."
+  },
+  "/blog/checklist-stage-code-vacances": {
+    "title": "Stage de code pendant les vacances : la checklist pour bien préparer votre enfant | Smart Kids School",
+    "description": "Matériel, environnement, attentes : la checklist complète pour que le stage de programmation de votre enfant démarre sans accroc, à imprimer avant le premier jour."
+  },
+  "/en/blog/checklist-stage-code-vacances": {
+    "title": "Holiday coding camp: the checklist to get your child ready | Smart Kids School",
+    "description": "Equipment, environment, expectations: the full checklist so your child's coding camp starts smoothly, ready to check off before day one."
+  },
+  "/de/blog/checklist-stage-code-vacances": {
+    "title": "Ferien-Programmier-Camp: die Checkliste zur Vorbereitung Ihres Kindes | Smart Kids School",
+    "description": "Material, Umgebung, Erwartungen: die vollständige Checkliste, damit das Programmier-Camp Ihres Kindes reibungslos startet — zum Abhaken vor dem ersten Tag."
+  },
+  "/blog/combien-de-temps-pour-savoir-coder": {
+    "title": "Combien de temps faut-il pour qu'un enfant sache vraiment coder ? | Smart Kids School",
+    "description": "Après une séance, après 3 mois, après un an : ce qu'un enfant sait réellement faire à chaque étape, pour se fixer des attentes réalistes."
+  },
+  "/en/blog/combien-de-temps-pour-savoir-coder": {
+    "title": "How long does it take for a child to really learn to code? | Smart Kids School",
+    "description": "After one session, after 3 months, after a year: what a child can actually do at each stage, so you can set realistic expectations."
+  },
+  "/de/blog/combien-de-temps-pour-savoir-coder": {
+    "title": "Wie lange dauert es, bis ein Kind wirklich programmieren kann? | Smart Kids School",
+    "description": "Nach einer Sitzung, nach 3 Monaten, nach einem Jahr: Was ein Kind auf jeder Stufe wirklich kann, um realistische Erwartungen zu setzen."
+  },
+  "/blog/cours-code-geneve": {
+    "title": "Cours de code pour enfants à Genève : comment choisir | Smart Kids School",
+    "description": "6 questions concrètes à poser avant d'inscrire son enfant à un cours de programmation à Genève, pour choisir sur des critères plutôt que sur un nom connu."
+  },
+  "/en/blog/cours-code-geneve": {
+    "title": "Coding classes for kids in Geneva: how to choose | Smart Kids School",
+    "description": "6 concrete questions to ask before enrolling your child in a coding class in Geneva, to choose based on criteria rather than a familiar name."
+  },
+  "/de/blog/cours-code-geneve": {
+    "title": "Programmierkurse für Kinder in Genf: Wie wählt man richtig? | Smart Kids School",
+    "description": "6 konkrete Fragen, die Sie vor der Anmeldung Ihres Kindes zu einem Programmierkurs in Genf stellen sollten, um nach Kriterien statt nach einem bekannten Namen zu wählen."
+  },
+  "/blog/cours-en-ligne-vs-presentiel": {
+    "title": "Cours de code en ligne ou en présentiel : lequel choisir pour son enfant ? | Smart Kids School",
+    "description": "Un cours de programmation 100% en ligne, est-ce vraiment aussi efficace qu'en présentiel ? Ce qu'on gagne, ce qu'on perd, et pourquoi le code s'y prête particulièrement bien."
+  },
+  "/en/blog/cours-en-ligne-vs-presentiel": {
+    "title": "Online or in-person coding classes: which is right for your child? | Smart Kids School",
+    "description": "Is a fully online coding class really as effective as in-person? What you gain, what you lose, and why coding lends itself particularly well to remote learning."
+  },
+  "/de/blog/cours-en-ligne-vs-presentiel": {
+    "title": "Online- oder Präsenzunterricht im Programmieren: Was passt besser zu Ihrem Kind? | Smart Kids School",
+    "description": "Ist ein rein online abgehaltener Programmierkurs wirklich so wirksam wie Präsenzunterricht? Was man gewinnt, was man verliert, und warum sich Programmieren besonders gut fürs Online-Lernen eignet."
+  },
+  "/blog/cours-programmation-fribourg": {
+    "title": "Cours de programmation pour enfants à Fribourg : quelle langue choisir ? | Smart Kids School",
+    "description": "Fribourg est une ville bilingue : voici pourquoi ça change la donne pour choisir un cours de programmation adapté à votre enfant, et comment on gère ça chez nous."
+  },
+  "/en/blog/cours-programmation-fribourg": {
+    "title": "Coding classes for kids in Fribourg: which language should you choose? | Smart Kids School",
+    "description": "Fribourg is a bilingual city: here's why that matters when choosing a coding class for your child, and how we handle it."
+  },
+  "/de/blog/cours-programmation-fribourg": {
+    "title": "Programmierkurse für Kinder in Freiburg: welche Sprache wählen? | Smart Kids School",
+    "description": "Freiburg ist eine zweisprachige Stadt: deshalb lohnt es sich, bei der Wahl eines Programmierkurses zuerst die Sprachfrage zu klären. So handhaben wir das."
+  },
+  "/blog/cours-programmation-lausanne": {
+    "title": "Cours de programmation pour enfants à Lausanne : le guide complet | Smart Kids School",
+    "description": "Cours particuliers, ateliers, stages ou 100% en ligne : ce qui existe à Lausanne pour initier son enfant au code, et comment choisir sans se tromper."
+  },
+  "/en/blog/cours-programmation-lausanne": {
+    "title": "Coding classes for kids in Lausanne: the complete guide | Smart Kids School",
+    "description": "Private lessons, workshops, camps or 100% online: what's available in Lausanne to introduce your child to coding, and how to choose without getting it wrong."
+  },
+  "/de/blog/cours-programmation-lausanne": {
+    "title": "Programmierkurse für Kinder in Lausanne: der komplette Leitfaden | Smart Kids School",
+    "description": "Einzelunterricht, Workshops, Camps oder 100% online: Was es in Lausanne gibt, um Kinder ans Programmieren heranzuführen, und wie man richtig wählt."
+  },
+  "/blog/cours-programmation-neuchatel": {
+    "title": "Cours de programmation pour enfants à Neuchâtel : de l'horlogerie au code | Smart Kids School",
+    "description": "Neuchâtel a bâti sa réputation sur la précision horlogère et la microtechnique. Pourquoi cette culture locale est un terrain particulièrement favorable pour initier un enfant à la programmation."
+  },
+  "/en/blog/cours-programmation-neuchatel": {
+    "title": "Coding classes for kids in Neuchâtel: from watchmaking to code | Smart Kids School",
+    "description": "Neuchâtel built its reputation on watchmaking precision and microtechnology. Why this local culture is particularly fertile ground for introducing a child to coding."
+  },
+  "/de/blog/cours-programmation-neuchatel": {
+    "title": "Programmierkurse für Kinder in Neuenburg: von der Uhrmacherei zum Code | Smart Kids School",
+    "description": "Neuenburg hat sich seinen Ruf durch Präzisionsuhren und Mikrotechnik aufgebaut. Warum diese lokale Kultur ein besonders fruchtbarer Boden ist, um ein Kind ans Programmieren heranzuführen."
+  },
+  "/blog/cours-programmation-nyon": {
+    "title": "Cours de programmation pour enfants à Nyon : l'option pour les familles internationales | Smart Kids School",
+    "description": "Nyon compte une forte proportion de familles internationales et d'écoles bilingues. Pourquoi un cours de programmation en anglais, 100% en ligne, y est particulièrement adapté."
+  },
+  "/en/blog/cours-programmation-nyon": {
+    "title": "Coding classes for kids in Nyon: the option for international families | Smart Kids School",
+    "description": "Nyon has a large share of international families and bilingual schools. Why a 100% online coding class taught in English is particularly well suited here."
+  },
+  "/de/blog/cours-programmation-nyon": {
+    "title": "Programmierkurse für Kinder in Nyon: die Option für internationale Familien | Smart Kids School",
+    "description": "Nyon hat einen hohen Anteil an internationalen Familien und zweisprachigen Schulen. Warum ein 100 % online auf Englisch unterrichteter Programmierkurs hier besonders passend ist."
+  },
+  "/blog/jonas-premier-jeu-video": {
+    "title": "Jonas, 8 ans, a créé son premier jeu vidéo : voici comment | Smart Kids School",
+    "description": "Semaine par semaine, la progression type d'un enfant de 8 ans qui découvre Scratch et termine avec un jeu vidéo complet, jouable et fait de A à Z."
+  },
+  "/en/blog/jonas-premier-jeu-video": {
+    "title": "Jonas, age 8, built his first video game: here's how | Smart Kids School",
+    "description": "Week by week, the typical progression of an 8-year-old discovering Scratch and finishing with a complete, playable game built entirely from scratch."
+  },
+  "/de/blog/jonas-premier-jeu-video": {
+    "title": "Jonas, 8 Jahre, hat sein erstes Videospiel gebaut: so geht's | Smart Kids School",
+    "description": "Woche für Woche: der typische Werdegang eines 8-jährigen Kindes, das Scratch entdeckt und mit einem vollständigen, spielbaren, selbst gebauten Spiel endet."
+  },
+  "/blog/premium-mentorat-signes-prets": {
+    "title": "5 signes que votre enfant est prêt pour un mentorat individuel | Smart Kids School",
+    "description": "Premium n'est pas une version plus intensive de Solo, c'est autre chose : un mentorat direct avec le fondateur. Voici comment savoir si c'est le bon moment."
+  },
+  "/en/blog/premium-mentorat-signes-prets": {
+    "title": "5 signs your child is ready for one-to-one mentoring | Smart Kids School",
+    "description": "Premium isn't a more intensive version of Solo, it's something else: direct mentoring with the founder. Here's how to know if it's the right time."
+  },
+  "/de/blog/premium-mentorat-signes-prets": {
+    "title": "5 Anzeichen, dass Ihr Kind bereit für Einzelmentoring ist | Smart Kids School",
+    "description": "Premium ist keine intensivere Version von Solo, sondern etwas anderes: direktes Mentoring mit dem Gründer. So erkennen Sie, ob der Zeitpunkt richtig ist."
+  },
+  "/blog/programmation-confiance-en-soi": {
+    "title": "Programmation et confiance en soi : ce que remarquent les parents | Smart Kids School",
+    "description": "Au-delà des compétences techniques, ce que plusieurs mois de programmation changent souvent dans la façon dont un enfant aborde l'erreur et la difficulté."
+  },
+  "/en/blog/programmation-confiance-en-soi": {
+    "title": "Coding and self-confidence: what parents notice | Smart Kids School",
+    "description": "Beyond technical skills, what several months of coding often change in how a child approaches mistakes and difficulty."
+  },
+  "/de/blog/programmation-confiance-en-soi": {
+    "title": "Programmieren und Selbstvertrauen: was Eltern bemerken | Smart Kids School",
+    "description": "Über die technischen Fähigkeiten hinaus: Was mehrere Monate Programmieren oft daran ändert, wie ein Kind mit Fehlern und Schwierigkeiten umgeht."
+  },
+  "/blog/python-pour-enfants-par-ou-commencer": {
+    "title": "Python pour enfants : par où commencer concrètement ? | Smart Kids School",
+    "description": "Variables, boucles, premiers projets : ce que contient réellement un début en Python pour un enfant, et dans quel ordre les notions s'enchaînent."
+  },
+  "/en/blog/python-pour-enfants-par-ou-commencer": {
+    "title": "Python for kids: where does it actually start? | Smart Kids School",
+    "description": "Variables, loops, first projects: what a child's actual start in Python looks like, and the order the concepts naturally build on each other."
+  },
+  "/de/blog/python-pour-enfants-par-ou-commencer": {
+    "title": "Python für Kinder: Wo fängt es eigentlich an? | Smart Kids School",
+    "description": "Variablen, Schleifen, erste Projekte: Wie der tatsächliche Einstieg eines Kindes in Python aussieht, und in welcher Reihenfolge die Konzepte aufeinander aufbauen."
+  },
+  "/blog/quel-age-programmation-enfant": {
+    "title": "À quel âge initier son enfant à la programmation ? | Smart Kids School",
+    "description": "Dès 7 ans, un enfant peut commencer à coder. Découvrez pourquoi le bon moment dépend moins de l'âge que de la pédagogie, et comment y aller progressivement."
+  },
+  "/en/blog/quel-age-programmation-enfant": {
+    "title": "What age should a child start learning to code? | Smart Kids School",
+    "description": "Children can start coding from age 7. Discover why the right moment depends less on age than on the teaching approach, and how to progress step by step."
+  },
+  "/de/blog/quel-age-programmation-enfant": {
+    "title": "Ab welchem Alter sollte ein Kind mit dem Programmieren beginnen? | Smart Kids School",
+    "description": "Kinder können bereits ab 7 Jahren mit dem Programmieren beginnen. Erfahren Sie, warum der richtige Zeitpunkt weniger vom Alter als von der Methode abhängt."
+  },
+  "/blog/robotique-enfant-sans-materiel": {
+    "title": "Robotique pour enfants : à quoi ça ressemble sans robot à acheter ? | Smart Kids School",
+    "description": "Pas besoin d'un kit à 200 CHF pour initier son enfant à la robotique. Ce que couvre vraiment la robotique virtuelle, et pourquoi elle suffit pour commencer."
+  },
+  "/en/blog/robotique-enfant-sans-materiel": {
+    "title": "Robotics for kids: what it looks like without buying a robot | Smart Kids School",
+    "description": "No need for a CHF 200 kit to introduce your child to robotics. What virtual robotics actually covers, and why it's enough to get started."
+  },
+  "/de/blog/robotique-enfant-sans-materiel": {
+    "title": "Robotik für Kinder: Wie sieht das ohne einen Roboter zu kaufen aus? | Smart Kids School",
+    "description": "Kein 200-CHF-Set nötig, um ein Kind an die Robotik heranzuführen. Was virtuelle Robotik wirklich abdeckt, und warum das für den Einstieg reicht."
+  },
+  "/blog/scratch-vs-python-difference": {
+    "title": "Scratch ou Python : par où commencer et quelle différence ? | Smart Kids School",
+    "description": "Scratch et Python ne sont pas deux niveaux d'un même jeu, mais deux outils différents. Voici comment on choisit, et pourquoi l'un mène naturellement à l'autre."
+  },
+  "/en/blog/scratch-vs-python-difference": {
+    "title": "Scratch or Python: where to start, and what's the difference? | Smart Kids School",
+    "description": "Scratch and Python aren't two difficulty levels of the same language, they're two different tools. Here's how we choose, and why one naturally leads to the other."
+  },
+  "/de/blog/scratch-vs-python-difference": {
+    "title": "Scratch oder Python: Wo anfangen, und was ist der Unterschied? | Smart Kids School",
+    "description": "Scratch und Python sind nicht zwei Schwierigkeitsstufen derselben Sprache, sondern zwei verschiedene Werkzeuge. So wählt man aus, und warum das eine zum anderen führt."
+  },
+  "/blog/solo-ou-duo-comment-choisir": {
+    "title": "Solo ou Duo : comment choisir la bonne formule pour son enfant ? | Smart Kids School",
+    "description": "Cours individuel ou cours à deux avec un frère, une sœur ou un ami : les vrais critères pour choisir, au-delà du prix."
+  },
+  "/en/blog/solo-ou-duo-comment-choisir": {
+    "title": "Solo or Duo: how to choose the right plan for your child? | Smart Kids School",
+    "description": "One-on-one classes or classes with a sibling or friend: the real criteria to choose between them, beyond price."
+  },
+  "/de/blog/solo-ou-duo-comment-choisir": {
+    "title": "Solo oder Duo: Wie wählt man die richtige Formel für sein Kind? | Smart Kids School",
+    "description": "Einzelunterricht oder Unterricht zu zweit mit Geschwister oder Freund: die echten Kriterien für die Wahl, jenseits des Preises."
+  },
+  "/blog/stage-creer-premier-jeu-video": {
+    "title": "Que fait-on concrètement pendant le stage « Crée ton premier jeu vidéo » ? | Smart Kids School",
+    "description": "Déroulé complet du stage vacances le plus populaire : de l'idée de jeu au projet final jouable, jour par jour."
+  },
+  "/en/blog/stage-creer-premier-jeu-video": {
+    "title": "What actually happens during the “Build your first video game” camp? | Smart Kids School",
+    "description": "The full breakdown of our most popular holiday camp: from the game idea to a finished, playable project, day by day."
+  },
+  "/de/blog/stage-creer-premier-jeu-video": {
+    "title": "Was passiert wirklich beim Camp «Baue dein erstes Videospiel»? | Smart Kids School",
+    "description": "Der komplette Ablauf unseres beliebtesten Ferien-Camps: von der Spielidee bis zum fertigen, spielbaren Projekt, Tag für Tag."
+  },
+  "/blog/temps-ecran-consommer-vs-creer": {
+    "title": "Temps d'écran : la différence entre consommer et créer | Smart Kids School",
+    "description": "Tous les écrans ne se valent pas. Ce qui distingue vraiment le temps passé à regarder du temps passé à construire, et pourquoi ça change tout."
+  },
+  "/en/blog/temps-ecran-consommer-vs-creer": {
+    "title": "Screen time: the difference between consuming and creating | Smart Kids School",
+    "description": "Not all screens are equal. What really distinguishes time spent watching from time spent building, and why it changes everything."
+  },
+  "/de/blog/temps-ecran-consommer-vs-creer": {
+    "title": "Bildschirmzeit: der Unterschied zwischen konsumieren und erschaffen | Smart Kids School",
+    "description": "Nicht alle Bildschirme sind gleich. Was Zeit vor dem Bildschirm beim Schauen wirklich von Zeit beim Erschaffen unterscheidet, und warum das alles verändert."
+  }
+}

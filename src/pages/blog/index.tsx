@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import CookieBanner from '../../components/CookieBanner';
 import { parseLocaleFromPath, localizedPath, setHreflangTags, type Locale } from '../../i18n/routing';
+import { getPageMeta } from '../../lib/pageMeta';
 import { getAllArticles, type ArticleSummary } from '../../lib/blog';
 import { ESPACE_NAV_VISIBLE } from '../../data/espaceContent';
 
@@ -87,20 +88,15 @@ export default function BlogIndex() {
 
   // SEO
   useEffect(() => {
-    const titles: Record<Lang, string> = {
-      FR: 'Blog, Smart Kids School | Conseils pour apprendre le code aux enfants',
-      EN: 'Blog, Smart Kids School | Advice on teaching kids to code',
-      DE: 'Blog, Smart Kids School | Tipps zum Programmieren-Lernen für Kinder',
-    };
-    document.title = titles[currentLang];
+    const { title, description: blogDescription } = getPageMeta('/blog', currentLang);
+    document.title = title;
     const setMeta = (name: string, content: string, attr = 'name') => {
       let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement;
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
       el.content = content;
     };
-    const blogDescription = currentLang === 'FR' ? "Le blog Smart Kids School : conseils, repères par âge et retours d'expérience sur l'apprentissage du code pour enfants." : currentLang === 'EN' ? "The Smart Kids School blog: advice, age benchmarks and lessons learned about teaching kids to code." : 'Der Smart Kids School Blog: Tipps, Altersrichtwerte und Erfahrungen rund ums Programmieren-Lernen für Kinder.';
     setMeta('description', blogDescription);
-    setMeta('og:title', titles[currentLang], 'property');
+    setMeta('og:title', title, 'property');
     setMeta('og:description', blogDescription, 'property');
     setMeta('og:url', `https://smartkids-school.ch${localizedPath('/blog', currentLang)}`, 'property');
     setHreflangTags('/blog', currentLang);
@@ -115,7 +111,7 @@ export default function BlogIndex() {
     ldEl.textContent = JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Blog',
-      name: titles[currentLang],
+      name: title,
       url: `https://smartkids-school.ch${localizedPath('/blog', currentLang)}`,
       blogPost: allArticles.map(a => ({
         '@type': 'BlogPosting',

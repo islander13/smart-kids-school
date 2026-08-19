@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import ProjectGallery from '../components/ProjectGallery';
 import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
 import { ESPACE_NAV_VISIBLE } from '../data/espaceContent';
+import { getPageMeta } from '../lib/pageMeta';
 
 // ─── Translations ────────────────────────────────────────────────────────────
 type Lang = 'FR' | 'EN' | 'DE';
@@ -359,29 +360,20 @@ export default function HomePage() {
   useEffect(() => {
     const langMap: Record<string, string> = { FR: 'fr', EN: 'en', DE: 'de' };
     document.documentElement.lang = langMap[currentLang] || 'fr';
-    const titles: Record<string, string> = {
-      FR: 'Smart Kids School — Programmation, robotique et IA pour enfants',
-      EN: 'Smart Kids School — Coding, robotics and AI for kids',
-      DE: 'Smart Kids School — Programmieren, Robotik und KI für Kinder',
-    };
-    const descriptions: Record<string, string> = {
-      FR: "École en ligne de programmation pour enfants dès 7 ans, conçue par des ingénieurs EPFL & ETHZ. Scratch, Python, IA, robotique. Solo ou Duo dès 169 CHF/mois.",
-      EN: 'Online coding school for kids from age 7, designed by EPFL & ETHZ engineers. Scratch, Python, AI, robotics. Solo or Duo from CHF 169/month.',
-      DE: 'Online-Programmierschule für Kinder ab 7 Jahren, von EPFL- und ETHZ-Ingenieuren konzipiert. Scratch, Python, KI, Robotik. Solo oder Duo ab 169 CHF/Monat.',
-    };
-    document.title = titles[currentLang];
+    const { title, description } = getPageMeta('/', currentLang);
+    document.title = title;
     const setMeta = (name: string, content: string, attr = 'name') => {
       let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement;
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
       el.content = content;
     };
-    setMeta('description', descriptions[currentLang]);
+    setMeta('description', description);
     setMeta('keywords', currentLang === 'FR' ? 'cours programmation enfant, cours coding enfant, cours Scratch, cours Python enfant, école programmation Suisse romande, cours informatique Lausanne, cours informatique Genève, cours robotique enfant, cours IA enfant, STEM enfant, EPFL, ETHZ' : 'kids coding classes, Scratch course, Python kids, programming school Switzerland, robotics kids, AI kids, STEM');
-    setMeta('og:title', titles[currentLang], 'property');
-    setMeta('og:description', descriptions[currentLang], 'property');
+    setMeta('og:title', title, 'property');
+    setMeta('og:description', description, 'property');
     setMeta('og:locale', currentLang === 'FR' ? 'fr_CH' : currentLang === 'EN' ? 'en_GB' : 'de_DE', 'property');
-    setMeta('twitter:title', titles[currentLang]);
-    setMeta('twitter:description', descriptions[currentLang]);
+    setMeta('twitter:title', title);
+    setMeta('twitter:description', description);
 
     // Chaque langue a sa propre URL indexable : canonical pointe sur la page
     // elle-même, et hreflang relie les 3 versions entre elles (voir i18n/routing.ts).
@@ -404,7 +396,7 @@ export default function HomePage() {
       name: 'Smart Kids School',
       url: 'https://smartkids-school.ch',
       logo: 'https://smartkids-school.ch/Logo_official_dark.png',
-      description: descriptions[currentLang],
+      description,
       email: 'contact@smartkids-school.ch',
       telephone: '+41774768492',
       address: {

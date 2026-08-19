@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
+import { getPageMeta } from '../lib/pageMeta';
 import { ESPACE_NAV_VISIBLE } from '../data/espaceContent';
 
 type Lang = 'FR' | 'EN' | 'DE';
@@ -65,21 +66,12 @@ export default function CGV() {
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
       el.content = content;
     };
-    const titles: Record<Lang, string> = {
-      FR: 'Conditions Générales de Vente | Smart Kids School',
-      EN: 'Terms and Conditions of Sale | Smart Kids School',
-      DE: 'Allgemeine Geschäftsbedingungen | Smart Kids School',
-    };
-    const descs: Record<Lang, string> = {
-      FR: 'Conditions générales de vente Smart Kids School : cours de programmation en ligne pour enfants. Tarifs, annulation, remboursement, droit applicable.',
-      EN: "Smart Kids School's terms and conditions of sale: online coding classes for children. Pricing, cancellation, refunds, applicable law.",
-      DE: 'Allgemeine Geschäftsbedingungen von Smart Kids School: Online-Programmierkurse für Kinder. Preise, Kündigung, Rückerstattung, anwendbares Recht.',
-    };
-    document.title = titles[lang];
-    setMeta('description', descs[lang]);
+    const { title, description } = getPageMeta('/cgv', lang);
+    document.title = title;
+    setMeta('description', description);
     setMeta('robots', 'index, follow');
-    setMeta('og:title', titles[lang], 'property');
-    setMeta('og:description', descs[lang], 'property');
+    setMeta('og:title', title, 'property');
+    setMeta('og:description', description, 'property');
     setMeta('og:url', `https://smartkids-school.ch${localizedPath('/cgv', lang)}`, 'property');
     setHreflangTags('/cgv', lang);
   }, [lang]);

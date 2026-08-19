@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
+import { getPageMeta } from '../lib/pageMeta';
 import { useEmbeddedCheckout } from '../lib/useEmbeddedCheckout';
 import { ESPACE_NAV_VISIBLE } from '../data/espaceContent';
 
@@ -57,23 +58,15 @@ export default function Premium() {
   useEffect(() => {
     try { localStorage.setItem('sks_lang', currentLang); } catch {}
     document.documentElement.lang = currentLang.toLowerCase();
-    document.title = currentLang === 'FR'
-      ? 'Premium, Mentorat individuel | Smart Kids School'
-      : currentLang === 'EN'
-      ? 'Premium, One-to-one mentoring | Smart Kids School'
-      : 'Premium, Einzelmentoring | Smart Kids School';
-    const desc = currentLang === 'FR'
-      ? "Mentorat individuel avec le fondateur de Smart Kids School. 2 séances par semaine, un vrai projet publié en 12 mois. 3 places par année scolaire."
-      : currentLang === 'EN'
-      ? 'One-to-one mentoring with the founder of Smart Kids School. 2 sessions a week, a real project published within 12 months. 3 spots per school year.'
-      : 'Einzelmentoring mit dem Gründer von Smart Kids School. 2 Sitzungen pro Woche, ein echtes Projekt in 12 Monaten veröffentlicht. 3 Plätze pro Schuljahr.';
+    const { title, description: desc } = getPageMeta('/premium', currentLang);
+    document.title = title;
     const setMeta = (name: string, content: string, attr = 'name') => {
       let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement;
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
       el.content = content;
     };
     setMeta('description', desc);
-    setMeta('og:title', document.title, 'property');
+    setMeta('og:title', title, 'property');
     setMeta('og:description', desc, 'property');
     const { basePath } = parseLocaleFromPath(window.location.pathname);
     const isFormDeeplink = basePath.endsWith('/inscription');

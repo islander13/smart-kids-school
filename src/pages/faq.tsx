@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import CookieBanner from '../components/CookieBanner';
 import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
+import { getPageMeta } from '../lib/pageMeta';
 import { ESPACE_NAV_VISIBLE } from '../data/espaceContent';
 
 type Lang = 'FR' | 'EN' | 'DE';
@@ -197,20 +198,15 @@ export default function FAQ() {
 
   // SEO
   useEffect(() => {
-    const titles: Record<Lang, string> = {
-      FR: 'FAQ, Smart Kids School | Réponses à vos questions',
-      EN: 'FAQ, Smart Kids School | Answers to your questions',
-      DE: 'FAQ, Smart Kids School | Antworten auf Ihre Fragen',
-    };
-    document.title = titles[currentLang];
+    const { title, description: faqDescription } = getPageMeta('/faq', currentLang);
+    document.title = title;
     const setMeta = (name: string, content: string, attr = 'name') => {
       let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement;
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
       el.content = content;
     };
-    const faqDescription = currentLang === 'FR' ? 'Toutes les réponses sur les cours, tarifs et stages Smart Kids School.' : currentLang === 'EN' ? 'All answers about classes, pricing and camps at Smart Kids School.' : 'Alle Antworten zu Kursen, Preisen und Camps bei Smart Kids School.';
     setMeta('description', faqDescription);
-    setMeta('og:title', titles[currentLang], 'property');
+    setMeta('og:title', title, 'property');
     setMeta('og:description', faqDescription, 'property');
     setMeta('og:url', `https://smartkids-school.ch${localizedPath('/faq', currentLang)}`, 'property');
     setHreflangTags('/faq', currentLang);
