@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { GA4_ENABLED, META_PIXEL_ENABLED } from '../config/analytics';
 
 // Bannière de cookies partagée, utilisée par toutes les pages du site.
 // Autonome : gère son propre état, ses traductions et le déclenchement
@@ -7,6 +8,11 @@ import { useCallback, useEffect, useState } from 'react';
 // sur chaque page d'entrée possible, et RIEN de tiers (GA4, Meta Pixel) ne se
 // charge tant que l'utilisateur n'a pas explicitement accepté — avant le 18
 // août ces deux scripts étaient posés sans condition dans index.html.
+//
+// GA4_ENABLED/META_PIXEL_ENABLED (src/config/analytics.ts) : interrupteur
+// central, au-dessus du consentement — même un utilisateur qui accepte tout
+// ne déclenchera pas GA4/Meta Pixel si le flag correspondant est à false.
+// Plausible n'a pas cet interrupteur, c'est la mesure par défaut du site.
 
 type Lang = 'FR' | 'EN' | 'DE';
 
@@ -23,6 +29,7 @@ function loadPlausible() {
 
 // GA4 : chargé et initialisé seulement ici, plus jamais depuis index.html.
 function loadGA4() {
+  if (!GA4_ENABLED) return;
   const w = window as unknown as { __sksGaLoaded?: boolean; dataLayer?: unknown[]; gtag?: (...args: unknown[]) => void };
   if (typeof window === 'undefined' || w.__sksGaLoaded) return;
   w.__sksGaLoaded = true;
@@ -39,6 +46,7 @@ function loadGA4() {
 // Meta Pixel : même snippet officiel qu'avant, simplement déplacé ici et
 // posé seulement après consentement "marketing" plutôt qu'au chargement.
 function loadMetaPixel() {
+  if (!META_PIXEL_ENABLED) return;
   if (typeof window === 'undefined' || (window as unknown as { fbq?: unknown }).fbq) return;
   type FbqFn = { (...args: unknown[]): void; callMethod?: (...args: unknown[]) => void; queue: unknown[]; push: FbqFn; loaded: boolean; version: string };
   const f = window as unknown as { fbq?: FbqFn; _fbq?: FbqFn };
