@@ -18,10 +18,13 @@
   schedule = "@daily"
 
 # Headers de sécurité
-# HSTS sans includeSubDomains/preload pour l'instant : le site n'a que le
-# domaine principal (pas de sous-domaines à forcer en HTTPS), et preload est
-# irréversible pendant des mois via les listes des navigateurs — à activer
-# plus tard une fois le HTTPS confirmé stable sur toutes les routes.
+# HSTS avec includeSubDomains + preload depuis le 20 août 2026 (HTTPS stable
+# confirmé, aucun sous-domaine prévu — les deux restent réversibles par
+# redéploiement). La directive preload seule ne fait quasiment rien de plus
+# qu'un signal "candidat" : ce n'est QUE la soumission effective à la liste
+# de préchargement des navigateurs (sur hstspreload.org, pas ici) qui est
+# irréversible pendant des mois — cette soumission n'a volontairement PAS
+# été faite, décision distincte laissée au propriétaire du site.
 # Permissions-Policy laisse "payment" ouvert car le checkout Stripe embarqué
 # (tarifs.tsx, stages.tsx, shop/product.tsx) en a besoin.
 # Content-Security-Policy en mode BLOQUANT (passée de Report-Only à
@@ -40,7 +43,7 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Strict-Transport-Security = "max-age=31536000"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     Permissions-Policy = "geolocation=(), microphone=(), camera=(), usb=(), magnetometer=(), gyroscope=()"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://connect.facebook.net https://js.stripe.com https://plausible.io; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; frame-src https://js.stripe.com https://hooks.stripe.com https://www.youtube-nocookie.com https://player.vimeo.com; connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://analytics.google.com https://connect.facebook.net https://www.facebook.com https://plausible.io; object-src 'none'; base-uri 'self'; form-action 'self'"
 
