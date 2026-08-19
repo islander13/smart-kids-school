@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import ProjectGallery from '../components/ProjectGallery';
+import CookieBanner from '../components/CookieBanner';
 import { parseLocaleFromPath, localizedPath, setHreflangTags } from '../i18n/routing';
 import { ESPACE_NAV_VISIBLE } from '../data/espaceContent';
 import { getPageMeta } from '../lib/pageMeta';
@@ -316,17 +317,6 @@ export default function HomePage() {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     try { return localStorage.getItem('sks_theme') === 'dark'; } catch { return false; }
   });
-  const [cookieConsent, setCookieConsent] = useState<'accepted' | 'refused' | 'pending'>(() => {
-    return (localStorage.getItem('cookie_consent') as any) || 'pending';
-  });
-  const [showCookieDetails, setShowCookieDetails] = useState(false);
-  const [cookiePrefs, setCookiePrefs] = useState<{stats: boolean; marketing: boolean}>(() => {
-    try {
-      const saved = localStorage.getItem('cookie_prefs');
-      return saved ? JSON.parse(saved) : { stats: true, marketing: false };
-    } catch { return { stats: true, marketing: false }; }
-  });
-
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
@@ -522,30 +512,6 @@ export default function HomePage() {
     } catch {}
   };
 
-  const acceptCookies = (prefs?: {stats: boolean; marketing: boolean}) => {
-    const p = prefs || cookiePrefs;
-    try {
-      localStorage.setItem('cookie_consent', 'accepted');
-      localStorage.setItem('cookie_prefs', JSON.stringify(p));
-    } catch {}
-    setCookiePrefs(p);
-    setCookieConsent('accepted');
-    if (p.stats && typeof window !== 'undefined' && !(window as any).plausible) {
-      const s = document.createElement('script');
-      s.defer = true;
-      s.setAttribute('data-domain', 'smartkids-school.ch');
-      s.src = 'https://plausible.io/js/script.js';
-      document.head.appendChild(s);
-    }
-  };
-
-  const refuseCookies = () => {
-    try {
-      localStorage.setItem('cookie_consent', 'refused');
-      localStorage.setItem('cookie_prefs', JSON.stringify({ stats: false, marketing: false }));
-    } catch {}
-    setCookieConsent('refused');
-  };
 
   const toggleFaq = (i: number) => setOpenFaq(openFaq === i ? null : i);
 
@@ -1237,112 +1203,7 @@ export default function HomePage() {
         </svg>
       </a>
 
-      {/* ── Cookie Banner (mini, style Stripe) ── */}
-      {cookieConsent === 'pending' && (
-        <div className="fixed bottom-4 left-4 right-4 md:right-auto md:max-w-md z-50">
-          <div className={`rounded-2xl shadow-2xl border p-4 ${darkMode ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'}`} style={{ animation: 'cookie-slide-in 0.5s cubic-bezier(0.16, 1, 0.3, 1)' }}>
-            <style>{`
-              @keyframes cookie-slide-in {
-                from { opacity: 0; transform: translateY(20px); }
-                to { opacity: 1; transform: translateY(0); }
-              }
-            `}</style>
-
-            {!showCookieDetails ? (
-              // Version compacte (par défaut)
-              <div className="flex flex-col gap-3">
-                <p className={`text-sm leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                  🍪 {currentLang === 'FR' ? 'Nous utilisons des cookies pour améliorer votre expérience.' : currentLang === 'EN' ? 'We use cookies to improve your experience.' : 'Wir verwenden Cookies, um Ihre Erfahrung zu verbessern.'}{' '}
-                  <button
-                    onClick={() => setShowCookieDetails(true)}
-                    className={`underline font-medium ${darkMode ? 'text-indigo-400 hover:text-indigo-300' : 'text-[#232999] hover:text-[#1a1f7a]'}`}
-                  >
-                    {currentLang === 'FR' ? "Plus d'infos" : currentLang === 'EN' ? 'Learn more' : 'Mehr erfahren'}
-                  </button>
-                </p>
-                <div className="flex gap-2 items-center">
-                  <button
-                    onClick={() => acceptCookies({ stats: true, marketing: false })}
-                    className="flex-1 bg-[#232999] hover:bg-[#1a1f7a] text-white px-4 py-2 rounded-full text-sm font-semibold transition-all hover:shadow-lg whitespace-nowrap"
-                  >
-                    {t.cookieAccept}
-                  </button>
-                  <button
-                    onClick={refuseCookies}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${darkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'}`}
-                  >
-                    {t.cookieRefuse}
-                  </button>
-                </div>
-              </div>
-            ) : (
-              // Version détaillée (si l'utilisateur clique "Plus d'infos")
-              <div>
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <h3 className={`text-base font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{t.cookieTitle}</h3>
-                  <button
-                    onClick={() => setShowCookieDetails(false)}
-                    className={`p-1 rounded-full hover:bg-gray-100 ${darkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-500'}`}
-                    aria-label={currentLang === 'FR' ? 'Fermer' : currentLang === 'EN' ? 'Close' : 'Schliessen'}
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="18" y1="6" x2="6" y2="18"/>
-                      <line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
-                  </button>
-                </div>
-                <p className={`text-xs mb-3 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.cookieDesc}</p>
-                <div className="space-y-2 mb-3">
-                  {[
-                    { label: t.cookieFunctional, desc: t.cookieFunctionalDesc, alwaysOn: true },
-                  ].map((item, i) => (
-                    <div key={i} className={`flex items-start justify-between gap-3 p-2.5 rounded-lg ${darkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
-                      <div>
-                        <p className={`text-xs font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{item.label}</p>
-                      </div>
-                      <span className="text-xs font-semibold text-emerald-600 whitespace-nowrap flex-shrink-0">{t.cookieAlwaysActive}</span>
-                    </div>
-                  ))}
-                  {[
-                    { label: t.cookieStats, desc: t.cookieStatsDesc, key: 'stats' as const },
-                    { label: t.cookieMarketing, desc: t.cookieMarketingDesc, key: 'marketing' as const },
-                  ].map((item) => (
-                    <div key={item.key} className={`flex items-start justify-between gap-3 p-2.5 rounded-lg ${darkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
-                      <div>
-                        <p className={`text-xs font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{item.label}</p>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => setCookiePrefs(p => ({ ...p, [item.key]: !p[item.key] }))}
-                        className={`relative flex-shrink-0 mt-0.5 w-9 h-5 rounded-full transition-colors duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#232999] ${cookiePrefs[item.key] ? 'bg-[#232999]' : darkMode ? 'bg-gray-600' : 'bg-gray-300'}`}
-                        aria-checked={cookiePrefs[item.key]}
-                        aria-label={item.label}
-                        role="switch"
-                      >
-                        <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 ${cookiePrefs[item.key] ? 'translate-x-4' : 'translate-x-0.5'}`} />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => acceptCookies(cookiePrefs)}
-                    className="flex-1 bg-[#232999] hover:bg-[#1a1f7a] text-white px-4 py-2 rounded-full text-sm font-semibold transition-all"
-                  >
-                    {currentLang === 'FR' ? 'Confirmer' : currentLang === 'EN' ? 'Confirm' : 'Bestätigen'}
-                  </button>
-                  <button
-                    onClick={refuseCookies}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${darkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700'}`}
-                  >
-                    {t.cookieRefuse}
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      <CookieBanner currentLang={currentLang} darkMode={darkMode} />
     </div>
   );
 }

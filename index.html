@@ -50,37 +50,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=optional" />
-    <!-- ════════════════════════════════════════════════════════════════════
-         META PIXEL — actif (ID 1573200597645423)
-         Le bloc <noscript> de Meta a été volontairement retiré : il est invalide
-         dans <head> (erreur de build Vite) et inutile ici, le site étant une SPA
-         React qui ne s'affiche pas sans JavaScript.
-         ════════════════════════════════════════════════════════════════════ -->
-    <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window,document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init','1573200597645423');
-      fbq('track','PageView');
-    </script>
-    <!-- ════════════════ FIN META PIXEL ════════════════ -->
 
     <!-- ════════════════════════════════════════════════════════════════════
-         GOOGLE ANALYTICS (GA4) — actif (ID G-CJ55Z4B2Q2)
+         GA4 (G-CJ55Z4B2Q2) et Meta Pixel (1573200597645423) ne sont PLUS
+         chargés ici sans condition — ils se déclenchaient avant toute réponse
+         à la bannière cookies (écart RGPD/nLPD + coût de perf inutile pour
+         qui refuse). Chargés dynamiquement par CookieBanner.tsx, seulement
+         après acceptation explicite ("statistiques" pour GA4, "marketing"
+         pour Meta Pixel), et réappliqués au montage si un consentement a déjà
+         été enregistré lors d'une visite précédente. Voir loadGA4()/
+         loadMetaPixel() dans ce fichier.
          ════════════════════════════════════════════════════════════════════ -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CJ55Z4B2Q2"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-CJ55Z4B2Q2');
-    </script>
-    <!-- ════════════════ FIN GOOGLE ANALYTICS ════════════════ -->
 
   </head>
   <body>

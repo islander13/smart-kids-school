@@ -1,11 +1,65 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 // Bannière de cookies partagée, utilisée par toutes les pages du site.
 // Autonome : gère son propre état, ses traductions et le déclenchement
-// des scripts (Plausible si stats acceptées). Conforme nLPD/RGPD : le
-// consentement est demandé sur chaque page d'entrée possible.
+// des scripts (Plausible si stats acceptées, GA4 et Meta Pixel idem — voir
+// applyConsent ci-dessous). Conforme nLPD/RGPD : le consentement est demandé
+// sur chaque page d'entrée possible, et RIEN de tiers (GA4, Meta Pixel) ne se
+// charge tant que l'utilisateur n'a pas explicitement accepté — avant le 18
+// août ces deux scripts étaient posés sans condition dans index.html.
 
 type Lang = 'FR' | 'EN' | 'DE';
+
+type ConsentPrefs = { stats: boolean; marketing: boolean };
+
+function loadPlausible() {
+  if (typeof window === 'undefined' || (window as unknown as { plausible?: unknown }).plausible) return;
+  const s = document.createElement('script');
+  s.defer = true;
+  s.setAttribute('data-domain', 'smartkids-school.ch');
+  s.src = 'https://plausible.io/js/script.js';
+  document.head.appendChild(s);
+}
+
+// GA4 : chargé et initialisé seulement ici, plus jamais depuis index.html.
+function loadGA4() {
+  const w = window as unknown as { __sksGaLoaded?: boolean; dataLayer?: unknown[]; gtag?: (...args: unknown[]) => void };
+  if (typeof window === 'undefined' || w.__sksGaLoaded) return;
+  w.__sksGaLoaded = true;
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=G-CJ55Z4B2Q2';
+  document.head.appendChild(s);
+  w.dataLayer = w.dataLayer || [];
+  w.gtag = function gtag(...args: unknown[]) { w.dataLayer!.push(args); };
+  w.gtag('js', new Date());
+  w.gtag('config', 'G-CJ55Z4B2Q2');
+}
+
+// Meta Pixel : même snippet officiel qu'avant, simplement déplacé ici et
+// posé seulement après consentement "marketing" plutôt qu'au chargement.
+function loadMetaPixel() {
+  if (typeof window === 'undefined' || (window as unknown as { fbq?: unknown }).fbq) return;
+  type FbqFn = { (...args: unknown[]): void; callMethod?: (...args: unknown[]) => void; queue: unknown[]; push: FbqFn; loaded: boolean; version: string };
+  const f = window as unknown as { fbq?: FbqFn; _fbq?: FbqFn };
+  const n: FbqFn = function (...args: unknown[]) {
+    if (n.callMethod) n.callMethod(...args);
+    else n.queue.push(args);
+  } as FbqFn;
+  n.queue = [];
+  n.loaded = true;
+  n.version = '2.0';
+  n.push = n;
+  f.fbq = n;
+  if (!f._fbq) f._fbq = n;
+  const t = document.createElement('script');
+  t.async = true;
+  t.src = 'https://connect.facebook.net/en_US/fbevents.js';
+  const existing = document.getElementsByTagName('script')[0];
+  existing.parentNode?.insertBefore(t, existing);
+  n('init', '1573200597645423');
+  n('track', 'PageView');
+}
 
 interface CookieBannerProps {
   currentLang: Lang;
@@ -65,14 +119,32 @@ export default function CookieBanner({ currentLang, darkMode }: CookieBannerProp
     catch { return 'pending'; }
   });
   const [showDetails, setShowDetails] = useState(false);
-  const [prefs, setPrefs] = useState<{ stats: boolean; marketing: boolean }>(() => {
+  const [prefs, setPrefs] = useState<ConsentPrefs>(() => {
     try {
       const saved = localStorage.getItem('cookie_prefs');
       return saved ? JSON.parse(saved) : { stats: true, marketing: false };
     } catch { return { stats: true, marketing: false }; }
   });
 
-  const accept = (p?: { stats: boolean; marketing: boolean }) => {
+  // GA4 = mesure d'audience → catégorie "stats", comme Plausible. Meta Pixel
+  // = publicité/retargeting → catégorie "marketing". Rien de tiers ne se
+  // charge ici tant que la catégorie correspondante n'est pas cochée.
+  const applyConsent = useCallback((chosen: ConsentPrefs) => {
+    if (chosen.stats) { loadPlausible(); loadGA4(); }
+    if (chosen.marketing) loadMetaPixel();
+  }, []);
+
+  // Visite de retour : le consentement est déjà enregistré (la bannière ne
+  // se réaffiche pas, voir le "return null" plus bas), donc c'est ici et
+  // seulement ici que les scripts déjà autorisés doivent être rechargés —
+  // sans ce useEffect, seule la toute première visite (clic sur "Accepter")
+  // les chargeait, jamais les suivantes.
+  useEffect(() => {
+    if (consent === 'accepted') applyConsent(prefs);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const accept = (p?: ConsentPrefs) => {
     const chosen = p || prefs;
     try {
       localStorage.setItem('cookie_consent', 'accepted');
@@ -80,18 +152,7 @@ export default function CookieBanner({ currentLang, darkMode }: CookieBannerProp
     } catch {}
     setPrefs(chosen);
     setConsent('accepted');
-    // Stats : Plausible (respectueux de la vie privée)
-    if (chosen.stats && typeof window !== 'undefined' && !(window as any).plausible) {
-      const s = document.createElement('script');
-      s.defer = true;
-      s.setAttribute('data-domain', 'smartkids-school.ch');
-      s.src = 'https://plausible.io/js/script.js';
-      document.head.appendChild(s);
-    }
-    // Marketing : signale le consentement au Meta Pixel s'il est présent
-    if (chosen.marketing && typeof window !== 'undefined' && (window as any).fbq) {
-      try { (window as any).fbq('consent', 'grant'); } catch {}
-    }
+    applyConsent(chosen);
   };
 
   const refuse = () => {
@@ -100,9 +161,6 @@ export default function CookieBanner({ currentLang, darkMode }: CookieBannerProp
       localStorage.setItem('cookie_prefs', JSON.stringify({ stats: false, marketing: false }));
     } catch {}
     setConsent('refused');
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      try { (window as any).fbq('consent', 'revoke'); } catch {}
-    }
   };
 
   if (consent !== 'pending') return null;
