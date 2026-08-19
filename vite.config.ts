@@ -66,6 +66,22 @@ export default defineConfig({
   build: {
     sourcemap: false,
     outDir: "out",
+    rollupOptions: {
+      output: {
+        // Sépare React/ReactDOM/React Router (change rarement) du reste du
+        // chunk d'entrée (App.tsx, router config — change à chaque déploiement
+        // touchant une page). Ne réduit pas le poids du tout premier
+        // chargement (mêmes octets au total, juste dans 2 fichiers au lieu
+        // d'un), mais un visiteur qui revient après un déploiement qui n'a
+        // pas touché React lui-même garde ce chunk en cache navigateur au
+        // lieu de le retélécharger avec le reste. gotrue-js, Stripe et
+        // marked sont déjà isolés à leurs pages respectives (Mon espace,
+        // checkout, blog) — vérifié, rien à en sortir ici.
+        manualChunks: {
+          "vendor-react": ["react", "react-dom", "react-router-dom"],
+        },
+      },
+    },
   },
   resolve: {
     alias: {
