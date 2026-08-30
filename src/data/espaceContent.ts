@@ -2,9 +2,16 @@
 // Contenu de l'espace membre ("Mon espace" — /espace).
 // ─────────────────────────────────────────────────────────────────────────
 // SEUL fichier à modifier pour ajouter, retirer ou réordonner une vidéo, une
-// ressource ou un quiz : aucun composant ne doit être touché pour ça. Chaque
-// vidéo est embarquée depuis YouTube (en mode non répertorié) ou Vimeo —
-// jamais de fichier vidéo hébergé directement sur Netlify.
+// ressource ou un quiz : aucun composant ne doit être touché pour ça.
+//
+// Par défaut, une vidéo est embarquée depuis YouTube (en mode non
+// répertorié) ou Vimeo — pas de fichier hébergé directement sur Netlify
+// (streaming adaptatif, zéro coût de bande passante). Exception assumée :
+// provider 'local' pour un clip court déjà en place dans public/videos/
+// (ex: le tutoriel d'installation Scratch, 27s) quand créer un compte
+// YouTube/Vimeo pour une seule vidéo ne vaut pas l'effort — `embedId` est
+// alors le nom du fichier sans extension (public/videos/${embedId}.mp4),
+// et `thumbnail` doit être fourni explicitement (public/videos/posters/).
 //
 // Pour ajouter une vidéo : copier un item existant dans la bonne section,
 // changer id/title/description/durationMinutes/provider/embedId.
@@ -36,7 +43,7 @@
 // l'invitation automatique après paiement dans stripe-webhook.js).
 export const ESPACE_NAV_VISIBLE = true;
 
-export type VideoProvider = 'youtube' | 'vimeo';
+export type VideoProvider = 'youtube' | 'vimeo' | 'local';
 
 export interface LocalizedText {
   FR: string;
@@ -53,10 +60,12 @@ export interface EspaceVideo {
   durationMinutes: number;
   provider: VideoProvider;
   /**
-   * ID YouTube (ex: "dQw4w9WgXcQ", pas l'URL complète) ou ID Vimeo (ex:
-   * "76979871"). La miniature est déduite automatiquement pour YouTube ; pour
-   * Vimeo, fournir `thumbnail` explicitement (Vimeo n'expose pas d'URL de
-   * miniature prévisible à partir du seul ID).
+   * ID YouTube (ex: "dQw4w9WgXcQ", pas l'URL complète), ID Vimeo (ex:
+   * "76979871"), ou pour provider 'local' le nom du fichier dans
+   * public/videos/ sans extension (ex: "Install_Scratch" →
+   * public/videos/Install_Scratch.mp4). La miniature est déduite
+   * automatiquement pour YouTube ; pour Vimeo et 'local', fournir
+   * `thumbnail` explicitement (pas d'URL de miniature prévisible sinon).
    */
   embedId: string;
   /** Miniature optionnelle : par défaut, déduite du provider (YouTube uniquement). */
@@ -151,9 +160,12 @@ export const ESPACE_SECTIONS: EspaceSection[] = [
           EN: "Step-by-step guide to install Scratch on your child's computer before the first session.",
           DE: 'Schritt-für-Schritt-Anleitung zur Installation von Scratch vor der ersten Sitzung.',
         },
-        durationMinutes: 5,
-        provider: 'youtube',
-        embedId: 'REPLACE_WITH_YOUTUBE_ID',
+        // 27s, hébergé directement (public/videos/Install_Scratch.mp4) — voir
+        // la note sur provider 'local' en tête de fichier.
+        durationMinutes: 1,
+        provider: 'local',
+        embedId: 'Install_Scratch',
+        thumbnail: '/videos/posters/Install_Scratch.jpg',
       },
     ],
     resources: [

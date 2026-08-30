@@ -26,7 +26,9 @@ export default function VideoPlayer({ video, currentLang, watched, onToggleWatch
 }) {
   const embedSrc = video.provider === 'youtube'
     ? `https://www.youtube-nocookie.com/embed/${video.embedId}?autoplay=1`
-    : `https://player.vimeo.com/video/${video.embedId}?autoplay=1`;
+    : video.provider === 'vimeo'
+    ? `https://player.vimeo.com/video/${video.embedId}?autoplay=1`
+    : null;
   const t = WATCHED_LABEL[currentLang];
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [pending, setPending] = useState(false);
@@ -83,14 +85,20 @@ export default function VideoPlayer({ video, currentLang, watched, onToggleWatch
         </div>
         {error && <p className="text-red-400 text-xs mb-2 text-right">{ERROR_LABEL[currentLang]}</p>}
         <div className="rounded-2xl overflow-hidden shadow-2xl bg-black" style={{ aspectRatio: '16 / 9' }}>
-          <iframe
-            src={embedSrc}
-            title={video.title[currentLang]}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-full"
-            style={{ border: 0 }}
-          />
+          {embedSrc ? (
+            <iframe
+              src={embedSrc}
+              title={video.title[currentLang]}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+              style={{ border: 0 }}
+            />
+          ) : (
+            <video controls autoPlay className="w-full h-full" poster={video.thumbnail}>
+              <source src={`/videos/${video.embedId}.mp4`} type="video/mp4" />
+            </video>
+          )}
         </div>
       </div>
     </div>

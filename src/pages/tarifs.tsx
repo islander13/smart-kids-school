@@ -168,6 +168,7 @@ const T = {
       { q: "Quels moyens de paiement acceptez-vous ?", a: "Carte bancaire (Visa, Mastercard, Apple Pay, Google Pay), virement bancaire, et paiement en plusieurs fois. Tous les paiements sont sécurisés via Stripe." },
       { q: "Puis-je annuler mon abonnement ?", a: "L'abonnement court jusqu'à la fin de la période choisie (3, 6 ou 12 mois), puis se renouvelle automatiquement et reste annulable à tout moment ensuite." },
       { q: "Y a-t-il des frais cachés ?", a: "Non. Le prix affiché est tout compris : cours, accès à la plateforme Mon espace (replays, exercices, quiz, suivi de progression), certificat, ressources. Aucun frais d'inscription, aucune surprise." },
+      { q: "Quel matériel est nécessaire pour suivre les cours ?", a: "Un ordinateur (PC, Mac ou Chromebook) avec une connexion internet stable. Les cours se déroulent sur Zoom, gratuit, avec un lien envoyé avant chaque séance. Un casque avec micro est conseillé pour un meilleur confort. Rien d'autre à installer : tout se fait dans le navigateur, et on met ça en place avec votre enfant dès la première séance." },
     ],
   },
   EN: {
@@ -258,6 +259,7 @@ const T = {
       { q: "Which payment methods do you accept?", a: "Credit card (Visa, Mastercard, Apple Pay, Google Pay), bank transfer, and instalments. All payments are secured via Stripe." },
       { q: "Can I cancel my subscription?", a: "The subscription runs until the end of the chosen period (3, 6 or 12 months), then renews automatically and remains cancellable anytime after." },
       { q: "Are there hidden fees?", a: "No. The price is all-inclusive: classes, access to the Mon espace platform (replays, exercises, quizzes, progress tracking), certificate, resources. No registration fees, no surprises." },
+      { q: "What equipment is needed to take the classes?", a: "A computer (PC, Mac or Chromebook) with a stable internet connection. Classes take place on Zoom, free, with a link sent before each session. A headset with a microphone is recommended for better comfort. Nothing else to install: everything happens in the browser, and we set it up with your child during the first session." },
     ],
   },
   DE: {
@@ -346,6 +348,7 @@ const T = {
       { q: "Welche Zahlungsmethoden?", a: "Kreditkarte (Visa, Mastercard, Apple Pay, Google Pay), Banküberweisung, Ratenzahlung. Sicher über Stripe." },
       { q: "Kann ich kündigen?", a: "Das Abo läuft bis zum Ende der gewählten Periode (3, 6 oder 12 Monate), verlängert sich dann automatisch und bleibt danach jederzeit kündbar." },
       { q: "Versteckte Gebühren?", a: "Nein. Der Preis ist alles inklusive: Kurse, Zugang zur Plattform Mon espace (Wiederholungen, Übungen, Quiz, Fortschrittsverfolgung), Zertifikat, Ressourcen. Keine Anmeldegebühren, keine Überraschungen." },
+      { q: "Welche Ausrüstung wird für den Unterricht benötigt?", a: "Ein Computer (PC, Mac oder Chromebook) mit stabiler Internetverbindung. Der Unterricht findet über Zoom statt, kostenlos, mit einem Link, der vor jeder Sitzung verschickt wird. Ein Headset mit Mikrofon wird für mehr Komfort empfohlen. Es muss sonst nichts installiert werden: Alles läuft im Browser, und wir richten das gemeinsam mit Ihrem Kind in der ersten Sitzung ein." },
     ],
   },
 };
@@ -1351,6 +1354,36 @@ export default function Tarifs() {
           <p className="text-sm text-white/70 mt-6">
             {currentLang === 'FR' ? 'Nombre de places limité ce trimestre pour garantir un suivi personnalisé.' : currentLang === 'EN' ? 'Limited spots this term to keep every child\'s follow-up personal.' : 'Begrenzte Plätze in diesem Quartal, um eine persönliche Betreuung zu gewährleisten.'}
           </p>
+        </div>
+      </section>
+
+      {/* ── Comment se déroule un cours en ligne : préoccupation de fin de
+          réflexion (matériel, logistique), volontairement placée juste avant
+          la FAQ plutôt qu'en haut de page — ne doit pas concurrencer les prix
+          et le CTA essai gratuit. Reprend 2 des 3 cartes de la section
+          "Comment ça se passe concrètement ?" de l'accueil (pas la 3e,
+          doublon avec le CTA essai gratuit déjà en haut de cette page). Même
+          esprit visuel que la bande "Horaires à la carte" au-dessus des
+          formules. ── */}
+      <section className={`px-4 py-12 ${darkMode ? 'bg-gray-950' : 'bg-white'}`}>
+        <div className="max-w-3xl mx-auto">
+          <p className={`text-center text-sm font-semibold mb-5 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+            {currentLang === 'FR' ? 'Comment se déroule un cours en ligne ?' : currentLang === 'EN' ? 'How does an online class work?' : 'Wie läuft eine Online-Stunde ab?'}
+          </p>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {[
+              { icon: 'ri-vidicon-line', t: { FR: 'Visioconférence dédiée', EN: 'Dedicated video call', DE: 'Eigene Videokonferenz' }, d: { FR: "Votre enfant rejoint un cours en visio avec son professeur, pas de salle d'attente, pas de partage avec d'autres groupes.", EN: 'Your child joins a video call with their teacher, no waiting room, no sharing with other groups.', DE: 'Ihr Kind tritt einer Videokonferenz mit der Lehrperson bei, kein Wartezimmer.' } },
+              { icon: 'ri-computer-line', t: { FR: "Partage d'écran en direct", EN: 'Live screen sharing', DE: 'Live-Bildschirmfreigabe' }, d: { FR: "Le professeur voit ce que fait votre enfant en temps réel et peut l'aider, le corriger, l'encourager.", EN: 'The teacher sees what your child does in real time and can help, correct, encourage.', DE: 'Die Lehrperson sieht in Echtzeit und kann helfen, korrigieren, ermutigen.' } },
+            ].map((item, i) => (
+              <div key={i} className={`flex items-start gap-3 p-4 rounded-2xl border text-left ${darkMode ? 'bg-gray-800/60 border-gray-700' : 'bg-indigo-50/40 border-indigo-100'}`}>
+                <i className={`${item.icon} text-xl text-[#232999] mt-0.5`}></i>
+                <div>
+                  <p className={`text-sm font-bold leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>{item.t[currentLang]}</p>
+                  <p className={`text-xs mt-1 leading-snug ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{item.d[currentLang]}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
