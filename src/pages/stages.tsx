@@ -88,8 +88,8 @@ const T = {
     calendarNote: "Places limitées à 5 enfants par groupe.",
 
     period1Title: 'Vacances d\'automne',
-    period1Dates: 'Octobre',
-    period1Sub: '1 semaine',
+    period1Dates: '12 – 23 octobre',
+    period1Sub: '2 semaines',
     period1Themes: 'Scratch jeu vidéo · Python Turtle',
 
     period2Title: 'Vacances de Noël',
@@ -201,7 +201,7 @@ const T = {
     calendarDesc: 'We run camps every Swiss school holiday. Book early, only 5 spots per group.',
     calendarNote: 'Limited to 5 children per group.',
 
-    period1Title: 'Autumn break', period1Dates: 'October', period1Sub: '1 week', period1Themes: 'Scratch video game · Python Turtle',
+    period1Title: 'Autumn break', period1Dates: 'Oct 12 – 23', period1Sub: '2 weeks', period1Themes: 'Scratch video game · Python Turtle',
     period2Title: 'Christmas holidays', period2Dates: 'Late Dec – early Jan', period2Sub: '2 weeks', period2Themes: 'Scratch video game · Python Turtle',
     period3Title: 'February break', period3Dates: 'Mid-February', period3Sub: '1 week', period3Themes: 'Python Turtle · Python developer',
     period4Title: 'Easter holidays', period4Dates: 'April', period4Sub: '2 weeks', period4Themes: 'All themes available',
@@ -281,7 +281,7 @@ const T = {
     calendarDesc: 'Wir bieten Camps in allen Schulferien. Früh buchen, nur 5 Plätze pro Gruppe.',
     calendarNote: 'Begrenzt auf 5 Kinder pro Gruppe.',
 
-    period1Title: 'Herbstferien', period1Dates: 'Oktober', period1Sub: '1 Woche', period1Themes: 'Baue dein erstes Videospiel · Python Turtle',
+    period1Title: 'Herbstferien', period1Dates: '12.–23. Oktober', period1Sub: '2 Wochen', period1Themes: 'Baue dein erstes Videospiel · Python Turtle',
     period2Title: 'Weihnachtsferien', period2Dates: 'Ende Dez – Anfang Jan', period2Sub: '2 Wochen', period2Themes: 'Baue dein erstes Videospiel',
     period3Title: 'Sportferien', period3Dates: 'Mitte Februar', period3Sub: '1 Woche', period3Themes: 'Python Turtle · Reines Python',
     period4Title: 'Osterferien', period4Dates: 'April', period4Sub: '2 Wochen', period4Themes: 'Alle Themen verfügbar',
@@ -465,7 +465,7 @@ export default function Stages() {
       // s'ouvre), pas à l'ouverture du formulaire de réservation : c'est le
       // moment où le client entre réellement dans le tunnel de paiement.
       const stagePrice = stageFormData.numChildren === 1 ? 449 : 799;
-      try { (window as any).fbq?.('track', 'InitiateCheckout', { content_name: 'Stage été', content_category: selectedStagePeriod, value: stagePrice, currency: 'CHF' }); } catch {}
+      try { (window as any).fbq?.('track', 'InitiateCheckout', { content_name: 'Stage automne', content_category: selectedStagePeriod, value: stagePrice, currency: 'CHF' }); } catch {}
     } catch (err) {
       console.error('Submit error:', err);
       setStageSubmitMessage('error');
@@ -547,8 +547,11 @@ export default function Stages() {
     { icon: 'ri-code-s-slash-line', color: 'from-emerald-500 to-teal-500', title: t.theme3T, desc: t.theme3D, tag: t.theme3Tag },
   ];
 
-  // ── Semaines de stage d'été (AJUSTER LES DATES ICI si besoin) ──
+  // ── Semaines de stage d'automne (AJUSTER LES DATES ICI si besoin) ──
   // Pour une autre saison : remplacer cette liste par les semaines de la période concernée.
+  // Dates 2026 vérifiées auprès du calendrier scolaire officiel du canton de
+  // Vaud (vd.ch) : vacances d'automne du 10 au 25 octobre 2026, soit deux
+  // semaines complètes de classe (12-16 et 19-23 octobre).
   // `end` = dernier jour du stage. Une fois cette date passée, le créneau s'affiche
   // automatiquement comme "Terminé" (grisé, non sélectionnable). Rien à faire manuellement.
   const today = new Date();
@@ -557,12 +560,9 @@ export default function Stages() {
   // AJUSTER LES DATES ICI. `start` = 1er jour, `end` = dernier jour.
   // Une semaine se ferme automatiquement dès qu'elle COMMENCE (on ne rejoint
   // pas un stage déjà lancé) : 'ongoing' pendant, 'past' une fois terminée.
-  const summerWeeks = [
-    { id: 'sem1', start: '2026-07-06', end: '2026-07-10', label: currentLang === 'FR' ? 'Semaine 1 · 6-10 juillet' : currentLang === 'EN' ? 'Week 1 · July 6-10' : 'Woche 1 · 6.-10. Juli' },
-    { id: 'sem2', start: '2026-07-13', end: '2026-07-17', label: currentLang === 'FR' ? 'Semaine 2 · 13-17 juillet' : currentLang === 'EN' ? 'Week 2 · July 13-17' : 'Woche 2 · 13.-17. Juli' },
-    { id: 'sem3', start: '2026-07-20', end: '2026-07-24', label: currentLang === 'FR' ? 'Semaine 3 · 20-24 juillet' : currentLang === 'EN' ? 'Week 3 · July 20-24' : 'Woche 3 · 20.-24. Juli' },
-    { id: 'sem4', start: '2026-08-10', end: '2026-08-14', label: currentLang === 'FR' ? 'Semaine 4 · 10-14 août' : currentLang === 'EN' ? 'Week 4 · Aug 10-14' : 'Woche 4 · 10.-14. August' },
-    { id: 'sem5', start: '2026-08-17', end: '2026-08-21', label: currentLang === 'FR' ? 'Semaine 5 · 17-21 août' : currentLang === 'EN' ? 'Week 5 · Aug 17-21' : 'Woche 5 · 17.-21. August' },
+  const autumnWeeks = [
+    { id: 'sem1', start: '2026-10-12', end: '2026-10-16', label: currentLang === 'FR' ? 'Semaine 1 · 12-16 octobre' : currentLang === 'EN' ? 'Week 1 · Oct 12-16' : 'Woche 1 · 12.-16. Oktober' },
+    { id: 'sem2', start: '2026-10-19', end: '2026-10-23', label: currentLang === 'FR' ? 'Semaine 2 · 19-23 octobre' : currentLang === 'EN' ? 'Week 2 · Oct 19-23' : 'Woche 2 · 19.-23. Oktober' },
     { id: 'flex', start: null, end: null, label: currentLang === 'FR' ? 'Flexible / à définir ensemble' : currentLang === 'EN' ? 'Flexible / to be defined' : 'Flexibel / noch offen' },
   ].map(w => {
     if (!w.start || !w.end) return { ...w, status: 'open' };
@@ -572,7 +572,7 @@ export default function Stages() {
   });
 
   // Semaines encore réservables → urgence honnête, calculée toute seule
-  const openWeeksCount = summerWeeks.filter(w => w.start && w.status === 'open').length;
+  const openWeeksCount = autumnWeeks.filter(w => w.start && w.status === 'open').length;
 
   const statusLabel = (st: string) =>
     st === 'past'
@@ -580,11 +580,11 @@ export default function Stages() {
       : (currentLang === 'FR' ? 'En cours' : currentLang === 'EN' ? 'Ongoing' : 'Läuft');
 
   // Lien direct vers le formulaire (ex: /stages/inscription) : ouvre la modal
-  // automatiquement sur les stages d'été (période phare du moment).
+  // automatiquement sur les stages d'automne (période phare du moment).
   useEffect(() => {
     const { basePath } = parseLocaleFromPath(window.location.pathname);
     if (basePath === '/stages/inscription') {
-      openStageModal(`${t.period6Title} (${t.period6Dates})`);
+      openStageModal(`${t.period1Title} (${t.period1Dates})`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -603,7 +603,7 @@ export default function Stages() {
       document.head.appendChild(ldEl);
     }
     const pageUrl = 'https://smartkids-school.ch' + localizedPath('/stages', currentLang);
-    const upcomingWeeks = summerWeeks.filter(w => w.start && w.end && w.status === 'open');
+    const upcomingWeeks = autumnWeeks.filter(w => w.start && w.end && w.status === 'open');
     const events = upcomingWeeks.map(w => ({
       '@type': 'EducationEvent',
       name: currentLang === 'FR' ? `Stage de programmation — ${w.label}` : currentLang === 'EN' ? `Coding camp — ${w.label}` : `Programmier-Camp — ${w.label}`,
@@ -634,7 +634,7 @@ export default function Stages() {
         ...events,
       ],
     });
-    // summerWeeks est une liste de dates fixes recalculée à chaque rendu (même
+    // autumnWeeks est une liste de dates fixes recalculée à chaque rendu (même
     // référence logique) ; l'inclure ferait tourner cet effet à chaque rendu
     // pour rien, alors qu'il ne doit réagir qu'aux changements de langue.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -683,7 +683,7 @@ export default function Stages() {
                   </div>
                 )}
               </div>
-              <button onClick={() => openStageModal(`${t.period6Title} (${t.period6Dates})`)} className="bg-[#232999] hover:bg-[#1a1f7a] text-white px-6 py-3 rounded-full text-sm font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 whitespace-nowrap cursor-pointer">{t.nav.enroll}</button>
+              <button onClick={() => openStageModal(`${t.period1Title} (${t.period1Dates})`)} className="bg-[#232999] hover:bg-[#1a1f7a] text-white px-6 py-3 rounded-full text-sm font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 whitespace-nowrap cursor-pointer">{t.nav.enroll}</button>
             </div>
 
             {/* Mobile burger + dark toggle */}
@@ -728,7 +728,7 @@ export default function Stages() {
         </div>
         <div className="max-w-5xl mx-auto relative z-10 text-center">
           <a href="#calendar-stages" className="px-5 py-2.5 rounded-full text-sm font-bold inline-flex items-center gap-2 bg-gradient-to-r from-amber-400 to-orange-400 text-amber-950 hover:shadow-lg hover:scale-105 transition-all cursor-pointer">
-            ☀️ {currentLang === 'FR' ? 'Stages d\'été 2026 · Inscriptions ouvertes' : currentLang === 'EN' ? 'Summer Camps 2026 · Now enrolling' : 'Sommer-Camps 2026 · Anmeldung offen'}
+            🍂 {currentLang === 'FR' ? 'Stages d\'automne 2026 · Inscriptions ouvertes' : currentLang === 'EN' ? 'Autumn Camps 2026 · Now enrolling' : 'Herbst-Camps 2026 · Anmeldung offen'}
           </a>
           <h1 className={`text-5xl lg:text-6xl font-bold leading-tight mt-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             {t.heroTitle1}
@@ -858,7 +858,7 @@ export default function Stages() {
               {/* CTA direct : ouvre le formulaire (avant : renvoyait vers un calendrier
                   qui n'a plus qu'une période → incohérent) */}
               <div className="mt-8 text-center">
-                <button onClick={() => openStageModal(`${t.period6Title} (${t.period6Dates})`)} className="w-full bg-[#232999] hover:bg-[#1a1f7a] text-white px-8 py-4 rounded-full font-bold transition-all hover:shadow-xl hover:scale-[1.02] cursor-pointer">
+                <button onClick={() => openStageModal(`${t.period1Title} (${t.period1Dates})`)} className="w-full bg-[#232999] hover:bg-[#1a1f7a] text-white px-8 py-4 rounded-full font-bold transition-all hover:shadow-xl hover:scale-[1.02] cursor-pointer">
                   {currentLang === 'FR' ? 'Réserver la place de mon enfant →' : currentLang === 'EN' ? "Book my child's spot →" : 'Platz meines Kindes buchen →'}
                 </button>
                 <p className={`text-xs mt-3 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -923,17 +923,17 @@ export default function Stages() {
             <p className={`text-xl max-w-3xl mx-auto ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{t.calendarDesc}</p>
           </div>
 
-          {/* ── Bandeau ÉTÉ en vedette (changer la période en vedette = modifier ici + featured dans calendar) ── */}
+          {/* ── Bandeau AUTOMNE en vedette (changer la période en vedette = modifier ici + featured dans calendar) ── */}
           <div className="mb-10 rounded-3xl overflow-hidden bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 p-1 shadow-xl">
             <div className={`rounded-[1.4rem] p-6 md:p-8 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
               <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="text-6xl flex-shrink-0">☀️</div>
+                <div className="text-6xl flex-shrink-0">🍂</div>
                 <div className="flex-1 text-center md:text-left">
                   <span className="inline-block bg-amber-700 text-white text-xs font-bold px-3 py-1 rounded-full mb-2 uppercase tracking-wider">
                     {currentLang === 'FR' ? 'Inscriptions ouvertes' : currentLang === 'EN' ? 'Now enrolling' : 'Anmeldung offen'}
                   </span>
                   <h3 className={`text-2xl md:text-3xl font-bold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                    {currentLang === 'FR' ? 'Stages d\'été 2026 · Juillet & Août' : currentLang === 'EN' ? 'Summer Camps 2026 · July & August' : 'Sommer-Camps 2026 · Juli & August'}
+                    {currentLang === 'FR' ? 'Stages d\'automne 2026 · 12 – 23 octobre' : currentLang === 'EN' ? 'Autumn Camps 2026 · Oct 12 – 23' : 'Herbst-Camps 2026 · 12.–23. Oktober'}
                   </h3>
                   <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                     {currentLang === 'FR' ? '4 demi-journées · Il repart avec son jeu vidéo · 5 enfants max par groupe' : currentLang === 'EN' ? '4 half-days · He leaves with his own video game · 5 children max per group' : '4 Halbtage · Er geht mit seinem eigenen Spiel · Max. 5 Kinder pro Gruppe'}
@@ -949,7 +949,7 @@ export default function Stages() {
                     </p>
                   )}
                 </div>
-                <button onClick={() => openStageModal(`${t.period6Title} (${t.period6Dates})`)} className="flex-shrink-0 bg-[#232999] hover:bg-[#1a1f7a] text-white px-7 py-4 rounded-full font-bold transition-all hover:shadow-xl hover:scale-105 cursor-pointer whitespace-nowrap">
+                <button onClick={() => openStageModal(`${t.period1Title} (${t.period1Dates})`)} className="flex-shrink-0 bg-[#232999] hover:bg-[#1a1f7a] text-white px-7 py-4 rounded-full font-bold transition-all hover:shadow-xl hover:scale-105 cursor-pointer whitespace-nowrap">
                     {currentLang === 'FR' ? 'Réserver ma place' : currentLang === 'EN' ? 'Book my spot' : 'Platz buchen'} →
                   </button>
               </div>
@@ -957,17 +957,17 @@ export default function Stages() {
           </div>
 
           {/* Autres périodes : une ligne discrète (les 6 cartes encombraient la page,
-              l'été en vedette suffit — remettre une grille quand une autre saison devient active) */}
+              l'automne en vedette suffit — remettre une grille quand une autre saison devient active) */}
           <div className={`rounded-2xl border px-6 py-5 flex flex-col sm:flex-row items-center justify-center gap-3 text-center sm:text-left ${darkMode ? 'bg-gray-800/50 border-gray-700 text-gray-300' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
             <i className={darkMode ? 'ri-calendar-2-line text-xl text-indigo-400' : 'ri-calendar-2-line text-xl text-[#232999]'}></i>
             <span className="text-sm">
               {currentLang === 'FR'
-                ? "Des stages ont aussi lieu pendant les vacances d'automne, de Noël, de février et de printemps."
+                ? "Des stages ont aussi lieu pendant les vacances de Noël, de février et de printemps."
                 : currentLang === 'EN'
-                ? 'Camps also take place during autumn, Christmas, February and spring holidays.'
-                : 'Camps finden auch in den Herbst-, Weihnachts-, Februar- und Frühlingsferien statt.'}
+                ? 'Camps also take place during Christmas, February and spring holidays.'
+                : 'Camps finden auch in den Weihnachts-, Februar- und Frühlingsferien statt.'}
             </span>
-            <a href={`mailto:contact@smartkids-school.ch?subject=${encodeURIComponent(currentLang === 'FR' ? 'Être informé des prochains stages (hors été)' : currentLang === 'EN' ? 'Notify me about upcoming camps (outside summer)' : 'Über kommende Camps informiert werden')}`} className={darkMode ? 'text-sm font-semibold text-indigo-400 hover:text-indigo-800 whitespace-nowrap' : 'text-sm font-semibold text-[#232999] hover:text-indigo-800 whitespace-nowrap'}>
+            <a href={`mailto:contact@smartkids-school.ch?subject=${encodeURIComponent(currentLang === 'FR' ? 'Être informé des prochains stages (hors automne)' : currentLang === 'EN' ? 'Notify me about upcoming camps (outside autumn)' : 'Über kommende Camps informiert werden')}`} className={darkMode ? 'text-sm font-semibold text-indigo-400 hover:text-indigo-800 whitespace-nowrap' : 'text-sm font-semibold text-[#232999] hover:text-indigo-800 whitespace-nowrap'}>
               {currentLang === 'FR' ? 'Être informé →' : currentLang === 'EN' ? 'Get notified →' : 'Informiert werden →'}
             </a>
           </div>
@@ -1052,7 +1052,7 @@ export default function Stages() {
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">{t.ctaTitle}</h2>
           <p className="text-xl text-white/90 mb-10">{t.ctaDesc}</p>
           <div className="flex justify-center">
-            <button onClick={() => openStageModal(`${t.period6Title} (${t.period6Dates})`)} className="bg-white text-[#232999] px-8 py-4 rounded-full font-bold hover:shadow-2xl transform hover:scale-105 transition-all cursor-pointer">{t.ctaBtn}</button>
+            <button onClick={() => openStageModal(`${t.period1Title} (${t.period1Dates})`)} className="bg-white text-[#232999] px-8 py-4 rounded-full font-bold hover:shadow-2xl transform hover:scale-105 transition-all cursor-pointer">{t.ctaBtn}</button>
           </div>
         </div>
       </section>
@@ -1150,14 +1150,14 @@ export default function Stages() {
                   </div>
                 </div>
 
-                {/* Choix de la semaine (affiché si période = été) */}
-                {selectedStagePeriod.toLowerCase().includes('été') || selectedStagePeriod.toLowerCase().includes('summer') || selectedStagePeriod.toLowerCase().includes('sommer') ? (
+                {/* Choix de la semaine (affiché si période = automne) */}
+                {selectedStagePeriod.toLowerCase().includes('automne') || selectedStagePeriod.toLowerCase().includes('autumn') || selectedStagePeriod.toLowerCase().includes('herbst') ? (
                   <div className="mb-6">
                     <label className={`block text-sm font-semibold mb-3 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                       {currentLang === 'FR' ? 'Quelle semaine souhaitez-vous ? *' : currentLang === 'EN' ? 'Which week would you like? *' : 'Welche Woche möchten Sie? *'}
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {summerWeeks.map(w => {
+                      {autumnWeeks.map(w => {
                         const closed = w.status !== 'open';
                         return (
                           <button
